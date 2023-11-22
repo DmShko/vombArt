@@ -1,0 +1,48 @@
+:root {
+    --body-color: #8398d6;
+    --text-out-color: #000000;
+    --container-color: rgb(206, 215, 241, 0.7);
+    --text-color: rgba(255, 255, 255, 0.8);
+    --section-color: rgba(255, 255, 255);
+    --color-white: #FFF;
+    --button-color:rgb(198, 199, 191);
+    --main-text-color: rgb(97, 66, 238);
+    --hover-link-color: rgba(255, 255, 255, 0.8);
+}
+
+/*reset*/
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.link {  
+
+
+    text-decoration: none;
+    color: rgb(255, 255, 255, 0.8);
+    
+}
+
+.button {
+    border: none;
+    border-radius: 4px;
+    background-color: var(--button-color);
+    width: 100px;
+    height: 30px;
+}
+
+.img-block{
+    /* reset empty space beetwen images */
+    display: block;
+    max-width: 100%;
+    /* height: auto; */
+}
+h1,h2,h3,h4,h5,h6,p{
+    margin: 0;
+}
+
+html {
+    /* for smooth scrolling "Up" by button */
+    scroll-behavior: smooth;
+}

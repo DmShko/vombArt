@@ -1,0 +1,26 @@
+.container {
+ 
+    .fise{
+        .fset{
+            
+            margin: 0;
+            .field {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                gap: 10px;
+                .button{
+                    width: 50%;
+                    border: none;
+                    border-radius: 6px;
+                    padding: 5px;
+
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    
+}
