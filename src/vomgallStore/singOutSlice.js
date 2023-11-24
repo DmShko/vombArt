@@ -7,14 +7,13 @@ const singOutSliceInitialState = {
 
   isLoading: false,
   error: '',
- 
 };
 
 const singOutSlice = createSlice({
   name: 'singOut',
   initialState: singOutSliceInitialState,
   reducers: {
-    
+
   },
   extraReducers: 
 
@@ -23,10 +22,9 @@ const singOutSlice = createSlice({
       state.isLoading = true; state.error = null;
     });
           
-    builder.addCase(singOutAPI.fulfilled, (state, action) => {
-
+    builder.addCase(singOutAPI.fulfilled, (state) => {
       state.isLoading = false;
-    
+      state.isLoading = false;
       Notiflix.Notify.success('User is logged out.', {width: '450px', position: 'center-top', fontSize: '24px',});
       // some actions with 'action'...
     });
@@ -43,4 +41,8 @@ const singOutSlice = createSlice({
 }
 );
 
+
+export const {
+  changeSingOut
+} = singOutSlice.actions;
 export default singOutSlice.reducer;

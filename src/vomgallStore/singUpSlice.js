@@ -9,7 +9,8 @@ const singUpSliceInitialState = {
   error: '',
   token: '',
   usersId: '',
-
+  email:'',
+  userExist: false,
 };
 
 const singUpSlice = createSlice({
@@ -17,11 +18,14 @@ const singUpSlice = createSlice({
   initialState: singUpSliceInitialState,
 
   reducers: {
-    change(state, action) {
+    changeSingUp(state, action) {
       switch(action.payload.operation){
         case 'changeusersId':
           state.usersId = action.payload.data;
           break;
+        case 'changeUserExist':
+            state.userExist = action.payload.data;
+            break;
         default: break;
       }
     },
@@ -37,8 +41,9 @@ const singUpSlice = createSlice({
 
         state.isLoading = false;
         state.token = action.payload.user.accessToken;
-        
+        state.email = action.payload.user.email;
         state.usersId = action.payload.user.uid;
+        state.userExist = false;
       
         Notiflix.Notify.success(`User '${action.payload.user.email}' created.`, {width: '450px', position: 'center-top', fontSize: '24px',});
         // some actions with 'action'...
@@ -55,6 +60,8 @@ const singUpSlice = createSlice({
     },
   }
 );
-
+export const {
+  changeSingUp
+} = singUpSlice.actions;
 export default singUpSlice.reducer;
 

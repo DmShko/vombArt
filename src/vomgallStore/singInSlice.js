@@ -4,11 +4,11 @@ import Notiflix from 'notiflix';
 import singInAPI from '../API/singInAPI';
 
 const singInSliceInitialState = {
+
   items: [],
   isLoading: false,
   error: '',
   token: '',
-  email: [],
   isSingIn: false,
 
 };
@@ -39,9 +39,7 @@ const singInSlice = createSlice({
       state.isLoading = false;
       state.isSingIn = true;
       state.token = action.payload.user.accessToken;
-      state.email = action.payload.user.email;
 
-      console.log(action.payload);
       Notiflix.Notify.success('User is logged in.', {width: '450px', position: 'center-top', fontSize: '24px',});
       // some actions with 'action'...
     });

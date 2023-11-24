@@ -2,7 +2,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
-import getUserAPI from 'API/getUserAPI';
+import { onAuthStateChanged   } from "firebase/auth";
+import { auth } from "../../../firebase";
+import { change } from 'vomgallStore/gallerySlice';
+
+// import getUserAPI from 'API/getUserAPI';
 
 import us from './Users.module.scss'
 
@@ -10,12 +14,27 @@ const Users = () => {
 
   const dispatch = useDispatch();
   const selectorExistUsersList = useSelector(state => state.gallery);
-
+  const selectorVisibilityLog = useSelector(state => state.singIn.isSingIn);
 
   useEffect(() => {
-    console.log(getUserAPI())
-    if(selectorExistUsersList === getUserAPI()) dispatch({operation: 'changeUserStatus', data: true});
-  },[])
+
+    onAuthStateChanged(auth, (user) => { 
+   
+      if (user) {
+        // add 
+        dispatch(change({operation: 'changeUserStatus', data: {id: user.uid, status: true}}));
+        
+      } else {
+
+        // clear 'online' status intro all users's objects
+        dispatch(change({operation: 'changeAllUserStatus', data: false})); 
+      }
+
+    
+    });
+
+    // selectorVisibilityLog - when singOut button click
+  },[selectorVisibilityLog]) 
 
   return (
     <div className={us.container}>

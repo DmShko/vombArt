@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
@@ -9,6 +9,7 @@ import singInAPI from '../../API/singInAPI';
 import singOutAPI from '../../API/singOutAPI';
 import { change } from 'vomgallStore/gallerySlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
+import { changeSingUp } from 'vomgallStore/singUpSlice';
 
 // component import
 // import ModalArt from 'components/ModalArt/ModalArt';
@@ -30,9 +31,37 @@ const SharedLayout = () => {
   const dispatch = useDispatch();
   const selectorTargetName = useSelector(state => state.gallery.buttonTargetName);
   const selectorVisibilityLog = useSelector(state => state.singIn.isSingIn);
-  const selectorUserEmail = useSelector(state => state.singIn.email);
-  const selectorUserId = useSelector(state => state.singUp.usersId);
+  const selectorsingUpState = useSelector(state => state.singUp);
+  const selectorUserExist = useSelector(state => state.singUp.userExist);
 
+
+  useEffect(() => {
+   
+    // add new user object but not add, when page reloader selectorUserExist change to false again in singUp
+    // when new user add do database
+    if(selectorsingUpState.email !== '' && selectorUserExist === false) {
+
+         // add new user's default object to 'users' "gellarySlice's" array  
+        dispatch(change({operation: 'changeUsers', data: 
+            {
+                name: selectorsingUpState.email,
+                arts:
+                    {
+                        lirics:{name: 'Lirics', style: []},
+                        music:{name: 'Music', style: []},
+                        draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
+                    },
+                uid: selectorsingUpState.usersId,
+                status: false,
+            }
+        }));
+        
+        dispatch(changeSingUp({operation: 'changeUserExist', data: true}));
+    }
+     
+     
+  },[selectorsingUpState.email])
+ 
   const toggleModal = (evt) => {
     
     dispatch(change({data: evt?.target.id, operation: 'changeButtonTargetName',}));
@@ -69,22 +98,14 @@ const SharedLayout = () => {
    
     evt.preventDefault();
     if(selectorTargetName === 'singUp') {
+
         dispatch(singUpAPI({email: email, password: password}));
-        
-        dispatch(change({operation: 'changeUsers', data: {
-            name: selectorUserEmail,
-            arts:{
-              lirics:{name: 'Lirics', style: []},
-              music:{name: 'Music', style: []},
-              draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
-            },
-            uid: selectorUserId,
-            status: false,
-          }}));
+
+       
+       
     };
    
-  
-    
+
     if(selectorTargetName === 'singIn') dispatch(singInAPI({email: email, password: password}));
 
     reset({email: '', password: ''});
@@ -167,7 +188,7 @@ const SharedLayout = () => {
                             <p className={sh.linkNav} onClick={toggleModal} id='singIn'>LogIn</p>
                            
                         </li>
-                    </ul> : <button className={sh.button} onClick={userLogOut} id='singOut' type='button'>{selectorUserEmail}</button>}
+                    </ul> : <button className={sh.button} onClick={userLogOut} id='singOut' type='button'>{selectorsingUpState.email}</button>}
 
                 </nav>  
             </header>
