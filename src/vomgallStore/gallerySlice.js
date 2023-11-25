@@ -16,6 +16,7 @@ const galleryInitialState = {
   ], 
   searchedUser: true,
   buttonTargetName: '',
+
 };
 
 const gallerySlice = createSlice({
@@ -36,7 +37,7 @@ const gallerySlice = createSlice({
             state.users = [...state.users, action.payload.data];
             break;
           case 'changeAllUserStatus':
-            state.users.forEach(value => value.status = action.payload.data);
+            state.users.find(value => value.uid === action.payload.data.id).status = action.payload.data.status;
             break;
           default: break;
         }

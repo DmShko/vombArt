@@ -10,7 +10,7 @@ const singInSliceInitialState = {
   error: '',
   token: '',
   isSingIn: false,
-
+  singInId: '',
 };
 
 const singInSlice = createSlice({
@@ -39,6 +39,7 @@ const singInSlice = createSlice({
       state.isLoading = false;
       state.isSingIn = true;
       state.token = action.payload.user.accessToken;
+      state.singInId = action.payload.user.uid;
 
       Notiflix.Notify.success('User is logged in.', {width: '450px', position: 'center-top', fontSize: '24px',});
       // some actions with 'action'...

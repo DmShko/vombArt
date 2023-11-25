@@ -1,12 +1,13 @@
 .comtainer {
-    width: 80vw;
+    // width: 80vw;
     height: 100vh;
 
     padding: 0 20px;
 
     background-color: lightgrey;
 
-    overflow: scroll;
+    overflow-y: scroll;
+    
     .arts {
 
         display: flex;

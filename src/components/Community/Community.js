@@ -9,8 +9,10 @@ const Community = () => {
     <div className={co.container}>
 
       <Users />
-      <Gallery />
-
+      <div className={co.workcontainer}>
+        <Gallery />
+      </div>
+      
     </div>
   )
 }

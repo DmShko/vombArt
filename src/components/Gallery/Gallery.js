@@ -5,7 +5,6 @@ import ga from './Gallery.module.scss'
 const Gallery = () => {
 
   const selectorUserArt = useSelector(state => state.gallery);
-  console.log(selectorUserArt);
 
   return (
     <div className={ga.comtainer}>

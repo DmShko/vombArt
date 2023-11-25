@@ -12,6 +12,7 @@ import singUpReducer from './singUpSlice';
 import singInReducer from './singInSlice';
 import singOutReducer from './singOutSlice';
 import galleryReducer from './gallerySlice';
+import pathReducer from './pathSlice';
 
 
 const rootReducer = combineReducers(
@@ -20,6 +21,7 @@ const rootReducer = combineReducers(
         singOut: singOutReducer,
         singUp: singUpReducer,
         gallery: galleryReducer,
+        path: pathReducer,
          //...or more redusers
     }
 );

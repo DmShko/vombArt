@@ -14,7 +14,7 @@ const Users = () => {
 
   const dispatch = useDispatch();
   const selectorExistUsersList = useSelector(state => state.gallery);
-  const selectorVisibilityLog = useSelector(state => state.singIn.isSingIn);
+  const selectorVisibilityLog = useSelector(state => state.singIn);
 
   useEffect(() => {
 
@@ -27,14 +27,14 @@ const Users = () => {
       } else {
 
         // clear 'online' status intro all users's objects
-        dispatch(change({operation: 'changeAllUserStatus', data: false})); 
+        dispatch(change({operation: 'changeAllUserStatus', data:{ id: selectorVisibilityLog.singInId, status: false,}})); 
       }
 
     
     });
 
     // selectorVisibilityLog - when singOut button click
-  },[selectorVisibilityLog]) 
+  },[selectorVisibilityLog.isSingIn]) 
 
   return (
     <div className={us.container}>

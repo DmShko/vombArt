@@ -42,7 +42,7 @@ const Direction = () => {
     <div className={di.container}>
         <form className={di.fise} onSubmit={handleSubmit(addUser)}>
                         <fieldset className={di.fset}>
-                        <legend>Direction</legend>
+                        <legend>Add Direction</legend>
                             <div className={di.field}>
                                 <label className={di.lab}> Select direction
                                     <select {...register('Direction', {required: 'Please fill the Style field!', 
