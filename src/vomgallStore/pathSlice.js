@@ -4,7 +4,8 @@ const pathInitialState = {
 
   logicPath: {
 
-      name: 'Admin',
+      community: false,
+      name: '',
       arts: {
         lirics: false,
         music: false,
@@ -20,8 +21,9 @@ const pathInitialState = {
         classic: false,
         pop: false,
       },
-      iid:'1',
-      
+      items: {
+        
+      }
   }
 };
 
