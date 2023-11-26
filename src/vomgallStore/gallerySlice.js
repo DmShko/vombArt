@@ -6,8 +6,8 @@ const galleryInitialState = {
     {
       name: 'Admin',
       arts:{
-        lirics:{name: 'Lirics', style: []},
-        music:{name: 'Music', style: []},
+        lirics:{name: 'Lirics', style: ['Poem', 'Liric']},
+        music:{name: 'Music', style: ['Classic', 'Pop',]},
         draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
       },
       uid:'',

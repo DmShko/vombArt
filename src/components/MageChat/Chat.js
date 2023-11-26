@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { useForm } from 'react-hook-form';
 
 import writeUserData from 'API/writerDB';
-import pathCreator from 'API/writerDB';
+import pathCreator from './pathCreator/pathCreator';
 
 import ma from './Chat.module.scss'
 
@@ -15,12 +15,12 @@ const MageChat = () => {
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
-  const addUser = (evt) => {
+  const addUser = (_,evt) => {
 
     evt.preventDefault();
-
+    
     const path = pathCreator(pathSelector);
-
+    
     // to database
     writeUserData(path, Date.UTC.Date, Date.UTC.Time, message);
 

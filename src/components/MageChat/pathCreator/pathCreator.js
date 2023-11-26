@@ -1,18 +1,19 @@
 
 const pathCreator = (logicPath) => {
-
-  const user = logicPath.email;
+  console.log(logicPath);
+  const user = logicPath.name;
   const item = logicPath.iid;
-
+  
   const filterProperty = (data) => {
-    for (var key in data) {
-        if(logicPath.art[key] === true) return key;
+    for (const key in data) {
+        if(data[key] === true) return key;
     } 
   };
 
-  const art = filterProperty(logicPath.art);
+  const art = filterProperty(logicPath.arts);
   const style = filterProperty(logicPath.style);
 
+  console.log(`${user}/${art}/${style}/${item}/`);
   return `${user}/${art}/${style}/${item}/`
 
 }

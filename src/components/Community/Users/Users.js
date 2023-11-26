@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import { onAuthStateChanged   } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { change } from 'vomgallStore/gallerySlice';
+import { changePath } from 'vomgallStore/pathSlice';
 
 // import getUserAPI from 'API/getUserAPI';
 
@@ -36,13 +37,18 @@ const Users = () => {
     // selectorVisibilityLog - when singOut button click
   },[selectorVisibilityLog.isSingIn]) 
 
+  const clickUser = (evt) => {
+    
+    dispatch(changePath({changeElement: 'name', data: selectorExistUsersList.users.find(value => value.uid === evt.target.key).name}))
+  };
+
   return (
     <div className={us.container}>
         <h1 className={us.userstitle}>USERS</h1>
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value =>
 
-            <li key={nanoid()} className={us.usersitem}><p>{value.name}</p> {value.status? <p className={us.status}>online</p> : ''} </li>
+            <li key={nanoid()} className={us.usersitem} onClick={clickUser}><p>{value.name}</p> {value.status? <p className={us.status}>online</p> : ''} </li>
             
          )}
         </ul>

@@ -4,19 +4,23 @@ const pathInitialState = {
 
   logicPath: {
 
-      email: '',
+      name: 'Admin',
       arts: {
         lirics: false,
         music: false,
-        drawing: false
+        drawing: true
       },
       style: {
         oil: false,
-        watercolor: false,
+        watercolor: true,
         digital: false,
         mix: false,
+        poem: false,
+        liric: true,
+        classic: false,
+        pop: true,
       },
-      iid:'',
+      iid:'1',
       
   }
 };
@@ -29,11 +33,16 @@ const pathSlice = createSlice({
     reducers: {
 
       changePath(state, action) {
-        state.action.payload.changeElement = action.payload.data;
+
+        // separate chage 'arts'
+        if(action.payload.changeElement.split('.')[0] === 'arts') state.logicPath.arts[action.payload.changeElement.split('.')[1]] = action.payload.data;
+
+         // separate chage 'style'
+        if(action.payload.changeElement.split('.')[0] === 'style') state.logicPath.style[action.payload.changeElement.split('.')[1]] = action.payload.data;
       },
 
       addPath(state, action) {
-        state.action.payload.changeElement = action.payload.data;
+        state.logicPath.action.payload.changeElement = action.payload.data;
       },
     }
 

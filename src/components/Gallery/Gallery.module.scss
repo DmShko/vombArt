@@ -15,10 +15,20 @@
 
         margin-bottom: 10px;
 
+        border: 2px solid white;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+
         button {
             width: calc(100%/3);
 
             border-radius: 0;
+            border: 2px solid white;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border-bottom: none;
         }  
     }
     .style {
