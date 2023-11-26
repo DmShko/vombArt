@@ -4,14 +4,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "../firebase";
 import { getDatabase, ref, set } from "firebase/database";
 
-function writeUserData(path, day, time, message) {
+function writeUserData(path, data) {
       const db = getDatabase();
   set(ref(db, path), {
-    day: day,
-    time: time,
-    message : message
+    [data.name]:{name: data.name, message: data.message, date: '', time: ''},
   });
 }
-
 
 export default writeUserData;

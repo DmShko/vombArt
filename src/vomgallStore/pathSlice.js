@@ -8,17 +8,17 @@ const pathInitialState = {
       arts: {
         lirics: false,
         music: false,
-        drawing: true
+        drawing: false
       },
       style: {
         oil: false,
-        watercolor: true,
+        watercolor: false,
         digital: false,
         mix: false,
         poem: false,
-        liric: true,
+        liric: false,
         classic: false,
-        pop: true,
+        pop: false,
       },
       iid:'1',
       

@@ -22,7 +22,7 @@ const MageChat = () => {
     const path = pathCreator(pathSelector);
     
     // to database
-    writeUserData(path, Date.UTC.Date, Date.UTC.Time, message);
+    writeUserData(path, {id: 2, name: 'Dima', message: message});
 
     reset({message: '', });
 
