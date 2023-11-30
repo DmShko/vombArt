@@ -5,11 +5,11 @@ const pathInitialState = {
   logicPath: {
 
       community: false,
-      name: '',
+      name: 'Admin',
       arts: {
         lirics: false,
         music: false,
-        drawing: false
+        draw: false
       },
       style: {
         oil: false,

@@ -31,7 +31,7 @@ const Gallery = () => {
 
         // reset another value
         dispatch(changePath({changeElement: 'arts.music', data: false}));
-        dispatch(changePath({changeElement: 'arts.drawing', data: false}));
+        dispatch(changePath({changeElement: 'arts.draw', data: false}));
         break;
       case 'Music': 
 
@@ -46,7 +46,7 @@ const Gallery = () => {
 
         // reset another value
         dispatch(changePath({changeElement: 'arts.lirics', data: false}));
-        dispatch(changePath({changeElement: 'arts.drawing', data: false}));
+        dispatch(changePath({changeElement: 'arts.draw', data: false}));
         break;
       case 'Drawing': 
 
@@ -57,7 +57,7 @@ const Gallery = () => {
         setMusicVisible(false);
         setLiricsVisible(false);
 
-        dispatch(changePath({changeElement: 'arts.drawing', data: true}));
+        dispatch(changePath({changeElement: 'arts.draw', data: true}));
 
         // reset another value
         dispatch(changePath({changeElement: 'arts.lirics', data: false}));
@@ -87,7 +87,7 @@ const Gallery = () => {
         <div className={ga.arts}>
             <button type='button' style={selectorUserPath.logicPath.arts.lirics ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgba(209, 209, 209, 0.522)'}} name='Lirics' onClick={clickButtonArts}>Lirics</button>
             <button type='button' style={selectorUserPath.logicPath.arts.music ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgba(209, 209, 209, 0.522)'}} name='Music' onClick={clickButtonArts}>Music</button>
-            <button type='button' style={selectorUserPath.logicPath.arts.drawing ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgba(209, 209, 209, 0.522)'}} name='Drawing' onClick={clickButtonArts}>Drawing</button>
+            <button type='button' style={selectorUserPath.logicPath.arts.draw ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgba(209, 209, 209, 0.522)'}} name='Drawing' onClick={clickButtonArts}>Drawing</button>
         </div>
         
         <div>
@@ -95,15 +95,15 @@ const Gallery = () => {
             <ul className={ga.style}>
               {
 
-                drawVisible ? selectorUserArt.users.find(value => value.name === 'Admin').arts.draw.style.map(value => 
+                drawVisible ? selectorUserArt.users.find(value => value.name === selectorUserPath.logicPath.name).arts.draw.style.map(value => 
                   <li key={nanoid()}><button type='button' name={value} onClick={clickButtonStyle}>{value}</button></li> 
                 ) : ''} 
               {
-                musicVisible ? selectorUserArt.users.find(value => value.name === 'Admin').arts.music.style.map(value => 
+                musicVisible ? selectorUserArt.users.find(value => value.name === selectorUserPath.logicPath.name).arts.music.style.map(value => 
                   <li key={nanoid()}><button type='button' name={value} onClick={clickButtonStyle}>{value}</button></li> 
                 ) : ''} 
 
-              { liricsVisible ? selectorUserArt.users.find(value => value.name === 'Admin').arts.lirics.style.map(value => 
+              { liricsVisible ? selectorUserArt.users.find(value => value.name === selectorUserPath.logicPath.name).arts.lirics.style.map(value => 
                   <li key={nanoid()}><button type='button' name={value} onClick={clickButtonStyle}>{value}</button></li> 
                 ) : ''
               }
