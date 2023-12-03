@@ -17,8 +17,8 @@
 }
 
 .circle {
-   width: 20px;
-   height: 10px;
+   width: 15px;
+   height: 15px;
 
    background-color: rgb(231, 229, 229);
    backdrop-filter: blur(5px);;

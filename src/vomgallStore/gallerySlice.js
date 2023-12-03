@@ -1,23 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const galleryInitialState = {
-
   users: [
     {
       name: 'Admin',
-      arts:{
-        lirics:{name: 'Lirics', style: ['Poem', 'Liric']},
-        music:{name: 'Music', style: ['Classic', 'Pop',]},
-        draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
+      arts: {
+        lirics: { name: 'Lirics', style: ['Poem', 'Liric'] },
+        music: { name: 'Music', style: ['Classic', 'Pop'] },
+        draw: {
+          name: 'Drawing',
+          style: ['Oil', 'Watercolor', 'Digital', 'Mix'],
+        },
       },
-      uid:'',
+      uid: '',
       status: false,
     },
-  ], 
+  ],
   itemsBuffer: null,
+  messagesBuffer: null,
   searchedUser: true,
   buttonTargetName: '',
   load: false,
+  date: null,
 };
 
 const gallerySlice = createSlice({
@@ -62,8 +66,15 @@ const gallerySlice = createSlice({
             // console.log(action.payload.data);
             state.itemsBuffer = action.payload.data;
             break;
+          case 'changeMessagesBuffer':
+            // console.log(action.payload.data);
+            state.messagesBuffer = action.payload.data;
+            break;
           case 'changeLoad':
             state.load = action.payload.data;
+            break;
+          case 'changeDate':
+            state.date = action.payload.data;
             break;
           default:
             break;

@@ -13,6 +13,8 @@ import  Item  from '../WorkSpace/Item/Item';
 
 import { change } from 'vomgallStore/gallerySlice';
 
+import { ReactComponent as BlotImg } from '../../images/paint-mark-1-svgrepo-com.svg';
+
 const Gallery = () => {
 
   const dispatch = useDispatch();
@@ -37,52 +39,68 @@ const Gallery = () => {
 
     // check selected arts and style
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
-    
-       dispatch(change({ operation: 'changeLoad', data: true }));
-      // create items tree
-      const path = pathCreator({
+      dispatch(change({ operation: 'changeLoad', data: true }));
+      // create items tree and create chats tree
+      const path = [
+        pathCreator({
         pathSelector,
         section: 'items',
         contents: 'elements',
         write: false,
-      });
+      }),
+
+        pathCreator({
+        pathSelector,
+        section: 'chats',
+        contents: 'messages',
+        write: false,
+      })];
+      
 
       // listenUserData(path);
       const db = getDatabase();
-      const starCountRef = ref(db, path);
-
-      //firebase listener function
-      onValue(starCountRef, snapshot => {
-
-        // load data from database
-        const data = snapshot.val();
-       
-        // hidden loader, when data is loaded
-        dispatch(change({ operation: 'changeLoad', data: false }));
-
-        let items = [];
-        let keys = [];
-        // check database not empty
-        if (data !== null) {
-          // convert data-object to array of objects
-          for (const key in data.elements) {
-            items.push(data.elements[key]);
-            keys.push(key);
-          }
-
-          // add keys each object of items array
-          for (let i = 0; i < items.length; i += 1) {
-            items[i] = { ...items[i], id: keys[i] };
-          }
-
-          // save data to gallery state (for reload page)
-          // new data load to ItemsBuffer only if user switched new art or style
-          dispatch(change({ operation: 'changeItemsBuffer', data: items }));
-        } else {
-          dispatch(change({ operation: 'changeItemsBuffer', data: null }));
-        }
+      for (let j = 0; j < path.length; j += 1) {
         
-      });
+        const starCountRef = ref(db, path[j]);
+      
+        //firebase listener function
+        onValue(starCountRef, snapshot => {
+          // load data from database
+          const data = snapshot.val();
+          console.log(data);
+          // hidden loader, when data is loaded
+          dispatch(change({ operation: 'changeLoad', data: false }));
+
+          let items = [];
+          let keys = [];
+          // check database not empty
+          if (data !== null) {
+            // convert data-object to array of objects
+            for (const key in data) {
+             
+              items.push(data[key])
+            
+              keys.push(key);
+            }
+
+            // add keys each object of items array
+            for (let i = 0; i < items.length; i += 1) {
+              items[i] = { ...items[i], id: keys[i] };
+            }
+
+            // save data to gallery state (for reload page)
+            // new data load to ItemsBuffer only if user switched new art or style
+         
+            j === 0 ? dispatch(change({ operation: 'changeItemsBuffer', data: items })) : 
+              dispatch(change({ operation: 'changeMessagesBuffer', data: items }));
+            
+           
+          } else {
+            dispatch(change({ operation: 'changeItemsBuffer', data: null }));
+            dispatch(change({ operation: 'changemessagesBuffer', data: null }));
+          }
+        });
+      }
     }
   }, [pathSelector]);
 
@@ -262,7 +280,7 @@ const Gallery = () => {
                 );
               })
             ) : (
-              <p>There are no elements. Hurry up to load new</p>
+              <div className={ga.notResult}><p>This section empty. Hurry up to load new elements!</p> <BlotImg className={ga.blotImg}/></div>
             )}
           </ul>
         </div>

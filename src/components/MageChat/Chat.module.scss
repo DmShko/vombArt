@@ -72,5 +72,21 @@
         .in:focus {
             outline: none;
         }
+        .list {
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+            .item {
+            
+                    width: 95%;
+            
+                    list-style: none;
+            
+                    background-color: rgb(173, 216, 230, 0.5);
+                    border-radius: 6px;
+            
+                }
+        } 
     
 }

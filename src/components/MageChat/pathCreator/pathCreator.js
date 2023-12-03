@@ -34,7 +34,11 @@ const pathCreator = ({ pathSelector, section, contents, write }) => {
     if (findProperty(pathSelector.items))
       path += `${getPropertyKey(pathSelector.items)}/`;
 
-    if(write) path += `${contents}/${nanoid()}/`;
+    if (write) {
+      path += `${contents}/${nanoid()}/`;
+    } else {
+      path += `${contents}/`;
+    }
   } else {
     onAuthStateChanged(auth, user => {
       // for singIn user field
@@ -47,7 +51,11 @@ const pathCreator = ({ pathSelector, section, contents, write }) => {
       if (findProperty(pathSelector.items))
         path += `${getPropertyKey(pathSelector.items)}/`;
 
-      if(write) path += `${contents}/${nanoid()}/`;
+      if (write) {
+        path += `${contents}/${nanoid()}/`;
+      } else {
+        path += `${contents}/`;
+      }
     });
   }
 

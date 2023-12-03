@@ -17,6 +17,15 @@
             
        width: 100%;
        transition: background-color, 400ms;
+       .butCont {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+       }
+       .img{
+         width: 10px; 
+         height: 10px;  
+       }
         
     }
 

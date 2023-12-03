@@ -1,5 +1,6 @@
 .container {
     // width: 80vw;
+    
     height: 100vh;
 
     padding: 0 20px;
@@ -78,16 +79,18 @@
     .listItems {
 
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
 
         column-gap: 10px;
         row-gap: 10px;
+     
 
         list-style: none;
         padding: 0;
 
         .item {
-            width: calc(100% / 3);
+            width: calc((100% / 3) - 20px);
             height: 200px;
             border-radius: 6px;
             background-color: white;
@@ -101,6 +104,23 @@
 
         .item:hover {
             box-shadow: inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8);
+        }
+
+        .blotImg {
+
+            width: 60%;
+            height: 60%;
+
+            fill: gray;
+        }
+
+        .notResult {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            gap: 20px;
         }
     }
     

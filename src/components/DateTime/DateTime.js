@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 import ti from './DateTime.module.scss';
 
 const DateTime = () => {
-
+    const selectorGallSlice = useSelector(state => state.gallery);
+   
     const [ timeValue, setTimeValue ]= useState({time: new Date()});
     const [ newDateObj, setNewDateObj ]= useState({});
 
@@ -37,7 +39,8 @@ const DateTime = () => {
         const datedata = dateDay + "/" + dateMonth;
         const yeardata =  timeValue.time.getFullYear();
   
-        setNewDateObj({timedata, datedata, yeardata, dateSeconds});
+        setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
+        
     };
 
     return (
