@@ -6,7 +6,7 @@ import { getDatabase, ref, set } from "firebase/database";
 function writeUserData(path, data) {
       const db = getDatabase();
   set(ref(db, path), {
-    name: data.name, message: data.message, date: '', time: '',
+    date: '', time: '', ...data,
   });
 }
 

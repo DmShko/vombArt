@@ -3,63 +3,56 @@ import { onAuthStateChanged   } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { nanoid } from "nanoid";
 
-const pathCreator = (logicPath) => {
+const pathCreator = ({ pathSelector, section, contents, write }) => {
+  let path = '';
 
-  let path='';
-
-  // retun key of element, that have value true
-  const findProperty = (data) => {
-    
-    for(const key in data) {
-         
-          if(data[key] === true) 
-          {
-           
-            return true;
-
-          } 
-
-      }
-  };
-
-  // retun key of element, that have value true
-  const getPropertyKey = (data) => {
+  // retun true if element contain true
+  const findProperty = data => {
     for (const key in data) {
-        if(data[key] === true) return key;
-    } 
+      if (data[key] === true) {
+        return true;
+      }
+    }
   };
 
-  if(!logicPath.community) {
-    console.log(findProperty(logicPath.arts));
-      // for community users field
-      path=`${logicPath.name}/`
+  // retun key of element, that have value true
+  const getPropertyKey = data => {
+    for (const key in data) {
+      if (data[key] === true) return key;
+    }
+  };
 
-      if(findProperty(logicPath.arts)) path +=`${getPropertyKey(logicPath.arts)}/`;
-      if(findProperty(logicPath.style)) path +=`${getPropertyKey(logicPath.style)}/`;
-      if(findProperty(logicPath.items)) path +=`${getPropertyKey(logicPath.items)}/`;
+  if (!pathSelector.community) {
+   
+    // for community users field
+    path = `${pathSelector.name}/${section}/`;
 
-      path += `${nanoid()}/`
+    if (findProperty(pathSelector.arts))
+      path += `${getPropertyKey(pathSelector.arts)}/`;
+    if (findProperty(pathSelector.style))
+      path += `${getPropertyKey(pathSelector.style)}/`;
+    if (findProperty(pathSelector.items))
+      path += `${getPropertyKey(pathSelector.items)}/`;
 
+    if(write) path += `${contents}/${nanoid()}/`;
   } else {
-
-    onAuthStateChanged(auth, (user) => { 
-
+    onAuthStateChanged(auth, user => {
       // for singIn user field
-      path=`${user.email}/`;
+      path = `${user.email}/chats/`;
 
-      if(findProperty(logicPath.arts)) path +=`${getPropertyKey(logicPath.arts)}/`;
-      if(findProperty(logicPath.style)) path +=`${getPropertyKey(logicPath.style)}/`;
-      if(findProperty(logicPath.items)) path +=`${getPropertyKey(logicPath.items)}/`;
+      if (findProperty(pathSelector.arts))
+        path += `${getPropertyKey(pathSelector.arts)}/`;
+      if (findProperty(pathSelector.style))
+        path += `${getPropertyKey(pathSelector.style)}/`;
+      if (findProperty(pathSelector.items))
+        path += `${getPropertyKey(pathSelector.items)}/`;
 
-      path += `${nanoid()}/`
-      
+      if(write) path += `${contents}/${nanoid()}/`;
     });
-
   }
 
   console.log(path);
   return path;
-
-}
+};
 
 export default pathCreator;

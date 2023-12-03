@@ -66,8 +66,11 @@
 
             overflow-y: scroll;
             background-color: white;
+            
         }
 
-    
+        .in:focus {
+            outline: none;
+        }
     
 }

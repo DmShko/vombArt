@@ -10,14 +10,14 @@ const galleryInitialState = {
         music:{name: 'Music', style: ['Classic', 'Pop',]},
         draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
       },
-      items: [],
       uid:'',
       status: false,
     },
   ], 
+  itemsBuffer: null,
   searchedUser: true,
   buttonTargetName: '',
-
+  load: false,
 };
 
 const gallerySlice = createSlice({
@@ -58,10 +58,12 @@ const gallerySlice = createSlice({
                 value => value !== action.payload.data
               );
             break;
-          case 'addItem':
-            state.users
-              .find(value => value.name === action.payload.currentUserName)
-              .items.push(action.payload.data);
+          case 'changeItemsBuffer':
+            // console.log(action.payload.data);
+            state.itemsBuffer = action.payload.data;
+            break;
+          case 'changeLoad':
+            state.load = action.payload.data;
             break;
           default:
             break;

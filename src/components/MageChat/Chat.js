@@ -19,10 +19,11 @@ const MageChat = () => {
 
     evt.preventDefault();
     
-    const path = pathCreator(pathSelector);
+    // create chats tree
+    const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true});
     
     // to database
-    writeUserData(path, {id: 2, name: 'Dima', message: message});
+    writeUserData(path, {name: 'Dima', message: message});
 
     reset({message: '', });
 

@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
+import writeUserData from 'API/writerDB';
+import pathCreator from '../../../MageChat/pathCreator/pathCreator';
 import { change } from 'vomgallStore/gallerySlice';
 import nf from './NewItem.module.scss'
 
 const NewItem = () => {
 
   const dispatch = useDispatch();
+
+  const pathSelector = useSelector(state => state.path.logicPath);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
@@ -38,19 +42,29 @@ const NewItem = () => {
     stateChange(evt.target);
   };
 
+  // retun true if element contain true
+  const findProperty = data => {
+    for (const key in data) {
+      if (data[key] === true) {
+        return true;
+      }
+    }
+  };
+
   const addItem = (_, evt) => {
    
     evt.preventDefault();
 
-    dispatch(
-      change({
-        operation: 'addItem',
-        currentUserName: selectorPathState.name,
-        artsName: getPropertyKey(selectorPathState.arts),
-        data: {description: description, title: title },
-      })
-    );
- 
+    // check selected arts and style
+    if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
+
+      // create items tree
+      const path = pathCreator({ pathSelector, section: 'items', contents: 'elements', write: true });
+      // to database
+      writeUserData(path, { title: title, description: description });
+    
+    }
+   
     reset({description: '', title: ''});
  
   };
@@ -59,7 +73,7 @@ const NewItem = () => {
     <div className={nf.container}>
       <form className={nf.fise} onSubmit={handleSubmit(addItem)}>
         <fieldset className={nf.fset}>
-          <legend>Add item</legend>
+          <legend>New item</legend>
           <div className={nf.field}>
             <label className={nf.lab}>
               {' '}
@@ -99,7 +113,7 @@ const NewItem = () => {
               ></textarea>
             </label>
 
-            <button className={nf.button}>Add</button>
+            <button className={nf.button}>Add Item</button>
           </div>
         </fieldset>
       </form>
