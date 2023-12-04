@@ -25,9 +25,8 @@ const Gallery = () => {
   const [drawVisible, setDrawVisible] = useState(true);
   const [musicVisible, setMusicVisible] = useState(false);
   const [liricsVisible, setLiricsVisible] = useState(false);
-
+ 
   useEffect(() => {
-
     // retun true if element contain true
     const findProperty = data => {
       for (const key in data) {
@@ -43,26 +42,25 @@ const Gallery = () => {
       // create items tree and create chats tree
       const path = [
         pathCreator({
-        pathSelector,
-        section: 'items',
-        contents: 'elements',
-        write: false,
-      }),
+          pathSelector,
+          section: 'items',
+          contents: 'elements',
+          write: false,
+        }),
 
         pathCreator({
-        pathSelector,
-        section: 'chats',
-        contents: 'messages',
-        write: false,
-      })];
-      
+          pathSelector,
+          section: 'chats',
+          contents: 'messages',
+          write: false,
+        }),
+      ];
 
       // listenUserData(path);
       const db = getDatabase();
       for (let j = 0; j < path.length; j += 1) {
-        
         const starCountRef = ref(db, path[j]);
-      
+
         //firebase listener function
         onValue(starCountRef, snapshot => {
           // load data from database
@@ -77,9 +75,8 @@ const Gallery = () => {
           if (data !== null) {
             // convert data-object to array of objects
             for (const key in data) {
-             
-              items.push(data[key])
-            
+              items.push(data[key]);
+
               keys.push(key);
             }
 
@@ -90,26 +87,39 @@ const Gallery = () => {
 
             // save data to gallery state (for reload page)
             // new data load to ItemsBuffer only if user switched new art or style
-         
-            j === 0 ? dispatch(change({ operation: 'changeItemsBuffer', data: items })) : 
-              dispatch(change({ operation: 'changeMessagesBuffer', data: items }));
-            
-           
+
+            j === 0
+              ? dispatch(
+                  change({ operation: 'changeItemsBuffer', data: items })
+                )
+              : dispatch(
+                  change({ operation: 'changeMessagesBuffer', data: items })
+                );
           } else {
             dispatch(change({ operation: 'changeItemsBuffer', data: null }));
-            dispatch(change({ operation: 'changemessagesBuffer', data: null }));
+            dispatch(change({ operation: 'changeMessagesBuffer', data: null }));
           }
         });
       }
     }
-  }, [pathSelector]);
 
+    // change active color
+    for (const key in selectorUserPath.logicPath.style) {
+
+      if (selectorUserPath.logicPath.style[key] === true) {    
+        dispatch(change({ operation: 'changeColorActive', data: key }));
+      }
+
+    }
+      
+  }, [pathSelector]);
 
   // handler arts button click
   const clickButtonArts = ({ target }) => {
-   
-    switch(target.name) {
-      case 'Lirics': 
+
+    switch (target.name) {
+      case 'Lirics':
+        
         // visibility 'Lirics' on
         setLiricsVisible(true);
 
@@ -117,13 +127,13 @@ const Gallery = () => {
         setDrawVisible(false);
         setMusicVisible(false);
 
-        dispatch(changePath({changeElement: 'arts.lirics', data: true}));
+        dispatch(changePath({ changeElement: 'arts.lirics', data: true }));
 
         // reset another value
-        dispatch(changePath({changeElement: 'arts.music', data: false}));
-        dispatch(changePath({changeElement: 'arts.draw', data: false}));
+        dispatch(changePath({ changeElement: 'arts.music', data: false }));
+        dispatch(changePath({ changeElement: 'arts.draw', data: false }));
         break;
-      case 'Music': 
+      case 'Music':
 
         // visibility 'Music' on
         setMusicVisible(true);
@@ -132,13 +142,13 @@ const Gallery = () => {
         setDrawVisible(false);
         setLiricsVisible(false);
 
-        dispatch(changePath({changeElement: 'arts.music', data: true}));
+        dispatch(changePath({ changeElement: 'arts.music', data: true }));
 
         // reset another value
-        dispatch(changePath({changeElement: 'arts.lirics', data: false}));
-        dispatch(changePath({changeElement: 'arts.draw', data: false}));
+        dispatch(changePath({ changeElement: 'arts.lirics', data: false }));
+        dispatch(changePath({ changeElement: 'arts.draw', data: false }));
         break;
-      case 'Drawing': 
+      case 'Drawing':
 
         // visibility 'Drawing' on
         setDrawVisible(true);
@@ -147,14 +157,15 @@ const Gallery = () => {
         setMusicVisible(false);
         setLiricsVisible(false);
 
-        dispatch(changePath({changeElement: 'arts.draw', data: true}));
+        dispatch(changePath({ changeElement: 'arts.draw', data: true }));
 
         // reset another value
-        dispatch(changePath({changeElement: 'arts.lirics', data: false}));
-        dispatch(changePath({changeElement: 'arts.music', data: false}));
+        dispatch(changePath({ changeElement: 'arts.lirics', data: false }));
+        dispatch(changePath({ changeElement: 'arts.music', data: false }));
         break;
-      default: break;
-    };
+      default:
+        break;
+    }
   };
 
   // handler style button click
@@ -224,6 +235,11 @@ const Gallery = () => {
                       <button
                         type="button"
                         name={value}
+                        style={
+                          value.toLowerCase() === selectorGallSlice.colorActive
+                            ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+                            : { backgroundColor: 'var(--text-color)' }
+                        }
                         onClick={clickButtonStyle}
                       >
                         {value}
@@ -239,6 +255,11 @@ const Gallery = () => {
                       <button
                         type="button"
                         name={value}
+                        style={
+                          value.toLowerCase() === selectorGallSlice.colorActive
+                            ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+                            : { backgroundColor: 'var(--text-color)' }
+                        }
                         onClick={clickButtonStyle}
                       >
                         {value}
@@ -255,6 +276,11 @@ const Gallery = () => {
                       <button
                         type="button"
                         name={value}
+                        style={
+                          value.toLowerCase() === selectorGallSlice.colorActive
+                            ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+                            : { backgroundColor: 'var(--text-color)' }
+                        }
                         onClick={clickButtonStyle}
                       >
                         {value}
@@ -280,7 +306,10 @@ const Gallery = () => {
                 );
               })
             ) : (
-              <div className={ga.notResult}><p>This section empty. Hurry up to load new elements!</p> <BlotImg className={ga.blotImg}/></div>
+              <div className={ga.notResult}>
+                <p>This section empty. Hurry up to load new elements!</p>{' '}
+                <BlotImg className={ga.blotImg} />
+              </div>
             )}
           </ul>
         </div>

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import writeUserData from 'API/writerDB';
 import pathCreator from './pathCreator/pathCreator';
 import MessageItem from './MessageItem/MessageItem';
+import { ReactComponent as EmptyImg } from '../../images/empty-white-box-svgrepo-com.svg';
 
 import ma from './Chat.module.scss'
 import { change } from 'vomgallStore/gallerySlice';
@@ -75,7 +76,7 @@ const MageChat = () => {
                 <ul className={ma.list}>
                     {
                       selectorGallerySlice.messagesBuffer !== null ? selectorGallerySlice.messagesBuffer.map(value => 
-                      { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : ''
+                      { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
             </div>
