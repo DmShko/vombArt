@@ -39,7 +39,33 @@
                     .in:focus {
                         outline: none;
                     }
+                 
+                    .load{
+                        width: 1px;
+                        opacity: 0; 
+                    }
+
+                    .p{
+                        width: fit-content;
+                        text-align: center;
+
+                        margin: 0 auto 10px;
+                        padding: 3px 10px;
+                        border: 2px solid gray;
+                        border-radius: 6px;
+                    }
+                  
+                    // .load::file-selector-button {
+                        
+                    //     font-weight: bold;
+                    //     color: dodgerblue;
+                    //     padding: 0.5em;
+                    //     border: none;
+                    //     border-radius: 6px;
+                    // }
+                    
                 }
+                
             }
         }
     } 

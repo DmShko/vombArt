@@ -23,6 +23,7 @@ const galleryInitialState = {
   load: false,
   date: null,
   colorActive: '',
+  loadFiles: null,
 };
 
 const gallerySlice = createSlice({
@@ -76,6 +77,10 @@ const gallerySlice = createSlice({
             break;
           case 'changeDate':
             state.date = action.payload.data;
+            break;
+          case 'changeLoadFiles':
+            console.log('!');
+            state.loadFiles = action.payload.data;
             break;
           case 'changeColorActive':
             state.colorActive = action.payload.data;

@@ -1,11 +1,12 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import writeUserData from 'API/writerDB';
+import StorageWork from 'components/StorageWork/StorageWork';
 import pathCreator from '../../../MageChat/pathCreator/pathCreator';
 import { change } from 'vomgallStore/gallerySlice';
-import nf from './NewItem.module.scss'
+import nf from './NewItem.module.scss';
 
 const NewItem = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const NewItem = () => {
   const [newDateObj, setNewDateObj] = useState({});
   const [message, setMessage] = useState('');
 
+  const [file, setFile] = useState();
+  const [storagePath, setStoragePath] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -25,6 +29,7 @@ const NewItem = () => {
 
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
+
   useEffect(() => {
     tick();
   }, []);
@@ -99,7 +104,7 @@ const NewItem = () => {
 
   const addItem = (_, evt) => {
     evt.preventDefault();
-
+    console.log(selectorGallerySlice.itemsBuffer);
     // check selected arts and style
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
       // create items tree
@@ -110,10 +115,29 @@ const NewItem = () => {
         write: true,
       });
       // to database
-      writeUserData(path, { title: title, description: description }, selectorGallerySlice.date);
+      writeUserData(
+        path,
+        { title: title, description: description },
+        selectorGallerySlice.date
+      );
+      setStoragePath(path);
+      // storage(path, file);
     }
 
     reset({ description: '', title: '' });
+  };
+
+  const handleFileChange = evt => {
+    if (evt.target.files) {
+      setFile(evt.target.files[0]);
+
+      dispatch(
+        change({
+          operation: 'changeLoadFiles',
+          data: evt.target.files[0].name,
+        })
+      );
+    }
   };
 
   return (
@@ -140,7 +164,6 @@ const NewItem = () => {
                 placeholder="Enter style..."
               ></input>
             </label>
-
             <label className={nf.lab}>
               {' '}
               Description
@@ -159,13 +182,37 @@ const NewItem = () => {
                 placeholder="Enter short description..."
               ></textarea>
             </label>
-
+            <label className={nf.lab}>
+              {' '}
+              <p className={nf.p}>Seach file</p>
+              <span style={{ border: 'none', fontSize: '12px' }}>
+                {selectorGallerySlice.loadFiles || 'No search file...'}
+              </span>
+              <input
+                {...register('Load', {
+                  required: 'Please fill the Description field!',
+                  value: file,
+                })}
+                className={nf.load}
+                type="file"
+                onChange={handleFileChange}
+                autoComplete="false"
+                title="Load file..."
+                multiple="multiple"
+                placeholder="Enter short description..."
+              ></input>
+            </label>
+            {storagePath !== '' ? (
+              <StorageWork data={{ storagePath, file }} />
+            ) : (
+              ''
+            )}
             <button className={nf.button}>Add Item</button>
           </div>
         </fieldset>
       </form>
     </div>
   );
-}
+};
 
-export default NewItem
+export default NewItem;
