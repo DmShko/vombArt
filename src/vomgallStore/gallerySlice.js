@@ -24,6 +24,9 @@ const galleryInitialState = {
   date: null,
   colorActive: '',
   loadFiles: null,
+  pageSelector: 5,
+  pageQuantity: [],
+  pageBuffer: [],
 };
 
 const gallerySlice = createSlice({
@@ -65,11 +68,9 @@ const gallerySlice = createSlice({
               );
             break;
           case 'changeItemsBuffer':
-            // console.log(action.payload.data);
             state.itemsBuffer = action.payload.data;
             break;
           case 'changeMessagesBuffer':
-            // console.log(action.payload.data);
             state.messagesBuffer = action.payload.data;
             break;
           case 'changeLoad':
@@ -79,11 +80,19 @@ const gallerySlice = createSlice({
             state.date = action.payload.data;
             break;
           case 'changeLoadFiles':
-            console.log('!');
             state.loadFiles = action.payload.data;
             break;
           case 'changeColorActive':
             state.colorActive = action.payload.data;
+            break;
+          case 'changePageSelector':
+            state.pageSelector = action.payload.data;
+            break;
+          case 'changePageQuantity':
+            state.pageQuantity = action.payload.data;
+            break;
+          case 'changePageBuffer':
+            state.pageBuffer = action.payload.data;
             break;
           default:
             break;

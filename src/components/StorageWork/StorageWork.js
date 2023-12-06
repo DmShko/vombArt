@@ -1,10 +1,12 @@
 import { useState } from 'react';
+
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+
 import UploadLoader from '../UploadLoader/UploadLoader';
 
 const StorageWork = ({ data }) => {
@@ -30,7 +32,7 @@ const StorageWork = ({ data }) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log('Upload is ' + progress + '% done');
-
+ 
       switch (snapshot.state) {
         case 'paused':
           // setUploadStatus('paused');
@@ -60,18 +62,22 @@ const StorageWork = ({ data }) => {
       }
     },
     () => {
+
       // Upload completed successfully, now we can get the download URL
       getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
         console.log('File available at', downloadURL);
-      });
-  
+      })
+     
+      data.setStoragePath('');
       setLoadDone(true);
-       
+      
     }
   );
 
   return (
-    <div>{loadDone ? 'Uploaded successfully' : <UploadLoader />}</div>
+    <div>
+      {loadDone ? 'Uploaded successfully' : <UploadLoader />}
+    </div>
   );
 };
 

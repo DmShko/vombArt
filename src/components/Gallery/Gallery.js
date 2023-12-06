@@ -9,7 +9,8 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { changePath } from 'vomgallStore/pathSlice';
 import pathCreator from '../MageChat/pathCreator/pathCreator';
 import { Loader } from 'components/Loader/Loader';
-import  Item  from '../WorkSpace/Item/Item';
+import Item from '../WorkSpace/Item/Item';
+import Pagination from '../Pagination/Pagination'
 
 import { change } from 'vomgallStore/gallerySlice';
 
@@ -65,7 +66,7 @@ const Gallery = () => {
         onValue(starCountRef, snapshot => {
           // load data from database
           const data = snapshot.val();
-          console.log(data);
+          
           // hidden loader, when data is loaded
           dispatch(change({ operation: 'changeLoad', data: false }));
 
@@ -312,6 +313,7 @@ const Gallery = () => {
               </div>
             )}
           </ul>
+          <Pagination />
         </div>
       </div>
     </div>

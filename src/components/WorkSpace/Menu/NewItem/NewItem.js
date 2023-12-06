@@ -9,16 +9,19 @@ import { change } from 'vomgallStore/gallerySlice';
 import nf from './NewItem.module.scss';
 
 const NewItem = () => {
+
   const dispatch = useDispatch();
 
   const selectorGallerySlice = useSelector(state => state.gallery);
   const pathSelector = useSelector(state => state.path.logicPath);
   const [timeValue, setTimeValue] = useState({ time: new Date() });
-  const [newDateObj, setNewDateObj] = useState({});
-  const [message, setMessage] = useState('');
+  // const [newDateObj, setNewDateObj] = useState({});
+  // const [message, setMessage] = useState('');
 
   const [file, setFile] = useState();
   const [storagePath, setStoragePath] = useState('');
+  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState('');
 
   const {
     register,
@@ -27,12 +30,13 @@ const NewItem = () => {
     reset,
   } = useForm({ mode: 'onBlur' });
 
-  const [description, setDescription] = useState('');
-  const [title, setTitle] = useState('');
-
   useEffect(() => {
     tick();
   }, []);
+
+  useEffect(() => {
+    if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
+  }, [storagePath]);
 
   function tick() {
     setTimeValue({
@@ -63,7 +67,7 @@ const NewItem = () => {
     const datedata = dateDay + '/' + dateMonth;
     const yeardata = timeValue.time.getFullYear();
 
-    setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
+    // setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
     dispatch(
       change({
         operation: 'changeDate',
@@ -203,7 +207,9 @@ const NewItem = () => {
               ></input>
             </label>
             {storagePath !== '' ? (
-              <StorageWork data={{ storagePath, file }} />
+              <StorageWork
+                data={{ storagePath, file, setStoragePath }}
+              />
             ) : (
               ''
             )}
