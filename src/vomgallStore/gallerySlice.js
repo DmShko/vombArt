@@ -94,6 +94,13 @@ const gallerySlice = createSlice({
           case 'changePageBuffer':
             state.pageBuffer = action.payload.data;
             break;
+          case 'changePageQuantityActive':
+            state.pageQuantity.find(value => value.name === Number(action.payload.data)).active = 
+            !state.pageQuantity.find(value => value.name === Number(action.payload.data)).active;
+            break;
+          case 'changePageQuantityReset':
+            state.pageQuantity.find(value => value.name === Number(action.payload.data)).active = false;
+            break;
           default:
             break;
         }

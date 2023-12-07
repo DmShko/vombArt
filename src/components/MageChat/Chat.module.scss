@@ -46,8 +46,24 @@
         }
         
         button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            gap: 5px;
+
+            font-weight: 600;
+
             width: 100px;
             margin: 0 auto;
+            
+
+            border: 2px solid gray;
+            border-radius: 6px;
+        }
+
+        button:hover {
+            background-color: rgba(194, 212, 31,);
         }
     }
 

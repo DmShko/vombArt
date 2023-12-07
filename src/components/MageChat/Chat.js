@@ -6,6 +6,7 @@ import writeUserData from 'API/writerDB';
 import pathCreator from './pathCreator/pathCreator';
 import MessageItem from './MessageItem/MessageItem';
 import { ReactComponent as EmptyImg } from '../../images/empty-white-box-svgrepo-com.svg';
+import { ReactComponent as SendImg } from '../../images/send-alt-2-svgrepo-com.svg';
 
 import ma from './Chat.module.scss'
 import { change } from 'vomgallStore/gallerySlice';
@@ -101,7 +102,7 @@ const MageChat = () => {
                     </textarea>
                 </label>
 
-                <button className={ma.button}>Send</button>
+                <button className={ma.button}>Send <SendImg style={{width: '25px', height: '25px',}} /></button>
             </div>
                                 
         </form>

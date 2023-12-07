@@ -10,7 +10,6 @@ import { changePath } from 'vomgallStore/pathSlice';
 import pathCreator from '../MageChat/pathCreator/pathCreator';
 import { Loader } from 'components/Loader/Loader';
 import Item from '../WorkSpace/Item/Item';
-import Pagination from '../Pagination/Pagination'
 
 import { change } from 'vomgallStore/gallerySlice';
 
@@ -298,8 +297,8 @@ const Gallery = () => {
             {selectorGallSlice.load ? <Loader /> : ''}
           </div>
           <ul className={ga.listItems}>
-            {selectorGallSlice.itemsBuffer !== null ? (
-              selectorGallSlice.itemsBuffer.map(element => {
+            {selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null? (
+              selectorGallSlice.pageBuffer[selectorGallSlice.pageQuantity.find(element => element.active === true).position].map(element => {
                 return (
                   <li key={element.id} className={ga.item}>
                     <Item data={element} />
@@ -313,8 +312,7 @@ const Gallery = () => {
               </div>
             )}
           </ul>
-          <Pagination />
-        </div>
+        </div> 
       </div>
     </div>
   );
