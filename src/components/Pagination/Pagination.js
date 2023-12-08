@@ -15,21 +15,115 @@ const Pagination = () => {
 
     const [ pagButtonLength, setPagButtonLength ] = useState(true);
     const [windowSize, setWindowSize] = useState(getWindowSize());
+   
+    // const [fractions, setFractions] = useState(selectorGallSlice.pageQuantity.length);
 
     const pagContainer = createRef();
     const pagLabContainer = createRef();
     const pagButtonContainer = createRef();
+    const pagButton = createRef();
 
     function getWindowSize() {
         const {innerWidth} = window;
         return {innerWidth};
-    }
+    };
+
+    useEffect(() => {
+        if(selectorGallSlice.pageQuantity.length !== 0)  dispatch(change({operation: 'changeFractions', data: selectorGallSlice.pageQuantity.length}));
+    },[selectorGallSlice.pageSelector]);
 
     useEffect(() => {
 
-      const widthLimit = pagContainer.current.offsetWidth / 2;    
+        if(selectorGallSlice.fractions.length === selectorGallSlice.pageQuantity.length ) {
+            dispatch(change({operation: 'changeFractions', data: selectorGallSlice.pageQuantity.length}));
+            dispatch(change({operation: 'changePageQuantity', data: []}));
+         } 
+         if(selectorGallSlice.fractions.length < selectorGallSlice.pageQuantity.length) {
+            dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractionPageQuantity.length})); 
+         }
 
-      pagButtonContainer.current.offsetWidth < widthLimit ? setPagButtonLength(true) : setPagButtonLength(false);
+        const pageFraction = () => {
+            // console.log("!");
+            let fractionsPageQuantity = [];
+            let minifractionsPageQuantity = [];
+
+            if(selectorGallSlice.pageQuantity !== null) {
+
+                // this code fraction electorGallSlice.pageQuantity on parts
+                if(selectorGallSlice.pageQuantity.length % selectorGallSlice.fractions === 0) {
+
+                    for(let f=0; f < selectorGallSlice.pageQuantity.length / selectorGallSlice.fractions; f += 1) {
+
+                        minifractionsPageQuantity.push(selectorGallSlice.pageQuantity[f]);
+                        
+                        if(minifractionsPageQuantity.legth === selectorGallSlice.fractions) {
+                            fractionsPageQuantity.push(minifractionsPageQuantity);
+                            minifractionsPageQuantity = [];
+                        }
+                    };
+                    dispatch(change({operation: 'changeFractionPageQuantity', data: fractionsPageQuantity}));
+
+                } else {
+
+                    for(let fn = 0; fn < selectorGallSlice.pageQuantity.length; fn += 1 ) {
+                        // fill totalItemsQuantity.length % selectorGallSlice.pageSelector
+                        if(fractionsPageQuantity.length < Math.round(selectorGallSlice.pageQuantity.length / selectorGallSlice.fractions)){
+                            minifractionsPageQuantity.push(selectorGallSlice.pageQuantity[fn]);
+                            if(minifractionsPageQuantity.length === selectorGallSlice.fractions) {
+                                fractionsPageQuantity.push(minifractionsPageQuantity);
+                                minifractionsPageQuantity = []; 
+                            }  
+                        } else {
+                            // fill rest
+                            minifractionsPageQuantity.push(selectorGallSlice[fn]);
+                        }  
+                    };
+                    fractionsPageQuantity.push(minifractionsPageQuantity);
+                    dispatch(change({operation: 'changeFractionPageQuantity', data: fractionsPageQuantity}));
+                } 
+                // this code fraction electorGallSlice.pageQuantity on parts
+            }
+        };
+        
+        // check if window size became smaller
+        if(windowSize.innerWidth < selectorGallSlice.lastWindowSize) {
+
+            
+
+
+            if(pagButtonContainer.current.offsetWidth > pagContainer.current.offsetWidth * 50 / 100) {
+
+                if(selectorGallSlice.fractions !== 1) {
+                    // increase the value fractions (max - selectorGallSlice.pageQuantity length)
+                    dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractions - 1}));
+                    // setFractions(state => state -= 1);
+                    //  setButtonQuantity((pagContainer.current.offsetWidth * 100 / pagContainer.current.offsetWidth) / pagButton.current.offsetWidth);
+                    pageFraction();
+                }
+            } 
+        } else {
+
+            
+
+            if(pagButtonContainer.current.offsetWidth < pagContainer.current.offsetWidth * 30 / 100) {
+
+                if(selectorGallSlice.fractions < selectorGallSlice.pageQuantity.length) {
+                    
+                    // increase the value fractions (max - selectorGallSlice.pageQuantity length)
+                    dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractions + 1}));
+                    // setFractions(state => state += 1);
+                    //  setButtonQuantity((pagContainer.current.offsetWidth * 100 / pagContainer.current.offsetWidth) / pagButton.current.offsetWidth);
+                    pageFraction();
+
+                }
+                
+            } 
+        }
+        console.log(selectorGallSlice.fractionPageQuantity);
+        console.log(selectorGallSlice.fractions);
+        // remember current window size  
+        dispatch(change({operation: 'changeLastWindowSize', data: windowSize.innerWidth}));
+        console.log(windowSize.innerWidth, selectorGallSlice.lastWindowSize);
     
     },[windowSize.innerWidth]);
 
@@ -162,7 +256,7 @@ const Pagination = () => {
 
     const pageSelected = (evt) => {
 
-        if(selectorGallSlice.pageQuantity.length !== 0) {
+        if(selectorGallSlice.pageQuantity.length !== 1) {
 
             // reset all button (more that one) 
             if(selectorGallSlice.pageQuantity.length > 1){
@@ -202,10 +296,15 @@ const Pagination = () => {
             find(value => value.active === true).position !== 0 ? <button className={pa.next}><LeftImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : ''}
 
             <ul>
-                {selectorGallSlice.pageQuantity !== undefined ? selectorGallSlice.pageQuantity.map(value => 
-                    {return <li key={nanoid()}>{pagButtonLength ? <button style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+            {selectorGallSlice.fractionPageQuantity.length === 0 ? selectorGallSlice.pageQuantity.length !== 0 ? selectorGallSlice.pageQuantity.map(value => 
+                    {return <li key={nanoid()}>{pagButtonLength ? <button ref={pagButton} style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
                     onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
-                ) : ''}
+                ) : '' :
+                selectorGallSlice.fractionPageQuantity[0].map(value => 
+                    {return <li key={nanoid()}>{pagButtonLength ? <button ref={pagButton} style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                    onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
+                ) 
+                }
             </ul>
 
             {selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.pageQuantity.

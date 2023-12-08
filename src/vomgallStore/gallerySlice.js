@@ -26,7 +26,10 @@ const galleryInitialState = {
   loadFiles: null,
   pageSelector: 5,
   pageQuantity: [],
+  fractionPageQuantity: [],
+  fractions: 0,
   pageBuffer: [],
+  lastWindowSize: 0,
 };
 
 const gallerySlice = createSlice({
@@ -90,6 +93,15 @@ const gallerySlice = createSlice({
             break;
           case 'changePageQuantity':
             state.pageQuantity = action.payload.data;
+            break;
+          case 'changeLastWindowSize':
+            state.lastWindowSize = action.payload.data;
+            break;
+          case 'changeFractionPageQuantity':
+            state.fractionPageQuantity = action.payload.data;
+            break;
+          case 'changeFractions':
+            state.fractions = action.payload.data;
             break;
           case 'changePageBuffer':
             state.pageBuffer = action.payload.data;
