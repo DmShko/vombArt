@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { nanoid } from 'nanoid';
 import { change } from 'vomgallStore/gallerySlice';
+import { useResizeDetector} from 'react-resize-detector';
 import { ReactComponent as LeftImg } from '../../images/left-chevron-svgrepo-com.svg';
 import { ReactComponent as RightImg } from '../../images/right-chevron-svgrepo-com.svg';
 
@@ -10,11 +11,18 @@ import pa from './Pagination.module.scss';
 
 const Pagination = () => {
 
+    
     const selectorGallSlice = useSelector(state => state.gallery);
     const dispatch = useDispatch();
 
     const [ pagButtonLength, setPagButtonLength ] = useState(true);
-    const [windowSize, setWindowSize] = useState(getWindowSize());
+    const [windowSize, setWindowSize] = useState();
+
+    // get pagButtonContainer size
+    // const { width, ref } = useResizeDetector();
+
+    // get pagButtonContainer size
+    const { width, ref } = useResizeDetector();
    
     // const [fractions, setFractions] = useState(selectorGallSlice.pageQuantity.length);
 
@@ -23,25 +31,20 @@ const Pagination = () => {
     const pagButtonContainer = createRef();
     const pagButton = createRef();
 
-    function getWindowSize() {
-        const {innerWidth} = window;
-        return {innerWidth};
-    };
+    // function getHandlePagButtonContainer() {
+    //     const {innerWidth} = pagButtonContainer.current;
+    //     return {innerWidth};
+    // };
 
     useEffect(() => {
-        if(selectorGallSlice.pageQuantity.length !== 0)  dispatch(change({operation: 'changeFractions', data: selectorGallSlice.pageQuantity.length}));
-    },[selectorGallSlice.pageSelector]);
-
-    useEffect(() => {
-
-        if(selectorGallSlice.fractions.length === selectorGallSlice.pageQuantity.length ) {
-            dispatch(change({operation: 'changeFractions', data: selectorGallSlice.pageQuantity.length}));
-            dispatch(change({operation: 'changePageQuantity', data: []}));
+        if(selectorGallSlice.pageQuantity.length !== 0 ) {
+            dispatch(change({operation: 'changeFractions', data: 5}));
+            // dispatch(change({operation: 'changePageQuantity', data: []}));
          } 
-         if(selectorGallSlice.fractions.length < selectorGallSlice.pageQuantity.length) {
-            dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractionPageQuantity.length})); 
-         }
+    },[]);
 
+    useEffect(() => {
+ 
         const pageFraction = () => {
             // console.log("!");
             let fractionsPageQuantity = [];
@@ -86,28 +89,28 @@ const Pagination = () => {
         };
         
         // check if window size became smaller
-        if(windowSize.innerWidth < selectorGallSlice.lastWindowSize) {
-
+        if(Math.round(width) < selectorGallSlice.lastWindowSize) {
             
-
-
-            if(pagButtonContainer.current.offsetWidth > pagContainer.current.offsetWidth * 50 / 100) {
-
-                if(selectorGallSlice.fractions !== 1) {
-                    // increase the value fractions (max - selectorGallSlice.pageQuantity length)
-                    dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractions - 1}));
+            if(pagButtonContainer.current.offsetWidth > Math.round(width) * 50 / 100 && selectorGallSlice.fractions > 1) {
+                // increase the value fractions (max - selectorGallSlice.pageQuantity length)
+                dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractions - 1}));
+                // if() {
+                    
                     // setFractions(state => state -= 1);
                     //  setButtonQuantity((pagContainer.current.offsetWidth * 100 / pagContainer.current.offsetWidth) / pagButton.current.offsetWidth);
-                    pageFraction();
-                }
-            } 
+                pageFraction();
+                // }
+                // if(selectorGallSlice.fractionPageQuantity.length !== 0)
+                // dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractionPageQuantity.length})); 
+            } else {
+
+            }
+
         } else {
-
             
+            if(pagButtonContainer.current.offsetWidth < Math.round(width) * 50 / 100 && selectorGallSlice.fractions < selectorGallSlice.pageQuantity.length) {
 
-            if(pagButtonContainer.current.offsetWidth < pagContainer.current.offsetWidth * 30 / 100) {
-
-                if(selectorGallSlice.fractions < selectorGallSlice.pageQuantity.length) {
+                // if() {
                     
                     // increase the value fractions (max - selectorGallSlice.pageQuantity length)
                     dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractions + 1}));
@@ -115,34 +118,41 @@ const Pagination = () => {
                     //  setButtonQuantity((pagContainer.current.offsetWidth * 100 / pagContainer.current.offsetWidth) / pagButton.current.offsetWidth);
                     pageFraction();
 
-                }
-                
+                // }
+                // if(selectorGallSlice.fractionPageQuantity.length !== 0)
+                // dispatch(change({operation: 'changeFractions', data: selectorGallSlice.fractionPageQuantity.length}));
             } 
+            
         }
         console.log(selectorGallSlice.fractionPageQuantity);
         console.log(selectorGallSlice.fractions);
         // remember current window size  
-        dispatch(change({operation: 'changeLastWindowSize', data: windowSize.innerWidth}));
-        console.log(windowSize.innerWidth, selectorGallSlice.lastWindowSize);
+        dispatch(change({operation: 'changeLastWindowSize', data: Math.round(width)}));
+        console.log(selectorGallSlice.lastWindowSize, Math.round(width));
     
-    },[windowSize.innerWidth]);
+    },[width]);
 
-    useEffect(() => {
-        function handleWindowResize() {
-          setWindowSize(getWindowSize());
-        }
-      
-        window.addEventListener('resize', handleWindowResize);
-      
-        return () => {
-          window.removeEventListener('resize', handleWindowResize);
-        };
-    }, []);
+    // function getWindowSize() {
+    //     const {innerWidth} = window;
+    //     return {innerWidth};
+    // }
+
+    // useEffect(() => {
+    //     function handleWindowResize() {
+    //       setWindowSize(getWindowSize());
+    //     }
+    
+    //     window.addEventListener('resize', handleWindowResize);
+    
+    //     return () => {
+    //       window.removeEventListener('resize', handleWindowResize);
+    //     };
+    // }, []);
 
     useEffect(() => {
        
         pagesCreator();
-        console.log(selectorGallSlice.pageBuffer);
+  
         
     },[selectorGallSlice.pageQuantity]);
 
@@ -258,22 +268,47 @@ const Pagination = () => {
 
         if(selectorGallSlice.pageQuantity.length !== 1) {
 
-            // reset all button (more that one) 
-            if(selectorGallSlice.pageQuantity.length > 1){
+                // reset all button (more that one) 
+                if(selectorGallSlice.pageQuantity.length > 1) {
 
-               selectorGallSlice.pageQuantity.forEach(element => {
-                dispatch(change({operation: 'changePageQuantityReset', data: element.name}));
+                selectorGallSlice.pageQuantity.forEach(element => {
+                    dispatch(change({operation: 'changePageQuantityReset', data: element.name}));
 
-               }); 
+                }); 
 
-                dispatch(change({operation: 'changePageQuantityActive', data: evt.target.name}));};
+                    dispatch(change({operation: 'changePageQuantityActive', data: evt.target.name}));
+                };
             }
             
     };
 
+    const pagChange = (evt) => {
+
+        if(selectorGallSlice.selectfractionPage.length !== 0) {
+           
+            switch(evt.currentTarget.name) {
+                case 'begin':
+                    dispatch(change({operation: 'changeSelectfractionPage', data: 0}));
+                    break;
+                case 'prev':
+                    if(selectorGallSlice.selectfractionPage !== 0)
+                        dispatch(change({operation: 'changeSelectfractionPage', data: selectorGallSlice.selectfractionPage - 1}));
+                    break;
+                case 'next':
+                    if(selectorGallSlice.selectfractionPage !== selectorGallSlice.selectfractionPage.length - 1)
+                        dispatch(change({operation: 'changeSelectfractionPage', data: selectorGallSlice.selectfractionPage + 1}));
+                    break;
+                case 'end':
+                    dispatch(change({operation: 'changeSelectfractionPage', data: selectorGallSlice.fractionPageQuantity.length - 1}));
+                    break;
+                default: break;    
+            }
+        }
+    };
+
     return(
         
-    <div className={pa.container} ref={pagContainer}>
+    <div className={pa.container} ref={ref}>
         
         <label className={pa.lab} ref={pagLabContainer}> Quantity/page
             <select className={pa.datalist} value={selectorGallSlice.pageSelector} onChange={selectChange}>
@@ -289,28 +324,30 @@ const Pagination = () => {
 
         <div className={pa.buttonSet} ref={pagButtonContainer}>
             
-            {selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.pageQuantity.
-            find(value => value.active === true).position !== 0 ? <button className={pa.rewind}><LeftImg style={{width: '20px', height: '20px', color: 'gray'}} /> <LeftImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : ''}
+           {selectorGallSlice.fractionPageQuantity.length !== selectorGallSlice.pageQuantity.length ? selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.selectfractionPage
+             !== 0 ? <button className={pa.rewind} name={'begin'} onClick={pagChange}><LeftImg style={{width: '20px', height: '20px', color: 'gray'}} /> <LeftImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : '':''}
 
-            {selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.pageQuantity.
-            find(value => value.active === true).position !== 0 ? <button className={pa.next}><LeftImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : ''}
+            {selectorGallSlice.fractionPageQuantity.length !== selectorGallSlice.pageQuantity.length ? selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.selectfractionPage
+             !== 0 ? <button className={pa.next} name={'prev'} onClick={pagChange}><LeftImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : '' : ''}
 
             <ul>
-            {selectorGallSlice.fractionPageQuantity.length === 0 ? selectorGallSlice.pageQuantity.length !== 0 ? selectorGallSlice.pageQuantity.map(value => 
-                    {return <li key={nanoid()}>{pagButtonLength ? <button ref={pagButton} style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
-                    onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
-                ) : '' :
-                selectorGallSlice.fractionPageQuantity[0].map(value => 
-                    {return <li key={nanoid()}>{pagButtonLength ? <button ref={pagButton} style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
-                    onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
-                ) 
+                {
+                    selectorGallSlice.fractionPageQuantity.length === 0 ? selectorGallSlice.pageQuantity.length !== 0 ? selectorGallSlice.pageQuantity.map(value => 
+                        {return <li key={nanoid()}>{pagButtonLength ? <button ref={pagButton} style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
+                    ) : '' :
+                    selectorGallSlice.fractionPageQuantity[selectorGallSlice.selectfractionPage].map(value => 
+                        {return <li key={nanoid()}>{pagButtonLength ? <button ref={pagButton} style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
+                    ) 
                 }
             </ul>
 
-            {selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.pageQuantity.
-            find(value => value.active === true).position !== selectorGallSlice.pageQuantity.length - 1 ? <button className={pa.next}><RightImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : ''}
-            {selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.pageQuantity.
-            find(value => value.active === true).position !== selectorGallSlice.pageQuantity.length - 1 ? <button className={pa.rewind}><RightImg style={{width: '20px', height: '20px', color: 'gray'}} /><RightImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : ''}
+            {selectorGallSlice.fractionPageQuantity.length !== selectorGallSlice.pageQuantity.length ? selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.selectfractionPage
+             !== selectorGallSlice.selectfractionPage.length - 1 ? <button className={pa.next} name={'next'} onClick={pagChange}><RightImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : '':''}
+
+            {selectorGallSlice.fractionPageQuantity.length !== selectorGallSlice.pageQuantity.length ? selectorGallSlice.pageQuantity.length !== 0 && selectorGallSlice.selectfractionPage
+             !== selectorGallSlice.selectfractionPage.length - 1 ? <button className={pa.rewind} name={'end'} onClick={pagChange}><RightImg style={{width: '20px', height: '20px', color: 'gray'}} /><RightImg style={{width: '20px', height: '20px', color: 'gray'}} /></button> : '' : ''}
 
         </div>
             

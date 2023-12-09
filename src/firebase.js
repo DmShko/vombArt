@@ -13,7 +13,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_API_ID,
 
   databaseURL: 'https://vombart-db71c-default-rtdb.firebaseio.com/',
-  storageBucket: 'gs://vombart-db71c.appspot.com',
+  // storageBucket: 'gs://vombart-db71c.appspot.com',
 };
 
 // Initialize Firebase

@@ -27,9 +27,10 @@ const galleryInitialState = {
   pageSelector: 5,
   pageQuantity: [],
   fractionPageQuantity: [],
-  fractions: 0,
+  fractions: 1,
   pageBuffer: [],
   lastWindowSize: 0,
+  selectfractionPage: 0,
 };
 
 const gallerySlice = createSlice({
@@ -103,6 +104,9 @@ const gallerySlice = createSlice({
           case 'changeFractions':
             state.fractions = action.payload.data;
             break;
+          case 'changeSelectfractionPage':
+            state.selectfractionPage = action.payload.data;
+              break;
           case 'changePageBuffer':
             state.pageBuffer = action.payload.data;
             break;
