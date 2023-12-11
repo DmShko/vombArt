@@ -169,11 +169,11 @@ const Pagination = () => {
         } 
     };
 
-    const fill = (total, onePage) => {
+    const fill = (total, onePage, mode) => {
 
         const pages = [];
 
-        for(let i = 0; i < total / onePage; i += 1)
+        for(let i = 0; i < Math.round(total / onePage + mode); i += 1)
         {
             // each button have been 'state' - by click and value for print as her name (1,2,3...) 
             i === 0 ? pages.push({name: i + 1, active: true, position: i,}) :
@@ -194,13 +194,13 @@ const Pagination = () => {
             {
                 if(totalItemsQuantity.length % selectorGallSlice.pageSelector === 0) {
 
-                    const pagesFill = fill(totalItemsQuantity.length, selectorGallSlice.pageSelector);
+                    const pagesFill = fill(totalItemsQuantity.length, selectorGallSlice.pageSelector, 0);
                     dispatch(change({operation: 'changePageQuantity', data: pagesFill}));
                  
 
                 } else {
 
-                    const pagesFill = fill(totalItemsQuantity.length, selectorGallSlice.pageSelector + 1);
+                    const pagesFill = fill(totalItemsQuantity.length, selectorGallSlice.pageSelector, 1);
                     dispatch(change({operation: 'changePageQuantity', data: pagesFill}));
                     
                   
@@ -224,19 +224,28 @@ const Pagination = () => {
 
     const pageSelected = (evt) => {
 
-        if(selectorGallSlice.pageQuantity.length !== 1) {
-
-                // reset all button (more that one) 
-                if(selectorGallSlice.pageQuantity.length > 1) {
+        // if(selectorGallSlice.pageQuantity.length !== 1) {
+            // if(selectorGallSlice.fractionPageQuantity.length === 0) {
+            // reset all button (more that one) 
+            if(selectorGallSlice.pageQuantity.length > 1) {
 
                 selectorGallSlice.pageQuantity.forEach(element => {
                     dispatch(change({operation: 'changePageQuantityReset', data: element.name}));
 
                 }); 
 
-                    dispatch(change({operation: 'changePageQuantityActive', data: evt.target.name}));
-                };
-            }
+                dispatch(change({operation: 'changePageQuantityActive', data: evt.target.name}));
+            };
+
+            if(selectorGallSlice.fractionPageQuantity.length !== 0){
+             
+                // reset all button (more that one) 
+                dispatch(change({operation: 'changeFractionPageQuantityReset'}));
+
+                // set'sctive' field to true
+                dispatch(change({operation: 'changeFractionPageQuantityActive', data: evt.target.name}));
+            };
+            // }
             
     };
 

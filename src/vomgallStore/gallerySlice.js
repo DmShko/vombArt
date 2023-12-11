@@ -117,6 +117,22 @@ const gallerySlice = createSlice({
           case 'changePageQuantityReset':
             state.pageQuantity.find(value => value.name === Number(action.payload.data)).active = false;
             break;
+          case 'changeFractionPageQuantityActive':
+           
+            state.fractionPageQuantity.forEach(element => {
+          
+              element.find(value => value.name === Number(action.payload.data)).active = 
+              !element.find(value => value.name === Number(action.payload.data)).active;
+
+            });
+            break;
+          case 'changeFractionPageQuantityReset':
+            state.fractionPageQuantity.forEach(element => element.forEach(element => {
+
+              element.active = false;
+
+            })); 
+            break;
           default:
             break;
         }

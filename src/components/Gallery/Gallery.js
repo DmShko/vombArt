@@ -14,7 +14,9 @@ import Item from '../WorkSpace/Item/Item';
 import { change } from 'vomgallStore/gallerySlice';
 
 import { ReactComponent as BlotImg } from '../../images/paint-mark-1-svgrepo-com.svg';
-
+import { ReactComponent as WriteImg } from '../../images/edit-pen-write-1-svgrepo-com.svg';
+import { ReactComponent as MusicImg } from '../../images/music-note-svgrepo-com.svg';
+import { ReactComponent as DrawImg } from '../../images/palette-svgrepo-com.svg';
 const Gallery = () => {
 
   const dispatch = useDispatch();
@@ -115,9 +117,9 @@ const Gallery = () => {
   }, [pathSelector]);
 
   // handler arts button click
-  const clickButtonArts = ({ target }) => {
+  const clickButtonArts = ({ currentTarget }) => {
 
-    switch (target.name) {
+    switch (currentTarget.name) {
       case 'Lirics':
         
         // visibility 'Lirics' on
@@ -194,20 +196,27 @@ const Gallery = () => {
           }
           name="Lirics"
           onClick={clickButtonArts}
-        >
-          Lirics
+        > 
+          <div className={ga.artIcon}>Lirics <WriteImg style={
+            { width: '20px', height: '20px', }
+          }/></div>
+          
         </button>
         <button
           type="button"
           style={
             selectorUserPath.logicPath.arts.music
-              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
-              : { backgroundColor: 'rgba(209, 209, 209, 0.522)' }
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', borderLeft: '2px solid white',
+              borderRight: '2px solid white', }
+              : { backgroundColor: 'rgba(209, 209, 209, 0.522)', borderLeft: '2px solid white',
+              borderRight: '2px solid white', }
           }
           name="Music"
           onClick={clickButtonArts}
         >
-          Music
+          <div className={ga.artIcon}> Music <MusicImg style={
+            { width: '20px', height: '20px',}
+          }/></div>
         </button>
         <button
           type="button"
@@ -219,7 +228,9 @@ const Gallery = () => {
           name="Drawing"
           onClick={clickButtonArts}
         >
-          Drawing
+          <div className={ga.artIcon}>Drawing <DrawImg style={
+            { width: '20px', height: '20px', }
+          }/></div>
         </button>
       </div>
 
