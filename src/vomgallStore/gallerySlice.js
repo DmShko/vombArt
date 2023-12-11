@@ -119,12 +119,12 @@ const gallerySlice = createSlice({
             break;
           case 'changeFractionPageQuantityActive':
            
-            state.fractionPageQuantity.forEach(element => {
+            state.fractionPageQuantity.forEach(element => element.forEach(element =>{
           
-              element.find(value => value.name === Number(action.payload.data)).active = 
-              !element.find(value => value.name === Number(action.payload.data)).active;
+              if(element.name === Number(action.payload.data))  element.active = 
+              !element.active ;
 
-            });
+            }));
             break;
           case 'changeFractionPageQuantityReset':
             state.fractionPageQuantity.forEach(element => element.forEach(element => {

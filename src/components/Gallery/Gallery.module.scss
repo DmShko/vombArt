@@ -26,6 +26,7 @@
     .arts {
 
         display: flex;
+        height: 25px;
         gap: 0;
 
         border: none;
@@ -33,7 +34,7 @@
 
         button {
             width: calc(100%/3);
-            height: 20px;
+            height: 100%;
 
             border-radius: 0;
             border: 2px solid white;
@@ -48,6 +49,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+
         }
     }
     .style {
