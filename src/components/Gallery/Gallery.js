@@ -10,6 +10,7 @@ import { changePath } from 'vomgallStore/pathSlice';
 import pathCreator from '../MageChat/pathCreator/pathCreator';
 import { Loader } from 'components/Loader/Loader';
 import Item from '../WorkSpace/Item/Item';
+import readerStorAPI from '../../API/readerStorageAPI'
 
 import { change } from 'vomgallStore/gallerySlice';
 
@@ -17,6 +18,7 @@ import { ReactComponent as BlotImg } from '../../images/paint-mark-1-svgrepo-com
 import { ReactComponent as WriteImg } from '../../images/edit-pen-write-1-svgrepo-com.svg';
 import { ReactComponent as MusicImg } from '../../images/music-note-svgrepo-com.svg';
 import { ReactComponent as DrawImg } from '../../images/palette-svgrepo-com.svg';
+
 const Gallery = () => {
 
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const Gallery = () => {
   const [musicVisible, setMusicVisible] = useState(false);
   const [liricsVisible, setLiricsVisible] = useState(false);
  
+
   useEffect(() => {
     // retun true if element contain true
     const findProperty = data => {
@@ -101,6 +104,16 @@ const Gallery = () => {
             dispatch(change({ operation: 'changeItemsBuffer', data: null }));
             dispatch(change({ operation: 'changeMessagesBuffer', data: null }));
           }
+        });
+      }
+
+      // get elements URL from fireBase Storage
+      if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
+        
+        selectorGallSlice.itemsBuffer.forEach(element => {
+
+          dispatch(readerStorAPI(`${path[0]}${element.id}`, element.id));
+
         });
       }
     }
