@@ -11,6 +11,9 @@ import { change } from 'vomgallStore/gallerySlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
 
+import {ReactComponent as KeyImg} from '../../images/key-svgrepo-com.svg';
+import {ReactComponent as EmailImg} from '../../images/email-8-svgrepo-com.svg';
+
 // component import
 // import ModalArt from 'components/ModalArt/ModalArt';
 
@@ -197,7 +200,7 @@ const SharedLayout = () => {
                
              
                 {selectorTargetName === 'about'? 
-                <div >
+                <div className={sh.about}>
                     <h2 style={{color: 'black'}}>About VomBart and me.</h2>
                     <p>Hello! My name is Dmitry. I have many hobbies, including painting. 
                             Since childhood, I dreamed of learning to draw professionally, because
@@ -208,12 +211,14 @@ const SharedLayout = () => {
                              </p>
                 </div> : ''}
               
-                {selectorTargetName === 'contacts' ? <div>
+                {selectorTargetName === 'contacts' ? 
+                <div className={sh.contacts}>
                     <p style={{color: 'black'}}> LinkedIn: </p>
                     <p style={{color: 'black'}}> Email: </p>
                 </div> : ''}
 
-                {selectorTargetName === 'singUp' ? <div>
+                {selectorTargetName === 'singUp' ? 
+                <div className={sh.singUp}>
                     <form className={sh.fise} onSubmit={handleSubmit(addUser)}>
                         <fieldset>
                         <legend>SingUp</legend>
@@ -251,12 +256,13 @@ const SharedLayout = () => {
                     </form>
                 </div> : ''}
 
-                {selectorTargetName === 'singIn' ? <div>
+                {selectorTargetName === 'singIn' ? 
+                <div className={sh.singIn}>
                     <form className={sh.fise} onSubmit={handleSubmit(addUser)}>
                         <fieldset >
-                        <legend >LogIn</legend>
+                        <legend >SingIn</legend>
                             <div className={sh.field}>
-                            <label className={sh.lab}> Email
+                            <label className={sh.lab}> <EmailImg style={{width: '25px', height: '25px',}}/>
                                 <input {...register('Email', {required: 'Please fill the Email field!', 
             
                                 maxLength: {value:16, message: 'Invalid length!'},  value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
@@ -269,7 +275,7 @@ const SharedLayout = () => {
                                 placeholder="Enter email..."></input>
                             </label>
 
-                            <label className={sh.lab}> Password
+                            <label className={sh.lab}> <KeyImg style={{width: '25px', height: '25px',}} />
                             <input {...register('Password', {required: 'Please fill the Password field!', 
             
                             maxLength: {value:16, message: 'Invalid length!'},  value:password,})}
@@ -283,7 +289,7 @@ const SharedLayout = () => {
                             placeholder="Enter password..."></input>
                             </label>
 
-                            <button className={sh.button}>LogIn</button>
+                            <button className={sh.button}>SingIn</button>
                         </div>
                         
                         </fieldset>

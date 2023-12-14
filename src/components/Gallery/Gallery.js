@@ -24,6 +24,7 @@ const Gallery = () => {
   const dispatch = useDispatch();
   const selectorGallSlice = useSelector(state => state.gallery);
   const selectorUserPath = useSelector(state => state.path);
+  const selectorItemsUrl = useSelector(state => state.readStorage);
   const pathSelector = selectorUserPath.logicPath ;
 
   const [drawVisible, setDrawVisible] = useState(true);
@@ -112,9 +113,11 @@ const Gallery = () => {
         
         selectorGallSlice.itemsBuffer.forEach(element => {
 
-          dispatch(readerStorAPI(`${path[0]}${element.id}`, element.id));
-
+          dispatch(readerStorAPI({path: `${path[0]}${element.id}`, elementId: element.id}));
+          
         });
+
+
       }
     }
 
@@ -128,6 +131,26 @@ const Gallery = () => {
     }
       
   }, [pathSelector]);
+
+  useEffect(() => {
+
+    if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
+        
+      selectorGallSlice.itemsBuffer.forEach(element => {
+
+        // add url to elementsBuffer
+        if(selectorItemsUrl.itemsURL.length !== 0) {
+          selectorItemsUrl.itemsURL.forEach(value => {if(value.id === element.id) 
+            dispatch(change({operation: 'changeItemsUrl', id: element.id, url: selectorItemsUrl.itemsURL.find(value => value.id === element.id).url,}));
+          });
+          
+        }
+        
+      });
+
+    }
+     
+  },[selectorItemsUrl.itemsURL]);
 
   // handler arts button click
   const clickButtonArts = ({ currentTarget }) => {

@@ -3,19 +3,21 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const readerStorAPI = createAsyncThunk(
   'readStorage/readerStorAPI', 
-  async function (path, elementId) {
+  async function ({path, elementId}) {
 
     const storage = getStorage();
-     
-    return await getDownloadURL(ref(storage, `${path}.jpg`))
+  
+    console.log(elementId); 
+    return await getDownloadURL(ref(storage,`${path}`))
       .then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
-       
-        return {id: elementId, URL: url};
+        // console.log(url);
+        return {elementId, url};
     
       })
       .catch((error) => {
         // Handle any errors
+      
         return error.message;
       });
     

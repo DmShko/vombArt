@@ -74,6 +74,9 @@ const gallerySlice = createSlice({
           case 'changeItemsBuffer':
             state.itemsBuffer = action.payload.data;
             break;
+          case 'changeItemsUrl':
+            state.itemsBuffer.find(element => element.id === action.payload.id).url = action.payload.url;
+            break;
           case 'changeMessagesBuffer':
             state.messagesBuffer = action.payload.data;
             break;

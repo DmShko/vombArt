@@ -108,7 +108,7 @@ const NewItem = () => {
 
   const addItem = (_, evt) => {
     evt.preventDefault();
-    console.log(selectorGallerySlice.itemsBuffer);
+ 
     // check selected arts and style
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
       // create items tree
@@ -121,7 +121,7 @@ const NewItem = () => {
       // to database
       writeUserData(
         path,
-        { title: title, description: description },
+        { title: title, description: description, url: ''},
         selectorGallerySlice.date
       );
       setStoragePath(path);
