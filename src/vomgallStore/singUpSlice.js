@@ -10,6 +10,7 @@ const singUpSliceInitialState = {
   token: '',
   usersId: '',
   email:'',
+  userName:'',
   userExist: false,
 };
 
@@ -22,6 +23,9 @@ const singUpSlice = createSlice({
       switch(action.payload.operation){
         case 'changeusersId':
           state.usersId = action.payload.data;
+          break;
+        case 'changeUserName':
+          state.userName = action.payload.data;
           break;
         case 'changeUserExist':
             state.userExist = action.payload.data;

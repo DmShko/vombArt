@@ -48,7 +48,7 @@ const Users = () => {
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value =>
 
-            <li key={nanoid()} className={us.usersitem} onClick={clickUser}><p>{value.name}</p> {value.status? <p className={us.status}>online</p> : ''} </li>
+            <li key={nanoid()} className={us.usersitem} onClick={clickUser}><p>{value.userName}</p> {value.status? <p className={us.status}>online</p> : ''} </li>
             
          )}
         </ul>

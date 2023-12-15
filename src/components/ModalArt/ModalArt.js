@@ -14,12 +14,14 @@ const ModalArt = ({ openClose, children }) => {
 
   const componentMount = () => {
     window.addEventListener('keydown', driveModal);
+    document.body.style.overflow = 'hidden'
   };
 
   useEffect(() => {
     componentMount();
     return () => {
       window.removeEventListener('keydown', driveModal);
+      document.body.style.overflow = 'scroll'
     };
    // eslint-disable-next-line
   }, []);

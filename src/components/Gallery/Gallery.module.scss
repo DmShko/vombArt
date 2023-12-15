@@ -85,6 +85,18 @@
         
     }
 
+    .total {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        font-weight: 600;
+
+        color: white;
+    }
+
     .listItems {
 
         display: flex;
@@ -131,6 +143,7 @@
 
             gap: 20px;
         }
+
     }
     
 }

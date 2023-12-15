@@ -276,7 +276,7 @@ const Gallery = () => {
           <ul className={ga.style}>
             {drawVisible
               ? selectorGallSlice.users
-                  .find(value => value.name === selectorUserPath.logicPath.name)
+                  .find(value => value.userName === selectorUserPath.logicPath.name)
                   .arts.draw.style.map(value => (
                     <li key={nanoid()}>
                       <button
@@ -296,7 +296,7 @@ const Gallery = () => {
               : ''}
             {musicVisible
               ? selectorGallSlice.users
-                  .find(value => value.name === selectorUserPath.logicPath.name)
+                  .find(value => value.userName === selectorUserPath.logicPath.name)
                   .arts.music.style.map(value => (
                     <li key={nanoid()}>
                       <button
@@ -317,7 +317,7 @@ const Gallery = () => {
 
             {liricsVisible
               ? selectorGallSlice.users
-                  .find(value => value.name === selectorUserPath.logicPath.name)
+                  .find(value => value.userName === selectorUserPath.logicPath.name)
                   .arts.lirics.style.map(value => (
                     <li key={nanoid()}>
                       <button
@@ -339,7 +339,13 @@ const Gallery = () => {
         </div>
 
         <div>
-          <p className={ga.title}>Elements</p>
+          <div className={ga.total}>
+
+            <p className={ga.title}>Elements</p>
+            <p className={ga.title}></p>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? `total ${selectorGallSlice.itemsBuffer.length} pcs`: 'total 0 pcs'}
+            
+          </div>
+          
           <div className={ga.loadContainer}>
             {selectorGallSlice.load ? <Loader /> : ''}
           </div>

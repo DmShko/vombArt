@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const galleryInitialState = {
   users: [
     {
-      name: 'Admin',
+      userName: 'Admin',
+      email: 'admin@gmail.com',
       arts: {
         lirics: { name: 'Lirics', style: ['Poem', 'Liric'] },
         music: { name: 'Music', style: ['Classic', 'Pop'] },
@@ -48,6 +49,11 @@ const gallerySlice = createSlice({
             state.users.find(
               value => value.uid === action.payload.data.id
             ).status = action.payload.data.status;
+            break;
+          case 'changeUserName':
+            state.users.find(
+              value => value.email === action.payload.data.email
+            ).userName = action.payload.data.userName;
             break;
           case 'changeUsers':
             state.users = [...state.users, action.payload.data];
