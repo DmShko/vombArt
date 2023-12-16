@@ -46,12 +46,17 @@ const pathSlice = createSlice({
       addPath(state, action) {
         state.logicPath.action.payload.changeElement = action.payload.data;
       },
+
+      changePathName(state, action) {
+        state.logicPath.name = action.payload.data;
+      },
     }
 
   }
 );
 
 export const {
-    changePath
+    changePath,
+    changePathName,
 } = pathSlice.actions;
 export default pathSlice.reducer;

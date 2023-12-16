@@ -7,6 +7,7 @@ import ModalArt from 'components/ModalArt/ModalArt';
 import singUpAPI from '../../API/singUpAPI';
 import singInAPI from '../../API/singInAPI';
 import singOutAPI from '../../API/singOutAPI';
+import writeUserData from 'API/writerDB';
 import { change } from 'vomgallStore/gallerySlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
@@ -33,6 +34,9 @@ const SharedLayout = () => {
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
   const dispatch = useDispatch();
+
+  const selectorGallSlice = useSelector(state => state.gallery);
+  const selectorSingIn = useSelector(state => state.singIn);
   const selectorTargetName = useSelector(state => state.gallery.buttonTargetName);
   const selectorVisibilityLog = useSelector(state => state.singIn.isSingIn);
   const selectorsingUpState = useSelector(state => state.singUp);
@@ -50,9 +54,20 @@ const SharedLayout = () => {
 
   },[selectorsingUpState.userName]);
 
+  // add user array to DB, when he was changed
+  useEffect(() => {
+    // add user array to database
+    writeUserData(
+        '/users',
+        selectorGallSlice.users,
+        null, true
+    );
+
+  },[selectorGallSlice.users]);
+
   useEffect(() => {
    
-    // add new user object but not add, when page reloader selectorUserExist change to false again in singUp
+    // add new user object but not add, when page reloader selectorUserExist change to false again in 'singUp'
     // when new user add do database
     if(selectorsingUpState.email !== '' && selectorUserExist === false) {
             
@@ -87,7 +102,8 @@ const SharedLayout = () => {
 
   useEffect(() => {
 
-    if(selectorsingUpState.usersId !== '') dispatch(singInAPI({email: email, password: password}));
+    // only if no current logIn users and modal window is closed
+    if(selectorsingUpState.usersId !== '' && modalToggle === true) dispatch(singInAPI({email: email, password: password}));
 
   },[selectorsingUpState.usersId]);
  
@@ -229,7 +245,7 @@ const SharedLayout = () => {
                             <p className={sh.linkNav} onClick={toggleModal} id='singIn'>SingIn</p>
                            
                         </li>
-                    </ul> : <button className={sh.button} onClick={userLogOut} id='singOut' type='button'>{selectorsingUpState.userName}</button>}
+                    </ul> : <button className={sh.button} onClick={userLogOut} id='singOut' type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</button>}
 
                 </nav>  
             </header>

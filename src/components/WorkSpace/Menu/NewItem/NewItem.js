@@ -117,12 +117,13 @@ const NewItem = () => {
         section: 'items',
         contents: 'elements',
         write: true,
+        users: selectorGallerySlice.users,
       });
       // to database
       writeUserData(
         path,
         { title: title, description: description, url: ''},
-        selectorGallerySlice.date
+        selectorGallerySlice.date, false
       );
       setStoragePath(path);
       // storage(path, file);

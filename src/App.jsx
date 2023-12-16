@@ -37,7 +37,7 @@ const appRoutes = [
 
           {appRoutes.map(({ path, element }) => 
           {return <Route key={nanoid()} path={path} element={element}/>})}
-
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </>

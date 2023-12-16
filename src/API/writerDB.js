@@ -3,12 +3,16 @@
 
 import { getDatabase, ref, set } from "firebase/database";
 
-function writeUserData(path, data, date) {
+function writeUserData(path, data, date, mode) {
   
   const db = getDatabase();
-  set(ref(db, path), {
-    date: date.datedata + '/' + date.yeardata, time: date.timedata, ...data,
-  });
-}
+  if(mode === false) {
+    set(ref(db, path), {
+      date: date.datedata + '/' + date.yeardata, time: date.timedata, ...data,
+    });
+  } else {
+    set(ref(db, path),{...data});
+  };
+};
 
 export default writeUserData;

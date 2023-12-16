@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 
 import ga from './Gallery.module.scss'
@@ -13,6 +14,8 @@ import Item from '../WorkSpace/Item/Item';
 import readerStorAPI from '../../API/readerStorageAPI'
 
 import { change } from 'vomgallStore/gallerySlice';
+import { changeReadStorage } from 'vomgallStore/readSlice'
+import { changePathName } from 'vomgallStore/pathSlice'
 
 import { ReactComponent as BlotImg } from '../../images/paint-mark-1-svgrepo-com.svg';
 import { ReactComponent as WriteImg } from '../../images/edit-pen-write-1-svgrepo-com.svg';
@@ -30,9 +33,13 @@ const Gallery = () => {
   const [drawVisible, setDrawVisible] = useState(true);
   const [musicVisible, setMusicVisible] = useState(false);
   const [liricsVisible, setLiricsVisible] = useState(false);
- 
+  const location = useLocation();
 
   useEffect(() => {
+
+    
+    // dispatch(changeReadStorage({operation: `changeItemsURL`}));
+
     // retun true if element contain true
     const findProperty = data => {
       for (const key in data) {
@@ -46,12 +53,14 @@ const Gallery = () => {
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
       dispatch(change({ operation: 'changeLoad', data: true }));
       // create items tree and create chats tree
+
       const path = [
         pathCreator({
           pathSelector,
           section: 'items',
           contents: 'elements',
           write: false,
+          users: selectorGallSlice.users,
         }),
 
         pathCreator({
@@ -59,6 +68,7 @@ const Gallery = () => {
           section: 'chats',
           contents: 'messages',
           write: false,
+          users: selectorGallSlice.users,
         }),
       ];
 
@@ -111,6 +121,8 @@ const Gallery = () => {
       // get elements URL from fireBase Storage
       if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
         
+        dispatch(changeReadStorage({operation: `changeItemsURL`}));
+        
         selectorGallSlice.itemsBuffer.forEach(element => {
 
           dispatch(readerStorAPI({path: `${path[0]}${element.id}`, elementId: element.id}));
@@ -129,6 +141,9 @@ const Gallery = () => {
       }
 
     }
+
+    // if(location.pathname === 'community') dispatch(changePathName({ changeElement: 'name', data: true }));
+    
       
   }, [pathSelector]);
 
@@ -138,7 +153,7 @@ const Gallery = () => {
         
       selectorGallSlice.itemsBuffer.forEach(element => {
 
-        // add url to elementsBuffer
+        // add url to itemsBuffer
         if(selectorItemsUrl.itemsURL.length !== 0) {
           selectorItemsUrl.itemsURL.forEach(value => {if(value.id === element.id) 
             dispatch(change({operation: 'changeItemsUrl', id: element.id, url: selectorItemsUrl.itemsURL.find(value => value.id === element.id).url,}));

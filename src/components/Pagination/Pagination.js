@@ -13,10 +13,11 @@ const Pagination = () => {
 
     
     const selectorGallSlice = useSelector(state => state.gallery);
+    // const selectorItemsUrl = useSelector(state => state.readStorage);
     const dispatch = useDispatch();
 
-    const [ pagButtonLength, setPagButtonLength ] = useState(true);
-    const [windowSize, setWindowSize] = useState();
+    // const [ pagButtonLength, setPagButtonLength ] = useState(true);
+    // const [windowSize, setWindowSize] = useState();
 
     // get pagButtonContainer size
     const { width, ref } = useResizeDetector();
@@ -88,7 +89,7 @@ const Pagination = () => {
         };
         
         // calculating, when page's button fits end correct quality of it on page
-        let counter = Math.round((selectorGallSlice.lastWindowSize - 400) / 50);
+        let counter = Math.floor((selectorGallSlice.lastWindowSize - 400) / 50);
               
         if(counter > 0 && counter <= selectorGallSlice.pageQuantity.length) {
            dispatch(change({operation: 'changeFractions', data: counter})); 
@@ -112,7 +113,7 @@ const Pagination = () => {
         pagesCreator();
   
         
-    },[selectorGallSlice.pageQuantity]);
+    },[selectorGallSlice.pageQuantity, selectorGallSlice.itemsBuffer]);
 
     useEffect(() => {
 
@@ -146,7 +147,7 @@ const Pagination = () => {
                    
                     for(let c = 0; c < totalItemsQuantity.length; c += 1 ) {
                         // fill totalItemsQuantity.length % selectorGallSlice.pageSelector
-                        if(mainPageBuffer.length < Math.round(totalItemsQuantity.length / selectorGallSlice.pageSelector)){
+                        if(mainPageBuffer.length < Math.floor(totalItemsQuantity.length / selectorGallSlice.pageSelector)){
                             miniPageBuffer.push(totalItemsQuantity[c]);
                             if(miniPageBuffer.length === selectorGallSlice.pageSelector) {
                                mainPageBuffer.push(miniPageBuffer);
@@ -173,13 +174,13 @@ const Pagination = () => {
 
         const pages = [];
 
-        for(let i = 0; i < Math.round(total / onePage + mode); i += 1)
+        for(let i = 0; i < Math.floor(total / onePage ) + mode; i += 1)
         {
             // each button have been 'state' - by click and value for print as her name (1,2,3...) 
             i === 0 ? pages.push({name: i + 1, active: true, position: i,}) :
             pages.push({name: i + 1, active: false, position: i,});
         }
-
+           
         return pages;
     };
 
@@ -300,12 +301,12 @@ const Pagination = () => {
             <ul>
                 {
                     selectorGallSlice.fractionPageQuantity.length === 0 ? selectorGallSlice.pageQuantity.length !== 0 ? selectorGallSlice.pageQuantity.map(value => 
-                        {return <li key={nanoid()}>{pagButtonLength ? <button style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
-                        onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
+                        {return <li key={nanoid()}> <button style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        onClick={pageSelected} name={value.name}>{value.name}</button></li>}    
                     ) : '' :
                     selectorGallSlice.fractionPageQuantity[selectorGallSlice.selectfractionPage].map(value => 
-                        {return <li key={nanoid()}>{pagButtonLength ? <button style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
-                        onClick={pageSelected} name={value.name}>{value.name}</button> : ''}</li>}    
+                        {return <li key={nanoid()}><button style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        onClick={pageSelected} name={value.name}>{value.name}</button> </li>}    
                     ) 
                 }
             </ul>

@@ -54,7 +54,7 @@ const MageChat = () => {
     evt.preventDefault();
     
     // create chats tree
-    const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true});
+    const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users});
     
     // to database
     writeUserData(path, {name: 'Dima', message: message,}, selectorGallerySlice.date);

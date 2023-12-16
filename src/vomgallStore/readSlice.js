@@ -15,6 +15,15 @@ const readStorageSlice = createSlice({
     name: 'readStorage',
     initialState: readStorageSliceInitialState,
     reducers: {
+
+        changeReadStorage(state, action) {
+            switch (action.payload.operation) {
+              case 'changeItemsURL':
+                state.itemsURL = [];
+                break;
+              default: break;
+            }
+        },
         
     },
     extraReducers: 
@@ -49,7 +58,7 @@ const readStorageSlice = createSlice({
     }
 );
 
-// export const {
-//   changeSingIn
-// } = singInSlice.actions;
+export const {
+    changeReadStorage
+} = readStorageSlice.actions;
 export default readStorageSlice.reducer;
