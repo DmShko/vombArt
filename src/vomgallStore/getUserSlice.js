@@ -29,8 +29,7 @@ const getUserSlice = createSlice({
       state.isLoading = false;
    
       console.log(action.payload);
-    //   Notiflix.Notify.success('User is logged in.', {width: '450px', position: 'center-top', fontSize: '24px',});
-      // some actions with 'action'...
+      
     });
           
     builder.addCase(getUserAPI.rejected, (state, action) => {

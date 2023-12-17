@@ -1,22 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const galleryInitialState = {
-  users: [
-    {
-      userName: 'Admin',
-      email: 'admin@gmail.com',
-      arts: {
-        lirics: { name: 'Lirics', style: ['Poem', 'Liric'] },
-        music: { name: 'Music', style: ['Classic', 'Pop'] },
-        draw: {
-          name: 'Drawing',
-          style: ['Oil', 'Watercolor', 'Digital', 'Mix'],
-        },
-      },
-      uid: '',
-      status: false,
-    },
-  ],
+  users: [],
   itemsBuffer: null,
   messagesBuffer: null,
   searchedUser: true,
@@ -33,6 +18,21 @@ const galleryInitialState = {
   lastWindowSize: 0,
   selectfractionPage: 0,
 };
+
+// {
+//   userName: 'Admin',
+//   email: 'admin@gmail.com',
+//   arts: {
+//     lirics: { name: 'Lirics', style: ['Poem', 'Liric'] },
+//     music: { name: 'Music', style: ['Classic', 'Pop'] },
+//     draw: {
+//       name: 'Drawing',
+//       style: ['Oil', 'Watercolor', 'Digital', 'Mix'],
+//     },
+//   },
+//   uid: '',
+//   status: false,
+// },
 
 const gallerySlice = createSlice({
     name: 'gallery',
@@ -57,6 +57,10 @@ const gallerySlice = createSlice({
             break;
           case 'changeUsers':
             state.users = [...state.users, action.payload.data];
+            break;
+          case 'updateUsersArray':
+            console.log(action.payload.data)
+            state.users = action.payload.data;
             break;
           case 'changeAllUserStatus':
             state.users.find(

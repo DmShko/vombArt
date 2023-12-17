@@ -1,6 +1,8 @@
 import { signInWithEmailAndPassword  } from "firebase/auth";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import Notiflix from 'notiflix';
+
 import { auth } from "../firebase";
 
 const singInAPI = createAsyncThunk(
@@ -18,7 +20,8 @@ const singInAPI = createAsyncThunk(
     .catch((error) => {
       // const errorCode = error.code;
       // const errorMessage = error.message;
-      return error.message;
+      Notiflix.Notify.warning(`${error.code}`, {width: '450px', position: 'center-top', fontSize: '24px',});
+      // return error.code;
       // ..
     });
 });

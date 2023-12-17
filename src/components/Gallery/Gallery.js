@@ -33,11 +33,10 @@ const Gallery = () => {
   const [drawVisible, setDrawVisible] = useState(true);
   const [musicVisible, setMusicVisible] = useState(false);
   const [liricsVisible, setLiricsVisible] = useState(false);
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
 
-    
     // dispatch(changeReadStorage({operation: `changeItemsURL`}));
 
     // retun true if element contain true
@@ -289,7 +288,7 @@ const Gallery = () => {
         <div>
           <p className={ga.title}>Styles</p>
           <ul className={ga.style}>
-            {drawVisible
+            {drawVisible 
               ? selectorGallSlice.users
                   .find(value => value.userName === selectorUserPath.logicPath.name)
                   .arts.draw.style.map(value => (

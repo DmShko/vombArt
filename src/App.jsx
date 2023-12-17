@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import React from 'react'
 
@@ -16,6 +17,9 @@ const COMMUNITY = '/community';
 const NOTFOUND = '/*';
 
 const App = () => {
+
+
+  const selectorSingIn = useSelector(state => state.singIn);
 
 // Routes
 const appRoutes = [
@@ -36,7 +40,8 @@ const appRoutes = [
           />
 
           {appRoutes.map(({ path, element }) => 
-          {return <Route key={nanoid()} path={path} element={element}/>})}
+          {return <Route key={nanoid()} path= {path} element={element}/>})}
+          
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

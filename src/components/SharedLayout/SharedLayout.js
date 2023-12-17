@@ -3,12 +3,15 @@ import { Suspense, useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
+import { getDatabase, ref, onValue } from 'firebase/database';
+
 import ModalArt from 'components/ModalArt/ModalArt';
 import singUpAPI from '../../API/singUpAPI';
 import singInAPI from '../../API/singInAPI';
 import singOutAPI from '../../API/singOutAPI';
 import writeUserData from 'API/writerDB';
 import { change } from 'vomgallStore/gallerySlice';
+import { changePathName } from 'vomgallStore/pathSlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
 
@@ -22,6 +25,9 @@ import {ReactComponent as UserNameImg} from '../../images/user-id-svgrepo-com.sv
 import sh from './SharedLayout.module.scss';
 
 import { Loader } from '../Loader/Loader';
+
+import Notiflix from 'notiflix';
+Notiflix.Report.init({titleFontSize: '24px',});
 
 const SharedLayout = () => {
 
@@ -42,6 +48,30 @@ const SharedLayout = () => {
   const selectorsingUpState = useSelector(state => state.singUp);
   const selectorUserExist = useSelector(state => state.singUp.userExist);
 
+  // load actual users array to state from DB if isLogIn - true
+  useEffect(() => {
+
+    if(selectorSingIn.isSingIn === true) {
+
+       // listenUserData(path);
+      const db = getDatabase();
+      const starCountRef = ref(db, 'users');
+
+      //firebase listener function
+      onValue(starCountRef, snapshot => {
+        // load data from database
+        const actualUsers = snapshot.val();
+        console.log(actualUsers);
+        // if(actualUsers.find(element => element.status === true) !== undefined || actualUsers.find(element => element.status === true) !== null) {
+            console.log(actualUsers.find(element => element.status === true).userName);
+            dispatch(changePathName({data: actualUsers.find(element => element.status === true).userName}));
+            dispatch(change({operation: 'updateUsersArray', data: actualUsers}));
+        // }
+      });
+
+    };  
+
+  },[selectorSingIn.isSingIn]);
   
   useEffect(() => {
 
@@ -56,14 +86,21 @@ const SharedLayout = () => {
 
   // add user array to DB, when he was changed
   useEffect(() => {
-    // add user array to database
-    writeUserData(
-        '/users',
-        selectorGallSlice.users,
-        null, true
-    );
+    // add user array to database if are not empty []
+    if(selectorSingIn.isSingIn === true) {
+        if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
+          
+           console.log(selectorGallSlice.users)
+            writeUserData(
+                'users',
+                selectorGallSlice.users,
+                null, true
+            );
+        } 
+    }
+    
 
-  },[selectorGallSlice.users]);
+  },[selectorGallSlice.users, selectorSingIn.isSingIn]);
 
   useEffect(() => {
    
@@ -81,12 +118,12 @@ const SharedLayout = () => {
                 email: selectorsingUpState.email,
                 arts:
                     {
-                        lirics:{name: 'Lirics', style: []},
-                        music:{name: 'Music', style: []},
+                        lirics:{name: 'Lirics', style: ['Poem', 'Liric'] },
+                        music:{name: 'Music', style: ['Classic', 'Pop'] },
                         draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
                     },
                 uid: selectorsingUpState.usersId,
-                status: false,
+                status: true,
             }
         }));
             
@@ -169,6 +206,10 @@ const SharedLayout = () => {
     if(evt.target.id === 'singOut') {
         dispatch(singOutAPI());
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
+        dispatch(changeSingIn({data: '', operation: 'changeToken'}));
+        // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
+        dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
+        // dispatch(changePathName({data: ''}));
     };
 
   };
@@ -176,6 +217,13 @@ const SharedLayout = () => {
   const changeSingMode = (evt) => {
    
     dispatch(change({data: evt?.currentTarget.id, operation: 'changeButtonTargetName',}));
+
+  };
+
+  // report if no singin user
+  const navClick = () => {
+
+    if(!selectorSingIn.isSingIn) Notiflix.Report.info('Please, SingIn or SingUp');
 
   };
 
@@ -190,7 +238,7 @@ const SharedLayout = () => {
                     <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
-                            <NavLink className={sh.linkNav} to="/lirics">
+                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
                             Lirics
                             </NavLink>
                            
@@ -198,7 +246,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} to="/music">
+                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
                             Music
                             </NavLink>
                            
@@ -206,7 +254,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} to="/drawing">
+                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
                             Drawing
                             </NavLink>
                            
@@ -214,7 +262,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} to="/community">
+                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ? "/community" : "/"}>
                             Community
                             </NavLink>
                            
@@ -245,7 +293,9 @@ const SharedLayout = () => {
                             <p className={sh.linkNav} onClick={toggleModal} id='singIn'>SingIn</p>
                            
                         </li>
-                    </ul> : <button className={sh.button} onClick={userLogOut} id='singOut' type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</button>}
+                    </ul> : <button className={sh.button} onClick={userLogOut} id='singOut' type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
+                    selectorGallSlice.users.length !== 0 
+                    ? selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName: ''}</button>}
 
                 </nav>  
             </header>

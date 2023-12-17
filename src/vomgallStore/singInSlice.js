@@ -23,6 +23,15 @@ const singInSlice = createSlice({
          
           state.isSingIn = action.payload.data;
           break;
+
+        case 'changeToken':
+         
+          state.token = action.payload.data;
+          break;
+        case 'changeSingInId':
+         
+          state.singInId = action.payload.data;
+          break;
         default: break;
       }
     },
@@ -38,8 +47,12 @@ const singInSlice = createSlice({
 
       state.isLoading = false;
       state.isSingIn = true;
-      state.token = action.payload.user.accessToken;
-      state.singInId = action.payload.user.uid;
+      console.log(typeof(action.payload));
+
+      // if(typeof(action.payload) !== 'string') {
+        state.token = action.payload.user.accessToken;
+        state.singInId = action.payload.user.uid;
+      // }
 
       Notiflix.Notify.success('User is logged in.', {width: '450px', position: 'center-top', fontSize: '24px',});
       // some actions with 'action'...
@@ -49,8 +62,9 @@ const singInSlice = createSlice({
                   
       state.isLoading = false;
       state.error = action.payload;
-              
-      Notiflix.Notify.warning(`${state.error}`, {width: '450px', position: 'center-top', fontSize: '24px',});
+      console.log(action.payload)
+      // auth/invalid-login-credentials       
+      Notiflix.Notify.warning(`${action.payload}`, {width: '450px', position: 'center-top', fontSize: '24px',});
       
     });
   },
