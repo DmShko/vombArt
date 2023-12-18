@@ -14,6 +14,7 @@ import { change } from 'vomgallStore/gallerySlice';
 const MageChat = () => {
 
   const selectorGallerySlice = useSelector(state => state.gallery);
+  const selectorSingInSlice = useSelector(state => state.singIn);
   const pathSelector = useSelector(state => state.path.logicPath);
   const dispatch = useDispatch();
 
@@ -54,7 +55,7 @@ const MageChat = () => {
     evt.preventDefault();
     
     // create chats tree
-    const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users});
+    const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
     
     // to database
     writeUserData(path, {name: 'Dima', message: message,}, selectorGallerySlice.date);

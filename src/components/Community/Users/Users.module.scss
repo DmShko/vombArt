@@ -19,31 +19,46 @@
 
     .userslist {
 
-        width: 90%;
+        width: 100%;
 
         list-style: none;
         
         padding: 0 20px;
 
-
         .usersitem {
 
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: baseline;
 
-            border: 2px solid grey;
+            height: 20px;
+
+            border: none;
             border-radius: 6px; 
+
+            padding: 0 5px;
             
-            margin-bottom: 3px;
+            margin-bottom: 10px;
             cursor: pointer;
+
+            box-shadow: 1px 1px 4px 3px #d1d1d1;
 
             .status {
                 font-size: 12px;
                 color: orange;
             }
+
+            .img {
+                width: 10px;
+                height: 10px;
+            }
         }
+
+        .usersitem:hover {
+            background-color: rgba(194, 212, 31, 0.801);
+        }
+        
     }
 }
 

@@ -61,8 +61,8 @@
   }
 
   .animaTime {
-      position: absolute;
-      z-index: 1;
+      // position: absolute;
+      // z-index: 1;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -71,12 +71,35 @@
 
       background: var(--button-color);
       font-size: 18px;
-      outline: 2px solid var(--text-color);
-      width: 50px;
-      height: 50px;
+      outline: 5px solid rgb(218, 165, 32, 0.8);
+      width: 75px;
+      height: 75px;
+      
       border-radius: 50%;
       margin: 0 auto;
       color: var(--text-color);
+
+      box-shadow: inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
+  }
+
+  .animaTimeText {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 55px;
+    height: 55px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    color: white;
+
+    border: 2px solid white;
+
+    background-color: var(--body-color);
+    border-radius: 50%;
   }
   
   .animaYear {
@@ -107,5 +130,5 @@
       text-align: center;
       color: var(--body-color);
 
-      margin-bottom: 10px;
+      margin-bottom: 20px;
   }

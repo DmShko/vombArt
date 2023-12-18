@@ -13,6 +13,7 @@ const NewItem = () => {
   const dispatch = useDispatch();
 
   const selectorGallerySlice = useSelector(state => state.gallery);
+  const selectorSingInSlice = useSelector(state => state.singIn);
   const pathSelector = useSelector(state => state.path.logicPath);
   const [timeValue, setTimeValue] = useState({ time: new Date() });
   // const [newDateObj, setNewDateObj] = useState({});
@@ -118,6 +119,7 @@ const NewItem = () => {
         contents: 'elements',
         write: true,
         users: selectorGallerySlice.users,
+        userIsSingInId: selectorSingInSlice.singInId
       });
       // to database
       writeUserData(

@@ -69,14 +69,14 @@ const gallerySlice = createSlice({
             break;
           case 'addUserStyle':
             state.users
-              .find(value => value.name === action.payload.currentUserName)
+              .find(value => value.userName === action.payload.currentUserName)
               .arts[action.payload.artsName].style.push(action.payload.data);
             break;
           case 'deleteUserStyle':
             state.users.find(
-              value => value.name === action.payload.currentUserName
+              value => value.userName === action.payload.currentUserName
             ).arts[action.payload.artsName].style = state.users
-              .find(value => value.name === action.payload.currentUserName)
+              .find(value => value.userName === action.payload.currentUserName)
               .arts[action.payload.artsName].style.filter(
                 value => value !== action.payload.data
               );

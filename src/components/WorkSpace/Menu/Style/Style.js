@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import di from './Style.module.scss';
 import Notiflix from 'notiflix';
 import { change } from 'vomgallStore/gallerySlice';
+import { addStyleToPath } from 'vomgallStore/pathSlice';
+import { deleteStyleToPath } from 'vomgallStore/pathSlice';
 
 const Direction = () => {
 
@@ -64,7 +66,15 @@ const Direction = () => {
           data: style,
         })
       );
-    } else Notiflix.Notify.success('Please, select art section!', {width: '450px', position: 'center-top', fontSize: '24px',});
+
+      // add style to 'logicPath'
+      dispatch(
+        addStyleToPath({
+          data: style,
+        })
+      );
+      
+    } else Notiflix.Notify.info('Please, select art section!', {width: '450px', position: 'center-top', fontSize: '24px',});
     reset({style: ''});
  
   };
@@ -83,7 +93,14 @@ const Direction = () => {
           data: style,
         })
       );
-    }else Notiflix.Notify.success('Please, select art section!', {width: '450px', position: 'center-top', fontSize: '24px',});
+
+      // delete style from 'logicPath'
+      dispatch(
+        deleteStyleToPath({
+          data: style,
+        })
+      );
+    }else Notiflix.Notify.info('Please, select art section!', {width: '450px', position: 'center-top', fontSize: '24px',});
 
     reset({ style: '' });
   };

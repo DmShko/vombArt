@@ -3,7 +3,7 @@ import { onAuthStateChanged   } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { nanoid } from "nanoid";
 
-const pathCreator = ({ pathSelector, section, contents, write, users }) => {
+const pathCreator = ({ pathSelector, section, contents, write, users, userIsSingInId }) => {
 
   let path = '';
 
@@ -44,7 +44,9 @@ const pathCreator = ({ pathSelector, section, contents, write, users }) => {
     // get singIn user
     // onAuthStateChanged(auth, user => {
       // for singIn user field
+
       if(auth.currentUser !== null) {
+
         path = `${users.find(element => element.uid === auth.currentUser.uid).userName}/${section}/`;
 
         if (findProperty(pathSelector.arts))
@@ -61,7 +63,7 @@ const pathCreator = ({ pathSelector, section, contents, write, users }) => {
         }
       } else {
 
-        path = `Admin/${section}/`;
+        path = `${users.find(element => element.uid === userIsSingInId).userName}/${section}/`;
 
         if (findProperty(pathSelector.arts))
           path += `${getPropertyKey(pathSelector.arts)}/`;

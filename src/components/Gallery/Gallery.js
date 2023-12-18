@@ -26,6 +26,7 @@ const Gallery = () => {
 
   const dispatch = useDispatch();
   const selectorGallSlice = useSelector(state => state.gallery);
+  const selectorSingInSlice = useSelector(state => state.singIn);
   const selectorUserPath = useSelector(state => state.path);
   const selectorItemsUrl = useSelector(state => state.readStorage);
   const pathSelector = selectorUserPath.logicPath ;
@@ -60,6 +61,7 @@ const Gallery = () => {
           contents: 'elements',
           write: false,
           users: selectorGallSlice.users,
+          userIsSingInId: selectorSingInSlice.singInId
         }),
 
         pathCreator({
@@ -68,6 +70,7 @@ const Gallery = () => {
           contents: 'messages',
           write: false,
           users: selectorGallSlice.users,
+          userIsSingInId: selectorSingInSlice.singInId
         }),
       ];
 
