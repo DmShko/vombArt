@@ -1,0 +1,27 @@
+.container {
+
+    position: absolute;
+    z-index: 10;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    right: 35px;
+    top: 0px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 200px; 
+    height: 200px;
+
+    border-radius: 8px;
+    background-color: white;
+
+    transition: top 600ms;
+};
+
+

@@ -14,6 +14,8 @@ import us from './Users.module.scss'
 
 import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg'
 import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg'
+import { ReactComponent as UsersImg } from '../../../images/users-svgrepo-com.svg'
+import { ReactComponent as UsersFoto } from '../../../images/user-avatar-svgrepo-com.svg'
 
 const Users = () => {
 
@@ -95,20 +97,54 @@ const Users = () => {
       // path root begin with user name now
       dispatch(changePath({changeElement: 'name', data: selectorExistUsersList.users.find(value => value.uid === evt.currentTarget.id).userName}));
     } else {
-      Notiflix.Notify.warning(`${whoIsTrue()} already open!`, {width: '450px', position: 'center-top', fontSize: '24px',});
+      Notiflix.Notify.warning(`${whoIsTrue()} still open!`, {width: '450px', position: 'center-top', fontSize: '24px',});
     };
 
   };
  
+  // who manu users online
+  const isOnline = () => {
+
+    let onlineCount = 0;
+
+    selectorExistUsersList.users.forEach(element => {
+
+      if(element.status === true) onlineCount += 1;
+       
+    });
+
+    return onlineCount;
+  };
+
   return (
     <div className={us.container}>
-        <h1 className={us.userstitle}>USERS</h1>
+      <div className={us.usersicon} style={{width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
+      <div className={us.userstitle}>
+        <div className={us.usercount}><p>Total: </p><p>{selectorExistUsersList.users.length}</p></div>
+        <div className={us.usercount}><p>Online: </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
+      </div>
+        
         <ul className={us.userslist}>
-         { selectorExistUsersList.users.map( value =>
+         { selectorExistUsersList.users.map( value => 
+            <div>
+              <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}><p>{value.userName}</p> {value.status? <p className={us.status}>online</p> : ''} 
+              {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img}/>}</li>
 
-            <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}><p>{value.userName}</p> {value.status? <p className={us.status}>online</p> : ''} 
-            {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img}/>}</li>
-            
+              {usersOpen[value.uid] ?
+                <div className={us.userdata}>
+                  <UsersFoto style={{width: '50px', height: '50px',}} />
+                  <div className={us.userdescription}>
+                    <p style={{fontSize: '14px'}}>Country:</p>
+                    <p style={{fontSize: '14px'}}>Total level:</p>
+                    <p style={{fontSize: '14px'}}>Total likes:</p>
+                    <p style={{fontSize: '14px'}}>Sex:</p>
+                    <p style={{fontSize: '14px'}}>Age:</p>
+                    <p style={{fontSize: '14px'}}>Phone number:</p>
+                    <p style={{fontSize: '14px'}}>Email:</p>
+                    <p style={{fontSize: '14px'}}>Here with:</p>
+                  </div>
+                </div> : ''}
+            </div>
          )}
         </ul>
     </div>

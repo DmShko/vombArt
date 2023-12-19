@@ -5,6 +5,7 @@ import Gallery from 'components/Gallery/Gallery';
 import Menu from 'components/WorkSpace/Menu/Menu';
 import Chat from 'components/MageChat/Chat';
 import Pagination from '../Pagination/Pagination';
+import NotificationLine from 'components/NotificationLine/NotificationLine'
 
 import { changeCommunity } from 'vomgallStore/pathSlice';
 import { changePath } from 'vomgallStore/pathSlice';
@@ -38,6 +39,7 @@ const WorkSpace = () => {
     <div className={ws.container}>
         <Menu className={ws.menu} />
         <div className={ws.workContainer}>
+          <NotificationLine />
           <Gallery className={ws.gallery} />
           {selectorGallSlice.itemsBuffer !== null ? <Pagination /> : ''}
           <Chat className={ws.chat}/>

@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { Suspense, useState, useEffect} from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 
 import ModalArt from 'components/ModalArt/ModalArt';
+import ModalSettings from 'components/ModalSettings/ModalSettings';
 import singUpAPI from '../../API/singUpAPI';
 import singInAPI from '../../API/singInAPI';
 import singOutAPI from '../../API/singOutAPI';
@@ -18,6 +19,11 @@ import { changeSingUp } from 'vomgallStore/singUpSlice';
 import {ReactComponent as KeyImg} from '../../images/key-svgrepo-com.svg';
 import {ReactComponent as EmailImg} from '../../images/email-8-svgrepo-com.svg';
 import {ReactComponent as UserNameImg} from '../../images/user-id-svgrepo-com.svg';
+import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg';
+
+import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg'
+import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg'
+
 // component import
 // import ModalArt from 'components/ModalArt/ModalArt';
 
@@ -32,6 +38,7 @@ Notiflix.Report.init({titleFontSize: '24px',});
 const SharedLayout = () => {
 
   const [ modalToggle, setModalToggle] = useState(false);
+  const [ modalSettingsToggle, setModalSettingsToggle] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -151,6 +158,11 @@ const SharedLayout = () => {
 
   };
 
+  const toggleModalSettings = () => {
+    setModalSettingsToggle(value => !value);
+
+  };
+
   const stateChange = data => {
 
     const { name, value } = data;
@@ -203,13 +215,16 @@ const SharedLayout = () => {
   const userLogOut = (evt) => {
 
     evt.preventDefault();
-    if(evt.target.id === 'singOut') {
+    if(evt.currentTarget.id === 'singOut') {
         dispatch(singOutAPI());
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
         dispatch(changeSingIn({data: '', operation: 'changeToken'}));
         // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
         dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
         // dispatch(changePathName({data: ''}));
+
+        // close modal settings
+        setModalSettingsToggle(false);
     };
 
   };
@@ -293,12 +308,21 @@ const SharedLayout = () => {
                             <p className={sh.linkNav} onClick={toggleModal} id='singIn'>SingIn</p>
                            
                         </li>
-                    </ul> : <button className={sh.button} onClick={userLogOut} id='singOut' type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
+                    </ul> : <button className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
                     selectorGallSlice.users.length !== 0 
-                    ? selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName: ''}</button>}
+                    ? <div className={sh.userMenu}><UserMenu style={{width: '20px', height: '20px', stroke: 'white'}}/> {selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</div> : ''}</button>}
 
                 </nav>  
             </header>
+
+            {
+                modalSettingsToggle && <ModalSettings >
+                    <div className={sh.settingModalButtonContainer}>
+                        <div className={sh.settingModalButton}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
+                        <div className={sh.settingModalButton} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>
+                    </div>
+                </ ModalSettings>
+            }
         
             {modalToggle && <ModalArt openClose={toggleModal}>
                

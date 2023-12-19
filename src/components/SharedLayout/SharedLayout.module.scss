@@ -92,7 +92,7 @@
             width: 100px;
 
             color: white;
-
+            transition: background-color 400ms;
         }
 
         .button:hover {
@@ -243,6 +243,43 @@
             background-color: rgba(194, 212, 31, 0.801);
         }
 
+    }
+
+}
+
+.userMenu {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.settingModalButtonContainer {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    gap: 10px;
+
+    .settingModalButton {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    
+        width: 100px;
+
+        padding: 5px;
+
+        cursor: pointer;
+    
+        border: 1px solid #1C274C;
+        border-radius: 6px;
     }
 
 }
