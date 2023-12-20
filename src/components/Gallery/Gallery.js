@@ -15,7 +15,8 @@ import readerStorAPI from '../../API/readerStorageAPI'
 
 import { change } from 'vomgallStore/gallerySlice';
 import { changeReadStorage } from 'vomgallStore/readSlice'
-import { changePathName } from 'vomgallStore/pathSlice'
+// import { changePathName } from 'vomgallStore/pathSlice'
+import { updatePathStyle } from 'vomgallStore/pathSlice'
 
 import { ReactComponent as BlotImg } from '../../images/paint-mark-1-svgrepo-com.svg';
 import { ReactComponent as WriteImg } from '../../images/edit-pen-write-1-svgrepo-com.svg';
@@ -34,7 +35,47 @@ const Gallery = () => {
   const [drawVisible, setDrawVisible] = useState(true);
   const [musicVisible, setMusicVisible] = useState(false);
   const [liricsVisible, setLiricsVisible] = useState(false);
+  const [itemClickToggle, setItemClickToggle] = useState(false);
+  const [itemClickId, setItemClickId] = useState([]);
+
   // const location = useLocation();
+  function makeUpdatePathStyleList() {
+
+    let updateStyles = [];
+    const currentArts = selectorGallSlice.users.find(element => element.userName === pathSelector.name).arts;
+
+    for(const key in currentArts) {
+      updateStyles = [...updateStyles, ...currentArts[key].style]; 
+    };
+
+    return updateStyles;
+
+  };
+
+  // clear 'selectedItems'
+  useEffect(() => {
+    dispatch(change({operation: 'updateSelectedItems', data: []}));
+  },[]);
+
+  // update 'selectedItems'
+  useEffect(() => {
+    itemClickId.length !== 0 ? 
+      dispatch(change({operation: 'updateSelectedItems', data: itemClickId})):
+        dispatch(change({operation: 'updateSelectedItems', data: []}));
+  },[itemClickId]);
+
+  // reset activ shadof of item
+  useEffect(() => {
+    if(!itemClickToggle) {
+      setItemClickId('');
+    }
+  },[itemClickToggle]);
+
+  useEffect(() => {
+    if(selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
+      dispatch(updatePathStyle({data: makeUpdatePathStyleList()}));
+    }
+  },[selectorGallSlice.users]);
 
   useEffect(() => {
 
@@ -237,6 +278,20 @@ const Gallery = () => {
 
   };
 
+  const itemClickHandle = ({currentTarget}) => {
+
+    setItemClickToggle(value => !value);
+    console.log(itemClickId);
+
+    if(selectorGallSlice.selectedItems !== undefined){
+
+      // add/delete item from itemClickId on click
+      selectorGallSlice.selectedItems.find(element => element === currentTarget.id) === undefined ? 
+        setItemClickId([...itemClickId, currentTarget.id]): setItemClickId(itemClickId.filter(element => element !== currentTarget.id));
+    }
+    
+  };
+
   return (
     <div className={ga.container}>
       <div className={ga.arts}>
@@ -370,7 +425,8 @@ const Gallery = () => {
             {selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null? (
               selectorGallSlice.pageBuffer[selectorGallSlice.pageQuantity.find(element => element.active === true).position].map(element => {
                 return (
-                  <li key={element.id} className={ga.item}>
+                  <li key={element.id} id={element.id} onClick={itemClickHandle} className={ga.item} style={itemClickId !== '' && itemClickId.map(element => element === element.id)  ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)'} 
+                  : {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08)'}}>
                     <Item data={element} />
                   </li>
                 );

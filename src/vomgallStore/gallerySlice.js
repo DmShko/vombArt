@@ -17,6 +17,7 @@ const galleryInitialState = {
   pageBuffer: [],
   lastWindowSize: 0,
   selectfractionPage: 0,
+  selectedItems: [],
 };
 
 // {
@@ -145,6 +146,11 @@ const gallerySlice = createSlice({
               element.active = false;
 
             })); 
+            break;
+          case 'updateSelectedItems':
+
+            console.log("!");
+            state.selectedItems = action.payload.data;
             break;
           default:
             break;

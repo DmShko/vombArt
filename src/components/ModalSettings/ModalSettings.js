@@ -5,20 +5,22 @@ import moset from './ModalSettings.module.scss'
 
 const modalRootSettings = document.querySelector('#root-modal-settings');
 
-const ModalSettings = ({ children }) => {
+const ModalSettings = ({ children, data }) => {
 
   const modal = useRef();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
-
-    modal.current.style.top = '70px';
+    
+    const timer = setTimeout(() => {
+      data ? modal.current.style.right = '35px' : modal.current.style.right = '0px';
+    }, 100);
 
     return () => {
       document.body.style.overflow = 'scroll';
-          
+      clearTimeout(timer); 
     };
-       // eslint-disable-next-line
+      // eslint-disable-next-line
   }, []);
 
   return createPortal(

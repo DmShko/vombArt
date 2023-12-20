@@ -56,6 +56,7 @@ const pathSlice = createSlice({
       },
 
       deleteStyleToPath(state, action) {
+
         let newPathStyle = {};
         for(const key in state.logicPath.style) {
           
@@ -77,6 +78,28 @@ const pathSlice = createSlice({
       changeCommunity(state, action) {
         state.logicPath.community = action.payload.data;
       },
+
+      updatePathStyle(state, action) {
+        
+        let updatePathStyle = state.logicPath.style;
+        let mostPathStyle = Object.keys(state.logicPath.style).map(element => element.toLowerCase());
+
+        // if user add style, that need write his to 'PathStyle'
+        if(state.logicPath.style !== undefined && state.logicPath.style !== null) {
+          for(const value of action.payload.data) {
+            
+            if(mostPathStyle.find(element => element === value.toLowerCase()) === undefined) {
+              
+              updatePathStyle = {...updatePathStyle, [value.toLowerCase()]: false}
+            }
+            
+          }
+        }
+        
+   
+        state.logicPath.style = updatePathStyle;
+     
+      },
     }
 
   }
@@ -88,5 +111,6 @@ export const {
     changeCommunity,
     addStyleToPath,
     deleteStyleToPath,
+    updatePathStyle,
 } = pathSlice.actions;
 export default pathSlice.reducer;

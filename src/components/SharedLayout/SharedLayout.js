@@ -159,6 +159,7 @@ const SharedLayout = () => {
   };
 
   const toggleModalSettings = () => {
+    
     setModalSettingsToggle(value => !value);
 
   };
@@ -316,7 +317,7 @@ const SharedLayout = () => {
             </header>
 
             {
-                modalSettingsToggle && <ModalSettings >
+                modalSettingsToggle && <ModalSettings data={modalSettingsToggle}>
                     <div className={sh.settingModalButtonContainer}>
                         <div className={sh.settingModalButton}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
                         <div className={sh.settingModalButton} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>

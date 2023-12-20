@@ -1,14 +1,14 @@
 .container {
 
-    position: absolute;
-    z-index: 10;
+    position: fixed;
+    z-index: 3;
     
     display: flex;
     align-items: center;
     justify-content: center;
 
-    right: 35px;
-    top: 0px;
+    right: -200px;
+    top: 70px;
 
     display: flex;
     flex-direction: column;
@@ -21,7 +21,8 @@
     border-radius: 8px;
     background-color: white;
 
-    transition: top 600ms;
+    transition: right 400ms;
+    box-shadow:  0 0 7px #b6b5b5;
 };
 
 

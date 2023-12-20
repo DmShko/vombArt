@@ -93,6 +93,8 @@
 
             color: white;
             transition: background-color 400ms;
+
+            cursor: pointer;
         }
 
         .button:hover {
@@ -280,6 +282,11 @@
     
         border: 1px solid #1C274C;
         border-radius: 6px;
+
+        transition: background-color 400ms;
+    }
+    .settingModalButton:hover {
+        background-color: goldenrod;
     }
 
 }
