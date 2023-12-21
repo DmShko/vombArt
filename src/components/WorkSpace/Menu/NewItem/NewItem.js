@@ -79,7 +79,7 @@ const NewItem = () => {
   const stateChange = data => {
     const { name, value } = data;
 
-    // change 'name' and 'number' without use previous value
+    // change 'Title','Description' 
     switch (name) {
       case 'Title':
         setTitle(value);
@@ -94,7 +94,7 @@ const NewItem = () => {
   };
 
   const inputChange = evt => {
-    // change 'name','email', 'password'
+    // change 'Title','Description' 
     stateChange(evt.target);
   };
 

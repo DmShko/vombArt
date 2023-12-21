@@ -14,6 +14,7 @@ import singOutReducer from './singOutSlice';
 import galleryReducer from './gallerySlice';
 import pathReducer from './pathSlice';
 import readStorageReducer from './readSlice.js'
+import deleteStorageReducer from './deleteSlice.js'
 
 
 const rootReducer = combineReducers(
@@ -24,6 +25,7 @@ const rootReducer = combineReducers(
         gallery: galleryReducer,
         path: pathReducer,
         readStorage: readStorageReducer,
+        deleteStorage: deleteStorageReducer,
          //...or more redusers
     }
 );

@@ -24,6 +24,9 @@ import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg';
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg'
 import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg'
 
+import { ReactComponent as StatisticImg } from '../../images/statistics-presentation-svgrepo-com.svg'
+import { ReactComponent as ContactsImg } from '../../images/contacts-svgrepo-com.svg'
+
 // component import
 // import ModalArt from 'components/ModalArt/ModalArt';
 
@@ -69,11 +72,11 @@ const SharedLayout = () => {
         // load data from database
         const actualUsers = snapshot.val();
         console.log(actualUsers);
-        // if(actualUsers.find(element => element.status === true) !== undefined || actualUsers.find(element => element.status === true) !== null) {
-            console.log(actualUsers.find(element => element.status === true).userName);
+        if(actualUsers.find(element => element.status === true) !== undefined || actualUsers.find(element => element.status === true) !== null) {
+          
             dispatch(changePathName({data: actualUsers.find(element => element.status === true).userName}));
             dispatch(change({operation: 'updateUsersArray', data: actualUsers}));
-        // }
+        }
       });
 
     };  
@@ -320,6 +323,8 @@ const SharedLayout = () => {
                 modalSettingsToggle && <ModalSettings data={modalSettingsToggle}>
                     <div className={sh.settingModalButtonContainer}>
                         <div className={sh.settingModalButton}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
+                        <div className={sh.settingModalButton}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Statistic</p></div>
+                        <div className={sh.settingModalButton}><ContactsImg style={{width: '25px', height: '25px'}} /><p>Contacts</p></div>
                         <div className={sh.settingModalButton} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>
                     </div>
                 </ ModalSettings>

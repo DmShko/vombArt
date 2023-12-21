@@ -1,20 +1,30 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import NewItem from './NewItem/NewItem';
 import Style from './Style/Style';
 import Edit from './Edit/Edit';
 
+import writeUserData from 'API/writerDB';
+import deleteStorAPI from 'API/deleteStorageAPI';
+import { change } from 'vomgallStore/gallerySlice';
+import { changeDelete } from 'vomgallStore/deleteSlice';
+
 import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg'
 import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg'
 
 import Notiflix from 'notiflix';
+import pathCreator from '../../MageChat/pathCreator/pathCreator';
 
 import mn from './Menu.module.scss';
 
 const Menu = () => {
 
+  const dispatch = useDispatch();
+
   const selectorGallSlice = useSelector(state => state.gallery);
+  const selectorSingInSlice = useSelector(state => state.singIn);
+  const pathSelector = useSelector(state => state.path.logicPath);
 
   const [buttonStyleState, setButtonStyleState] = useState(false);
   const [buttonItemState, setButtonItemState] = useState(false);
@@ -45,6 +55,15 @@ const Menu = () => {
     
   };
 
+  // retun true if element contain true
+  const findProperty = data => {
+    for (const key in data) {
+      if (data[key] === true) {
+        return true;
+      }
+    }
+  };
+
   const deleteItems = () => {
     Notiflix.Confirm.show(
       'Confirm',
@@ -52,10 +71,47 @@ const Menu = () => {
       'Yes',
       'No',
       () => {
-      alert('Thank you.');
+
+        // check selected arts and style
+        if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
+          // create items tree
+          const path = pathCreator({
+            pathSelector,
+            section: 'items',
+            contents: 'elements',
+            write: false,
+            users: selectorGallSlice.users,
+            userIsSingInId: selectorSingInSlice.singInId
+          });
+
+          if(selectorGallSlice.selectedItems.length !== 0) {
+          
+            for(let s=0; s < selectorGallSlice.selectedItems.length; s += 1){
+
+              // delete item from DB (write 'null')
+              writeUserData(
+                `${path}${selectorGallSlice.selectedItems[s]}`,
+                null,
+                selectorGallSlice.date, true
+              );
+
+              // delete file from storege
+              dispatch(deleteStorAPI(`${path}${selectorGallSlice.selectedItems[s]}`));
+
+            }
+
+            // clear 'ifDeleteAll'. Then success message will view once 
+            dispatch(changeDelete({operation: 'setifDeleteAll', data: []}));
+
+            // clear 'selectedItems'
+            dispatch(change({operation: 'updateSelectedItems', data: []}));
+          };
+        
+        };  
+
       },
       () => {
-      alert('If you say so...');
+      
       },
       {
       },
@@ -72,7 +128,7 @@ const Menu = () => {
       {buttonItemState ? <NewItem /> : ''}
       {selectorGallSlice.selectedItems.length !== 0 && selectorGallSlice.selectedItems.length === 1 ? <button type='button' className={mn.edit} name='edit' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Edit {buttonAngelEdit ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button> : ''}
       {buttonEditState && selectorGallSlice.selectedItems.length === 1 ? <Edit /> : ''}
-      {selectorGallSlice.selectedItems.length !== 0 ? <button type='button' className={mn.delete} name='delete' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={deleteItems}>Delete </button> : ''}
+      {selectorGallSlice.selectedItems.length !== 0 ? <button type='button' className={mn.delete} name='delete'style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={deleteItems}>Delete </button> : ''}
       
     </div>
   )

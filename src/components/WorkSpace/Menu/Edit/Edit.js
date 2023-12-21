@@ -6,7 +6,9 @@ import writeUserData from 'API/writerDB';
 import StorageWork from 'components/StorageWork/StorageWork';
 import pathCreator from '../../../MageChat/pathCreator/pathCreator';
 import { change } from 'vomgallStore/gallerySlice';
+
 import ed from './Edit.module.scss';
+// import { linkWithCredential } from 'firebase/auth';
 
 const EditItem = () => {
 
@@ -23,6 +25,15 @@ const EditItem = () => {
   const [storagePath, setStoragePath] = useState('');
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
+
+  
+  const [checkTitle, setCheckTitle] = useState(true);
+
+  const [checkDescription, setCheckDescription] = useState(false);
+
+  const [checkFile, setCheckFile] = useState(false);
+
+  const [checkAll, setCheckAll] = useState(false);
 
   const {
     register,
@@ -117,19 +128,54 @@ const EditItem = () => {
         pathSelector,
         section: 'items',
         contents: 'elements',
-        write: true,
+        write: false,
         users: selectorGallerySlice.users,
         userIsSingInId: selectorSingInSlice.singInId
       });
-      // to database
-      writeUserData(
-        path,
-        { title: title, description: description, url: ''},
-        selectorGallerySlice.date, false
-      );
-      setStoragePath(path);
-      // storage(path, file);
-    }
+
+      if(selectorGallerySlice.selectedItems.length !== 0) {
+        if(checkTitle === true) {
+
+          // rewrite only title property of item (upload)
+          writeUserData(
+            `${path}${selectorGallerySlice.selectedItems[0]}`,
+            {...selectorGallerySlice.itemsBuffer.find(element => element.id === selectorGallerySlice.selectedItems[0]), title: title},
+            selectorGallerySlice.date, false
+          );
+
+          setStoragePath('');
+        }
+
+        if(checkDescription === true) {
+          // rewrite only description property of item (upload)
+          writeUserData(
+            `${path}${selectorGallerySlice.selectedItems[0]}`,
+            {...selectorGallerySlice.itemsBuffer.find(element => element.id === selectorGallerySlice.selectedItems[0]), description: description, },
+            selectorGallerySlice.date, false
+          );
+        }
+
+        if(checkFile === true) {
+          // rewrite only file property of item (upload)
+          // path for upload file
+          setStoragePath(`${path}${selectorGallerySlice.selectedItems[0]}`);
+        }
+
+        if(checkAll === true) {
+          // rewrite all properties of item (upload)
+          writeUserData(
+            `${path}${selectorGallerySlice.selectedItems[0]}`,
+            {...selectorGallerySlice.itemsBuffer.find(element => element.id === selectorGallerySlice.selectedItems[0]), title: title, description: description},
+            selectorGallerySlice.date, false
+          );
+          
+          // path for upload file
+          setStoragePath(`${path}${selectorGallerySlice.selectedItems[0]}`);
+        }
+
+      };
+  
+    };
 
     reset({ description: '', title: '' });
   };
@@ -147,13 +193,87 @@ const EditItem = () => {
     }
   };
 
+  const checked = ({ target }) => {
+    if (target.name === 'title') {
+      setCheckTitle(true);
+      setCheckDescription(false);
+      setCheckFile(false);
+      setCheckAll(false);
+    } 
+    if (target.name === 'description'){
+      setCheckTitle(false);
+      setCheckDescription(true);
+      setCheckFile(false);
+      setCheckAll(false);
+    }
+
+    if (target.name === 'file'){
+      setCheckTitle(false);
+      setCheckDescription(false);
+      setCheckFile(true);
+      setCheckAll(false);
+    }
+
+    if (target.name === 'all'){
+      setCheckTitle(false);
+      setCheckDescription(false);
+      setCheckFile(false);
+      setCheckAll(true);
+    }
+  };
+
   return (
     <div className={ed.container}>
       <form className={ed.fise} onSubmit={handleSubmit(addItem)}>
         <fieldset className={ed.fset}>
-          <legend>New item</legend>
+          <legend>Edit item</legend>
+
+          <div className={ed.radios}>
+              <label>
+                {' '}
+                Title{' '}
+                <input
+                  type="radio"
+                  name="title"
+                  checked={checkTitle}
+                  onChange={checked}
+                ></input>
+              </label>
+              <label>
+                {' '}
+                Description{' '}
+                <input
+                  type="radio"
+                  name="description"
+                  checked={checkDescription}
+                  onChange={checked}
+                ></input>
+              </label>
+
+              <label>
+                {' '}
+                File{' '}
+                <input
+                  type="radio"
+                  name="file"
+                  checked={checkFile}
+                  onChange={checked}
+                ></input>
+              </label>
+
+              <label>
+                {' '}
+                All{' '}
+                <input
+                  type="radio"
+                  name="all"
+                  checked={checkAll}
+                  onChange={checked}
+                ></input>
+              </label>
+            </div>
           <div className={ed.field}>
-            <label className={ed.lab}>
+            {checkTitle || checkAll ? <label className={ed.lab}>
               {' '}
               Title
               <input
@@ -170,8 +290,8 @@ const EditItem = () => {
                 title="Title"
                 placeholder="Enter style..."
               ></input>
-            </label>
-            <label className={ed.lab}>
+            </label> : ''}
+            {checkDescription || checkAll ? <label className={ed.lab}>
               {' '}
               Description
               <textarea
@@ -188,8 +308,8 @@ const EditItem = () => {
                 title="Description"
                 placeholder="Enter short description..."
               ></textarea>
-            </label>
-            <label className={ed.lab}>
+            </label> : ''}
+            {checkFile || checkAll ? <label className={ed.lab}>
               {' '}
               <p className={ed.p}>Seach file</p>
               <span style={{ border: 'none', fontSize: '12px' }}>
@@ -208,7 +328,7 @@ const EditItem = () => {
                 multiple="multiple"
                 placeholder="Enter short description..."
               ></input>
-            </label>
+            </label> : ''}
             {storagePath !== '' ? (
               <StorageWork
                 data={{ storagePath, file, setStoragePath }}
@@ -216,7 +336,7 @@ const EditItem = () => {
             ) : (
               ''
             )}
-            <button className={ed.button}>Add Item</button>
+            <button className={ed.button}>Change Item</button>
           </div>
         </fieldset>
       </form>
