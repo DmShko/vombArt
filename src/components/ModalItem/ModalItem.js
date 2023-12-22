@@ -1,11 +1,13 @@
-import {React, useEffect }from 'react'
+import { React, useEffect }from 'react'
 import { createPortal } from 'react-dom';
 
-import mo from './Modal.module.scss'
+import Chat from 'components/MageChat/Chat';
 
-const modalRoot = document.querySelector('#root-modal');
+import moit from './ModalItem.module.scss'
 
-const ModalArt = ({ openClose, children }) => {
+const modalRootItem = document.querySelector('#root-modal-item');
+
+const ModalItem = ({ children, openClose }) => {
 
   // close modal window by 'Escape'
   const driveModal = evt => {
@@ -32,12 +34,15 @@ const ModalArt = ({ openClose, children }) => {
   };
 
   return createPortal(
-    <div className={mo.backdrop} onClick={clickBackdrob}>
-        <div className={mo.container}>
+   
+    <div className={moit.backdrop} onClick={clickBackdrob}>
+        <div className={moit.container}>
             {children}
+            <div className={moit.chatContainer}><Chat className={moit.chat}/></div> 
         </div>
-    </div>, modalRoot
+    </div>, modalRootItem
+
   )
 }
 
-export default ModalArt
+export default ModalItem

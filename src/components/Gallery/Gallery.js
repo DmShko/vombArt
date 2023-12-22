@@ -17,11 +17,16 @@ import { change } from 'vomgallStore/gallerySlice';
 import { changeReadStorage } from 'vomgallStore/readSlice'
 // import { changePathName } from 'vomgallStore/pathSlice'
 import { updatePathStyle } from 'vomgallStore/pathSlice'
+import ModalItem from 'components/ModalItem/ModalItem';
 
 import { ReactComponent as BlotImg } from '../../images/paint-mark-1-svgrepo-com.svg';
 import { ReactComponent as WriteImg } from '../../images/edit-pen-write-1-svgrepo-com.svg';
 import { ReactComponent as MusicImg } from '../../images/music-note-svgrepo-com.svg';
 import { ReactComponent as DrawImg } from '../../images/palette-svgrepo-com.svg';
+import { ReactComponent as ViewsImg } from '../../images/view-svgrepo-com.svg';
+
+import { ReactComponent as HeartImg } from '../../images/heart-svgrepo-com.svg';
+import { ReactComponent as LevelImg } from '../../images/layer-svgrepo-com.svg';
 
 const Gallery = () => {
 
@@ -37,6 +42,8 @@ const Gallery = () => {
   const [liricsVisible, setLiricsVisible] = useState(false);
  
   const [itemClickId, setItemClickId] = useState([]);
+  const [ modalItemToggle, setModalItemToggle] = useState(false);
+  const [ currentItemURL, setCurrentItemURL] = useState('');
 
   // const location = useLocation();
   function makeUpdatePathStyleList() {
@@ -271,10 +278,7 @@ const Gallery = () => {
 
   };
 
-  const itemClickHandle = ({currentTarget}) => {
-
-    // setItemClickToggle(value => !value);
-    
+  const itemClickHandle = ({ currentTarget }) => {
 
     if(selectorGallSlice.selectedItems !== undefined){
 
@@ -283,11 +287,37 @@ const Gallery = () => {
         setItemClickId([...itemClickId, currentTarget.id]): setItemClickId(itemClickId.filter(element => element !== currentTarget.id));
     }
 
-    console.log(itemClickId);
     
   };
 
+  const ModalItemToggleFunction = () => {
+    // open item modal window
+    setModalItemToggle(value => !value);
+  };
+
+  const itemDoubleClickHandle = (evt) => {
+
+    ModalItemToggleFunction();
+    // save search item URL
+    if(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id) !== undefined)
+    setCurrentItemURL(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id).url);
+  };
+
   return (
+    <>
+    {
+      modalItemToggle && <ModalItem openClose={ModalItemToggleFunction}>
+        <div style={{marginTop: '510px',}}>
+          <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0'}}></img> 
+
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><HeartImg style={{width: '25px', height: '25px'}}/><p>Likes:</p></div> 
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>Level:</p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>Views:</p></div>
+          </div>
+        </div>
+      </ ModalItem>
+    }
     <div className={ga.container}>
       <div className={ga.arts}>
         <button
@@ -420,7 +450,7 @@ const Gallery = () => {
             {selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null? (
               selectorGallSlice.pageBuffer[selectorGallSlice.pageQuantity.find(element => element.active === true).position].map(element => {
                 return (
-                  <li key={element.id} id={element.id} onClick={itemClickHandle} className={ga.item} style={selectorGallSlice.selectedItems.includes(element.id) ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)'} 
+                  <li key={element.id} id={element.id} onClick={itemClickHandle} onDoubleClick={itemDoubleClickHandle} className={ga.item} style={selectorGallSlice.selectedItems.includes(element.id) ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)'} 
                   : {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08)'}}>
                     <Item data={element} />
                   </li>
@@ -436,6 +466,7 @@ const Gallery = () => {
         </div> 
       </div>
     </div>
+    </>
   );
 }
 

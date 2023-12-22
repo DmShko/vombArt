@@ -329,6 +329,7 @@ const SharedLayout = () => {
                     </div>
                 </ ModalSettings>
             }
+            
         
             {modalToggle && <ModalArt openClose={toggleModal}>
                
