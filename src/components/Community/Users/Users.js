@@ -22,6 +22,7 @@ const Users = () => {
   const dispatch = useDispatch();
   const selectorExistUsersList = useSelector(state => state.gallery);
   const selectorVisibilityLog = useSelector(state => state.singIn);
+  const selectorUserPath = useSelector(state => state.path);
 
   const [usersOpen, setUsersOpen] = useState({});
 
@@ -128,7 +129,7 @@ const Users = () => {
          { selectorExistUsersList.users.map( value => 
             <div>
               <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}><p>{value.userName}</p> {value.status? <p className={us.status}>online</p> : ''} 
-              {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img}/>}</li>
+              {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor:'white'}}/>}</li>
 
               {usersOpen[value.uid] ?
                 <div className={us.userdata}>

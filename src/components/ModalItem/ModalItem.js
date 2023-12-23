@@ -20,6 +20,8 @@ const ModalItem = ({ children, openClose }) => {
   };
 
   useEffect(() => {
+
+    // add listener for close windows
     componentMount();
     return () => {
       window.removeEventListener('keydown', driveModal);

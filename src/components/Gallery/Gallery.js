@@ -45,6 +45,10 @@ const Gallery = () => {
   const [ modalItemToggle, setModalItemToggle] = useState(false);
   const [ currentItemURL, setCurrentItemURL] = useState('');
 
+  const [ heartsCount, setHeartsCount] = useState(0);
+  const [ viewsCount, setViewsCount] = useState(0);
+  const [ currentItemId, setCurrentItemId] = useState('');
+  
   // const location = useLocation();
   function makeUpdatePathStyleList() {
 
@@ -58,6 +62,35 @@ const Gallery = () => {
     return updateStyles;
 
   };
+
+  // change currentItemId in 'gellary' slice  
+  useEffect(() => {
+
+    dispatch(change({operation: 'changeCurrentItemId', data: currentItemId}));
+
+  },[currentItemId]);
+
+  // write hearts statistic to item
+  useEffect(() => {
+    
+    
+  },[heartsCount]);
+
+  // write views statistic to item
+  useEffect(() => {
+    
+
+  },[viewsCount]);
+
+  // increment views and clear currentItemId
+  useEffect(() => {
+
+    if(modalItemToggle) viewsHandle();
+
+    // clear currentItemId
+    if(!modalItemToggle) setCurrentItemId('');
+
+  },[modalItemToggle]);
 
   // clear 'selectedItems'
   useEffect(() => {
@@ -164,6 +197,7 @@ const Gallery = () => {
       // get elements URL from fireBase Storage
       if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
         
+        // clear ItemsURL array
         dispatch(changeReadStorage({operation: `changeItemsURL`}));
         
         selectorGallSlice.itemsBuffer.forEach(element => {
@@ -294,13 +328,34 @@ const Gallery = () => {
     // open item modal window
     setModalItemToggle(value => !value);
   };
-
+  
+  // double click on item
   const itemDoubleClickHandle = (evt) => {
 
     ModalItemToggleFunction();
+
     // save search item URL
     if(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id) !== undefined)
     setCurrentItemURL(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id).url);
+
+    // save current item id, when modalItemToggle - true and clear, when - false
+    setCurrentItemId(evt.currentTarget.id)
+  };
+
+  const heartsHandle = () => {
+    
+    if(selectorGallSlice.currentItemId !== ''){
+      dispatch(change({operation: 'changeStatistic', 
+      data: {...selectorGallSlice.statistic, [selectorGallSlice.currentItemId]: [...[selectorGallSlice.currentItemId], selectorSingInSlice.singInId]}}));
+    }
+  
+         
+  };
+
+  const viewsHandle = () => {
+    
+    setViewsCount(value => value += 1);
+
   };
 
   return (
@@ -311,9 +366,9 @@ const Gallery = () => {
           <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0'}}></img> 
 
           <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><HeartImg style={{width: '25px', height: '25px'}}/><p>Likes:</p></div> 
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>Level:</p></div>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>Views:</p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} /><p>{`Likes: ${heartsCount}`}</p></div> 
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>Level: </p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>{`Views: ${viewsCount}`}</p></div>
           </div>
         </div>
       </ ModalItem>

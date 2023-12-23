@@ -18,6 +18,8 @@ const galleryInitialState = {
   lastWindowSize: 0,
   selectfractionPage: 0,
   selectedItems: [],
+  statistic: {},
+  currentItemId: '',
 };
 
 // {
@@ -125,12 +127,18 @@ const gallerySlice = createSlice({
           case 'changePageBuffer':
             state.pageBuffer = action.payload.data;
             break;
+          case 'changeCurrentItemId':
+            state.currentItemId = action.payload.data;
+            break;
           case 'changePageQuantityActive':
             state.pageQuantity.find(value => value.name === Number(action.payload.data)).active = 
             !state.pageQuantity.find(value => value.name === Number(action.payload.data)).active;
             break;
           case 'changePageQuantityReset':
             state.pageQuantity.find(value => value.name === Number(action.payload.data)).active = false;
+            break;
+          case 'changeStatistic':
+            state.statistic = action.payload.data;
             break;
           case 'changeFractionPageQuantityActive':
            
@@ -149,8 +157,6 @@ const gallerySlice = createSlice({
             })); 
             break;
           case 'updateSelectedItems':
-
-            console.log("!");
             state.selectedItems = action.payload.data;
             break;
           default:
