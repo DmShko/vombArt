@@ -46,8 +46,6 @@ const Gallery = () => {
   const [ modalItemToggle, setModalItemToggle] = useState(false);
   const [ currentItemURL, setCurrentItemURL] = useState('');
 
-  const [ heartsCount, setHeartsCount] = useState(0);
-  const [ viewsCount, setViewsCount] = useState(0);
   const [ currentItemId, setCurrentItemId] = useState('');
   
   // const location = useLocation();
@@ -64,6 +62,38 @@ const Gallery = () => {
 
   };
 
+  // clear 'selectedItems' and update heartsStatistic and viewsStatistic from DB
+  useEffect(() => {
+
+    dispatch(change({operation: 'updateSelectedItems', data: []}));
+
+    const refs = ['heartsStatistic', 'viewsStatistic'];
+    // load heartsStatistic and viewsStatistic
+    const db = getDatabase();
+
+    for(let s = 0; s < refs.length; s += 1) {
+
+      const statisticRef = ref(db, `${refs[s]}`);
+
+      //firebase listener function
+      onValue(statisticRef, snapshot => {
+        // load data from database
+        const data = snapshot.val();
+
+        if(s === 0) {
+          dispatch(change({operation: 'changeHeartsStatistic', mode: 'update',
+          data: data}));
+        }
+
+        if(s === 1) {
+          dispatch(change({operation: 'changeViewsStatistic', mode: 'update',
+         data: data}));
+        }
+      });
+    }
+
+  },[]);
+
   // change currentItemId in 'gellary' slice  
   useEffect(() => {
 
@@ -74,8 +104,10 @@ const Gallery = () => {
   // start viewsHandle
   useEffect(() => {
 
-    if(selectorGallSlice.currentItemId !== '') viewsHandle();;
-    
+    if(selectorGallSlice.currentItemId !== '') {
+      viewsHandle();
+      levelCount ();
+    }
 
   },[selectorGallSlice.currentItemId]);
 
@@ -110,17 +142,10 @@ const Gallery = () => {
   // increment views and clear currentItemId
   useEffect(() => {
 
-    // if(modalItemToggle) viewsHandle();
-
     // clear currentItemId
     if(!modalItemToggle) setCurrentItemId('');
 
   },[modalItemToggle]);
-
-  // clear 'selectedItems'
-  useEffect(() => {
-    dispatch(change({operation: 'updateSelectedItems', data: []}));
-  },[]);
 
   // update 'selectedItems'
   useEffect(() => {
@@ -367,6 +392,7 @@ const Gallery = () => {
     setCurrentItemId(evt.currentTarget.id)
   };
 
+  // click on heart
   const heartsHandle = () => {
     // check item selected
     if(selectorGallSlice.currentItemId !== '') {
@@ -389,6 +415,7 @@ const Gallery = () => {
   
   };
 
+  // open item
   const viewsHandle = () => { 
     // check item selected
     if(selectorGallSlice.currentItemId !== '') {
@@ -408,6 +435,45 @@ const Gallery = () => {
     }
   };
 
+  const heartsCount = () => {
+
+    let counter = 0;
+
+    for(const key in selectorGallSlice.heartsStatistic) {
+      if(selectorGallSlice.heartsStatistic[key].includes(selectorGallSlice.currentItemId)) counter += 1;
+    }
+
+    return counter;
+  };
+
+  const levelCount = () => {
+
+    const rating = heartsCount + selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId];
+
+    if(selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] !== 10 && rating > 100) {
+      
+      const level = rating * 10 / 1000; 
+      
+      // check item selected
+      if(selectorGallSlice.currentItemId !== '') {
+        // add new item or new value to 'levelStatistic'
+        if(Object.keys(selectorGallSlice.levelStatistic).length !== 0 && Object.keys(selectorGallSlice.levelStatistic).includes(selectorGallSlice.currentItemId)) {
+          // add new value to item
+          dispatch(change({operation: 'changeLevelStatistic', mode: 'addValue',
+          data: {item: selectorGallSlice.currentItemId, level: level}}));
+        } else {
+          // add new item and new value
+          dispatch(change({operation: 'changeLevelStatistic', mode: 'addItem',
+          data: selectorGallSlice.currentItemId}));
+          dispatch(change({operation: 'changeLevelStatistic', mode: 'addValue',
+          data: {item: selectorGallSlice.currentItemId, level: level}}));
+
+        }
+      }
+    }
+
+  };
+
   return (
     <>
     {
@@ -416,9 +482,9 @@ const Gallery = () => {
           <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0'}}></img> 
 
           <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} /><p>{`Likes: ${heartsCount}`}</p></div> 
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>Level: </p></div>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>{`Views: ${viewsCount}`}</p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} /><p>{`Likes: ${heartsCount()}`}</p></div> 
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>{`Level: ${selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId]}`}</p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>{`Views: ${selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId]}`}</p></div>
           </div>
         </div>
       </ ModalItem>

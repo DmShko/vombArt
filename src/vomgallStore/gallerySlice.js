@@ -149,7 +149,9 @@ const gallerySlice = createSlice({
               if(state.heartsStatistic[action.payload.data.user].includes(action.payload.data.item) === false) 
                 state.heartsStatistic[action.payload.data.user].push(action.payload.data.item); 
             }
-            
+            if(action.payload.mode === 'update') {
+              state.heartsStatistic = action.payload.data;
+            }
             break;
 
           case 'changeViewsStatistic':
@@ -161,6 +163,21 @@ const gallerySlice = createSlice({
             if(action.payload.mode === 'addValue') {
               state.viewsStatistic[action.payload.data] = state.viewsStatistic[action.payload.data] + 1; 
             }
+            if(action.payload.mode === 'update') {
+              state.viewsStatistic = action.payload.data;
+            }
+          break;
+
+          case 'changeLevelStatistic':
+
+            if(action.payload.mode === 'addItem') {
+             
+              state.levelStatistic = {...state.levelStatistic, [action.payload.data] : 0};
+            }
+            if(action.payload.mode === 'addValue') {
+              state.levelStatistic[action.payload.data.item] = action.payload.data.level; 
+            }
+            
           break;
 
           case 'changeLevelStatistic':
