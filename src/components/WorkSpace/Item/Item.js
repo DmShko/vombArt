@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 
 import it from './Item.module.scss'
 
@@ -5,7 +6,21 @@ import { ReactComponent as HeartImg } from '../../../images/heart-svgrepo-com.sv
 import { ReactComponent as LevelImg } from '../../../images/layer-svgrepo-com.svg';
 import { ReactComponent as BlotImg } from '../../../images/paint-mark-1-svgrepo-com.svg';
 
+
 const Item = (props) => {
+
+  const selectorGallSlice = useSelector(state => state.gallery);
+
+  const heartsCount = () => {
+
+    let counter = 0;
+  
+    for(const key in selectorGallSlice.heartsStatistic) {
+      if(selectorGallSlice.heartsStatistic[key].includes(props.data.id)) counter += 1;
+    }
+  
+    return counter;
+  };
    
   return (
     <div className={it.container}>
@@ -14,8 +29,8 @@ const Item = (props) => {
       {props.data.url !== '' ? <img src={props.data.url} alt='Content' style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}></img> 
       : <BlotImg style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}/>}
       <div className={it.info}>
-        <div className={it.data}><HeartImg className={it.img}/>Likes:</div>
-        <div className={it.data}><LevelImg className={it.img}/>Level:</div>
+        <div className={it.data}><HeartImg className={it.img}/><p>{`${heartsCount()}`}</p></div>
+        <div className={it.data}><LevelImg className={it.img}/><p>{`${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[props.data.id] : ''}`}</p></div>
       </div>
     </div>
   );

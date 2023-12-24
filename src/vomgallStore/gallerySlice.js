@@ -177,6 +177,9 @@ const gallerySlice = createSlice({
             if(action.payload.mode === 'addValue') {
               state.levelStatistic[action.payload.data.item] = action.payload.data.level; 
             }
+            if(action.payload.mode === 'update') {
+              state.levelStatistic = action.payload.data;
+            }
             
           break;
 

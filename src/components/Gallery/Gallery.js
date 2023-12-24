@@ -62,13 +62,13 @@ const Gallery = () => {
 
   };
 
-  // clear 'selectedItems' and update heartsStatistic and viewsStatistic from DB
+  // clear 'selectedItems' and update heartsStatistic and viewsStatistic and levelStatistic from DB
   useEffect(() => {
 
     dispatch(change({operation: 'updateSelectedItems', data: []}));
 
-    const refs = ['heartsStatistic', 'viewsStatistic'];
-    // load heartsStatistic and viewsStatistic
+    const refs = ['heartsStatistic', 'viewsStatistic', 'levelStatistic'];
+    // load heartsStatistic and viewsStatistic and levelStatistic
     const db = getDatabase();
 
     for(let s = 0; s < refs.length; s += 1) {
@@ -80,15 +80,23 @@ const Gallery = () => {
         // load data from database
         const data = snapshot.val();
 
-        if(s === 0) {
-          dispatch(change({operation: 'changeHeartsStatistic', mode: 'update',
+        if(data !== null && data !== undefined) {
+          if(s === 0) {
+            dispatch(change({operation: 'changeHeartsStatistic', mode: 'update',
+            data: data}));
+          }
+
+          if(s === 1) {
+            dispatch(change({operation: 'changeViewsStatistic', mode: 'update',
           data: data}));
+          }
+
+          if(s === 2) {
+            dispatch(change({operation: 'changeLevelStatistic', mode: 'update',
+          data: data}));
+          }
         }
 
-        if(s === 1) {
-          dispatch(change({operation: 'changeViewsStatistic', mode: 'update',
-         data: data}));
-        }
       });
     }
 
@@ -114,30 +122,53 @@ const Gallery = () => {
   // write statistic to DB
   useEffect(() => {
     
-    if(Object.keys(selectorGallSlice.heartsStatistic).length !== 0 && selectorGallSlice.heartsStatistic !== null && selectorGallSlice.heartsStatistic !== undefined) {
-    
-      writeUserData(
+    if(selectorGallSlice.heartsStatistic !== null && selectorGallSlice.heartsStatistic !== undefined) {
+
+      if(Object.keys(selectorGallSlice.heartsStatistic).length !== 0) {
+        writeUserData(
           'heartsStatistic',
           selectorGallSlice.heartsStatistic,
           null, true
-      );
-    } 
+        );
+      };
+    
+    }; 
     
   },[selectorGallSlice.heartsStatistic]);
 
   // write views statistic to DB
   useEffect(() => {
     
-    if(Object.keys(selectorGallSlice.viewsStatistic).length !== 0 && selectorGallSlice.viewsStatistic !== null && selectorGallSlice.viewsStatistic !== undefined) {
-    
-      writeUserData(
+    if(selectorGallSlice.viewsStatistic !== null && selectorGallSlice.viewsStatistic !== undefined) {
+
+      if(Object.keys(selectorGallSlice.viewsStatistic).length !== 0) {
+        writeUserData(
           'viewsStatistic',
           selectorGallSlice.viewsStatistic,
           null, true
-      );
-    } 
+        );
+      };
+      
+    };
 
   },[selectorGallSlice.viewsStatistic]);
+
+  // write level statistic to DB
+  useEffect(() => {
+    
+    if(selectorGallSlice.levelStatistic !== null && selectorGallSlice.levelStatistic !== undefined) {
+
+      if(Object.keys(selectorGallSlice.levelStatistic).length !== 0) {
+        writeUserData(
+          'levelStatistic',
+          selectorGallSlice.levelStatistic,
+          null, true
+        );
+      };
+      
+    };
+
+  },[selectorGallSlice.levelStatistic]);
 
   // increment views and clear currentItemId
   useEffect(() => {
@@ -447,9 +478,9 @@ const Gallery = () => {
   };
 
   const levelCount = () => {
-
-    const rating = heartsCount + selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId];
-
+   
+    const rating = heartsCount() + selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId];
+    
     if(selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] !== 10 && rating > 100) {
       
       const level = rating * 10 / 1000; 
@@ -471,6 +502,22 @@ const Gallery = () => {
         }
       }
     }
+    console.log(rating);
+    if(rating < 100) {
+      // add new item or new value to 'levelStatistic'
+      if(Object.keys(selectorGallSlice.levelStatistic).length !== 0 && Object.keys(selectorGallSlice.levelStatistic).includes(selectorGallSlice.currentItemId)) {
+        // add new value to item
+        dispatch(change({operation: 'changeLevelStatistic', mode: 'addValue',
+        data: {item: selectorGallSlice.currentItemId, level: 0}}));
+      } else {
+        // add new item and new value
+        dispatch(change({operation: 'changeLevelStatistic', mode: 'addItem',
+        data: selectorGallSlice.currentItemId}));
+        dispatch(change({operation: 'changeLevelStatistic', mode: 'addValue',
+        data: {item: selectorGallSlice.currentItemId, level: 0}}));
+
+      }  
+    };
 
   };
 
@@ -483,8 +530,8 @@ const Gallery = () => {
 
           <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} /><p>{`Likes: ${heartsCount()}`}</p></div> 
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>{`Level: ${selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId]}`}</p></div>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>{`Views: ${selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId]}`}</p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>{`Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>{`Views: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
           </div>
         </div>
       </ ModalItem>
