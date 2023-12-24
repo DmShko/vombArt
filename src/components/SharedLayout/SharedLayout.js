@@ -99,8 +99,7 @@ const SharedLayout = () => {
     // add user array to database if are not empty []
     if(selectorSingIn.isSingIn === true) {
         if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
-          
-           console.log(selectorGallSlice.users)
+    
             writeUserData(
                 'users',
                 selectorGallSlice.users,

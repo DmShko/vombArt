@@ -18,7 +18,9 @@ const galleryInitialState = {
   lastWindowSize: 0,
   selectfractionPage: 0,
   selectedItems: [],
-  statistic: {},
+  heartsStatistic: {},
+  viewsStatistic: {},
+  levelStatistic: {},
   currentItemId: '',
 };
 
@@ -137,9 +139,34 @@ const gallerySlice = createSlice({
           case 'changePageQuantityReset':
             state.pageQuantity.find(value => value.name === Number(action.payload.data)).active = false;
             break;
-          case 'changeStatistic':
-            state.statistic = action.payload.data;
+          case 'changeHeartsStatistic':
+
+            if(action.payload.mode === 'addUserField') {
+             
+              state.heartsStatistic = {...state.heartsStatistic, [action.payload.data] : []};
+            }
+            if(action.payload.mode === 'addItem') {
+              if(state.heartsStatistic[action.payload.data.user].includes(action.payload.data.item) === false) 
+                state.heartsStatistic[action.payload.data.user].push(action.payload.data.item); 
+            }
+            
             break;
+
+          case 'changeViewsStatistic':
+
+            if(action.payload.mode === 'addItem') {
+             
+              state.viewsStatistic = {...state.viewsStatistic, [action.payload.data] : 0};
+            }
+            if(action.payload.mode === 'addValue') {
+              state.viewsStatistic[action.payload.data] = state.viewsStatistic[action.payload.data] + 1; 
+            }
+          break;
+
+          case 'changeLevelStatistic':
+            
+          break;
+
           case 'changeFractionPageQuantityActive':
            
             state.fractionPageQuantity.forEach(element => element.forEach(element =>{

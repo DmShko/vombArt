@@ -12,6 +12,7 @@ import pathCreator from '../MageChat/pathCreator/pathCreator';
 import { Loader } from 'components/Loader/Loader';
 import Item from '../WorkSpace/Item/Item';
 import readerStorAPI from '../../API/readerStorageAPI'
+import writeUserData from 'API/writerDB';
 
 import { change } from 'vomgallStore/gallerySlice';
 import { changeReadStorage } from 'vomgallStore/readSlice'
@@ -70,22 +71,46 @@ const Gallery = () => {
 
   },[currentItemId]);
 
-  // write hearts statistic to item
+  // start viewsHandle
   useEffect(() => {
-    
-    
-  },[heartsCount]);
 
-  // write views statistic to item
-  useEffect(() => {
+    if(selectorGallSlice.currentItemId !== '') viewsHandle();;
     
 
-  },[viewsCount]);
+  },[selectorGallSlice.currentItemId]);
+
+  // write statistic to DB
+  useEffect(() => {
+    
+    if(Object.keys(selectorGallSlice.heartsStatistic).length !== 0 && selectorGallSlice.heartsStatistic !== null && selectorGallSlice.heartsStatistic !== undefined) {
+    
+      writeUserData(
+          'heartsStatistic',
+          selectorGallSlice.heartsStatistic,
+          null, true
+      );
+    } 
+    
+  },[selectorGallSlice.heartsStatistic]);
+
+  // write views statistic to DB
+  useEffect(() => {
+    
+    if(Object.keys(selectorGallSlice.viewsStatistic).length !== 0 && selectorGallSlice.viewsStatistic !== null && selectorGallSlice.viewsStatistic !== undefined) {
+    
+      writeUserData(
+          'viewsStatistic',
+          selectorGallSlice.viewsStatistic,
+          null, true
+      );
+    } 
+
+  },[selectorGallSlice.viewsStatistic]);
 
   // increment views and clear currentItemId
   useEffect(() => {
 
-    if(modalItemToggle) viewsHandle();
+    // if(modalItemToggle) viewsHandle();
 
     // clear currentItemId
     if(!modalItemToggle) setCurrentItemId('');
@@ -343,19 +368,44 @@ const Gallery = () => {
   };
 
   const heartsHandle = () => {
-    
-    if(selectorGallSlice.currentItemId !== ''){
-      dispatch(change({operation: 'changeStatistic', 
-      data: {...selectorGallSlice.statistic, [selectorGallSlice.currentItemId]: [...[selectorGallSlice.currentItemId], selectorSingInSlice.singInId]}}));
+    // check item selected
+    if(selectorGallSlice.currentItemId !== '') {
+      // add new user or new item to 'heartsStatistic'
+      if(Object.keys(selectorGallSlice.heartsStatistic).length !== 0 && Object.keys(selectorGallSlice.heartsStatistic).includes(selectorSingInSlice.singInId)) {
+          // add new item
+          dispatch(change({operation: 'changeHeartsStatistic', mode: 'addItem',
+          data: { item: selectorGallSlice.currentItemId, user: selectorSingInSlice.singInId}}));
+
+      } else {
+          // add new user and new item
+          dispatch(change({operation: 'changeHeartsStatistic', mode: 'addUserField',
+          data: selectorSingInSlice.singInId}));
+          dispatch(change({operation: 'changeHeartsStatistic', mode: 'addItem',
+          data: { item: selectorGallSlice.currentItemId, user: selectorSingInSlice.singInId}}));
+
+      }
+
     }
   
-         
   };
 
-  const viewsHandle = () => {
-    
-    setViewsCount(value => value += 1);
+  const viewsHandle = () => { 
+    // check item selected
+    if(selectorGallSlice.currentItemId !== '') {
+      // add new item or new value to 'viewsStatistic'
+      if(Object.keys(selectorGallSlice.viewsStatistic).length !== 0 && Object.keys(selectorGallSlice.viewsStatistic).includes(selectorGallSlice.currentItemId)) {
+        // add new value to item
+        dispatch(change({operation: 'changeViewsStatistic', mode: 'addValue',
+         data: selectorGallSlice.currentItemId}));
+      } else {
+        // add new item and new value
+        dispatch(change({operation: 'changeViewsStatistic', mode: 'addItem',
+         data: selectorGallSlice.currentItemId}));
+        dispatch(change({operation: 'changeViewsStatistic', mode: 'addValue',
+         data: selectorGallSlice.currentItemId}));
 
+      }
+    }
   };
 
   return (
