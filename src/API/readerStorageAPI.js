@@ -12,6 +12,7 @@ const readerStorAPI = createAsyncThunk(
       .then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
         // console.log(url);
+     
         return {elementId, url};
     
       })

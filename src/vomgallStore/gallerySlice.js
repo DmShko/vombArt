@@ -22,6 +22,7 @@ const galleryInitialState = {
   viewsStatistic: {},
   levelStatistic: {},
   currentItemId: '',
+  typeOfFile: '',
 };
 
 // {
@@ -131,6 +132,9 @@ const gallerySlice = createSlice({
             break;
           case 'changeCurrentItemId':
             state.currentItemId = action.payload.data;
+            break;
+          case 'changeTypeOfFile':
+            state.typeOfFile = action.payload.data;
             break;
           case 'changePageQuantityActive':
             state.pageQuantity.find(value => value.name === Number(action.payload.data)).active = 

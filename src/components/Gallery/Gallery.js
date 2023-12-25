@@ -45,6 +45,7 @@ const Gallery = () => {
   const [itemClickId, setItemClickId] = useState([]);
   const [ modalItemToggle, setModalItemToggle] = useState(false);
   const [ currentItemURL, setCurrentItemURL] = useState('');
+  const [ currentItemType, setCurrentItemType] = useState('');
 
   const [ currentItemId, setCurrentItemId] = useState('');
   
@@ -416,8 +417,12 @@ const Gallery = () => {
     ModalItemToggleFunction();
 
     // save search item URL
-    if(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id) !== undefined)
-    setCurrentItemURL(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id).url);
+    if(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id) !== undefined) {
+
+      setCurrentItemURL(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id).url);
+      setCurrentItemType(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id).type);
+    }
+    
 
     // save current item id, when modalItemToggle - true and clear, when - false
     setCurrentItemId(evt.currentTarget.id)
@@ -525,8 +530,10 @@ const Gallery = () => {
     <>
     {
       modalItemToggle && <ModalItem openClose={ModalItemToggleFunction}>
-        <div style={{marginTop: '510px',}}>
-          <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0'}}></img> 
+        <div style={currentItemType !== 'text/plain' ? {width: '100%', marginTop: '510px',} : {width: '100%', marginTop: '260px',}}>
+          {currentItemType === 'image/jpeg' ? <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0'}}></img> 
+          : currentItemType === 'text/plain' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0', border: 'none'}}></iframe> : ''}
+           
 
           <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} /><p>{`Likes: ${heartsCount()}`}</p></div> 

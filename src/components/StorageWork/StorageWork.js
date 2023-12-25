@@ -16,8 +16,9 @@ const StorageWork = ({ data }) => {
   // Get a reference to the storage service
   const storage = getStorage();
 
+
   const metadata = {
-    contentType: 'image/jpeg',
+    contentType: data.fileType,
   };
 
   // Create a storage reference from my storage service

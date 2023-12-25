@@ -23,6 +23,7 @@ const NewItem = () => {
   const [storagePath, setStoragePath] = useState('');
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
+  const [fileType, setFileType] = useState('');
 
   const {
     register,
@@ -124,7 +125,7 @@ const NewItem = () => {
       // to database
       writeUserData(
         path,
-        { title: title, description: description, url: ''},
+        { title: title, description: description, url: '', type: selectorGallerySlice.typeOfFile},
         selectorGallerySlice.date, false
       );
       setStoragePath(path);
@@ -137,6 +138,15 @@ const NewItem = () => {
   const handleFileChange = evt => {
     if (evt.target.files) {
       setFile(evt.target.files[0]);
+      console.log(evt.target.files[0]) 
+
+      // write type of file
+      dispatch(
+        change({
+          operation: 'changeTypeOfFile',
+          data: evt.target.files[0].type,
+        })
+      );
 
       dispatch(
         change({

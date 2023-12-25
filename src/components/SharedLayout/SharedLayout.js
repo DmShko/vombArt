@@ -46,6 +46,7 @@ const SharedLayout = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
+  const [errorDrive, setErrorDrive] = useState(false);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
@@ -57,6 +58,18 @@ const SharedLayout = () => {
   const selectorVisibilityLog = useSelector(state => state.singIn.isSingIn);
   const selectorsingUpState = useSelector(state => state.singUp);
   const selectorUserExist = useSelector(state => state.singUp.userExist);
+
+  // off errors message, when inputs change
+  useEffect(() => {
+
+    setErrorDrive(false);
+
+    const errorMessageOn = setTimeout(() => {
+        setErrorDrive(true);
+        clearTimeout(errorMessageOn);
+    }, 2000);
+
+  },[email, password, userName]);
 
   // load actual users array to state from DB if isLogIn - true
   useEffect(() => {
@@ -452,9 +465,9 @@ const SharedLayout = () => {
                    
                 </div> : ''}
                 
-                    {errors?.Email ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Email?.message}</p> : 
+                    { errorDrive ? errors?.Email ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Email?.message}</p> : 
                     errors?.Password ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Password?.message}</p> :
-                    errors?.UserName ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p> : ''}
+                    errors?.UserName ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p> : '' : ''}
 
             </ModalArt>}
 
