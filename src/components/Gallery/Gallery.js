@@ -193,7 +193,7 @@ const Gallery = () => {
   },[selectorGallSlice.users]);
 
   useEffect(() => {
-
+    let path = [];
     // dispatch(changeReadStorage({operation: `changeItemsURL`}));
 
     // retun true if element contain true
@@ -208,27 +208,41 @@ const Gallery = () => {
     // check selected arts and style
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
       dispatch(change({ operation: 'changeLoad', data: true }));
-      // create items tree and create chats tree
+      // create items tree and create chats tree for read
 
-      const path = [
-        pathCreator({
-          pathSelector,
-          section: 'items',
-          contents: 'elements',
-          write: false,
-          users: selectorGallSlice.users,
-          userIsSingInId: selectorSingInSlice.singInId
-        }),
+      if(selectorGallSlice.currentItemId === '') {
+        path = [
+          pathCreator({
+            pathSelector,
+            section: 'items',
+            contents: 'elements',
+            write: false,
+            users: selectorGallSlice.users,
+            userIsSingInId: selectorSingInSlice.singInId
+          }),
 
-        pathCreator({
-          pathSelector,
-          section: 'chats',
-          contents: 'messages',
-          write: false,
-          users: selectorGallSlice.users,
-          userIsSingInId: selectorSingInSlice.singInId
-        }),
-      ];
+          pathCreator({
+            pathSelector,
+            section: 'chats',
+            contents: 'messages',
+            write: false,
+            users: selectorGallSlice.users,
+            userIsSingInId: selectorSingInSlice.singInId
+          })
+        ];
+      } else {
+        path = [
+          
+          pathCreator({
+            pathSelector,
+            section: 'chats',
+            contents: `messages/elements/${selectorGallSlice.currentItemId}`,
+            write: false,
+            users: selectorGallSlice.users,
+            userIsSingInId: selectorSingInSlice.singInId
+          })
+        ];
+      };
 
       // listenUserData(path);
       const db = getDatabase();
@@ -262,23 +276,35 @@ const Gallery = () => {
             // save data to gallery state (for reload page)
             // new data load to ItemsBuffer only if user switched new art or style
 
-            j === 0
-              ? dispatch(
-                  change({ operation: 'changeItemsBuffer', data: items })
-                )
-              : dispatch(
-                  change({ operation: 'changeMessagesBuffer', data: items })
-                );
+            // item modal close
+            if(selectorGallSlice.currentItemId === ''){
+              j === 0 
+                ? dispatch(
+                    change({ operation: 'changeItemsBuffer', data: items })
+                  )
+                : dispatch(
+                    change({ operation: 'changeMessagesBuffer', data: items })
+                  );
+            };
+
+            // item modal open
+            if(selectorGallSlice.currentItemId !== ''){
+              dispatch(
+                    change({ operation: 'changeItemsMessagesBuffer', data: items })
+              );
+            };
           } else {
-            dispatch(change({ operation: 'changeItemsBuffer', data: null }));
-            dispatch(change({ operation: 'changeMessagesBuffer', data: null }));
+            dispatch(change({ operation: 'changeItemsBuffer', data: [] }));
+            dispatch(change({ operation: 'changeMessagesBuffer', data: [] }));
+            dispatch(change({ operation: 'changeItemsMessagesBuffer', data: [] }));
           }
         });
       }
 
       // get elements URL from fireBase Storage
-      if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
-        
+      if(selectorGallSlice.itemsBuffer !== null 
+        && selectorGallSlice.currentItemId === '') {
+   
         // clear ItemsURL array
         dispatch(changeReadStorage({operation: `changeItemsURL`}));
         
@@ -304,7 +330,7 @@ const Gallery = () => {
     // if(location.pathname === 'community') dispatch(changePathName({ changeElement: 'name', data: true }));
     
       
-  }, [pathSelector]);
+  }, [pathSelector, selectorGallSlice.currentItemId]);
 
   useEffect(() => {
 
@@ -532,7 +558,8 @@ const Gallery = () => {
       modalItemToggle && <ModalItem openClose={ModalItemToggleFunction}>
         <div style={currentItemType !== 'text/plain' ? {width: '100%', marginTop: '510px',} : {width: '100%', marginTop: '260px',}}>
           {currentItemType === 'image/jpeg' ? <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0'}}></img> 
-          : currentItemType === 'text/plain' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0', border: 'none'}}></iframe> : ''}
+          : currentItemType === 'text/plain' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0', border: 'none'}}></iframe>
+          : currentItemType === 'audio/mpeg' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0, auto', border: 'none'}}></iframe> : ''}
            
 
           <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>

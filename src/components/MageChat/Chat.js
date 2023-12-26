@@ -50,15 +50,23 @@ const MageChat = () => {
         dispatch(change({ operation: 'changeDate', data: {timedata, datedata, yeardata, dateSeconds} }));
   };
 
-  const addUser = (_,evt) => {
+  const addMessage = (_,evt) => {
 
     evt.preventDefault();
     
     // create chats tree
-    const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
-    
-    // to database
-    writeUserData(path, {name: 'Dima', message: message,}, selectorGallerySlice.date);
+    if(selectorGallerySlice.currentItemId === '') {
+      const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+      // to database
+      writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
+
+    } else {
+      const path = pathCreator({pathSelector, section: 'chats', contents: `messages/elements/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+      // to database
+      writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
+    }      
 
     reset({message: '', });
 
@@ -71,14 +79,16 @@ const MageChat = () => {
   return (
     <div className={ma.container}>
         
-        <form onSubmit={handleSubmit(addUser)}>
+        <form onSubmit={handleSubmit(addMessage)}>
 
            
             <div className={ma.area} wrap='soft'>
                 <ul className={ma.list}>
                     {
-                      selectorGallerySlice.messagesBuffer !== null ? selectorGallerySlice.messagesBuffer.map(value => 
-                      { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} />
+                      selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length !== 0 ? selectorGallerySlice.messagesBuffer.map(value => 
+                      { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
+                       selectorGallerySlice.itemsMessagesBuffer.length !== 0 ? selectorGallerySlice.itemsMessagesBuffer.map(value => 
+                        { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
             </div>

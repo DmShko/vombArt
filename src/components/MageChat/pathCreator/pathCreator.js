@@ -59,6 +59,7 @@ const pathCreator = ({ pathSelector, section, contents, write, users, userIsSing
         if (write) {
           path += `${contents}/${nanoid()}/`;
         } else {
+          // for read (without id)
           path += `${contents}/`;
         }
       } else {
@@ -75,11 +76,11 @@ const pathCreator = ({ pathSelector, section, contents, write, users, userIsSing
         if (write) {
           path += `${contents}/${nanoid()}/`;
         } else {
+          // for read (without id)
           path += `${contents}/`;
         };
 
       };
-   
       
     // });
   };

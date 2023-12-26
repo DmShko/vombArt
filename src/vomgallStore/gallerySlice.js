@@ -4,6 +4,7 @@ const galleryInitialState = {
   users: [],
   itemsBuffer: null,
   messagesBuffer: null,
+  itemsMessagesBuffer: null,
   searchedUser: true,
   buttonTargetName: '',
   load: false,
@@ -96,6 +97,9 @@ const gallerySlice = createSlice({
             break;
           case 'changeMessagesBuffer':
             state.messagesBuffer = action.payload.data;
+            break;
+          case 'changeItemsMessagesBuffer':
+            state.itemsMessagesBuffer = action.payload.data;
             break;
           case 'changeLoad':
             state.load = action.payload.data;

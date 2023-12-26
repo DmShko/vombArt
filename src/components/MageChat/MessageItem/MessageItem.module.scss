@@ -7,12 +7,28 @@
     .title {
         display: flex;
         flex-direction: row;
-        align-items: baseline;
-
-        font-weight: 600;
+        justify-content: space-between;
+        align-items: center;
 
         gap: 10px;
 
+        font-weight: 600;
+
         padding-bottom: 10px;
+
+        .svg:hover{
+
+            fill: rgba(194, 212, 31, 0.801);
+        }
+
+        .stamp {
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+
+            gap: 5px;
+        }
     }
 }
