@@ -16,6 +16,8 @@
             
             width: 100%;
 
+            margin-bottom: 10px;
+
             text-align: center;
             font-size: 18px;
 
@@ -105,5 +107,79 @@
             
                 }
         } 
+        .answerStyle {
+
+            font-size: 14px;
+            font-style: italic;
+            font-weight: 600;
+    
+            color: white;
+    
+            border-radius: 0 0 6px 6px;
+    
+        }
+    
+        .answer {
+    
+            font-size: 14px;
+            font-style: italic;
+            font-weight: 600;
+    
+            padding:  5px;
+            margin-bottom: 10px;
+    
+            color: white;
+    
+            border-radius: 0 0 6px 0;
+
+        }
+    
+        .answerStamp {
+
+            width: 95%;
+    
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: baseline;
+    
+            color: white;
+    
+            padding: 5px;
+            margin: 0 auto 10px auto;
+    
+            font-size: 14px;
+            font-style: italic;
+            font-weight: 600;
+    
+            border: 2px dashed white;
+            border-radius: 6px;
+    
+            background-color: rgb(240, 128, 128, 0.7);
+    
+            .time {
+                display: flex;
+                flex-direction: row;
+                align-items: baseline;
+            }
+
+            .answerStampTitle {
+
+                margin-bottom: 10px;
+                font-style: normal;
+
+            }
+        }
+
+        .answerTitle {
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+
+            gap: 10px;
+        }
+    
     
 }

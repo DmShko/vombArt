@@ -19,6 +19,7 @@
         .svg:hover{
 
             fill: rgba(194, 212, 31, 0.801);
+     
         }
 
         .stamp {
@@ -30,5 +31,68 @@
 
             gap: 5px;
         }
+
+    }
+    .answerStyle {
+
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 600;
+
+        color: gray;
+
+        border-radius: 0 0 6px 6px;
+
+        background-color: white;
+    }
+
+    .answer {
+
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 600;
+
+        padding:  5px;
+        margin-bottom: 10px;
+
+        color: gray;
+
+        border-radius: 0 0 6px 0;
+
+        background-color: white;
+    }
+
+    .answerStamp {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+
+        color: gray;
+
+        padding: 5px;
+
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 600;
+
+        border-radius: 6px 6px 0 0;
+
+        background-color: white;
+
+        .time {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+        }
+    }
+
+    .newMessage {
+
+        border-radius: 6px ;
+
+        padding: 5px;
+
     }
 }

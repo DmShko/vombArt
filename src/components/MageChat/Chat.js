@@ -21,6 +21,7 @@ const MageChat = () => {
   const [timeValue, setTimeValue] = useState({ time: new Date() });
   const [newDateObj, setNewDateObj] = useState({});
   const [message, setMessage] = useState('');
+  const [answerId, setAnswerId] = useState('');
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
@@ -30,68 +31,72 @@ const MageChat = () => {
       1000
     );
 
-  return () => {
+  return () => 
+    {
       clearInterval(timerID);
-  };
+    };
   },[newDateObj])
 
-  // useEffect(() => {
-  //   if(selectorGallerySlice.messagesBuffer.length !== 0 || selectorGallerySlice.itemsMessagesBuffer.length !== 0)
-  //     sortMessages(selectorGallerySlice.messagesBuffer);
-  // },[selectorGallerySlice.messagesBuffer])
-
+  // sort messages function
   const sortMessages = (data) => {
 
-    // if(data !== null && data !== undefined){
+    if(data !== null && data !== undefined){
 
+      // unsorted put of input data
       let unSortedMessages = data;
+      // buffer for sorted message
       let sortedMessages = [];
+
       let freshMessage = data[0];
-      console.log(data)
 
-    for(let iteration = 0; iteration < data.length; iteration += 1) {
-      
-      for(let current = 0; current < unSortedMessages.length; current += 1) {
+      for(let iteration = 0; iteration < data.length; iteration += 1) {
         
-        if(Number(freshMessage.date.split('/')[0]) < Number(unSortedMessages[current].date.split('/')[0])) {
-          freshMessage = unSortedMessages[current];
-          continue;
-        };
-
-        if(Number(freshMessage.date.split('/')[0]) === Number(unSortedMessages[current].date.split('/')[0])) {
-          
-          if(Number(freshMessage.time.split(':')[0]) < Number(unSortedMessages[current].time.split(':')[0])) {
+        for(let current = 0; current < unSortedMessages.length; current += 1) {
+          // next element fresh fresh if his data > (compare with current) etc...
+          if(Number(freshMessage.date.split('/')[0]) < Number(unSortedMessages[current].date.split('/')[0])) {
             freshMessage = unSortedMessages[current];
-            continue;
-          }
-
-          if(Number(freshMessage.time.split(':')[0]) === Number(unSortedMessages[current].time.split(':')[0])) {
-            
-            if(Number(freshMessage.time.split(':')[1]) < Number(unSortedMessages[current].time.split(':')[1])) {
-              freshMessage = unSortedMessages[current];
-              continue;
-            }
-            if(Number(freshMessage.time.split(':')[1]) === Number(unSortedMessages[current].time.split(':')[1])) {
-          
-              if(Number(freshMessage.second) < Number(unSortedMessages[current].second)) {
-                
-                freshMessage = unSortedMessages[current];
-                continue;
-              }
-            }
             continue;
           };
 
+          if(Number(freshMessage.date.split('/')[0]) === Number(unSortedMessages[current].date.split('/')[0])) {
+            
+            if(Number(freshMessage.time.split(':')[0]) < Number(unSortedMessages[current].time.split(':')[0])) {
+              freshMessage = unSortedMessages[current];
+              continue;
+            }
+
+            if(Number(freshMessage.time.split(':')[0]) === Number(unSortedMessages[current].time.split(':')[0])) {
+              
+              if(Number(freshMessage.time.split(':')[1]) < Number(unSortedMessages[current].time.split(':')[1])) {
+                freshMessage = unSortedMessages[current];
+                continue;
+              }
+              if(Number(freshMessage.time.split(':')[1]) === Number(unSortedMessages[current].time.split(':')[1])) {
+            
+                if(Number(freshMessage.second) < Number(unSortedMessages[current].second)) {
+                  
+                  freshMessage = unSortedMessages[current];
+                  continue;
+                }
+              }
+              continue;
+            };
+
+          }
         }
+      // write new fresh element to sort array
+      sortedMessages = [...sortedMessages, freshMessage];
+
+      // rest of data it's new unsort array
+      unSortedMessages = unSortedMessages.filter(element => element.id !== freshMessage.id);
+
+      // new fresh element it's first element of unsort array
+      freshMessage = unSortedMessages[0];
       }
-    sortedMessages = [...sortedMessages, freshMessage];
-    unSortedMessages = unSortedMessages.filter(element => element.id !== freshMessage.id);
-    freshMessage = unSortedMessages[0];
-  }
-  
-    // the latest message should be at the bottom
-    return sortedMessages.reverse();
-  // }
+    
+      // the latest message should be at the bottom
+      return sortedMessages.reverse();
+    }
   };
 
   function tick() {
@@ -102,7 +107,7 @@ const MageChat = () => {
         
         const dateHours =  timeValue.time.getHours().toString().length === 1 ? "0" +  timeValue.time.getHours().toString() :  timeValue.time.getHours().toString();
         const dateMinutes =  timeValue.time.getMinutes().toString().length === 1 ? "0" +  timeValue.time.getMinutes().toString() : timeValue.time.getMinutes().toString();
-        const dateSeconds =  timeValue.time.getSeconds();
+        const dateSeconds =  timeValue.time.getSeconds().toString().length === 1 ? "0" +  timeValue.time.getSeconds().toString() : timeValue.time.getSeconds().toString();
   
         // get date
         const dateDay =  timeValue.time.getDate().toString().length === 1 ? "0" +  timeValue.time.getDate().toString() :  timeValue.time.getDate().toString();
@@ -119,20 +124,51 @@ const MageChat = () => {
   const addMessage = (_,evt) => {
 
     evt.preventDefault();
-    
-    // create chats tree
-    if(selectorGallerySlice.currentItemId === '') {
-      const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
 
-      // to database
-      writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
+    // simple mode
+    if(answerId === '') {
+      // create chats tree
+      if(selectorGallerySlice.currentItemId === '') {
+        const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
 
+        // to database
+        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
+
+      } else {
+        const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+        // to database
+        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
+        
+      } 
     } else {
-      const path = pathCreator({pathSelector, section: 'chats', contents: `messages/elements/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+      // answer mode
+      // create chats tree
+      if(selectorGallerySlice.currentItemId === '') {
+        const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
 
-      // to database
-      writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
-    }      
+        // to database
+        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
+        messageAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).message, 
+        dateAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).date, 
+        timeAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).time, 
+        nameAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).name,
+        secondsAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
+
+      } else {
+        const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+        // to database
+        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
+        messageAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).message,
+        dateAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).date, 
+        timeAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).time, 
+        nameAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).name,
+        secondsAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
+      } 
+
+      setAnswerId('');
+    }     
 
     reset({message: '', });
 
@@ -142,9 +178,13 @@ const MageChat = () => {
     setMessage(evt.target.value);
   };
 
+  const cancelHandle = () => {
+    setAnswerId('');
+  };
+
   return (
     <div className={ma.container}>
-        
+
         <form onSubmit={handleSubmit(addMessage)}>
 
            
@@ -152,9 +192,9 @@ const MageChat = () => {
                 <ul className={ma.list}>
                     {
                       selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.messagesBuffer).map(value => 
-                      { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
+                      { return <li className={ma.item} key={value.id} style={value.id === answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} change={setAnswerId} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
                        selectorGallerySlice.itemsMessagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.itemsMessagesBuffer).map(value => 
-                        { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} />
+                        { return <li className={ma.item} key={value.id} style={value.id === answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} change={setAnswerId} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
             </div>
@@ -163,6 +203,42 @@ const MageChat = () => {
             <div className={ma.field}>
                 
                 <h1 className={ma.title}>Messanger</h1>
+
+                {answerId !== '' ? 
+                  selectorGallerySlice.currentItemId === '' ? 
+                  <div className={ma.answerStamp}>
+
+                    <p className={ma.answerStampTitle}>Reply to message:</p>
+
+                    <div className={ma.answerTitle}>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).name}</p>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).date}</p>
+                      <div className={ma.time}>
+                        <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).time}</p>
+                        <p className={ma.answerStyle}>:{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).second}</p>
+                      </div>
+                    </div>
+                    
+                    <p className={ma.answer}>...{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).message}</p>
+                    <button onClick={cancelHandle}>Cancel</button>
+                  </div> :
+                  <div className={ma.answerStamp}> 
+             
+                    <p className={ma.answerStampTitle}>Reply to message:</p>
+
+                    <div className={ma.answerTitle}>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).name}</p>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).date}</p>
+                      <div className={ma.time}>
+                        <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).time}</p>
+                        <p className={ma.answerStyle}>:{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).second}</p>
+                      </div>
+                    </div>
+                  
+                  <p className={ma.answer}>...{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).message}</p>
+                  <button onClick={cancelHandle}>Cancel</button>
+                </div>
+                  : ''}
 
                 <label className={ma.lab}>
                     <textarea {...register('Messange', {required: 'Please fill field!', 

@@ -236,7 +236,7 @@ const Gallery = () => {
           pathCreator({
             pathSelector,
             section: 'chats',
-            contents: `messages/elements/${selectorGallSlice.currentItemId}`,
+            contents: `elements/messages/${selectorGallSlice.currentItemId}`,
             write: false,
             users: selectorGallSlice.users,
             userIsSingInId: selectorSingInSlice.singInId
