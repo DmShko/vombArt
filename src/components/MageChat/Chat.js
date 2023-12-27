@@ -25,8 +25,74 @@ const MageChat = () => {
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
   useEffect(() => {
-    tick();
-  },[])
+    let timerID = setInterval(
+      () => tick(),
+      1000
+    );
+
+  return () => {
+      clearInterval(timerID);
+  };
+  },[newDateObj])
+
+  // useEffect(() => {
+  //   if(selectorGallerySlice.messagesBuffer.length !== 0 || selectorGallerySlice.itemsMessagesBuffer.length !== 0)
+  //     sortMessages(selectorGallerySlice.messagesBuffer);
+  // },[selectorGallerySlice.messagesBuffer])
+
+  const sortMessages = (data) => {
+
+    // if(data !== null && data !== undefined){
+
+      let unSortedMessages = data;
+      let sortedMessages = [];
+      let freshMessage = data[0];
+      console.log(data)
+
+    for(let iteration = 0; iteration < data.length; iteration += 1) {
+      
+      for(let current = 0; current < unSortedMessages.length; current += 1) {
+        
+        if(Number(freshMessage.date.split('/')[0]) < Number(unSortedMessages[current].date.split('/')[0])) {
+          freshMessage = unSortedMessages[current];
+          continue;
+        };
+
+        if(Number(freshMessage.date.split('/')[0]) === Number(unSortedMessages[current].date.split('/')[0])) {
+          
+          if(Number(freshMessage.time.split(':')[0]) < Number(unSortedMessages[current].time.split(':')[0])) {
+            freshMessage = unSortedMessages[current];
+            continue;
+          }
+
+          if(Number(freshMessage.time.split(':')[0]) === Number(unSortedMessages[current].time.split(':')[0])) {
+            
+            if(Number(freshMessage.time.split(':')[1]) < Number(unSortedMessages[current].time.split(':')[1])) {
+              freshMessage = unSortedMessages[current];
+              continue;
+            }
+            if(Number(freshMessage.time.split(':')[1]) === Number(unSortedMessages[current].time.split(':')[1])) {
+          
+              if(Number(freshMessage.second) < Number(unSortedMessages[current].second)) {
+                
+                freshMessage = unSortedMessages[current];
+                continue;
+              }
+            }
+            continue;
+          };
+
+        }
+      }
+    sortedMessages = [...sortedMessages, freshMessage];
+    unSortedMessages = unSortedMessages.filter(element => element.id !== freshMessage.id);
+    freshMessage = unSortedMessages[0];
+  }
+  
+    // the latest message should be at the bottom
+    return sortedMessages.reverse();
+  // }
+  };
 
   function tick() {
     
@@ -85,9 +151,9 @@ const MageChat = () => {
             <div className={ma.area} wrap='soft'>
                 <ul className={ma.list}>
                     {
-                      selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length !== 0 ? selectorGallerySlice.messagesBuffer.map(value => 
+                      selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.messagesBuffer).map(value => 
                       { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
-                       selectorGallerySlice.itemsMessagesBuffer.length !== 0 ? selectorGallerySlice.itemsMessagesBuffer.map(value => 
+                       selectorGallerySlice.itemsMessagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.itemsMessagesBuffer).map(value => 
                         { return <li className={ma.item} key={value.id}><MessageItem data={value} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>

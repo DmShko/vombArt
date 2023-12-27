@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const galleryInitialState = {
   users: [],
   itemsBuffer: null,
-  messagesBuffer: null,
-  itemsMessagesBuffer: null,
+  messagesBuffer: [],
+  itemsMessagesBuffer: [],
   searchedUser: true,
   buttonTargetName: '',
   load: false,

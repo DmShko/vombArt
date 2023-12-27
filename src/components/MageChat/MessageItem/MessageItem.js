@@ -9,7 +9,7 @@ const MessageItem = ({ data }) => {
         <div className={me.stamp}>
           <p>{data.name}</p>
           <p style={{ color: 'blue', fontSize: '14px',}}>{data.date}</p>
-          <p style={{ color: 'blue',fontSize: '14px', }}>{data.time}</p>
+          <p style={{ color: 'blue',fontSize: '14px', }}>{`${data.time}:${data.second}`}</p>
         </div>
         <BackImg className={me.svg}style={{width: '20px', height: '20px',}} />
       </div>
