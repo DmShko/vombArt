@@ -263,7 +263,7 @@ const SharedLayout = () => {
         
             <header className={sh.header}>
                <nav className={sh.pageNav}>
-                        <NavLink className={sh.link} to="/">
+                        <NavLink className={`${sh.link} ${sh.home}`} to="/">
                         VombArt
                         </NavLink>
                     <ul className={sh.list}>

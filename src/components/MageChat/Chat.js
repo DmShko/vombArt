@@ -1,10 +1,12 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch} from "react-redux"
 import { useForm } from 'react-hook-form';
 
 import writeUserData from 'API/writerDB';
 import pathCreator from './pathCreator/pathCreator';
 import MessageItem from './MessageItem/MessageItem';
+import ScrollDown from './ScrollDown/ScrollDown';
+
 import { ReactComponent as EmptyImg } from '../../images/empty-white-box-svgrepo-com.svg';
 import { ReactComponent as SendImg } from '../../images/send-alt-2-svgrepo-com.svg';
 import { ReactComponent as TriangleUpImg } from '../../images/triangle-up-svgrepo-com.svg';
@@ -20,6 +22,8 @@ const MageChat = () => {
   const pathSelector = useSelector(state => state.path.logicPath);
   const dispatch = useDispatch();
 
+  const messageBlock = useRef();
+
   const [timeValue, setTimeValue] = useState({ time: new Date() });
   const [newDateObj, setNewDateObj] = useState({});
   const [message, setMessage] = useState('');
@@ -27,6 +31,7 @@ const MageChat = () => {
   const [searchDate, setSearchDate] = useState('');
   const [searchText, setSearchText] = useState(''); 
   const [searchMenuToggle, setSearchMenuToggle] = useState(false);
+  const [scrollIsEnd, setScrollIsEnd] = useState(false);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
@@ -41,6 +46,12 @@ const MageChat = () => {
       clearInterval(timerID);
     };
   },[newDateObj]);
+
+  useEffect(() => {
+
+    setScrollIsEnd(false);
+
+  },[selectorGallerySlice.messagesBuffer]);
 
   useEffect(() => {
 
@@ -199,6 +210,12 @@ const MageChat = () => {
 
   const searchMenuHandle = () => {
     setSearchMenuToggle(value => !value);
+
+    if(searchMenuToggle === true) {
+      setSearchName('');
+      setSearchDate('');
+      setSearchText('');
+    } 
   };
 
   const cancelHandle = () => {
@@ -207,19 +224,35 @@ const MageChat = () => {
 
   };
 
+  const scrollHandler = () => {
+    messageBlock.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+  };
+
+  const scrollEnd = (evt) => {
+
+    // detect scroll to end
+    if(evt.target.scrollHeight - evt.target.scrollTop -  evt.target.clientHeight === 0){
+      
+      setScrollIsEnd(true);
+    } 
+  };
+
   return (
     <div className={ma.container}>
 
         <form onSubmit={handleSubmit(addMessage)}>
 
-           
-            <div className={ma.area} wrap='soft'>
+            <p className={ma.messagesCounter} style={{color: 'white', fontWeight: '600'}}>{`${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p> 
+            <div className={ma.area} wrap='soft' onScroll={scrollEnd}>
+
+              <ScrollDown data={scrollHandler} scrollDownDetect={scrollIsEnd}/> 
+
                 <ul className={ma.list}>
                     {
                       selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.messagesBuffer).map(value => 
-                      { return value.message.includes(searchText) ? <li className={ma.item} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
+                      { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
                        selectorGallerySlice.itemsMessagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.itemsMessagesBuffer).map(value => 
-                        { return value.message.includes(searchText) ? <li className={ma.item} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
+                        { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
             </div>
@@ -265,7 +298,7 @@ const MageChat = () => {
                 </div>
                   : ''}
 
-                <button onClick={searchMenuHandle}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
+                <button onClick={searchMenuHandle} style={{border: 'none'}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
 
                 {searchMenuToggle ? <div>
                   
@@ -336,10 +369,11 @@ const MageChat = () => {
 
                     </label>
                   </div>
-                </div> : ''}        
+                </div> : ''}       
                 <label className={ma.lab}>
+                    
                     <textarea {...register('Messange', {required: 'Please fill field!', 
-            
+
                         maxLength: {value:300, message: 'Invalid length!'},  value:message,})}
                         wrap='soft'
                         className={ma.in} 
