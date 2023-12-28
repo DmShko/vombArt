@@ -24,6 +24,7 @@ const galleryInitialState = {
   levelStatistic: {},
   currentItemId: '',
   typeOfFile: '',
+  answerId:'',
 };
 
 // {
@@ -214,6 +215,8 @@ const gallerySlice = createSlice({
           case 'updateSelectedItems':
             state.selectedItems = action.payload.data;
             break;
+          case 'updateAnswerId':
+            state.answerId = action.payload.data;
           default:
             break;
         }

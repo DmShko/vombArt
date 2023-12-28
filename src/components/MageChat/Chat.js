@@ -7,6 +7,8 @@ import pathCreator from './pathCreator/pathCreator';
 import MessageItem from './MessageItem/MessageItem';
 import { ReactComponent as EmptyImg } from '../../images/empty-white-box-svgrepo-com.svg';
 import { ReactComponent as SendImg } from '../../images/send-alt-2-svgrepo-com.svg';
+import { ReactComponent as TriangleUpImg } from '../../images/triangle-up-svgrepo-com.svg';
+import { ReactComponent as TriangleDownImg } from '../../images/triangle-down-svgrepo-com.svg';
 
 import ma from './Chat.module.scss'
 import { change } from 'vomgallStore/gallerySlice';
@@ -21,7 +23,10 @@ const MageChat = () => {
   const [timeValue, setTimeValue] = useState({ time: new Date() });
   const [newDateObj, setNewDateObj] = useState({});
   const [message, setMessage] = useState('');
-  const [answerId, setAnswerId] = useState('');
+  const [searchName, setSearchName] = useState('');
+  const [searchDate, setSearchDate] = useState('');
+  const [searchText, setSearchText] = useState(''); 
+  const [searchMenuToggle, setSearchMenuToggle] = useState(false);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
@@ -35,7 +40,14 @@ const MageChat = () => {
     {
       clearInterval(timerID);
     };
-  },[newDateObj])
+  },[newDateObj]);
+
+  useEffect(() => {
+
+    // clear item answer status, when modal open
+    dispatch(change({ operation: 'updateAnswerId', data: '' }));
+
+  },[selectorGallerySlice.currentItemId]);
 
   // sort messages function
   const sortMessages = (data) => {
@@ -126,7 +138,7 @@ const MageChat = () => {
     evt.preventDefault();
 
     // simple mode
-    if(answerId === '') {
+    if(selectorGallerySlice.answerId === '') {
       // create chats tree
       if(selectorGallerySlice.currentItemId === '') {
         const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
@@ -149,25 +161,26 @@ const MageChat = () => {
 
         // to database
         writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
-        messageAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).message, 
-        dateAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).date, 
-        timeAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).time, 
-        nameAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).name,
-        secondsAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
+        messageAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message, 
+        dateAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
+        timeAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
+        nameAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
+        secondsAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
 
       } else {
         const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
 
         // to database
         writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
-        messageAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).message,
-        dateAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).date, 
-        timeAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).time, 
-        nameAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).name,
-        secondsAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
+        messageAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message,
+        dateAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
+        timeAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
+        nameAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
+        secondsAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
       } 
 
-      setAnswerId('');
+   
+      dispatch(change({ operation: 'updateAnswerId', data: '' }));
     }     
 
     reset({message: '', });
@@ -178,8 +191,20 @@ const MageChat = () => {
     setMessage(evt.target.value);
   };
 
+  const inputSearch = (evt) => {
+    if(evt.target.name === 'SearchName') setSearchName(evt.target.value);
+    if(evt.target.name === 'SearchDate') setSearchDate(evt.target.value);
+    if(evt.target.name === 'SearchText') setSearchText(evt.target.value);
+  };
+
+  const searchMenuHandle = () => {
+    setSearchMenuToggle(value => !value);
+  };
+
   const cancelHandle = () => {
-    setAnswerId('');
+   
+    dispatch(change({ operation: 'updateAnswerId', data: '' }));
+
   };
 
   return (
@@ -192,9 +217,9 @@ const MageChat = () => {
                 <ul className={ma.list}>
                     {
                       selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.messagesBuffer).map(value => 
-                      { return <li className={ma.item} key={value.id} style={value.id === answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} change={setAnswerId} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
+                      { return value.message.includes(searchText) ? <li className={ma.item} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
                        selectorGallerySlice.itemsMessagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.itemsMessagesBuffer).map(value => 
-                        { return <li className={ma.item} key={value.id} style={value.id === answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} change={setAnswerId} /></li>}) : <EmptyImg style={{width: '100px', height: '100px',}} />
+                        { return value.message.includes(searchText) ? <li className={ma.item} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
             </div>
@@ -204,22 +229,22 @@ const MageChat = () => {
                 
                 <h1 className={ma.title}>Messanger</h1>
 
-                {answerId !== '' ? 
+                {selectorGallerySlice.answerId !== '' ? 
                   selectorGallerySlice.currentItemId === '' ? 
                   <div className={ma.answerStamp}>
 
                     <p className={ma.answerStampTitle}>Reply to message:</p>
 
                     <div className={ma.answerTitle}>
-                      <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).name}</p>
-                      <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).date}</p>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name}</p>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date}</p>
                       <div className={ma.time}>
-                        <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).time}</p>
-                        <p className={ma.answerStyle}>:{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).second}</p>
+                        <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time}</p>
+                        <p className={ma.answerStyle}>:{selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second}</p>
                       </div>
                     </div>
                     
-                    <p className={ma.answer}>...{selectorGallerySlice.messagesBuffer.find(element => element.id === answerId).message}</p>
+                    <p className={ma.answer}>...{selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message}</p>
                     <button onClick={cancelHandle}>Cancel</button>
                   </div> :
                   <div className={ma.answerStamp}> 
@@ -227,19 +252,91 @@ const MageChat = () => {
                     <p className={ma.answerStampTitle}>Reply to message:</p>
 
                     <div className={ma.answerTitle}>
-                      <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).name}</p>
-                      <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).date}</p>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name}</p>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date}</p>
                       <div className={ma.time}>
-                        <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).time}</p>
-                        <p className={ma.answerStyle}>:{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).second}</p>
+                        <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time}</p>
+                        <p className={ma.answerStyle}>:{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second}</p>
                       </div>
                     </div>
                   
-                  <p className={ma.answer}>...{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === answerId).message}</p>
+                  <p className={ma.answer}>...{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message}</p>
                   <button onClick={cancelHandle}>Cancel</button>
                 </div>
                   : ''}
 
+                <button onClick={searchMenuHandle}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
+
+                {searchMenuToggle ? <div>
+                  
+                  <div>
+                    <label className={ma.labserach}> 
+
+                    <div className={ma.serachlable}>
+
+                      <p>SearchByName</p>
+                               
+                      <input {...register('SearchName', { 
+                    
+                        value: searchName, })} 
+                        className={ma.insearch} 
+                        type="text"
+                        autoComplete='false'
+                        onChange={inputSearch}
+                        title="searchName"
+                        placeholder="Enter name...">
+         
+                      </input>
+
+                    </div>
+
+                    </label>
+
+                    <label className={ma.labserach}>
+                      
+                      <div className={ma.serachlable}>
+
+                        <p>SearchByDate</p>
+                                
+                        <input {...register('SearchDate', { 
+            
+                          value: searchDate, })} 
+                          className={ma.insearch} 
+                          type="text"
+                          autoComplete='false'
+                          onChange={inputSearch}
+                          title="searchDate"
+                          placeholder="Enter date...">
+
+                        </input>
+                        
+                      </div>
+
+                    </label>
+
+                    <label className={ma.labserach}> 
+
+                      <div className={ma.serachlable}>   
+                    
+                        <p>SearchByText</p>
+                                
+                        <input {...register('SearchText', { 
+            
+                          value: searchText, })} 
+                          className={ma.insearch} 
+                          type="text"
+                          autoComplete='false'
+                          onChange={inputSearch}
+                          title="searchText"
+                          placeholder="Enter text...">
+
+                        </input>
+
+                      </div>
+
+                    </label>
+                  </div>
+                </div> : ''}        
                 <label className={ma.lab}>
                     <textarea {...register('Messange', {required: 'Please fill field!', 
             

@@ -1,14 +1,20 @@
+import { useDispatch } from 'react-redux';
+
 import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-com.svg';
 
 import me from './MessageItem.module.scss'
 
-const MessageItem = ({ data, change }) => {
+import { change } from 'vomgallStore/gallerySlice';
+
+const MessageItem = ({ data }) => {
+
+  const dispatch = useDispatch();
 
   const answer = data.answerStatus;
 
   const answerButtonHandle = () => {
 
-    change(data.id);
+    dispatch(change({ operation: 'updateAnswerId', data: data.id }));
 
   };
 
