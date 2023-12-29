@@ -32,7 +32,7 @@ const ModalArt = ({ openClose, children }) => {
   };
 
   return createPortal(
-    <div className={mo.backdrop} onClick={clickBackdrob}>
+    <div className={mo.backdrop} style={{top: `${window.scrollY}px`}} onClick={clickBackdrob}>
         <div className={mo.container}>
             {children}
         </div>

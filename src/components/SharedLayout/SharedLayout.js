@@ -19,7 +19,8 @@ import { changeSingUp } from 'vomgallStore/singUpSlice';
 import {ReactComponent as KeyImg} from '../../images/key-svgrepo-com.svg';
 import {ReactComponent as EmailImg} from '../../images/email-8-svgrepo-com.svg';
 import {ReactComponent as UserNameImg} from '../../images/user-id-svgrepo-com.svg';
-import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg';
+import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg'; 
+import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg'
 import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg'
@@ -355,8 +356,9 @@ const SharedLayout = () => {
              
                 {selectorTargetName === 'about'? 
                 <div className={sh.about}>
+                    <img src={AdminFoto} alt='Developer foto' style={{width: '150px', }}></img>
                     <h2 style={{color: 'black'}}>About VomBart and me.</h2>
-                    <p>Hello! My name is Dmitry. I have many hobbies, including painting. 
+                    <p>Hello! My name is Dmitry Shevchenko. I have many hobbies, including painting. 
                             Since childhood, I dreamed of learning to draw professionally, because
                              I knew that then I would be happy. That's exactly what happens. 
                              I could not become an artist at the level of famous masters. 
@@ -469,9 +471,11 @@ const SharedLayout = () => {
                     errors?.Password ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Password?.message}</p> :
                     errors?.UserName ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p> : '' : ''}
 
+                {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' target="_blank">Try using a special resource to create a password.</a> : ''}
+
             </ModalArt>}
 
-            <section className={sh.section}>
+            <section className={sh.section} style={selectorGallSlice.currentItemId !== '' || modalSettingsToggle ? {marginRight: `${(window.innerWidth - document.body.offsetWidth)+35}px`} : {width: '95%'}}>
                 <main className={sh.container}>
                     <Suspense fallback={<Loader/>}>
                         <Outlet />

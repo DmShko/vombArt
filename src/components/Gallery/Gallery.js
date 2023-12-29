@@ -441,7 +441,7 @@ const Gallery = () => {
   const itemDoubleClickHandle = (evt) => {
 
     ModalItemToggleFunction();
-
+   
     // save search item URL
     if(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id) !== undefined) {
 

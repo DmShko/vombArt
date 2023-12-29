@@ -45,10 +45,12 @@ const ModalItem = ({ children, openClose }) => {
 
   return createPortal(
    
-    <div className={moit.backdrop} onClick={clickBackdrob}>
+    <div className={moit.backdrop} style={{top: `${window.scrollY}px`}} onClick={clickBackdrob}>
         <div className={moit.container}>
             {children}
-            <div className={moit.chatContainer}><Chat className={moit.chat}/></div> 
+            <div className={moit.chatContainer}>
+              <Chat className={moit.chat}/>
+            </div> 
         </div>
     </div>, modalRootItem
 

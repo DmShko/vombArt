@@ -1,3 +1,14 @@
+@keyframes animaDown {
+    50% {
+      padding-top: 3px;  
+      padding-bottom: 0;
+    }
+    100% {
+      padding-top: 0;
+      padding-bottom: 3px;
+    }
+}
+
 .container {
 
     position: absolute;
@@ -15,7 +26,18 @@
 
     opacity: 0.7;
 
+    padding: 3px;
+
     background-color: gray;
     border-radius: 6px;
 
+    cursor: pointer;
+
+    animation-name: animaDown;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite ;
+
+    transition: padding 400ms;
+
 }
+

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 
 import noti from './NotificationLine.module.scss';
 
@@ -7,12 +8,15 @@ import { ReactComponent as LevelImg } from '../../images/layer-svgrepo-com.svg';
 import { ReactComponent as ErrorImg } from '../../images/error-svgrepo-com.svg';
 
 const NotificationLine = () => {
+
+  const selectorGallerySlice = useSelector(state => state.gallery);
+
   return (
     <div className={noti.container}>
-        <NotiImg style={{width: '25px', height: '25px'}}/>
-        <HeartiImg style={{width: '25px', height: '25px', fill: 'white'}}/>
-        <LevelImg style={{width: '25px', height: '25px', fill: 'white'}}/>
-        <ErrorImg style={{width: '25px', height: '25px', fill: 'white'}}/>
+        <NotiImg className={noti.heartItem} style={selectorGallerySlice.scrollIsEnd === false ? {fill: 'yellowgreen'} : {fill: 'lightgray'}}/>
+        <HeartiImg className={noti.notiItem}/>
+        <LevelImg className={noti.notiItem}/>
+        <ErrorImg className={noti.notiItem}/>
     </div>
   )
 }

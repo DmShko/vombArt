@@ -25,6 +25,9 @@ const galleryInitialState = {
   currentItemId: '',
   typeOfFile: '',
   answerId:'',
+  scrollIsEnd: true,
+  mesBuffLength: 0,
+  itemMesBuffLength: 0,
 };
 
 // {
@@ -192,10 +195,6 @@ const gallerySlice = createSlice({
             
           break;
 
-          case 'changeLevelStatistic':
-            
-          break;
-
           case 'changeFractionPageQuantityActive':
            
             state.fractionPageQuantity.forEach(element => element.forEach(element =>{
@@ -217,6 +216,16 @@ const gallerySlice = createSlice({
             break;
           case 'updateAnswerId':
             state.answerId = action.payload.data;
+            break;
+          case 'updateScrollIsEnd':
+            state.scrollIsEnd = action.payload.data;
+            break;
+          case 'updateMesBuffLength':
+            state.mesBuffLength = action.payload.data;
+            break;
+          case 'updateItemMesBuffLength':
+            state.itemMesBuffLength = action.payload.data;
+            break;
           default:
             break;
         }

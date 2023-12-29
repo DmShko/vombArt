@@ -31,9 +31,18 @@ const MageChat = () => {
   const [searchDate, setSearchDate] = useState('');
   const [searchText, setSearchText] = useState(''); 
   const [searchMenuToggle, setSearchMenuToggle] = useState(false);
-  const [scrollIsEnd, setScrollIsEnd] = useState(false);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
+
+  useEffect(() => {
+
+    // first fill mesBuffLength and itemMesBuffLength
+    if(selectorGallerySlice.messagesBuffer !== undefined && selectorGallerySlice.itemsMessagesBuffer !== undefined) {
+      dispatch(change({ operation: 'updateMesBuffLength', data: selectorGallerySlice.messagesBuffer.length }));
+      dispatch(change({ operation: 'updateItemMesBuffLength', data: selectorGallerySlice.itemsMessagesBuffer.length }));
+    }
+
+  },[]);
 
   useEffect(() => {
     let timerID = setInterval(
@@ -48,10 +57,34 @@ const MageChat = () => {
   },[newDateObj]);
 
   useEffect(() => {
+    // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
+    if(selectorGallerySlice.messagesBuffer !== undefined){
 
-    setScrollIsEnd(false);
+      if(selectorGallerySlice.mesBuffLength !== selectorGallerySlice.messagesBuffer.length && selectorGallerySlice.messagesBuffer.length != 0
+        && selectorGallerySlice.messagesBuffer.length * messageBlock.current.offsetHeight >= 200) {
+
+        dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
+        dispatch(change({ operation: 'updateMesBuffLength', data: selectorGallerySlice.messagesBuffer.length }));
+      
+      }
+    }
 
   },[selectorGallerySlice.messagesBuffer]);
+
+  useEffect(() => {
+    // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
+    if(selectorGallerySlice.itemMessagesBuffer !== undefined){
+
+      if(selectorGallerySlice.itemMesBuffLength !== selectorGallerySlice.itemMessagesBuffer.length && selectorGallerySlice.itemMessagesBuffer.length != 0
+        && selectorGallerySlice.itemMesBuffLength.length * messageBlock.current.offsetHeight >= 200) {
+
+        dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
+        dispatch(change({ operation: 'updateItemMesBuffLength', data: selectorGallerySlice.itemsMessagesBuffer.length }));
+
+      } 
+    }
+
+  },[selectorGallerySlice.itemMessagesBuffer]);
 
   useEffect(() => {
 
@@ -233,28 +266,31 @@ const MageChat = () => {
     // detect scroll to end
     if(evt.target.scrollHeight - evt.target.scrollTop -  evt.target.clientHeight === 0){
       
-      setScrollIsEnd(true);
+      dispatch(change({ operation: 'updateScrollIsEnd', data: true }));
+      
     } 
   };
 
   return (
     <div className={ma.container}>
-
+        
         <form onSubmit={handleSubmit(addMessage)}>
-
-            <p className={ma.messagesCounter} style={{color: 'white', fontWeight: '600'}}>{`${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p> 
+           
+            <p className={ma.messagesCounter} style={{color: 'white', fontWeight: '600'}}>{`${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p>
+             
             <div className={ma.area} wrap='soft' onScroll={scrollEnd}>
 
-              <ScrollDown data={scrollHandler} scrollDownDetect={scrollIsEnd}/> 
+              {selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} messageElement={messageBlock} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
 
                 <ul className={ma.list}>
                     {
                       selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.messagesBuffer).map(value => 
                       { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
                        selectorGallerySlice.itemsMessagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.itemsMessagesBuffer).map(value => 
-                        { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
+                      { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
+
             </div>
          
                    
