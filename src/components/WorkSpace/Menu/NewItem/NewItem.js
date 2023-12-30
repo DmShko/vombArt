@@ -33,10 +33,6 @@ const NewItem = () => {
   } = useForm({ mode: 'onBlur' });
 
   useEffect(() => {
-    tick();
-  }, []);
-
-  useEffect(() => {
     if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
   }, [storagePath]);
 
@@ -69,14 +65,11 @@ const NewItem = () => {
     const datedata = dateDay + '/' + dateMonth;
     const yeardata = timeValue.time.getFullYear();
 
-    // setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
-    dispatch(
-      change({
-        operation: 'changeDate',
-        data: { timedata, datedata, yeardata, dateSeconds },
-      })
-    );
+    
+    return { timedata, datedata, yeardata, dateSeconds };
+    
   }
+
   const stateChange = data => {
     const { name, value } = data;
 
@@ -126,7 +119,7 @@ const NewItem = () => {
       writeUserData(
         path,
         { title: title, description: description, url: '', type: selectorGallerySlice.typeOfFile},
-        selectorGallerySlice.date, false
+        tick(), false
       );
       setStoragePath(path);
       // storage(path, file);

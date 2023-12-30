@@ -45,18 +45,6 @@ const MageChat = () => {
   },[]);
 
   useEffect(() => {
-    let timerID = setInterval(
-      () => tick(),
-      1000
-    );
-
-  return () => 
-    {
-      clearInterval(timerID);
-    };
-  },[newDateObj]);
-
-  useEffect(() => {
     // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
     if(selectorGallerySlice.messagesBuffer !== undefined){
 
@@ -92,6 +80,7 @@ const MageChat = () => {
     dispatch(change({ operation: 'updateAnswerId', data: '' }));
 
   },[selectorGallerySlice.currentItemId]);
+
 
   // sort messages function
   const sortMessages = (data) => {
@@ -173,8 +162,9 @@ const MageChat = () => {
         const datedata = dateDay + "/" + dateMonth;
         const yeardata =  timeValue.time.getFullYear();
   
-        setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
-        dispatch(change({ operation: 'changeDate', data: {timedata, datedata, yeardata, dateSeconds} }));
+        return {timedata, datedata, yeardata, dateSeconds};
+        // setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
+        // dispatch(change({ operation: 'changeDate', data: {timedata, datedata, yeardata, dateSeconds} }));
   };
 
   const addMessage = (_,evt) => {
@@ -188,13 +178,13 @@ const MageChat = () => {
         const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
 
         // to database
-        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
+        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
 
       } else {
         const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
 
         // to database
-        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, selectorGallerySlice.date, false);
+        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
         
       } 
     } else {
@@ -209,7 +199,7 @@ const MageChat = () => {
         dateAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
         timeAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
         nameAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
-        secondsAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
+        secondsAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, tick(), false);
 
       } else {
         const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
@@ -220,7 +210,7 @@ const MageChat = () => {
         dateAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
         timeAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
         nameAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
-        secondsAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, selectorGallerySlice.date, false);
+        secondsAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, tick(), false);
       } 
 
    

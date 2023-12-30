@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ti from './DateTime.module.scss';
 
 const DateTime = () => {
+    
     const selectorGallSlice = useSelector(state => state.gallery);
+    const dispatch = useDispatch();
    
     const [ timeValue, setTimeValue ]= useState({time: new Date()});
     const [ newDateObj, setNewDateObj ]= useState({});
 
     useEffect(() => {
 
-        let timerID = setInterval(
+        let timerID = setTimeout(
             () => tick(),
             1000
           );
 
         return () => {
-            clearInterval(timerID);
+            setTimeout(timerID);
         };
 
     },[newDateObj]);
@@ -40,7 +42,7 @@ const DateTime = () => {
         const yeardata =  timeValue.time.getFullYear();
   
         setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
-        
+        // dispatch(change({ operation: 'changeDate', data: {timedata, datedata, yeardata, dateSeconds} }));
     };
 
     return (

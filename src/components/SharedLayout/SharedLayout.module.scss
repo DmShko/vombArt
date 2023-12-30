@@ -258,6 +258,49 @@
     text-align: justify;
 }
 
+.cont {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 85%;
+    height: 85%;
+
+    gap: 15px;
+
+    padding: 10px;
+
+    background-image:url(../../images/body-background/pawel-czerwinski-oykbZuvajO0-unsplash.jpg);
+
+    .linkedIn {
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: left;
+
+        gap: 10px;
+    }
+
+    .contacts {
+
+        width: 95%;
+
+        padding: 10px;
+        margin: 0 auto;
+
+        gap: 5px;
+
+        background-color: white;
+        border-radius: 6px;
+
+    }
+
+    
+}
+
 .userMenu {
 
     display: flex;

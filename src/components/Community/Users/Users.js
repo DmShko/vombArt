@@ -25,6 +25,7 @@ const Users = () => {
   const selectorUserPath = useSelector(state => state.path);
 
   const [usersOpen, setUsersOpen] = useState({});
+  const [country, setCountry] = useState('Ukraine');
 
   useEffect(() => {
     // generate 'menu' user click status array for drive angel mode and open user information menu
@@ -135,7 +136,6 @@ const Users = () => {
                 <div className={us.userdata}>
                   <UsersFoto style={{width: '50px', height: '50px',}} />
                   <div className={us.userdescription}>
-                    <p style={{fontSize: '14px'}}>Country:</p>
                     <p style={{fontSize: '14px'}}>Total level:</p>
                     <p style={{fontSize: '14px'}}>Total likes:</p>
                     <p style={{fontSize: '14px'}}>Sex:</p>

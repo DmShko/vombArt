@@ -9,17 +9,20 @@ import Community from './components/Community/Community';
 import NotFound from './components/NotFound/NotFound';
 import Home from 'pages/Home/Home';
 import WorkSpace from 'components/WorkSpace/WorkSpace';
+import UserSettings from './components/UserSettings/UserSettings';
+import Statistic from './components/Statistic/Statistic';
+import Account from './components/Account/Account';
 
 const LIRICS = '/lirics';
 const MUSIC = '/music';
 const DRAWING = '/drawing';
 const COMMUNITY = '/community';
 const NOTFOUND = '/*';
+const USERSETTINGS = '/usersettings';
+const STATISTIC = '/statistic';
+const ACCOUNT = '/account';
 
 const App = () => {
-
-
-  const selectorSingIn = useSelector(state => state.singIn);
 
 // Routes
 const appRoutes = [
@@ -28,7 +31,11 @@ const appRoutes = [
   {path: MUSIC, element: <WorkSpace />,},
   {path: DRAWING, element: <WorkSpace />,},  
   {path: COMMUNITY, element: <Community />,}, 
-  {path: NOTFOUND, element: <NotFound />,}
+  {path: USERSETTINGS, element: <UserSettings />,},
+  {path: STATISTIC, element: <Statistic />,},
+  {path: ACCOUNT, element: <Account />,},
+  {path: NOTFOUND, element: <NotFound />,},
+  
 ];
 
   return (

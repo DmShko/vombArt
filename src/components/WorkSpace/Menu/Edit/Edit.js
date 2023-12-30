@@ -43,10 +43,6 @@ const EditItem = () => {
   } = useForm({ mode: 'onBlur' });
 
   useEffect(() => {
-    tick();
-  }, []);
-
-  useEffect(() => {
     if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
   }, [storagePath]);
 
@@ -79,14 +75,11 @@ const EditItem = () => {
     const datedata = dateDay + '/' + dateMonth;
     const yeardata = timeValue.time.getFullYear();
 
-    // setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
-    dispatch(
-      change({
-        operation: 'changeDate',
-        data: { timedata, datedata, yeardata, dateSeconds },
-      })
-    );
+   
+    return { timedata, datedata, yeardata, dateSeconds };
+    
   }
+  
   const stateChange = data => {
     const { name, value } = data;
 
@@ -140,7 +133,7 @@ const EditItem = () => {
           writeUserData(
             `${path}${selectorGallerySlice.selectedItems[0]}`,
             {...selectorGallerySlice.itemsBuffer.find(element => element.id === selectorGallerySlice.selectedItems[0]), title: title},
-            selectorGallerySlice.date, false
+            tick(), false
           );
 
           setStoragePath('');
@@ -151,7 +144,7 @@ const EditItem = () => {
           writeUserData(
             `${path}${selectorGallerySlice.selectedItems[0]}`,
             {...selectorGallerySlice.itemsBuffer.find(element => element.id === selectorGallerySlice.selectedItems[0]), description: description, },
-            selectorGallerySlice.date, false
+            tick(), false
           );
         }
 
@@ -166,7 +159,7 @@ const EditItem = () => {
           writeUserData(
             `${path}${selectorGallerySlice.selectedItems[0]}`,
             {...selectorGallerySlice.itemsBuffer.find(element => element.id === selectorGallerySlice.selectedItems[0]), title: title, description: description},
-            selectorGallerySlice.date, false
+            tick(), false
           );
           
           // path for upload file

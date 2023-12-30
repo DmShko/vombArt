@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { Suspense, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
@@ -52,6 +53,7 @@ const SharedLayout = () => {
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const selectorGallSlice = useSelector(state => state.gallery);
   const selectorSingIn = useSelector(state => state.singIn);
@@ -60,7 +62,7 @@ const SharedLayout = () => {
   const selectorsingUpState = useSelector(state => state.singUp);
   const selectorUserExist = useSelector(state => state.singUp.userExist);
 
-  // off errors message, when inputs change
+  // off errors message, when inputs changenavigate('/home');
   useEffect(() => {
 
     setErrorDrive(false);
@@ -71,6 +73,12 @@ const SharedLayout = () => {
     }, 2000);
 
   },[email, password, userName]);
+
+  useEffect(() => {
+
+    if(!selectorSingIn.isSingIn) navigate('/');
+
+  },[selectorSingIn.isSingIn]);
 
   // load actual users array to state from DB if isLogIn - true
   useEffect(() => {
@@ -239,7 +247,7 @@ const SharedLayout = () => {
         // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
         dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
         // dispatch(changePathName({data: ''}));
-
+        
         // close modal settings
         setModalSettingsToggle(false);
     };
@@ -259,9 +267,20 @@ const SharedLayout = () => {
 
   };
 
+  const settingsHandle = () => {
+    navigate('/usersettings')
+  };
+
+  const statisticHandle = () => {
+    navigate('/statistic')
+  };
+
+  const accountHandle = () => {
+    navigate('/account')
+  };
+
   return (
     <>
-        
             <header className={sh.header}>
                <nav className={sh.pageNav}>
                         <NavLink className={`${sh.link} ${sh.home}`} to="/">
@@ -335,9 +354,9 @@ const SharedLayout = () => {
             {
                 modalSettingsToggle && <ModalSettings data={modalSettingsToggle}>
                     <div className={sh.settingModalButtonContainer}>
-                        <div className={sh.settingModalButton}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
-                        <div className={sh.settingModalButton}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Statistic</p></div>
-                        <div className={sh.settingModalButton}><ContactsImg style={{width: '25px', height: '25px'}} /><p>Contacts</p></div>
+                        <div className={sh.settingModalButton} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
+                        <div className={sh.settingModalButton} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Statistic</p></div>
+                        <div className={sh.settingModalButton} onClick={accountHandle}><ContactsImg style={{width: '25px', height: '25px'}} /><p>Account</p></div>
                         <div className={sh.settingModalButton} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>
                     </div>
                 </ ModalSettings>
@@ -368,9 +387,11 @@ const SharedLayout = () => {
                 </div> : ''}
               
                 {selectorTargetName === 'contacts' ? 
-                <div className={sh.contacts}>
-                    <p style={{color: 'black'}}> LinkedIn: </p>
-                    <p style={{color: 'black'}}> Email: </p>
+                <div className={sh.cont}>
+                    <div className={sh.contacts}>
+                        <div className={sh.linkedIn}><p style={{color: 'black'}}> LinkedIn: </p><a href='http://www.linkedin.com/in/dmitry-shevchenko-aa884613b'>Follow the link</a></div>
+                        <p style={{color: 'black'}}> Email: <span>dmitry.schevchenko.work@gmail.com</span></p>
+                    </div>
                 </div> : ''}
 
                 {selectorTargetName === 'singUp' ? 
