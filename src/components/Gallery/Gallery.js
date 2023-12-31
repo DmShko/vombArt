@@ -308,6 +308,7 @@ const Gallery = () => {
         // clear ItemsURL array
         dispatch(changeReadStorage({operation: `changeItemsURL`}));
         
+        // read storage URL for element 'id' from itemsBuffer
         selectorGallSlice.itemsBuffer.forEach(element => {
 
           dispatch(readerStorAPI({path: `${path[0]}${element.id}`, elementId: element.id}));
@@ -338,7 +339,7 @@ const Gallery = () => {
         
       selectorGallSlice.itemsBuffer.forEach(element => {
 
-        // add url to itemsBuffer
+        // add url to itemsBuffer 'changeItemsUrl' in 'gellary'
         if(selectorItemsUrl.itemsURL.length !== 0) {
           selectorItemsUrl.itemsURL.forEach(value => {if(value.id === element.id) 
             dispatch(change({operation: 'changeItemsUrl', id: element.id, url: selectorItemsUrl.itemsURL.find(value => value.id === element.id).url,}));

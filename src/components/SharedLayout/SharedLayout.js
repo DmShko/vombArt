@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
+import readerStorAPI from '../../API/readerStorageAPI'
 
 import ModalArt from 'components/ModalArt/ModalArt';
 import ModalSettings from 'components/ModalSettings/ModalSettings';
@@ -61,6 +62,37 @@ const SharedLayout = () => {
   const selectorVisibilityLog = useSelector(state => state.singIn.isSingIn);
   const selectorsingUpState = useSelector(state => state.singUp);
   const selectorUserExist = useSelector(state => state.singUp.userExist);
+  const selectorItemsUrl = useSelector(state => state.readStorage);
+
+  // see account.js file, row 24
+  useEffect(() => {
+
+    // only if user loginned
+    if(selectorGallSlice.users !== undefined && selectorSingIn.singInId !== '') {
+
+        // foto URL writing to selectorItemsUrl.itemsURL with souch id
+        const userFotoId = selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).uid;
+  
+       // if foto exist in storage, otherwise will be go to readerStorAPI in loop
+       if(selectorItemsUrl.error !== true) {
+            // write foto url to selectorItemsUrl.itemsURL only if selectorItemsUrl.itemsURL empty (first) start
+            // or not but foto id no there otherwise selectorItemsUrl.itemsURL will be rewrite in loop and redux will be jump
+            if(selectorSingIn.isSingIn === true && selectorItemsUrl.itemsURL.length !== 0 && selectorItemsUrl.itemsURL.find(element => element.id === userFotoId) === undefined) {
+                // foto URL writing to selectorItemsUrl.itemsURL with souch id
+                const userFotoId = selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).uid;
+
+                // path to foto in storage
+                const userFotoPath = `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/Accound/Foto`;
+
+                // get URL to foto in storage
+                dispatch(readerStorAPI({path: userFotoPath, elementId: userFotoId}));
+            }
+       }
+    }
+
+    // now foto url definitely exist
+    // go to account.js file
+ },[selectorItemsUrl.itemsURL]);
 
   // off errors message, when inputs changenavigate('/home');
   useEffect(() => {
