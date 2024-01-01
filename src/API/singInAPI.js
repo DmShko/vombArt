@@ -13,7 +13,7 @@ const singInAPI = createAsyncThunk(
    return await signInWithEmailAndPassword (auth, email, password)
     .then((userCredential) => {
       // Signed up 
-
+      // console.log(userCredential)
       return userCredential;
       // ...
     })

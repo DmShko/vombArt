@@ -5,27 +5,37 @@
     align-items: flex-start;
     justify-content: flex-start;
 
-    width: 100vw;
+    width: 90vw;
     height: 100vw;
 
     gap: 10px;
 
-    margin: 0 auto;
     padding: 70px 0;
+    
+    margin: 0 auto;
 
     .userfoto {
+
+        width: 100%;
+
+        background-color: lightgray;
+
+        border-radius: 6px;
+
+        padding: 10px;
+
         .fise{
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-around;
+            justify-content: flex-start;
 
             padding: 10px 0;
 
-            gap: 10px;
+            gap: 30px;
 
             .button {
-                width: 80%;
+                width: 150px;
                 border: none;
                 border-radius: 6px;
                 padding: 5px;
@@ -40,7 +50,6 @@
             }
 
             .lab {
-
         
                 .in {
         
@@ -52,7 +61,8 @@
                     outline: none;
                 }
             
-                .load{
+                .load {
+
                     width: 1px;
                     opacity: 0; 
                 }
@@ -65,9 +75,76 @@
                     padding: 3px 10px;
                     border: 2px solid gray;
                     border-radius: 6px;
+
+                    background-color: white;
+                }
+
+                .p:hover {
+                    
+                    background-color: rgba(194, 212, 31, 0.801);
+                    
+                }
+
+                .file {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-start; 
+
+                    gap: 10px;
                 }
             
             }
+        }
+    }
+
+    .userInfo {
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        height: 35px;
+
+        padding: 5px 10px;
+
+        gap: 10px;
+
+        background-color: lightgray;
+
+        border-radius: 6px;
+
+        .infoInput {
+
+            height: 25px;
+
+            border: none;
+            border-radius: 6px;
+
+            margin-right: 10px;
+            
+        }
+
+        .infoInput:focus {
+            outline: none;
+        }
+
+        button {
+
+            width: 60px;
+            border: none;
+            border-radius: 6px;
+            padding: 5px;
+
+            cursor: pointer;
+
+        }
+
+        button:hover {
+                    
+            background-color: rgba(194, 212, 31, 0.801);
+            
         }
     }
 }

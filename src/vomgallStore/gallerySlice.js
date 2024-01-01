@@ -38,6 +38,7 @@ const galleryInitialState = {
     inputSoundSelector: 'Sound_1',
     outputSoundSelector: 'Sound_1',
   },
+ 
 };
 
 // {

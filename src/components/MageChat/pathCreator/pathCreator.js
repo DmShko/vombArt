@@ -85,7 +85,6 @@ const pathCreator = ({ pathSelector, section, contents, write, users, userIsSing
     // });
   };
 
-  console.log(path);
   return path;
 };
 

@@ -15,7 +15,7 @@ import readerStorAPI from '../../API/readerStorageAPI'
 import writeUserData from 'API/writerDB';
 
 import { change } from 'vomgallStore/gallerySlice';
-import { changeReadStorage } from 'vomgallStore/readSlice'
+
 // import { changePathName } from 'vomgallStore/pathSlice'
 import { updatePathStyle } from 'vomgallStore/pathSlice'
 import ModalItem from 'components/ModalItem/ModalItem';
@@ -102,6 +102,37 @@ const Gallery = () => {
     }
 
   },[]);
+
+  // get elements URL from fireBase Storage see row 335 
+  useEffect(() => {
+
+    const path = [
+      pathCreator({
+        pathSelector,
+        section: 'items',
+        contents: 'elements',
+        write: false,
+        users: selectorGallSlice.users,
+        userIsSingInId: selectorSingInSlice.singInId
+      })]
+    
+    // get elements URL from fireBase Storage
+    if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0
+      && selectorGallSlice.currentItemId === '') {
+       
+      // clear ItemsURL array
+      // dispatch(changeReadStorage({operation: `changeItemsURL`}));
+      
+      // read storage URL for element 'id' from itemsBuffer
+      selectorGallSlice.itemsBuffer.forEach(element => {
+
+        dispatch(readerStorAPI({path: `${path[0]}${element.id}`, elementId: element.id}));
+        
+      });
+
+    }
+
+  },[selectorGallSlice.itemsBuffer]);
 
   // change currentItemId in 'gellary' slice  
   useEffect(() => {
@@ -301,22 +332,7 @@ const Gallery = () => {
         });
       }
 
-      // get elements URL from fireBase Storage
-      if(selectorGallSlice.itemsBuffer !== null 
-        && selectorGallSlice.currentItemId === '') {
-   
-        // clear ItemsURL array
-        dispatch(changeReadStorage({operation: `changeItemsURL`}));
-        
-        // read storage URL for element 'id' from itemsBuffer
-        selectorGallSlice.itemsBuffer.forEach(element => {
-
-          dispatch(readerStorAPI({path: `${path[0]}${element.id}`, elementId: element.id}));
-          
-        });
-
-
-      }
+       // get from here (see row 106) 
     }
 
     // change active color

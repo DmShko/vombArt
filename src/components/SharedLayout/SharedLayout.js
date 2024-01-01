@@ -68,26 +68,24 @@ const SharedLayout = () => {
   useEffect(() => {
 
     // only if user loginned
-    if(selectorGallSlice.users !== undefined && selectorSingIn.singInId !== '') {
+    if(selectorGallSlice.users !== undefined && selectorSingIn.isSingIn === true) {
 
         // foto URL writing to selectorItemsUrl.itemsURL with souch id
-        const userFotoId = selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).uid;
+        const userFotoId = selectorSingIn.singInId;
   
-       // if foto exist in storage, otherwise will be go to readerStorAPI in loop
-       if(selectorItemsUrl.error !== true) {
+        // if foto exist in storage, otherwise will be go to readerStorAPI in loop
+        if(selectorItemsUrl.errorElementId !== userFotoId) {
             // write foto url to selectorItemsUrl.itemsURL only if selectorItemsUrl.itemsURL empty (first) start
             // or not but foto id no there otherwise selectorItemsUrl.itemsURL will be rewrite in loop and redux will be jump
-            if(selectorSingIn.isSingIn === true && selectorItemsUrl.itemsURL.length !== 0 && selectorItemsUrl.itemsURL.find(element => element.id === userFotoId) === undefined) {
-                // foto URL writing to selectorItemsUrl.itemsURL with souch id
-                const userFotoId = selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).uid;
-
+            if(selectorItemsUrl.itemsURL.length === 0 || selectorItemsUrl.itemsURL.find(element => element.id === userFotoId) === undefined) {
+             
                 // path to foto in storage
                 const userFotoPath = `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/Accound/Foto`;
-
+              
                 // get URL to foto in storage
                 dispatch(readerStorAPI({path: userFotoPath, elementId: userFotoId}));
             }
-       }
+        } 
     }
 
     // now foto url definitely exist
@@ -277,7 +275,7 @@ const SharedLayout = () => {
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
         dispatch(changeSingIn({data: '', operation: 'changeToken'}));
         // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
-        dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
+        dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
         // dispatch(changePathName({data: ''}));
         
         // close modal settings

@@ -8,7 +8,7 @@ const readStorageSliceInitialState = {
   itemsURL: [],
   isLoading: false,
   error: false,
-
+  errorElementId: '',
 };
 
 const readStorageSlice = createSlice({
@@ -20,6 +20,13 @@ const readStorageSlice = createSlice({
             switch (action.payload.operation) {
               case 'changeItemsURL':
                 state.itemsURL = [];
+                break;
+              case 'clearErrorElementId':
+                state.errorElementId = '';
+                break;
+              case 'clearUserFotoElement':
+                console.log("!!!")
+                state.itemsURL = state.itemsURL.filter(element => element.id !== action.payload.data.id);
                 break;
               default: break;
             }
@@ -38,10 +45,20 @@ const readStorageSlice = createSlice({
             state.isLoading = false;
             state.isSingIn = true;
             state.error = false;
-            
-            console.log(action.payload);
-            if(action.payload !== undefined) {
-                state.itemsURL.push({id: action.payload.elementId, url: action.payload.url,});
+      
+            if(action.payload !== undefined && state.itemsURL.length !== 0) {
+
+                // if element exist, then delete his
+                if(state.itemsURL.find(element => element.id === action.payload.elementId)) {
+                    state.itemsURL = state.itemsURL.filter(element => element.id !== action.payload.elementId);
+                }
+
+                // and add his again
+                state.itemsURL.push({id: action.payload.elementId, url: action.payload.url,}); 
+                     
+            } else {
+                // and element to empty itemsURL array
+                state.itemsURL.push({id: action.payload.elementId, url: action.payload.url,}); 
             }
             
             // Notiflix.Notify.success('ItemsURL is logged in.', {width: '450px', position: 'center-top', fontSize: '24px',});
@@ -49,11 +66,16 @@ const readStorageSlice = createSlice({
         });
                 
         builder.addCase(readerStorageAPI.rejected, (state, action) => {
-                        
+
             state.isLoading = false;
             state.error = true;
 
-            Notiflix.Notify.warning('File not found in storage', {width: '450px', position: 'center-top', fontSize: '24px',});
+            // first this row, otherwise will be show error many times 
+            if(state.errorElementId === '')
+                Notiflix.Notify.warning('File not found in storage', {width: '450px', position: 'center-top', fontSize: '24px',});
+
+            //error key for show error once (see SharedLayout 77 row)
+            state.errorElementId = action.meta.arg.elementId;
             
         });
     },
