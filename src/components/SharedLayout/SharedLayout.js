@@ -81,9 +81,12 @@ const SharedLayout = () => {
              
                 // path to foto in storage
                 const userFotoPath = `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/Accound/Foto`;
-              
-                // get URL to foto in storage
-                dispatch(readerStorAPI({path: userFotoPath, elementId: userFotoId}));
+                
+                // get URL to foto in storage. Delay for storage be on time update
+                setTimeout(() => 
+                    dispatch(readerStorAPI({path: userFotoPath, elementId: userFotoId}))
+                ,1000)
+                
             }
         } 
     }
@@ -522,7 +525,8 @@ const SharedLayout = () => {
                     errors?.Password ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Password?.message}</p> :
                     errors?.UserName ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p> : '' : ''}
 
-                {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' target="_blank">Try using a special resource to create a password.</a> : ''}
+                {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' target="_blank">Try using a special resource to create a password.</a> :
+                 <a href='' target="_blank">I forgot my password. Will restore via mailbox.</a>}
 
             </ModalArt>}
 

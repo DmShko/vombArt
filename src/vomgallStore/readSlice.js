@@ -25,7 +25,6 @@ const readStorageSlice = createSlice({
                 state.errorElementId = '';
                 break;
               case 'clearUserFotoElement':
-                console.log("!!!")
                 state.itemsURL = state.itemsURL.filter(element => element.id !== action.payload.data.id);
                 break;
               default: break;

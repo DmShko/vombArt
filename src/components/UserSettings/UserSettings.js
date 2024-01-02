@@ -14,6 +14,7 @@ const UserSettings = () => {
   const [ email, setEmail ] = useState(selectorGallerySlice.settings.checkEmail);
   const [ sound, setSound ] = useState(selectorGallerySlice.settings.checkSound);
   const [ phone, setPhone ] = useState(selectorGallerySlice.settings.checkPhone);
+  const [ colorSchem, setColorSchem ] = useState(selectorGallerySlice.settings.checkColorSchem);
 
   useEffect(() => {
 
@@ -38,6 +39,14 @@ const UserSettings = () => {
     dispatch(change({operation: 'updateSettings', data:{item: 'checkPhone', value: phone}}));
 
   },[phone])
+
+  useEffect(() => {
+
+    dispatch(change({operation: 'updateSettings', data:{item: 'checkColorSchem', value: colorSchem}}));
+    
+  },[colorSchem])
+
+
 
   const langSelectChange = (evt) => {
     dispatch(change({operation: 'updateSettings', data:{item: 'languageSelector', value: evt.target.value}}));
@@ -68,9 +77,13 @@ const UserSettings = () => {
     setDesign(!design);
     
   };
-
+  
   const phoneChange = () => {
     setPhone(! phone);
+  };
+
+  const checkSchemChange = () => {
+    setColorSchem(! colorSchem);
   };
 
   return (
@@ -166,6 +179,27 @@ const UserSettings = () => {
             </label>
           </div>
       </div>
+
+      <div className={se.check}>
+        <p style={{color: 'white'}}>Color schem</p>
+        <div className={se.status}>
+            <p style={{color: 'white'}}>{selectorGallerySlice.settings.checkColorSchem ? 'user' : 'default'}</p>
+            <label>
+              <input className={se.box}
+                type="checkbox"
+                name="Color schem"
+                checked={selectorGallerySlice.settings.checkColorSchem}
+                onChange={checkSchemChange}
+              ></input>
+            </label>
+          </div>
+      </div>
+
+      {selectorGallerySlice.settings.checkColorSchem ? 
+        <div style={{color: 'white', backgroundColor: 'lightgray'}}>
+              <p>Select schem</p>
+        </div> :
+      ''}
 
     </div>
   )

@@ -35,6 +35,7 @@ const galleryInitialState = {
     checkPhone: false,
     checkEmail: false,
     checkSound: false,
+    checkColorSchem: false,
     inputSoundSelector: 'Sound_1',
     outputSoundSelector: 'Sound_1',
   },
@@ -238,15 +239,16 @@ const gallerySlice = createSlice({
             state.itemMesBuffLength = action.payload.data;
             break;
           case 'updateSettings':
-
+            
             if(action.payload.data.item === 'languageSelector') state.settings['languageSelector'] = action.payload.data.value;
             if(action.payload.data.item === 'checkDesign') state.settings['checkDesign'] = action.payload.data.value;
             if(action.payload.data.item === 'checkPhone') state.settings['checkPhone'] = action.payload.data.value;
             if(action.payload.data.item === 'checkEmail') state.settings['checkEmail'] = action.payload.data.value;
+            if(action.payload.data.item === 'checkColorSchem') state.settings['checkColorSchem'] = action.payload.data.value;
             if(action.payload.data.item === 'checkSound') state.settings['checkSound'] = action.payload.data.value;
             if(action.payload.data.item === 'inputSoundSelector') state.settings['inputSoundSelector'] = action.payload.data.value;
             if(action.payload.data.item === 'outputSoundSelector') state.settings['outputSoundSelector'] = action.payload.data.value;
-
+            
             break;
           case 'changeAccountArray':
             state.account = action.payload.data;

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch} from "react-redux"
 import { useForm } from 'react-hook-form';
+import useSound from 'use-sound';
 
 import writeUserData from 'API/writerDB';
 import pathCreator from './pathCreator/pathCreator';
@@ -14,6 +15,7 @@ import { ReactComponent as TriangleDownImg } from '../../images/triangle-down-sv
 
 import ma from './Chat.module.scss'
 import { change } from 'vomgallStore/gallerySlice';
+import boopSfx from '../../sounds/message-incoming-132126.mp3';
 
 const MageChat = () => {
 
@@ -31,6 +33,7 @@ const MageChat = () => {
   const [searchDate, setSearchDate] = useState('');
   const [searchText, setSearchText] = useState(''); 
   const [searchMenuToggle, setSearchMenuToggle] = useState(false);
+  const [play] = useSound(boopSfx);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
@@ -52,27 +55,28 @@ const MageChat = () => {
         && selectorGallerySlice.messagesBuffer.length * messageBlock.current.offsetHeight >= 200) {
 
         dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
-        dispatch(change({ operation: 'updateMesBuffLength', data: selectorGallerySlice.messagesBuffer.length }));
-      
+       
+        play();
       }
     }
 
   },[selectorGallerySlice.messagesBuffer]);
 
-  useEffect(() => {
+  useEffect(() => { 
+    
     // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
-    if(selectorGallerySlice.itemMessagesBuffer !== undefined){
-
-      if(selectorGallerySlice.itemMesBuffLength !== selectorGallerySlice.itemMessagesBuffer.length && selectorGallerySlice.itemMessagesBuffer.length != 0
-        && selectorGallerySlice.itemMesBuffLength.length * messageBlock.current.offsetHeight >= 200) {
-
+    if(selectorGallerySlice.itemsMessagesBuffer !== undefined){
+    
+      if(selectorGallerySlice.itemMesBuffLength !== selectorGallerySlice.itemsMessagesBuffer.length && selectorGallerySlice.itemsMessagesBuffer.length != 0) {
+         
         dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
-        dispatch(change({ operation: 'updateItemMesBuffLength', data: selectorGallerySlice.itemsMessagesBuffer.length }));
+
+        play();
 
       } 
     }
 
-  },[selectorGallerySlice.itemMessagesBuffer]);
+  },[selectorGallerySlice.itemsMessagesBuffer]);
 
   useEffect(() => {
 
@@ -248,16 +252,20 @@ const MageChat = () => {
   };
 
   const scrollHandler = () => {
+    
     messageBlock.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
   };
 
   const scrollEnd = (evt) => {
+    
+    dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
 
     // detect scroll to end
     if(evt.target.scrollHeight - evt.target.scrollTop -  evt.target.clientHeight === 0){
       
       dispatch(change({ operation: 'updateScrollIsEnd', data: true }));
-      
+      dispatch(change({ operation: 'updateItemMesBuffLength', data: selectorGallerySlice.itemsMessagesBuffer.length }));
+      dispatch(change({ operation: 'updateMesBuffLength', data: selectorGallerySlice.messagesBuffer.length }));
     } 
   };
 
@@ -270,7 +278,7 @@ const MageChat = () => {
              
             <div className={ma.area} wrap='soft' onScroll={scrollEnd}>
 
-              {selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} messageElement={messageBlock} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
+              {selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
 
                 <ul className={ma.list}>
                     {

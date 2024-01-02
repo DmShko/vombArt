@@ -25,6 +25,9 @@ const Account = () => {
     const [sex, setSex] = useState('');
     const [age, setAge] = useState('');
     const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordRepeate, setPasswordRepeate] = useState('');
 
     const {
       register,
@@ -35,6 +38,8 @@ const Account = () => {
     // clear user foro url from itemsURL if load is completed
     useEffect(() => {
       
+      // when storagePath false - indicator load hidden delete selectorSingInSlice.singInId's element in
+      //selectorItemsUrl.itemsURL. When new user foto url will be load
       if(storagePath === '') {
       
         dispatch(changeReadStorage({operation: `clearUserFotoElement`, data: {id: selectorSingInSlice.singInId}}));
@@ -92,8 +97,8 @@ const Account = () => {
        });
   
      };  
-
-    }, [selectorSingInSlice.isSingIn]);
+       // selectorItemsUrl.itemsURL ^ for update user foto
+    }, [selectorSingInSlice.isSingIn, selectorItemsUrl.itemsURL]);
     
     // clear storagePath
     useEffect(() => {
@@ -140,20 +145,32 @@ const Account = () => {
     
     };
 
-    const handleName = () => {
-
+    const handleName = (evt) => {
+      setName(evt.target.value);
     };
 
-    const handleSex = () => {
-
+    const handleSex = (evt) => {
+      setSex(evt.target.value);
     };
 
-    const handleAge = () => {
-
+    const handleAge = (evt) => {
+      setAge(evt.target.value);
+    };
+    
+    const handlePhone = (evt) => {
+      setPhone(evt.target.value);
     };
 
-    const handlePhone = () => {
+    const handleEmail = (evt) => {
+      setEmail(evt.target.value);
+    };
 
+    const handlePassword = (evt) => {
+      setPassword(evt.target.value);
+    };
+
+    const handlePasswordRepeate = (evt) => {
+      setPasswordRepeate(evt.target.value);
     };
 
     return (
@@ -200,7 +217,7 @@ const Account = () => {
           </form>
 
           </div>
-
+          
         </div>
         {storagePath !== '' ? <StorageWork data={{storagePath, file, setStoragePath}}/> : ''}
 
@@ -218,7 +235,6 @@ const Account = () => {
                   onChange={handleName}
                   autoComplete="false"
                   title="Name"
-                  multiple="multiple"
                   placeholder="Enter other name..."
                 ></input>
             <button>Change</button>
@@ -239,7 +255,6 @@ const Account = () => {
                 onChange={handleSex}
                 autoComplete="false"
                 title="Sex"
-                multiple="multiple"
                 placeholder="Enter other sex..."
               ></input>
           <button>Change</button>
@@ -259,7 +274,6 @@ const Account = () => {
                 onChange={handleAge}
                 autoComplete="false"
                 title="Age"
-                multiple="multiple"
                 placeholder="Enter other age..."
               ></input>
           <button>Change</button>
@@ -278,14 +292,66 @@ const Account = () => {
                 onChange={handlePhone}
                 autoComplete="false"
                 title="Phone"
-                multiple="multiple"
                 placeholder="Enter other phone..."
               ></input>
           <button>Change</button>
           </label>
          
         </div>
-        
+
+        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Email</p>
+        <div className={ac.userInfo}>
+
+        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).email : ''}</p>
+
+          <label className={ac.lab}>
+              <input
+                value = {email}
+                className={ac.infoInput}
+                type="text"
+                onChange={handleEmail}
+                autoComplete="false"
+                title="Email"
+                placeholder="Enter other email..."
+              ></input>
+          <button>Change</button>
+          </label>
+         
+        </div>
+
+        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Password</p>
+        <div className={ac.userInfo}>
+
+          <label className={ac.lab}>
+              <input
+                value = {password}
+                className={ac.infoInput}
+                type="text"
+                onChange={handlePassword}
+                autoComplete="false"
+                title="Password"
+                placeholder="Enter new password..."
+              ></input>
+          
+          </label>
+
+          <label className={ac.lab}>
+              <input
+                value = {passwordRepeate}
+                className={ac.infoInput}
+                type="text"
+                onChange={handlePasswordRepeate}
+                autoComplete="false"
+                title="Password"
+                placeholder="Repeate new password..."
+              ></input>
+          
+          </label>
+
+          <button>Change</button>
+         
+        </div>
+
       </div>
 
     )

@@ -13,7 +13,7 @@ const NotificationLine = () => {
 
   return (
     <div className={noti.container}>
-        <NotiImg className={noti.heartItem} style={selectorGallerySlice.scrollIsEnd === false ? {fill: 'yellowgreen'} : {fill: 'lightgray'}}/>
+        <NotiImg className={noti.heartItem} style={selectorGallerySlice.messagesBuffer !== undefined && selectorGallerySlice.mesBuffLength !== selectorGallerySlice.messagesBuffer.length ? {fill: 'yellowgreen'} : {fill: 'lightgray'}}/>
         <HeartiImg className={noti.notiItem}/>
         <LevelImg className={noti.notiItem}/>
         <ErrorImg className={noti.notiItem}/>
