@@ -1,5 +1,7 @@
 .container {
 
+    
+
     .fise{
      
         .fset{
@@ -7,7 +9,7 @@
             border-radius: 6px;
             border: 2px solid lightgray;
             margin: 0;
-
+            
             .field {
                 display: flex;
                 flex-direction: column;
@@ -20,7 +22,7 @@
                     border: none;
                     border-radius: 6px;
                     padding: 5px;
-
+       
                     cursor: pointer;
                 }
 

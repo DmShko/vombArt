@@ -13,9 +13,12 @@ import singInReducer from './singInSlice';
 import singOutReducer from './singOutSlice';
 import galleryReducer from './gallerySlice';
 import pathReducer from './pathSlice';
-import readStorageReducer from './readSlice.js'
-import deleteStorageReducer from './deleteSlice.js'
-
+import readStorageReducer from './readSlice.js';
+import deleteStorageReducer from './deleteSlice.js';
+import changeEmailReducer from './changeEmailSlice.js';
+import changePasswordReducer from './changePasswordSlice.js';
+import changeProfileReducer from './changeProfileSlice.js';
+import verifiReducer from './emailVerifiSlice.js';
 
 const rootReducer = combineReducers(
     {
@@ -26,6 +29,10 @@ const rootReducer = combineReducers(
         path: pathReducer,
         readStorage: readStorageReducer,
         deleteStorage: deleteStorageReducer,
+        changeEmail: changeEmailReducer,
+        changePassword: changePasswordReducer,
+        changeProfile: changeProfileReducer,
+        verifi: verifiReducer,
          //...or more redusers
     }
 );

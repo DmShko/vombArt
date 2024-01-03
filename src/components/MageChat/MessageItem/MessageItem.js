@@ -27,7 +27,7 @@ const MessageItem = ({ data }) => {
     if(selectorSingInSlice.isSingIn === true && selectorItemsUrl.itemsURL.find(element => element.id === userFotoId)) {
 
      // path to DB account array
-     const pathDB = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Accound/Foto`;
+     const pathDB = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`;
 
       // listenAccount(path);
      const db = getDatabase();

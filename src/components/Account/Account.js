@@ -8,6 +8,14 @@ import writeUserData from 'API/writerDB';
 import { changeReadStorage } from 'vomgallStore/readSlice'
 import StorageWork from 'components/StorageWork/StorageWork';
 import { getDatabase, ref, onValue } from 'firebase/database';
+import { auth } from "../../firebase";
+
+import changeEmAPI from 'API/changeEmailAPI';
+import changePassAPI from 'API/changePasswordAPI';
+import changeVeriAPI from 'API/emailVerifiAPI';
+// import changeProAPI from 'API/changeProfileAPI';
+
+import Notiflix from 'notiflix';
 
 import ac from './Account.module.scss';
 
@@ -51,7 +59,7 @@ const Account = () => {
     // update account array in DB
     useEffect(() => {
       
-      const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Accound/Foto`;
+      const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`;
       
       // account array not empty
       if(Object.keys(selectorGallerySlice.account).length !== 0) {
@@ -74,7 +82,7 @@ const Account = () => {
       if(selectorSingInSlice.isSingIn === true && selectorItemsUrl.itemsURL.find(element => element.id === userFotoId)) {
 
        // path to DB account array
-       const pathDB = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Accound/Foto`;
+       const pathDB = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`;
 
         // listenAccount(path);
        const db = getDatabase();
@@ -131,8 +139,8 @@ const Account = () => {
 
       evt.preventDefault();
       
-      setStoragePath(`${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Accound/Foto`);
-      const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Accound/Foto`;
+      setStoragePath(`${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`);
+      const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`;
 
       // add foto element to DB
       writeUserData(
@@ -165,6 +173,12 @@ const Account = () => {
       setEmail(evt.target.value);
     };
 
+    const emailClick = () => {
+      // dispatch(changeProAPI('vombart@i.ua')); 
+      // dispatch(changeVeriAPI(email));
+      dispatch(changeEmAPI(email));
+    };
+
     const handlePassword = (evt) => {
       setPassword(evt.target.value);
     };
@@ -172,6 +186,20 @@ const Account = () => {
     const handlePasswordRepeate = (evt) => {
       setPasswordRepeate(evt.target.value);
     };
+
+    const confirmEmail = () => {
+      dispatch(changeVeriAPI(email)); 
+    };
+
+    const passwordClick = () => {
+    
+      if(password === passwordRepeate  && password !== '' && passwordRepeate !== '') {
+        dispatch(changePassAPI(passwordRepeate));
+      } else {
+        Notiflix.Notify.warning('Passwords are not equal or empty', {width: '450px', position: 'center-top', fontSize: '24px',});
+      }
+
+    } 
 
     return (
 
@@ -303,6 +331,8 @@ const Account = () => {
         <div className={ac.userInfo}>
 
         <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).email : ''}</p>
+        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId && auth.currentUser !== null && auth.currentUser.emailVerified ? <p style={{color: 'green'}}>{'confirmed'}</p> : <p style={{color: 'orange'}}>{'not confirmed'}</p>}</p>
+        {auth.currentUser !== null && !auth.currentUser.emailVerified ? <button onClick={confirmEmail}>Confirm</button> : ''}       
 
           <label className={ac.lab}>
               <input
@@ -314,7 +344,7 @@ const Account = () => {
                 title="Email"
                 placeholder="Enter other email..."
               ></input>
-          <button>Change</button>
+          <button onClick={emailClick}>Change</button>
           </label>
          
         </div>
@@ -326,7 +356,7 @@ const Account = () => {
               <input
                 value = {password}
                 className={ac.infoInput}
-                type="text"
+                type="password"
                 onChange={handlePassword}
                 autoComplete="false"
                 title="Password"
@@ -339,17 +369,23 @@ const Account = () => {
               <input
                 value = {passwordRepeate}
                 className={ac.infoInput}
-                type="text"
+                type="password"
                 onChange={handlePasswordRepeate}
                 autoComplete="false"
-                title="Password"
+                title="Password Repeate"
                 placeholder="Repeate new password..."
               ></input>
           
           </label>
 
-          <button>Change</button>
+          <button onClick={passwordClick}>Change</button>
          
+        </div>
+
+        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Delete account</p>
+        <div className={ac.userInfo}>
+          <button style={{width: 'fit-content'}}>Delete only account</button>
+          <button style={{width: 'fit-content'}}>Delete account whith all data</button>
         </div>
 
       </div>

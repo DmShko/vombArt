@@ -13,6 +13,7 @@ import singUpAPI from '../../API/singUpAPI';
 import singInAPI from '../../API/singInAPI';
 import singOutAPI from '../../API/singOutAPI';
 import writeUserData from 'API/writerDB';
+import changeVeriAPI from 'API/emailVerifiAPI';
 import { change } from 'vomgallStore/gallerySlice';
 import { changePathName } from 'vomgallStore/pathSlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
@@ -80,7 +81,7 @@ const SharedLayout = () => {
             if(selectorItemsUrl.itemsURL.length === 0 || selectorItemsUrl.itemsURL.find(element => element.id === userFotoId) === undefined) {
              
                 // path to foto in storage
-                const userFotoPath = `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/Accound/Foto`;
+                const userFotoPath = `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/Account/Foto`;
                 
                 // get URL to foto in storage. Delay for storage be on time update
                 setTimeout(() => 
@@ -200,11 +201,13 @@ const SharedLayout = () => {
   },[selectorsingUpState.email]);
 
   // singIn after singUp at same time
-
   useEffect(() => {
 
     // only if no current logIn users and modal window is closed
-    if(selectorsingUpState.usersId !== '' && modalToggle === true) dispatch(singInAPI({email: email, password: password}));
+    if(selectorsingUpState.usersId !== '' && modalToggle === true) {
+      dispatch(changeVeriAPI(email));  
+      dispatch(singInAPI({email: email, password: password}));
+    } 
 
   },[selectorsingUpState.usersId]);
  
@@ -255,7 +258,7 @@ const SharedLayout = () => {
     evt.preventDefault();
     if(selectorTargetName === 'singUp') {
 
-        dispatch(singUpAPI({email: email, password: password}));
+      dispatch(singUpAPI({email: email, password: password}));    
 
     };
    
@@ -439,7 +442,7 @@ const SharedLayout = () => {
                                
                                 <input {...register('Email', {required: 'Please fill the Email field!', 
             
-                                maxLength: {value:16, message: 'Invalid length!'},  value: email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})} 
+                                value: email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})} 
                                 className={sh.in} 
                                 type="text"
                                 autoComplete='false'
@@ -489,7 +492,7 @@ const SharedLayout = () => {
                             <label className={sh.lab}> <EmailImg style={{width: '25px', height: '25px',}}/>
                                 <input {...register('Email', {required: 'Please fill the Email field!', 
             
-                                maxLength: {value:16, message: 'Invalid length! '},  value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
+                                value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
 
                                 className={sh.in} 
                                 type="text"
@@ -527,6 +530,12 @@ const SharedLayout = () => {
 
                 {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' target="_blank">Try using a special resource to create a password.</a> :
                  <a href='' target="_blank">I forgot my password. Will restore via mailbox.</a>}
+
+                {selectorsingUpState.usersId && selectorTargetName === 'singUp' ?
+                    <div className={sh.verifiInfo}>
+                        <p>A mail verification letter has been sent to your mail. Follow the link in the letter and after the information that you have been verified. Login is performed automatically. If the letter does not come. You can verify your e-mail from your personal account.</p>
+                    </div>
+                 :''}
 
             </ModalArt>}
 
