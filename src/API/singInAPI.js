@@ -20,7 +20,7 @@ const singInAPI = createAsyncThunk(
     .catch((error) => {
       // const errorCode = error.code;
       // const errorMessage = error.message;
-      Notiflix.Notify.warning(`${error.code}`, {width: '450px', position: 'center-top', fontSize: '24px',});
+      Notiflix.Notify.warning('Invalid login or password', {width: '450px', position: 'center-top', fontSize: '24px',});
       // return error.code;
       // ..
     });

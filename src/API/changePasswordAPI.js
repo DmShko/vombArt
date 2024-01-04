@@ -6,7 +6,7 @@ import { auth } from "../firebase";
 const changePassAPI = createAsyncThunk(
   'changePassword/changePassAPI', 
   
-  async function (password, {rejectWithValue}) {
+  async function (password) {
 
    return await updatePassword(auth.currentUser, password)
     .then(() => {
@@ -14,7 +14,7 @@ const changePassAPI = createAsyncThunk(
     })
     .catch((error) => {
       
-      return rejectWithValue();
+      // return rejectWithValue(error.response);
       
     });
 });

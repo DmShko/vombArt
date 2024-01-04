@@ -39,7 +39,8 @@ const galleryInitialState = {
     inputSoundSelector: 'Sound_1',
     outputSoundSelector: 'Sound_1',
   },
- 
+  actualUserLength: 0,
+  actualUsers: [],
 };
 
 // {
@@ -80,6 +81,9 @@ const gallerySlice = createSlice({
             break;
           case 'changeUsers':
             state.users = [...state.users, action.payload.data];
+            break;
+          case 'deleteUsers':
+            state.users = state.users.filter(element => element.uid !== action.payload.data.id);
             break;
           case 'updateUsersArray':
             console.log(action.payload.data)
@@ -256,6 +260,12 @@ const gallerySlice = createSlice({
           case 'updateAccountData':
             state.account = {...state.account, url: action.payload.data.url};
             break;
+          case 'updateActualUserLength':
+            state.actualUserLength = action.payload.data;
+              break;
+          case 'tempActualUsers':
+            state.actualUsers = action.payload.data;
+              break;
           default:
             break;
         }

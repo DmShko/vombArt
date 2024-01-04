@@ -19,6 +19,8 @@ import changeEmailReducer from './changeEmailSlice.js';
 import changePasswordReducer from './changePasswordSlice.js';
 import changeProfileReducer from './changeProfileSlice.js';
 import verifiReducer from './emailVerifiSlice.js';
+import deleteAccountReducer from './deleteAccountSlice.js';
+import reauthUserReducer from './reauthUserSlice.js';
 
 const rootReducer = combineReducers(
     {
@@ -33,6 +35,8 @@ const rootReducer = combineReducers(
         changePassword: changePasswordReducer,
         changeProfile: changeProfileReducer,
         verifi: verifiReducer,
+        deleteAccount: deleteAccountReducer,
+        reauthUser: reauthUserReducer,
          //...or more redusers
     }
 );

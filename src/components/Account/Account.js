@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { change } from 'vomgallStore/gallerySlice';
 import { useForm } from 'react-hook-form';
 
@@ -8,11 +9,15 @@ import writeUserData from 'API/writerDB';
 import { changeReadStorage } from 'vomgallStore/readSlice'
 import StorageWork from 'components/StorageWork/StorageWork';
 import { getDatabase, ref, onValue } from 'firebase/database';
+import { changeSingIn } from 'vomgallStore/singInSlice';
 import { auth } from "../../firebase";
 
 import changeEmAPI from 'API/changeEmailAPI';
 import changePassAPI from 'API/changePasswordAPI';
 import changeVeriAPI from 'API/emailVerifiAPI';
+import deleteAccAPI from 'API/deleteAccountAPI';
+// import reauthUserAPI from 'API/reauthAPI';
+import singOutAPI from '../../API/singOutAPI';
 // import changeProAPI from 'API/changeProfileAPI';
 
 import Notiflix from 'notiflix';
@@ -26,6 +31,7 @@ const Account = () => {
     const selectorItemsUrl = useSelector(state => state.readStorage);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [file, setFile] = useState();
     const [storagePath, setStoragePath] = useState('');
@@ -200,6 +206,46 @@ const Account = () => {
       }
 
     } 
+
+    const delAccount = () => {
+
+      Notiflix.Confirm.show(
+        'Confirm',
+        'Current account will be deleted! Are you sure?',
+        'Yes',
+        'No',
+        () => {
+
+          // dispatch(reauthUserAPI({email: email, password: password}));
+
+          // delete user from users array
+          dispatch(change({operation: 'deleteUsers', data: {id: selectorSingInSlice.singInId}}));
+          // delete account
+          dispatch(deleteAccAPI());
+          dispatch(singOutAPI());
+
+
+          dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
+          dispatch(changeSingIn({data: '', operation: 'changeToken'}));
+          // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingInSlice.singInId, status: false}}));
+          dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
+          // dispatch(changePathName({data: ''}));
+          
+          // close modal settings
+          // setModalSettingsToggle(false);
+          navigate('/');
+        },
+        () => {
+        
+        },
+        {
+        },
+        );
+    };
+
+    const delAccountWithData = () => {
+      // dispatch(singOutAPI());
+    };
 
     return (
 
@@ -384,8 +430,8 @@ const Account = () => {
 
         <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Delete account</p>
         <div className={ac.userInfo}>
-          <button style={{width: 'fit-content'}}>Delete only account</button>
-          <button style={{width: 'fit-content'}}>Delete account whith all data</button>
+          <button style={{width: 'fit-content'}} onClick={delAccount}>Delete only account</button>
+          <button style={{width: 'fit-content'}} onClick={delAccountWithData}>Delete account whith all data</button>
         </div>
 
       </div>

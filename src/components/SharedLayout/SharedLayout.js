@@ -18,6 +18,8 @@ import { change } from 'vomgallStore/gallerySlice';
 import { changePathName } from 'vomgallStore/pathSlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
+// import { auth } from "../../firebase";
+// import { onAuthStateChanged   } from "firebase/auth";
 
 import {ReactComponent as KeyImg} from '../../images/key-svgrepo-com.svg';
 import {ReactComponent as EmailImg} from '../../images/email-8-svgrepo-com.svg';
@@ -75,7 +77,7 @@ const SharedLayout = () => {
         const userFotoId = selectorSingIn.singInId;
   
         // if foto exist in storage, otherwise will be go to readerStorAPI in loop
-        if(selectorItemsUrl.errorElementId !== userFotoId) {
+        if(selectorItemsUrl.errorElementId !== userFotoId && selectorGallSlice.users.length !== 0) {
             // write foto url to selectorItemsUrl.itemsURL only if selectorItemsUrl.itemsURL empty (first) start
             // or not but foto id no there otherwise selectorItemsUrl.itemsURL will be rewrite in loop and redux will be jump
             if(selectorItemsUrl.itemsURL.length === 0 || selectorItemsUrl.itemsURL.find(element => element.id === userFotoId) === undefined) {
@@ -114,6 +116,20 @@ const SharedLayout = () => {
 
   },[selectorSingIn.isSingIn]);
 
+  useEffect(() => {
+
+    if(selectorGallSlice.tempActualUsers !== null && selectorGallSlice.tempActualUsers !== undefined) {
+        // if(actualUsers.find(element => element.status === true) !== undefined || actualUsers.find(element => element.status === true) !== null) {
+        if(selectorGallSlice.tempActualUsers.find(element => element.uid === selectorSingIn.singInId)) {
+            dispatch(changePathName({data: selectorGallSlice.tempActualUsers.find(element => element.uid === selectorSingIn.singInId).userName}));
+            dispatch(change({operation: 'updateUsersArray', data: selectorGallSlice.tempActualUsers}));
+        }
+
+        dispatch(change({operation: 'updateActualUserLength', data: selectorGallSlice.tempActualUsers.length}));
+    }
+
+  },[selectorGallSlice.tempActualUsers]);
+
   // load actual users array to state from DB if isLogIn - true
   useEffect(() => {
 
@@ -127,12 +143,9 @@ const SharedLayout = () => {
       onValue(starCountRef, snapshot => {
         // load data from database
         const actualUsers = snapshot.val();
-        console.log(actualUsers);
-        if(actualUsers.find(element => element.status === true) !== undefined || actualUsers.find(element => element.status === true) !== null) {
-          
-            dispatch(changePathName({data: actualUsers.find(element => element.status === true).userName}));
-            dispatch(change({operation: 'updateUsersArray', data: actualUsers}));
-        }
+
+        dispatch(change({operation: 'tempActualUsers', data: actualUsers}));
+ 
       });
 
     };  
@@ -150,10 +163,11 @@ const SharedLayout = () => {
 
   },[selectorsingUpState.userName]);
 
-  // add user array to DB, when he was changed
+  // rewrite user array to DB, when he was changed
   useEffect(() => {
-    // add user array to database if are not empty []
-    if(selectorSingIn.isSingIn === true) {
+
+    // add user array to database if are not empty [] and his length more than 'selectorGallSlice.actualUserLength'
+    if(selectorSingIn.isSingIn === true && selectorGallSlice.users.length > selectorGallSlice.actualUserLength) {
         if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
     
             writeUserData(
@@ -163,9 +177,22 @@ const SharedLayout = () => {
             );
         } 
     }
-    
 
-  },[selectorGallSlice.users, selectorSingIn.isSingIn]);
+    // NOTE !!!!!!!!!!!!!!!!!! HOW IT'S WORK
+    // When user login, first time, even 'users' array just change, but 'selectorGallSlice.actualUserLength' stiil 0.
+    // Because neсessary waiting 'selectorGallSlice.actualUserLength' changes.
+    // For it use '[...selectorGallSlice.actualUserLength,]' below.
+    // Users array can changed befor change 'selectorSingIn.isSingIn' too.
+    // Because '[...selectorSingIn.isSingIn,]' below used for await his changed event.
+    // Rewrite 'users' array to DB, only if 'users' array length more, than 'selectorGallSlice.actualUserLength'.
+    // Otherwise invalid value will write to DB.
+
+    // Infirst must update data with 'users' DB, then new user add to 'users'.
+    // Change of 'users' go to rewrite 'users' in DB (add new user or anather change of 'users') see 160 row.
+    // actualUserLength it's actual 'users' array in DB.
+    
+  },[selectorGallSlice.users, selectorGallSlice.actualUserLength]);
+
 
   useEffect(() => {
    
@@ -192,9 +219,9 @@ const SharedLayout = () => {
             }
         }));
             
-        // write that user exist
+        // write that user exist afte add user to users array
         dispatch(changeSingUp({operation: 'changeUserExist', data: true}));
-        
+       
     }
      
      
@@ -280,7 +307,7 @@ const SharedLayout = () => {
         dispatch(singOutAPI());
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
         dispatch(changeSingIn({data: '', operation: 'changeToken'}));
-        // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
+        dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
         dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
         // dispatch(changePathName({data: ''}));
         

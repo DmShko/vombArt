@@ -7,14 +7,14 @@ const changeEmAPI = createAsyncThunk(
   'changeEmail/changeEmAPI', 
   
   async function (email, {rejectWithValue}) {
-   console.log(auth.currentUser)
+ 
    return await updateEmail(auth.currentUser, email)
     .then(() => {
       
     })
     .catch((error) => {
       
-      return rejectWithValue();
+      return rejectWithValue(error.message);
       
     });
 });
