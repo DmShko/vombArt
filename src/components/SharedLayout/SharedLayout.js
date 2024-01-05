@@ -116,19 +116,100 @@ const SharedLayout = () => {
 
   },[selectorSingIn.isSingIn]);
 
+  // 2.###########################
   useEffect(() => {
 
-    if(selectorGallSlice.tempActualUsers !== null && selectorGallSlice.tempActualUsers !== undefined) {
+    if(selectorSingIn.isSingIn) {
         // if(actualUsers.find(element => element.status === true) !== undefined || actualUsers.find(element => element.status === true) !== null) {
-        if(selectorGallSlice.tempActualUsers.find(element => element.uid === selectorSingIn.singInId)) {
-            dispatch(changePathName({data: selectorGallSlice.tempActualUsers.find(element => element.uid === selectorSingIn.singInId).userName}));
-            dispatch(change({operation: 'updateUsersArray', data: selectorGallSlice.tempActualUsers}));
-        }
+        if(selectorGallSlice.actualUsers.find(element => element.uid === selectorSingIn.singInId)) {
+            dispatch(changePathName({data: selectorGallSlice.actualUsers.find(element => element.uid === selectorSingIn.singInId).userName}));
+            
+        } 
 
-        dispatch(change({operation: 'updateActualUserLength', data: selectorGallSlice.tempActualUsers.length}));
+        dispatch(change({operation: 'updateUsersArray', data: selectorGallSlice.actualUsers}));
+        dispatch(change({operation: 'updateActualUserLength', data: selectorGallSlice.actualUsers.length}));
+    }
+    
+    if(selectorGallSlice.actualUsers !== null && selectorGallSlice.actualUsers !== undefined && selectorGallSlice.actualUsers.length !== 0) {
+        
+        if(!selectorSingIn.isSingIn && selectorsingUpState.usersId !== '' && selectorUserExist === false) {
+            console.log("not empty")
+            dispatch(change({operation: 'updateUsersArray', data: selectorGallSlice.actualUsers}));
+            // add new user object but not add, when page reloader selectorUserExist change to false again in 'singUp'
+            // when new user add do database
+            // if(selectorsingUpState.email !== '' && selectorUserExist === false) {
+                
+                // add userName if singUp is OK
+                dispatch(changeSingUp({operation: 'changeUserName', data: userName}));
+
+                // add new user's default object to 'users' "gellarySlice's" array  
+                dispatch(change({operation: 'changeUsers', data: 
+                    {
+                        userName: selectorsingUpState.userName,
+                        email: selectorsingUpState.email,
+                        arts:
+                            {
+                                lirics:{name: 'Lirics', style: ['Poem', 'Liric'] },
+                                music:{name: 'Music', style: ['Classic', 'Pop'] },
+                                draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
+                            },
+                        uid: selectorsingUpState.usersId,
+                        status: true,
+                    }
+                }));
+                    
+                // write that user exist afte add user to users array
+                dispatch(changeSingUp({operation: 'changeUserExist', data: true}));
+            
+            // }
+
+            dispatch(change({operation: 'updateActualUserLength', data: selectorGallSlice.actualUsers.length}));
+        } 
+        
+    } else {
+        
+        if(selectorSingIn.isSingIn !== true && selectorsingUpState.usersId !== '' && selectorUserExist === false) {
+            console.log("empty")
+            // add userName if singUp is OK
+            dispatch(changeSingUp({operation: 'changeUserName', data: userName}));
+
+            // add new user's default object to 'users' "gellarySlice's" array  
+            dispatch(change({operation: 'changeUsers', data: 
+                {
+                    userName: selectorsingUpState.userName,
+                    email: selectorsingUpState.email,
+                    arts:
+                        {
+                            lirics:{name: 'Lirics', style: ['Poem', 'Liric'] },
+                            music:{name: 'Music', style: ['Classic', 'Pop'] },
+                            draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
+                        },
+                    uid: selectorsingUpState.usersId,
+                    status: true,
+                }
+            
+            }));
+
+            // write that user exist afte add user to users array
+            dispatch(changeSingUp({operation: 'changeUserExist', data: true}));
+
+        } 
     }
 
-  },[selectorGallSlice.tempActualUsers]);
+  },[selectorGallSlice.actualUsers]);
+
+  // auto login after create new user
+  useEffect(() => {
+
+    if(selectorUserExist === true && selectorSingIn.isSingIn === false) {
+
+      dispatch(changeVeriAPI(email));  
+      dispatch(singInAPI({email: email, password: password}));
+
+    };
+     
+  },[selectorUserExist]);
+
 
   // load actual users array to state from DB if isLogIn - true
   useEffect(() => {
@@ -136,19 +217,19 @@ const SharedLayout = () => {
     if(selectorSingIn.isSingIn === true) {
 
        // listenUserData(path);
-      const db = getDatabase();
-      const starCountRef = ref(db, 'users');
-
-      //firebase listener function
-      onValue(starCountRef, snapshot => {
-        // load data from database
-        const actualUsers = snapshot.val();
-
-        dispatch(change({operation: 'tempActualUsers', data: actualUsers}));
+       const db = getDatabase();
+       const starCountRef = ref(db, 'users');
  
-      });
-
-    };  
+       //firebase listener function
+       onValue(starCountRef, snapshot => {
+         // load data from database
+         const actualUsers = snapshot.val();
+ 
+         dispatch(change({operation: 'tempActualUsers', data: actualUsers}));
+  
+       });
+ 
+     };  
 
   },[selectorSingIn.isSingIn]);
   
@@ -166,6 +247,7 @@ const SharedLayout = () => {
   // rewrite user array to DB, when he was changed
   useEffect(() => {
 
+    
     // add user array to database if are not empty [] and his length more than 'selectorGallSlice.actualUserLength'
     if(selectorSingIn.isSingIn === true && selectorGallSlice.users.length > selectorGallSlice.actualUserLength) {
         if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
@@ -178,62 +260,59 @@ const SharedLayout = () => {
         } 
     }
 
+    if(selectorSingIn.isSingIn === false && selectorGallSlice.users.length > selectorGallSlice.actualUserLength) {
+        if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
+    
+            writeUserData(
+                'users',
+                selectorGallSlice.users,
+                null, true
+            );
+        } 
+    }
+
     // NOTE !!!!!!!!!!!!!!!!!! HOW IT'S WORK
-    // When user login, first time, even 'users' array just change, but 'selectorGallSlice.actualUserLength' stiil 0.
-    // Because neсessary waiting 'selectorGallSlice.actualUserLength' changes.
-    // For it use '[...selectorGallSlice.actualUserLength,]' below.
-    // Users array can changed befor change 'selectorSingIn.isSingIn' too.
-    // Because '[...selectorSingIn.isSingIn,]' below used for await his changed event.
+
+    // 1. Go to 296 row
+    // At first, user signUp operation. There heppens read actual 'users' array from DB.
+    // 2. When actual 'users' array is readed, go to 119 row. There heppens evaluation actual 'users' array:
+    //   1) if data base ampty. Not exist anybody - go to 170 row and write new user object to 'users' array.
+    //   2) Else (actual 'users' array and 'users' array in DB, in accordance), at first, write to 'users' array
+    // actual 'users' and then write to 'users' array new user object. Goto 132 row.
+
+    // If user just exist and login simply. Go to 214 row. There heppens read actual 'users' array from DB too.
+    // After this go to 121 row. There set actual path name and update 'users' array from DB. 
     // Rewrite 'users' array to DB, only if 'users' array length more, than 'selectorGallSlice.actualUserLength'.
     // Otherwise invalid value will write to DB.
 
-    // Infirst must update data with 'users' DB, then new user add to 'users'.
-    // Change of 'users' go to rewrite 'users' in DB (add new user or anather change of 'users') see 160 row.
-    // actualUserLength it's actual 'users' array in DB.
+
+    // NOTE: Any change automaticaly rewrite 'users' array in DB!!!
+    // But 248 row code have to way update 'users' array in DB:
+    //  1) When user login simply
+    //  2) When user not login on signUp phase. 
     
   },[selectorGallSlice.users, selectorGallSlice.actualUserLength]);
 
-
-  useEffect(() => {
-   
-    // add new user object but not add, when page reloader selectorUserExist change to false again in 'singUp'
-    // when new user add do database
-    if(selectorsingUpState.email !== '' && selectorUserExist === false) {
-            
-        // add userName if singUp is OK
-        dispatch(changeSingUp({operation: 'changeUserName', data: userName}));
-
-        // add new user's default object to 'users' "gellarySlice's" array  
-        dispatch(change({operation: 'changeUsers', data: 
-            {
-                userName: selectorsingUpState.userName,
-                email: selectorsingUpState.email,
-                arts:
-                    {
-                        lirics:{name: 'Lirics', style: ['Poem', 'Liric'] },
-                        music:{name: 'Music', style: ['Classic', 'Pop'] },
-                        draw: {name: 'Drawing', style: ['Oil', 'Watercolor', 'Digital', 'Mix']}
-                    },
-                uid: selectorsingUpState.usersId,
-                status: true,
-            }
-        }));
-            
-        // write that user exist afte add user to users array
-        dispatch(changeSingUp({operation: 'changeUserExist', data: true}));
-       
-    }
-     
-     
-  },[selectorsingUpState.email]);
-
-  // singIn after singUp at same time
+  // 1.###########################
+  // singUp 
   useEffect(() => {
 
     // only if no current logIn users and modal window is closed
     if(selectorsingUpState.usersId !== '' && modalToggle === true) {
-      dispatch(changeVeriAPI(email));  
-      dispatch(singInAPI({email: email, password: password}));
+
+       // listenUserData(path);
+       const db = getDatabase();
+       const starCountRef = ref(db, 'users');
+ 
+       //firebase listener function
+       onValue(starCountRef, snapshot => {
+         // load data from database
+         const actualUsers = snapshot.val();
+ 
+         dispatch(change({operation: 'tempActualUsers', data: actualUsers}));
+  
+       });
+ 
     } 
 
   },[selectorsingUpState.usersId]);

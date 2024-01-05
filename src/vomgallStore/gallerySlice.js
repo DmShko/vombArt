@@ -262,10 +262,13 @@ const gallerySlice = createSlice({
             break;
           case 'updateActualUserLength':
             state.actualUserLength = action.payload.data;
-              break;
+            break;
           case 'tempActualUsers':
             state.actualUsers = action.payload.data;
-              break;
+            break;
+          case 'changeActualUsers':
+            state.actualUsers = [...state.actualUsers, action.payload.data];
+            break;
           default:
             break;
         }
