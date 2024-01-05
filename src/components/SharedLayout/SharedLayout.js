@@ -15,6 +15,7 @@ import singOutAPI from '../../API/singOutAPI';
 import writeUserData from 'API/writerDB';
 import changeVeriAPI from 'API/emailVerifiAPI';
 import { change } from 'vomgallStore/gallerySlice';
+import { changeSingOut } from 'vomgallStore/singOutSlice';
 import { changePathName } from 'vomgallStore/pathSlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
@@ -44,6 +45,29 @@ import { Loader } from '../Loader/Loader';
 import Notiflix from 'notiflix';
 Notiflix.Report.init({titleFontSize: '24px',});
 
+// ********** HOW IT'S WORK **************
+
+    // 1. Go to 296 row
+    // At first, user signUp operation. There heppens read actual 'users' array from DB.
+    // 2. When actual 'users' array is readed, go to 119 row. There heppens evaluation actual 'users' array:
+    //   1) if data base ampty. Not exist anybody - go to 170 row and write new user object to 'users' array.
+    //   2) Else (actual 'users' array and 'users' array in DB, in accordance), at first, write to 'users' array
+    // actual 'users' and then write to 'users' array new user object. Goto 132 row.
+    // Only ater this start auto login. When 'selectorUserExist' is true.
+
+    // If user just exist and login simply. Go to 214 row. There heppens read actual 'users' array from DB too.
+    // After this go to 121 row. There set actual path name and update 'users' array from DB. 
+    // Rewrite 'users' array to DB, only if 'users' array length more, than 'selectorGallSlice.actualUserLength'.
+    // Otherwise invalid value will write to DB.
+
+
+    // NOTE: Any change automaticaly rewrite 'users' array in DB!!!
+    // But 248 row code have to way update 'users' array in DB:
+    //  1) When user login simply
+    //  2) When user not login on signUp phase. 
+
+// ***************************************
+
 const SharedLayout = () => {
 
   const [ modalToggle, setModalToggle] = useState(false);
@@ -66,6 +90,7 @@ const SharedLayout = () => {
   const selectorsingUpState = useSelector(state => state.singUp);
   const selectorUserExist = useSelector(state => state.singUp.userExist);
   const selectorItemsUrl = useSelector(state => state.readStorage);
+  const selectorLogOut = useSelector(state => state.singOut);
 
   // see account.js file, row 24
   useEffect(() => {
@@ -109,6 +134,25 @@ const SharedLayout = () => {
     }, 2000);
 
   },[email, password, userName]);
+
+  // when signOut happened
+  useEffect(() => {
+
+    if(selectorLogOut.isLogOut) {
+        
+        dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
+        dispatch(changeSingUp({operation: 'changeusersId', data: ''}));
+        dispatch(changeSingIn({data: '', operation: 'changeToken'}));
+        dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
+        dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
+       
+        // dispatch(changePathName({data: ''}));
+            
+        // close modal settings
+        setModalSettingsToggle(false);
+    }
+    
+  },[selectorLogOut.isLogOut]);
 
   useEffect(() => {
 
@@ -200,9 +244,9 @@ const SharedLayout = () => {
 
   // auto login after create new user
   useEffect(() => {
-
-    if(selectorUserExist === true && selectorSingIn.isSingIn === false) {
-
+ 
+    if(selectorUserExist === true && selectorSingIn.isSingIn === false) { 
+        
       dispatch(changeVeriAPI(email));  
       dispatch(singInAPI({email: email, password: password}));
 
@@ -215,7 +259,7 @@ const SharedLayout = () => {
   useEffect(() => {
 
     if(selectorSingIn.isSingIn === true) {
-
+        
        // listenUserData(path);
        const db = getDatabase();
        const starCountRef = ref(db, 'users');
@@ -270,26 +314,21 @@ const SharedLayout = () => {
             );
         } 
     }
-
-    // NOTE !!!!!!!!!!!!!!!!!! HOW IT'S WORK
-
-    // 1. Go to 296 row
-    // At first, user signUp operation. There heppens read actual 'users' array from DB.
-    // 2. When actual 'users' array is readed, go to 119 row. There heppens evaluation actual 'users' array:
-    //   1) if data base ampty. Not exist anybody - go to 170 row and write new user object to 'users' array.
-    //   2) Else (actual 'users' array and 'users' array in DB, in accordance), at first, write to 'users' array
-    // actual 'users' and then write to 'users' array new user object. Goto 132 row.
-
-    // If user just exist and login simply. Go to 214 row. There heppens read actual 'users' array from DB too.
-    // After this go to 121 row. There set actual path name and update 'users' array from DB. 
-    // Rewrite 'users' array to DB, only if 'users' array length more, than 'selectorGallSlice.actualUserLength'.
-    // Otherwise invalid value will write to DB.
-
-
-    // NOTE: Any change automaticaly rewrite 'users' array in DB!!!
-    // But 248 row code have to way update 'users' array in DB:
-    //  1) When user login simply
-    //  2) When user not login on signUp phase. 
+    
+    // only for logout
+    if(selectorSingIn.isSingIn === false && selectorLogOut.isLogOut === true) {
+        if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
+    
+            writeUserData(
+                'users',
+                selectorGallSlice.users,
+                null, true
+            );
+            
+            dispatch(changeSingOut({operation: 'changeisLogOut', data: false}));
+            
+        } 
+    }
     
   },[selectorGallSlice.users, selectorGallSlice.actualUserLength]);
 
@@ -363,14 +402,14 @@ const SharedLayout = () => {
    
     evt.preventDefault();
     if(selectorTargetName === 'singUp') {
-
+  
       dispatch(singUpAPI({email: email, password: password}));    
 
     };
    
 
     if(selectorTargetName === 'singIn') {
-
+        
        dispatch(singInAPI({email: email, password: password})); 
 
     }
@@ -384,11 +423,6 @@ const SharedLayout = () => {
     evt.preventDefault();
     if(evt.currentTarget.id === 'singOut') {
         dispatch(singOutAPI());
-        dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
-        dispatch(changeSingIn({data: '', operation: 'changeToken'}));
-        dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
-        dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
-        // dispatch(changePathName({data: ''}));
         
         // close modal settings
         setModalSettingsToggle(false);

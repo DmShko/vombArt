@@ -10,6 +10,7 @@ import { changeReadStorage } from 'vomgallStore/readSlice'
 import StorageWork from 'components/StorageWork/StorageWork';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { changeSingIn } from 'vomgallStore/singInSlice';
+import { changeSingUp } from 'vomgallStore/singUpSlice';
 import { auth } from "../../firebase";
 
 import changeEmAPI from 'API/changeEmailAPI';
@@ -216,24 +217,22 @@ const Account = () => {
         'No',
         () => {
 
-          // dispatch(reauthUserAPI({email: email, password: password}));
-
+          navigate('/');
           // delete user from users array
           dispatch(change({operation: 'deleteUsers', data: {id: selectorSingInSlice.singInId}}));
           // delete account
-          dispatch(deleteAccAPI());
           dispatch(singOutAPI());
-
-
+          dispatch(deleteAccAPI());
+          
           dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
           dispatch(changeSingIn({data: '', operation: 'changeToken'}));
           // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingInSlice.singInId, status: false}}));
           dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
           // dispatch(changePathName({data: ''}));
-          
+          // dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
           // close modal settings
           // setModalSettingsToggle(false);
-          navigate('/');
+          
         },
         () => {
         
