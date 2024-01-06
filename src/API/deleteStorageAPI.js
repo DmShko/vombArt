@@ -6,7 +6,7 @@ const deleteStorAPI = createAsyncThunk(
   async function (path) {
 
     const storage = getStorage();
-    console.log("!")
+
     return await deleteObject (ref(storage, path))
       .then(() => {
        

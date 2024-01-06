@@ -19,6 +19,7 @@ import { changeSingOut } from 'vomgallStore/singOutSlice';
 import { changePathName } from 'vomgallStore/pathSlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
+import { changeDelAccount } from 'vomgallStore/deleteAccountSlice';
 // import { auth } from "../../firebase";
 // import { onAuthStateChanged   } from "firebase/auth";
 
@@ -91,6 +92,7 @@ const SharedLayout = () => {
   const selectorUserExist = useSelector(state => state.singUp.userExist);
   const selectorItemsUrl = useSelector(state => state.readStorage);
   const selectorLogOut = useSelector(state => state.singOut);
+  const selectorDelAccount = useSelector(state => state.deleteAccount);
 
   // see account.js file, row 24
   useEffect(() => {
@@ -142,12 +144,15 @@ const SharedLayout = () => {
         
         dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
         dispatch(changeSingUp({operation: 'changeusersId', data: ''}));
+        dispatch(changeSingUp({operation: 'changeUserName', data: ''}));
+        dispatch(changeSingUp({operation: 'changeUserEmail', data: ''}));
+        dispatch(changeSingUp({operation: 'changeUserToken', data: ''}));
         dispatch(changeSingIn({data: '', operation: 'changeToken'}));
         dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
        
-        // dispatch(changePathName({data: ''}));
-            
+        // dispatch(changePathName({data: ''})); 
+        dispatch(changeSingOut({operation: 'changeisLogOut', data: false}));    
         // close modal settings
         setModalSettingsToggle(false);
     }
@@ -315,17 +320,17 @@ const SharedLayout = () => {
         } 
     }
     
-    // only for logout
-    if(selectorSingIn.isSingIn === false && selectorLogOut.isLogOut === true) {
+    // only for delete account
+    if(selectorSingIn.isSingIn === false && selectorDelAccount.accountIsDeleted === true) {
         if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
-    
+           
             writeUserData(
                 'users',
                 selectorGallSlice.users,
                 null, true
             );
             
-            dispatch(changeSingOut({operation: 'changeisLogOut', data: false}));
+            dispatch(changeDelAccount({operation: 'changeAccountIsDeleted', data: false}));
             
         } 
     }

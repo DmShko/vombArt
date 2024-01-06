@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import NewItem from './NewItem/NewItem';
@@ -9,6 +9,8 @@ import writeUserData from 'API/writerDB';
 import deleteStorAPI from 'API/deleteStorageAPI';
 import { change } from 'vomgallStore/gallerySlice';
 import { changeDelete } from 'vomgallStore/deleteSlice';
+import { changeItemsMetaData } from 'vomgallStore/getMetaSlice';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg'
 import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg'
@@ -25,6 +27,8 @@ const Menu = () => {
   const selectorGallSlice = useSelector(state => state.gallery);
   const selectorSingInSlice = useSelector(state => state.singIn);
   const pathSelector = useSelector(state => state.path.logicPath);
+  const selectorItemsMetaFullPath = useSelector(state => state.getMeta);
+
 
   const [buttonStyleState, setButtonStyleState] = useState(false);
   const [buttonItemState, setButtonItemState] = useState(false);
@@ -33,7 +37,42 @@ const Menu = () => {
   const [buttonEditState, setButtonEditState] = useState(false);
   const [buttonAngelEdit, setButtonAngelEdit] = useState(false);
 
+  // first start update itemsMetaData from DB
+  useEffect(() => {
 
+    const path = selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+
+    const db = getDatabase();
+    const starCountRef = ref(db, `${path}/itemsMetaData`);
+
+      //firebase listener function
+      onValue(starCountRef, snapshot => {
+        // load data from database
+        const data = snapshot.val();
+
+        if(data !== null) dispatch(changeItemsMetaData({operation: 'updateMetaData', data: data}));
+      });
+
+  }, []);
+
+  useEffect(() => {
+   
+    if(selectorItemsMetaFullPath.itemsMetaData !== undefined && selectorItemsMetaFullPath.itemsMetaData !== null) {
+      
+      if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
+        const path = selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName 
+      
+        writeUserData(
+          `${path}/FullPaths`,
+          selectorItemsMetaFullPath.itemsMetaData,
+          null, true
+        );
+
+      }
+      
+    }
+
+  }, [selectorItemsMetaFullPath.itemsMetaData]);
 
   const buttonToggle = ({ currentTarget }) => {
     
@@ -98,10 +137,13 @@ const Menu = () => {
               // delete file from storege
               dispatch(deleteStorAPI(`${path}${selectorGallSlice.selectedItems[s]}`));
 
+              // clear element full path
+              dispatch(changeItemsMetaData({operation: 'deleteElement', data: selectorGallSlice.selectedItems[s]}));
+
             }
 
             // clear 'ifDeleteAll'. Then success message will view once 
-            dispatch(changeDelete({operation: 'setifDeleteAll', data: []}));
+            dispatch(changeDelete({operation: 'setifDeleteAll', data: true}));
 
             // clear 'selectedItems'
             dispatch(change({operation: 'updateSelectedItems', data: []}));

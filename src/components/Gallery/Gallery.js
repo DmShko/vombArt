@@ -11,7 +11,7 @@ import { changePath } from 'vomgallStore/pathSlice';
 import pathCreator from '../MageChat/pathCreator/pathCreator';
 import { Loader } from 'components/Loader/Loader';
 import Item from '../WorkSpace/Item/Item';
-import readerStorAPI from '../../API/readerStorageAPI'
+import readerStorAPI from '../../API/readerStorageAPI';
 import writeUserData from 'API/writerDB';
 
 import { change } from 'vomgallStore/gallerySlice';
@@ -274,7 +274,7 @@ const Gallery = () => {
           })
         ];
       };
-
+     
       // listenUserData(path);
       const db = getDatabase();
       for (let j = 0; j < path.length; j += 1) {
@@ -284,7 +284,7 @@ const Gallery = () => {
         onValue(starCountRef, snapshot => {
           // load data from database
           const data = snapshot.val();
-          
+        
           // hidden loader, when data is loaded
           dispatch(change({ operation: 'changeLoad', data: false }));
 

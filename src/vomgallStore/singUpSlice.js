@@ -27,6 +27,12 @@ const singUpSlice = createSlice({
         case 'changeUserName':
           state.userName = action.payload.data;
           break;
+        case 'changeUserEmail':
+          state.email = action.payload.data;
+          break;
+        case 'changeUserToken':
+          state.token = action.payload.data;
+          break;
         case 'changeUserExist':
             state.userExist = action.payload.data;
             break;

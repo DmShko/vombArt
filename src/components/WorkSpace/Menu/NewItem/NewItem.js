@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import writeUserData from 'API/writerDB';
+import getMetaAPI from 'API/getMetaDataAPI'
 import StorageWork from 'components/StorageWork/StorageWork';
 import pathCreator from '../../../MageChat/pathCreator/pathCreator';
+
 import { change } from 'vomgallStore/gallerySlice';
 import nf from './NewItem.module.scss';
 
@@ -15,6 +17,7 @@ const NewItem = () => {
   const selectorGallerySlice = useSelector(state => state.gallery);
   const selectorSingInSlice = useSelector(state => state.singIn);
   const pathSelector = useSelector(state => state.path.logicPath);
+
   const [timeValue, setTimeValue] = useState({ time: new Date() });
   // const [newDateObj, setNewDateObj] = useState({});
   // const [message, setMessage] = useState('');
@@ -33,7 +36,12 @@ const NewItem = () => {
   } = useForm({ mode: 'onBlur' });
 
   useEffect(() => {
-    if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
+    if(storagePath) {
+      dispatch(change({ operation: 'changeLoadFiles', data: null }));
+
+      // write full path to array for delete all data from storeg when account wil be deleted
+      dispatch(getMetaAPI(storagePath));
+    };
   }, [storagePath]);
 
   function tick() {

@@ -45,6 +45,7 @@ const Users = () => {
         
       } else {
 
+        if(selectorExistUsersList.users.find(element => element.uid ===selectorVisibilityLog.singInId) !== undefined)
         // clear 'online' status intro all users's objects
         dispatch(change({operation: 'changeAllUserStatus', data:{ id: selectorVisibilityLog.singInId, status: false,}})); 
       }

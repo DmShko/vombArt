@@ -8,15 +8,19 @@ import { useForm } from 'react-hook-form';
 import writeUserData from 'API/writerDB';
 import { changeReadStorage } from 'vomgallStore/readSlice'
 import StorageWork from 'components/StorageWork/StorageWork';
+import deleteStorAPI from 'API/deleteStorageAPI';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
+import { changePathName } from 'vomgallStore/pathSlice';
+import { changeDelAccount } from 'vomgallStore/deleteAccountSlice';
 import { auth } from "../../firebase";
 
 import changeEmAPI from 'API/changeEmailAPI';
 import changePassAPI from 'API/changePasswordAPI';
 import changeVeriAPI from 'API/emailVerifiAPI';
 import deleteAccAPI from 'API/deleteAccountAPI';
+
 // import reauthUserAPI from 'API/reauthAPI';
 import singOutAPI from '../../API/singOutAPI';
 // import changeProAPI from 'API/changeProfileAPI';
@@ -30,6 +34,8 @@ const Account = () => {
     const selectorGallerySlice = useSelector(state => state.gallery);
     const selectorSingInSlice = useSelector(state => state.singIn);
     const selectorItemsUrl = useSelector(state => state.readStorage);
+    const selectorItemsMetaFullPath = useSelector(state => state.getMeta);
+    // const selectorDelAccount = useSelector(state => state.deleteAccount);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -208,6 +214,7 @@ const Account = () => {
 
     } 
 
+    // delete only account
     const delAccount = () => {
 
       Notiflix.Confirm.show(
@@ -216,22 +223,23 @@ const Account = () => {
         'Yes',
         'No',
         () => {
-
+          
           navigate('/');
+
+          dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
+          dispatch(changeDelAccount({operation: 'changeAccountIsDeleted', data: true}));
           // delete user from users array
           dispatch(change({operation: 'deleteUsers', data: {id: selectorSingInSlice.singInId}}));
-          // delete account
+
+          dispatch(changeSingIn({data: '', operation: 'changeToken'}));
+          dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
+
+          dispatch(changePathName({data: ''}));
+          dispatch(changeSingUp({operation: 'changeusersId', data: ''}));
+          dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
           dispatch(singOutAPI());
           dispatch(deleteAccAPI());
-          
-          dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
-          dispatch(changeSingIn({data: '', operation: 'changeToken'}));
-          // dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingInSlice.singInId, status: false}}));
-          dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
-          // dispatch(changePathName({data: ''}));
-          // dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
-          // close modal settings
-          // setModalSettingsToggle(false);
+          // go to 55 row
           
         },
         () => {
@@ -242,8 +250,53 @@ const Account = () => {
         );
     };
 
+    // delete account and data
     const delAccountWithData = () => {
-      // dispatch(singOutAPI());
+
+      Notiflix.Confirm.show(
+        'Confirm',
+        'Current account will be deleted! Are you sure?',
+        'Yes',
+        'No',
+        () => {
+
+          const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`;
+
+          navigate('/');
+
+          dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
+          dispatch(changeDelAccount({operation: 'changeAccountIsDeleted', data: true}));
+          // delete user from users array
+          dispatch(change({operation: 'deleteUsers', data: {id: selectorSingInSlice.singInId}}));
+
+          dispatch(changeSingIn({data: '', operation: 'changeToken'}));
+          dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
+
+          dispatch(changePathName({data: ''}));
+          dispatch(changeSingUp({operation: 'changeusersId', data: ''}));
+          dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
+
+
+          // delete all files from storege
+          selectorItemsMetaFullPath.itemsMetaData.forEach(element => dispatch(deleteStorAPI(element)));
+          
+          // delete item from DB (write 'null')
+          writeUserData(
+            path,
+            null,
+            selectorGallerySlice.date, true
+          );
+
+          dispatch(singOutAPI());
+          dispatch(deleteAccAPI());
+          // go to 55 row
+        },
+        () => {
+        
+        },
+        {
+        },
+        );
     };
 
     return (

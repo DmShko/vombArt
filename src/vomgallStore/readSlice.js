@@ -44,7 +44,7 @@ const readStorageSlice = createSlice({
             state.isLoading = false;
             state.isSingIn = true;
             state.error = false;
-      
+          
             if(action.payload !== undefined && state.itemsURL.length !== 0) {
 
                 // if element exist, then delete his
