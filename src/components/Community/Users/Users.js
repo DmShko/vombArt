@@ -40,17 +40,17 @@ const Users = () => {
     onAuthStateChanged(auth, (user) => { 
       
       if (user) {
+
         // add 
         dispatch(change({operation: 'changeUserStatus', data: {id: user.uid, status: true}}));
         
       } else {
 
-        if(selectorExistUsersList.users.find(element => element.uid ===selectorVisibilityLog.singInId) !== undefined)
+        if(selectorExistUsersList.users.find(element => element.uid === selectorVisibilityLog.singInId) !== undefined)
         // clear 'online' status intro all users's objects
         dispatch(change({operation: 'changeAllUserStatus', data:{ id: selectorVisibilityLog.singInId, status: false,}})); 
       }
 
-    
     });
 
     // selectorVisibilityLog - when singOut button click

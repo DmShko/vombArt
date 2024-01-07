@@ -35,7 +35,6 @@ const singOutSlice = createSlice({
           
     builder.addCase(singOutAPI.fulfilled, (state) => {
       state.isLoading = false;
-      state.isLoading = false;
       state.isLogOut = true;
       Notiflix.Notify.success('User is logged out.', {width: '450px', position: 'center-top', fontSize: '24px',});
       // some actions with 'action'...

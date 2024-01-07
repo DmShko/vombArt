@@ -12,6 +12,7 @@ const getMetaAPI = createAsyncThunk(
 
    return await getMetadata(listRef)
     .then((metadata) => {
+   
       return metadata;
     })
     .catch((error) => {

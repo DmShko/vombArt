@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const galleryInitialState = {
   users: [],
-  account:{},
+  account: {},
+  personal: {sex: '', age: '', phone: ''},
   itemsBuffer: null,
   messagesBuffer: [],
   itemsMessagesBuffer: [],
@@ -91,8 +92,8 @@ const gallerySlice = createSlice({
             break;
           case 'changeAllUserStatus':
             state.users.find(
-              value => value.uid === action.payload.data.id
-            ).status = action.payload.data.status;
+              value => value.status = action.payload.data.status
+            );
             break;
           case 'addUserStyle':
             state.users
@@ -268,6 +269,12 @@ const gallerySlice = createSlice({
             break;
           case 'changeActualUsers':
             state.actualUsers = [...state.actualUsers, action.payload.data];
+            break;
+          case 'changePersonal':
+            state.personal = {...state.personal, [action.payload.data.element]: [action.payload.data.value]};
+            break;
+          case 'updatePersonal':
+            state.personal = action.payload.data;
             break;
           default:
             break;

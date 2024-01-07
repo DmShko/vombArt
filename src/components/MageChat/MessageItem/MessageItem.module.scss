@@ -35,7 +35,7 @@
     }
     .answerStyle {
 
-        font-size: 14px;
+        font-size: 12px;
         font-style: italic;
         font-weight: 600;
 
@@ -66,10 +66,12 @@
 
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: baseline;
 
         color: gray;
+
+        gap: 5px;
 
         padding: 5px;
 
@@ -93,6 +95,12 @@
         border-radius: 6px ;
 
         padding: 5px;
+
+    }
+
+    .message {
+
+        font-size: 16px;
 
     }
 }

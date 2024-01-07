@@ -36,12 +36,13 @@ const NewItem = () => {
   } = useForm({ mode: 'onBlur' });
 
   useEffect(() => {
-    if(storagePath) {
+    if(storagePath !== '') {
       dispatch(change({ operation: 'changeLoadFiles', data: null }));
 
       // write full path to array for delete all data from storeg when account wil be deleted
       dispatch(getMetaAPI(storagePath));
     };
+    setStoragePath('');
   }, [storagePath]);
 
   function tick() {

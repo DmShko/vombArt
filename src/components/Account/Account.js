@@ -14,6 +14,7 @@ import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
 import { changePathName } from 'vomgallStore/pathSlice';
 import { changeDelAccount } from 'vomgallStore/deleteAccountSlice';
+import { changeItemsMetaData } from 'vomgallStore/getMetaSlice';
 import { auth } from "../../firebase";
 
 import changeEmAPI from 'API/changeEmailAPI';
@@ -42,13 +43,60 @@ const Account = () => {
 
     const [file, setFile] = useState();
     const [storagePath, setStoragePath] = useState('');
-    const [name, setName] = useState('');
+    // const [name, setName] = useState('');
     const [sex, setSex] = useState('');
     const [age, setAge] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeate, setPasswordRepeate] = useState('');
+
+    useEffect(() => {
+
+      if(selectorSingInSlice.isSingIn === true) {
+
+        // path to DB account array
+        const pathDB = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Personal`;
+ 
+         // listenAccount(path);
+        const db = getDatabase();
+        const starCountRef = ref(db, pathDB);
+   
+        //firebase listener function
+        onValue(starCountRef, snapshot => {
+ 
+         // load account array from DB
+         const actualPersonal = snapshot.val();
+
+         if(actualPersonal !== null) {
+            // update account array from DB
+            dispatch(change({operation: 'updatePersonal', data: actualPersonal}));
+         };
+          
+        });
+   
+      };  
+
+    },[]);
+
+    useEffect(() => {
+      
+      if(selectorSingInSlice.isSingIn === true) {
+        if(selectorGallerySlice.personal.sex !== '' && selectorGallerySlice.personal.age !== ''
+        && selectorGallerySlice.personal.phone !== '') {
+
+          const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Personal`;
+
+          writeUserData(
+            path,
+            {sex: selectorGallerySlice.personal.sex, age: selectorGallerySlice.personal.age, phone: selectorGallerySlice.personal.phone,},
+            null, true
+          );
+
+        }
+      }
+
+    },[selectorGallerySlice.personal]);
 
     const {
       register,
@@ -166,20 +214,44 @@ const Account = () => {
     
     };
 
-    const handleName = (evt) => {
-      setName(evt.target.value);
-    };
+    // const handleName = (evt) => {
+    //   setName(evt.target.value);
+    // };
 
     const handleSex = (evt) => {
       setSex(evt.target.value);
     };
 
+    const sexClick = (evt) => {
+      
+      evt.preventDefault();
+
+      dispatch(change({operation: 'changePersonal', data:{element: 'sex', value: sex}}));
+      setSex('');
+    };
+    
     const handleAge = (evt) => {
       setAge(evt.target.value);
+    };
+
+    const ageClick = (evt) => {
+
+      evt.preventDefault();
+
+      dispatch(change({operation: 'changePersonal', data:{element: 'age', value: age}}));
+      setAge('');
     };
     
     const handlePhone = (evt) => {
       setPhone(evt.target.value);
+    };
+
+    const phoneClick = (evt) => {
+
+      evt.preventDefault();
+
+      dispatch(change({operation: 'changePersonal', data:{element: 'phone', value: phone}}));
+      setPhone('');
     };
 
     const handleEmail = (evt) => {
@@ -278,7 +350,10 @@ const Account = () => {
 
 
           // delete all files from storege
-          selectorItemsMetaFullPath.itemsMetaData.forEach(element => dispatch(deleteStorAPI(element)));
+          // Add to 'itemsMetaData' id and fullpath item content in storage, when new item create (see newItem.js 43 row).
+          // It's necessary for delete all data from storage, when delete user operation search. FireBase service doesn't have
+          // method for delete find or all data. He has only delet file method. 
+          selectorItemsMetaFullPath.itemsMetaData.forEach(element => dispatch(deleteStorAPI(element.path)));
           
           // delete item from DB (write 'null')
           writeUserData(
@@ -286,6 +361,9 @@ const Account = () => {
             null,
             selectorGallerySlice.date, true
           );
+
+          // clear 'itemsMetaData'
+          dispatch(changeItemsMetaData({operation: 'updateMetaData', data: []}));
 
           dispatch(singOutAPI());
           dispatch(deleteAccAPI());
@@ -299,13 +377,35 @@ const Account = () => {
         );
     };
 
+    const totalView = () => {
+
+      let total = 0;
+
+      for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
+        
+        total += selectorGallerySlice.viewsStatistic[selectorGallerySlice.itemsBuffer[v].id];
+      }
+    
+      return total;
+    };
+
+    const totalLevel = () => {
+
+      let total = 0;
+
+      for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
+        total += selectorGallerySlice.levelStatistic[selectorGallerySlice.itemsBuffer[v].id];
+      }
+
+      return total / selectorGallerySlice.itemsBuffer.length;
+    };
+
+
     return (
 
       <div className={ac.container}>
 
         <div className={ac.userfoto}>
-
-          <p style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>Foto</p>
 
           <div className={ac.file}>
 
@@ -343,6 +443,12 @@ const Account = () => {
           </form>
 
           </div>
+
+          <div className={ac.statistic}>
+            <div className={ac.itemContainer}><p>All hearts:</p> <p className={ac.item}>{selectorSingInSlice.singInId ? selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId].length : ''}</p></div>
+            <div className={ac.itemContainer}><p>All view:</p> <p className={ac.item}>{totalView()}</p></div>
+            <div className={ac.totalItemContainer}><p>Total level:</p> <p className={ac.totalItem}>{totalLevel()}</p></div>
+          </div>
           
         </div>
         {storagePath !== '' ? <StorageWork data={{storagePath, file, setStoragePath}}/> : ''}
@@ -351,7 +457,7 @@ const Account = () => {
         <div className={ac.userInfo}>
           <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
     
-          <form className={ac.fise} >
+          {/* <form className={ac.fise} >
             <label className={ac.lab}>
 
                 <input
@@ -365,12 +471,12 @@ const Account = () => {
                 ></input>
             <button>Change</button>
             </label>
-          </form>
+          </form> */}
         </div>
 
         <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Sex</p>
         <div className={ac.userInfo}>
-
+          <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.sex : ''}</p>
           <form className={ac.fise} >
           <label className={ac.lab}>
 
@@ -383,13 +489,14 @@ const Account = () => {
                 title="Sex"
                 placeholder="Enter other sex..."
               ></input>
-          <button>Change</button>
+          <button onClick={sexClick}>Save</button>
           </label>
         </form>
         </div>
 
         <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Age</p>       
         <div className={ac.userInfo}>
+        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.age : ''}</p>
         <form className={ac.fise} >    
           <label className={ac.lab}>
 
@@ -402,14 +509,14 @@ const Account = () => {
                 title="Age"
                 placeholder="Enter other age..."
               ></input>
-          <button>Change</button>
+          <button onClick={ageClick}>Save</button>
           </label>
           </form>
         </div>
 
         <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Phone</p>
         <div className={ac.userInfo}>
-       
+        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.phone : ''}</p>
           <label className={ac.lab}>
               <input
                 value = {phone}
@@ -420,7 +527,7 @@ const Account = () => {
                 title="Phone"
                 placeholder="Enter other phone..."
               ></input>
-          <button>Change</button>
+          <button onClick={phoneClick}>Save</button>
           </label>
          
         </div>

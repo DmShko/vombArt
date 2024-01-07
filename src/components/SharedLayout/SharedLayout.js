@@ -141,12 +141,13 @@ const SharedLayout = () => {
   useEffect(() => {
 
     if(selectorLogOut.isLogOut) {
-        
+      
         dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
         dispatch(changeSingUp({operation: 'changeusersId', data: ''}));
         dispatch(changeSingUp({operation: 'changeUserName', data: ''}));
         dispatch(changeSingUp({operation: 'changeUserEmail', data: ''}));
         dispatch(changeSingUp({operation: 'changeUserToken', data: ''}));
+        dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
         dispatch(changeSingIn({data: '', operation: 'changeToken'}));
         dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
@@ -427,12 +428,25 @@ const SharedLayout = () => {
 
     evt.preventDefault();
     if(evt.currentTarget.id === 'singOut') {
-        dispatch(singOutAPI());
-        
-        // close modal settings
-        setModalSettingsToggle(false);
-    };
+        Notiflix.Confirm.show(
+            'Confirm',
+            'Do you really want to log out?',
+            'Yes',
+            'No',
+            () => {
+            
+                dispatch(singOutAPI());
+                
+                // close modal settings
+                setModalSettingsToggle(false);
+            
+        },
+        () => {
 
+        },
+        {
+        },);
+    };
   };
 
   const changeSingMode = (evt) => {
@@ -450,14 +464,20 @@ const SharedLayout = () => {
 
   const settingsHandle = () => {
     navigate('/usersettings')
+    // close modal settings
+    setModalSettingsToggle(false);
   };
 
   const statisticHandle = () => {
     navigate('/statistic')
+    // close modal settings
+    setModalSettingsToggle(false);
   };
 
   const accountHandle = () => {
     navigate('/account')
+    // close modal settings
+    setModalSettingsToggle(false);
   };
 
   return (
@@ -536,7 +556,7 @@ const SharedLayout = () => {
                 modalSettingsToggle && <ModalSettings data={modalSettingsToggle}>
                     <div className={sh.settingModalButtonContainer}>
                         <div className={sh.settingModalButton} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
-                        <div className={sh.settingModalButton} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Statistic</p></div>
+                        <div className={sh.settingModalButton} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Giud</p></div>
                         <div className={sh.settingModalButton} onClick={accountHandle}><ContactsImg style={{width: '25px', height: '25px'}} /><p>Account</p></div>
                         <div className={sh.settingModalButton} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>
                     </div>

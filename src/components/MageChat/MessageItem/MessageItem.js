@@ -62,26 +62,26 @@ const MessageItem = ({ data }) => {
             {selectorSingInSlice.isSingIn && selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName === data.name ? <img src={`${selectorGallerySlice.account.url}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>
-              <p style={{ color: 'blue', fontSize: '14px',}}>{data.date}</p>
-              <p style={{ color: 'blue',fontSize: '14px', }}>{`${data.time}:${data.second}`}</p>
+              <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
+              <p style={{ color: 'blue',fontSize: '12px', }}>{`${data.time}:${data.second}`}</p>
             </div>
             <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
           </div>
-          <p>{data.message}</p>
+          <p className={me.message}>{data.message}</p>
         </> : 
         <>
           <div className={me.title}>
           {selectorSingInSlice.isSingIn && selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName === data.name ? <img src={`${selectorGallerySlice.account.url}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>
-              <p style={{ color: 'blue', fontSize: '14px',}}>{data.date}</p>
-              <p style={{ color: 'blue',fontSize: '14px', }}>{`${data.time}:${data.second}`}</p>
+              <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
+              <p style={{ color: 'blue',fontSize: '12px', }}>{`${data.time}:${data.second}`}</p>
             </div>
             <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
           </div>
          
           <div className={me.answerStamp}>
-            <p className={me.answerStyle}>{data.nameAnswer}</p>
+            <p className={me.answerStyle}  style={{fontSize: '14px',}}>{data.nameAnswer}</p>
             <p className={me.answerStyle}>{data.dateAnswer}</p>
             <div className={me.time}>
               <p className={me.answerStyle}>{data.timeAnswer}</p>

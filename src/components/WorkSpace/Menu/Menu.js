@@ -28,6 +28,7 @@ const Menu = () => {
   const selectorSingInSlice = useSelector(state => state.singIn);
   const pathSelector = useSelector(state => state.path.logicPath);
   const selectorItemsMetaFullPath = useSelector(state => state.getMeta);
+  const selectorDeleteSlice = useSelector(state => state.deleteStorage);
 
 
   const [buttonStyleState, setButtonStyleState] = useState(false);
@@ -43,7 +44,7 @@ const Menu = () => {
     const path = selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
 
     const db = getDatabase();
-    const starCountRef = ref(db, `${path}/itemsMetaData`);
+    const starCountRef = ref(db, `${path}/FullPaths`);
 
       //firebase listener function
       onValue(starCountRef, snapshot => {
@@ -56,12 +57,22 @@ const Menu = () => {
   }, []);
 
   useEffect(() => {
-   
+    // update itemsMetaData in DB
     if(selectorItemsMetaFullPath.itemsMetaData !== undefined && selectorItemsMetaFullPath.itemsMetaData !== null) {
-      
-      if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
+      // first start brauser memory is clined
+      if(selectorItemsMetaFullPath.itemsMetaData.length !== 0) {
         const path = selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName 
-      
+     
+        writeUserData(
+          `${path}/FullPaths`,
+          selectorItemsMetaFullPath.itemsMetaData,
+          null, true
+        );
+      }
+
+      if(selectorItemsMetaFullPath.itemsMetaData.length === 0 && selectorDeleteSlice.ifDeleteAll) {
+        const path = selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName 
+     
         writeUserData(
           `${path}/FullPaths`,
           selectorItemsMetaFullPath.itemsMetaData,
