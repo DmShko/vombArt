@@ -8,6 +8,9 @@ import StorageWork from 'components/StorageWork/StorageWork';
 import pathCreator from '../../../MageChat/pathCreator/pathCreator';
 
 import { change } from 'vomgallStore/gallerySlice';
+
+import { ReactComponent as SuccessImg } from '../../../../images/success-svgrepo-com.svg';
+
 import nf from './NewItem.module.scss';
 
 const NewItem = () => {
@@ -26,7 +29,8 @@ const NewItem = () => {
   const [storagePath, setStoragePath] = useState('');
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
-  const [fileType, setFileType] = useState('');
+  const [fileLoaded, setFileLoaded] = useState(false);
+  const [successIcon, setSuccessIcon] = useState(false);
 
   const {
     register,
@@ -36,14 +40,25 @@ const NewItem = () => {
   } = useForm({ mode: 'onBlur' });
 
   useEffect(() => {
-    if(storagePath !== '') {
-      dispatch(change({ operation: 'changeLoadFiles', data: null }));
 
+    if(fileLoaded) {
+
+      setSuccessIcon(true);
+      
+      dispatch(change({ operation: 'changeLoadFiles', data: null }));
       // write full path to array for delete all data from storeg when account wil be deleted
       dispatch(getMetaAPI(storagePath));
     };
     setStoragePath('');
-  }, [storagePath]);
+    setFileLoaded(false);
+
+    setTimeout(() => {
+      setSuccessIcon(false);
+      clearTimeout();
+    }  
+    , 3000)
+  
+  }, [fileLoaded]);
 
   function tick() {
     setTimeValue({
@@ -134,7 +149,7 @@ const NewItem = () => {
       // storage(path, file);
     }
 
-    reset({ description: '', title: '' });
+    reset({ Description: '', Title: '' });
   };
 
   const handleFileChange = evt => {
@@ -223,11 +238,12 @@ const NewItem = () => {
             </label>
             {storagePath !== '' ? (
               <StorageWork
-                data={{ storagePath, file, setStoragePath }}
+                data={{ storagePath, file, setStoragePath, setFileLoaded }}
               />
             ) : (
               ''
             )}
+            {successIcon ? <SuccessImg style={{width: '20px', height: '20px'}}/> : ''}
             <button className={nf.button}>Add Item</button>
           </div>
         </fieldset>

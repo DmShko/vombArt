@@ -174,7 +174,6 @@ const Menu = () => {
   return (
     
     <div className={mn.container}>
-
       <button type='button' name='style' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add/Del style {buttonAngelStyle ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
       {buttonStyleState ? <Style /> : ''}
       <button type='button' name='item' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add element {buttonAngelNewItem ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>

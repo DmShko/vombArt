@@ -14,12 +14,15 @@ import singInAPI from '../../API/singInAPI';
 import singOutAPI from '../../API/singOutAPI';
 import writeUserData from 'API/writerDB';
 import changeVeriAPI from 'API/emailVerifiAPI';
+import forgottenPassAPI from 'API/forgottenPasswordAPI';
+
 import { change } from 'vomgallStore/gallerySlice';
 import { changeSingOut } from 'vomgallStore/singOutSlice';
 import { changePathName } from 'vomgallStore/pathSlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
 import { changeDelAccount } from 'vomgallStore/deleteAccountSlice';
+
 // import { auth } from "../../firebase";
 // import { onAuthStateChanged   } from "firebase/auth";
 
@@ -147,7 +150,7 @@ const SharedLayout = () => {
         dispatch(changeSingUp({operation: 'changeUserName', data: ''}));
         dispatch(changeSingUp({operation: 'changeUserEmail', data: ''}));
         dispatch(changeSingUp({operation: 'changeUserToken', data: ''}));
-        dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
+        
         dispatch(changeSingIn({data: '', operation: 'changeToken'}));
         dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
@@ -299,9 +302,9 @@ const SharedLayout = () => {
 
     
     // add user array to database if are not empty [] and his length more than 'selectorGallSlice.actualUserLength'
-    if(selectorSingIn.isSingIn === true && selectorGallSlice.users.length > selectorGallSlice.actualUserLength) {
+    if(selectorSingIn.isSingIn === true && selectorGallSlice.users.length >= selectorGallSlice.actualUserLength) {
         if(selectorGallSlice.users.length !== 0 && selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
-    
+       
             writeUserData(
                 'users',
                 selectorGallSlice.users,
@@ -434,6 +437,8 @@ const SharedLayout = () => {
             'Yes',
             'No',
             () => {
+                // before singOutAPI function. We need time for write data to DB
+                dispatch(change({operation: 'changeUserStatus', data: {id: selectorSingIn.singInId, status: false}}));
             
                 dispatch(singOutAPI());
                 
@@ -478,6 +483,12 @@ const SharedLayout = () => {
     navigate('/account')
     // close modal settings
     setModalSettingsToggle(false);
+  };
+
+  const forgotHandler = () => {
+   
+    dispatch(forgottenPassAPI(email));
+
   };
 
   return (
@@ -694,7 +705,9 @@ const SharedLayout = () => {
                     errors?.UserName ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p> : '' : ''}
 
                 {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' target="_blank">Try using a special resource to create a password.</a> :
-                 <a href='' target="_blank">I forgot my password. Will restore via mailbox.</a>}
+                 ''}
+                {selectorTargetName === 'singIn' ? <p className={sh.forgot} onClick={forgotHandler}>I forgot my password. Will restore via mailbox.</p> :
+                 ''}
 
                 {selectorsingUpState.usersId && selectorTargetName === 'singUp' ?
                     <div className={sh.verifiInfo}>

@@ -37,25 +37,28 @@ const Users = () => {
 
   useEffect(() => {
 
-    onAuthStateChanged(auth, (user) => { 
-      
-      if (user) {
-
-        // add 
-        dispatch(change({operation: 'changeUserStatus', data: {id: user.uid, status: true}}));
+    
+      onAuthStateChanged(auth, (user) => { 
+       
+        if (user && user.uid === selectorVisibilityLog.singInId) {
         
-      } else {
+          // add 
+          dispatch(change({operation: 'changeUserStatus', data: {id: user.uid, status: true}}));
+          
+        } else {
 
-        if(selectorExistUsersList.users.find(element => element.uid === selectorVisibilityLog.singInId) !== undefined)
-        // clear 'online' status intro all users's objects
-        dispatch(change({operation: 'changeAllUserStatus', data:{ id: selectorVisibilityLog.singInId, status: false,}})); 
-      }
+          // if(selectorExistUsersList.users.find(element => element.uid === selectorVisibilityLog.singInId) !== undefined)
+          // clear 'online' status intro all users's objects
+          // dispatch(change({operation: 'changeAllUserStatus', data:{ id: selectorVisibilityLog.singInId, status: false,}})); 
+          dispatch(change({operation: 'changeUserStatus', data:{ id: selectorVisibilityLog.singInId, status: false,}})); 
+        }
 
-    });
+      });
+    
 
-    // selectorVisibilityLog - when singOut button click
+      // selectorVisibilityLog - when singOut button click
   },[selectorVisibilityLog.isSingIn]) 
-
+  
   // change 'usersOpen' if only all element false
   const checkOnTrue = (value) => {
 

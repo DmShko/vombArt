@@ -62,7 +62,7 @@ const Gallery = () => {
     return updateStyles;
 
   };
-
+  
   // clear 'selectedItems' and update heartsStatistic and viewsStatistic and levelStatistic from DB
   useEffect(() => {
 
@@ -209,13 +209,6 @@ const Gallery = () => {
     if(!modalItemToggle) setCurrentItemId('');
 
   },[modalItemToggle]);
-
-  // update 'selectedItems'
-  useEffect(() => {
-    itemClickId.length !== 0 ? 
-      dispatch(change({operation: 'updateSelectedItems', data: itemClickId})):
-        dispatch(change({operation: 'updateSelectedItems', data: []}));
-  },[itemClickId]);
 
   useEffect(() => {
     if(selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
@@ -439,13 +432,11 @@ const Gallery = () => {
 
   const itemClickHandle = ({ currentTarget }) => {
 
-    if(selectorGallSlice.selectedItems !== undefined){
+    if(selectorGallSlice.selectedItems !== undefined) {
 
-      // add/delete item from itemClickId on click
-      selectorGallSlice.selectedItems.find(element => element === currentTarget.id) === undefined ? 
-        setItemClickId([...itemClickId, currentTarget.id]): setItemClickId(itemClickId.filter(element => element !== currentTarget.id));
+      dispatch(change({operation: 'changeSelectedItems', data: currentTarget.id}));
+      
     }
-
     
   };
 

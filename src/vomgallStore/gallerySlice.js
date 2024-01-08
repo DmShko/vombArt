@@ -231,6 +231,11 @@ const gallerySlice = createSlice({
           case 'updateSelectedItems':
             state.selectedItems = action.payload.data;
             break;
+          case 'changeSelectedItems':
+            // add/delete item from itemClickId on click
+            state.selectedItems.find(element => element === action.payload.data) === undefined ? 
+            state.selectedItems = [...state.selectedItems, action.payload.data]: state.selectedItems = state.selectedItems.filter(element => element !== action.payload.data);
+            break;
           case 'updateAnswerId':
             state.answerId = action.payload.data;
             break;

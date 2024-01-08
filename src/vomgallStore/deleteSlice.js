@@ -19,9 +19,9 @@ const deleteStorageSlice = createSlice({
             switch (action.payload.operation) {
               case 'setifDeleteAll':
                 state.ifDeleteAll = action.payload.data;
-              break;
+                break;
               default:
-              break;
+                break;
             }
         },
     },

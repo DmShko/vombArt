@@ -42,7 +42,7 @@ const Account = () => {
     const navigate = useNavigate();
 
     const [file, setFile] = useState();
-    const [storagePath, setStoragePath] = useState('');
+    const [storageAccPath, setStorageAccPath] = useState('');
     // const [name, setName] = useState('');
     const [sex, setSex] = useState('');
     const [age, setAge] = useState('');
@@ -109,13 +109,13 @@ const Account = () => {
       
       // when storagePath false - indicator load hidden delete selectorSingInSlice.singInId's element in
       //selectorItemsUrl.itemsURL. When new user foto url will be load
-      if(storagePath === '') {
+      if(storageAccPath === '') {
       
         dispatch(changeReadStorage({operation: `clearUserFotoElement`, data: {id: selectorSingInSlice.singInId}}));
 
       }
   
-    },[storagePath]);
+    },[storageAccPath]);
 
     // update account array in DB
     useEffect(() => {
@@ -171,8 +171,8 @@ const Account = () => {
     
     // clear storagePath
     useEffect(() => {
-      if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
-    }, [storagePath]);
+      if(storageAccPath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
+    }, [storageAccPath]);
 
     const handleFileChange = (evt) => {
       if (evt.target.files) {
@@ -200,7 +200,7 @@ const Account = () => {
 
       evt.preventDefault();
       
-      setStoragePath(`${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`);
+      setStorageAccPath(`${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`);
       const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`;
 
       // add foto element to DB
@@ -381,9 +381,11 @@ const Account = () => {
 
       let total = 0;
 
-      for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
-        
-        total += selectorGallerySlice.viewsStatistic[selectorGallerySlice.itemsBuffer[v].id];
+      if(selectorGallerySlice.itemsBuffer !== null) {
+        for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
+          
+          total += selectorGallerySlice.viewsStatistic[selectorGallerySlice.itemsBuffer[v].id];
+        }
       }
     
       return total;
@@ -393,10 +395,12 @@ const Account = () => {
 
       let total = 0;
 
-      for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
+      if(selectorGallerySlice.itemsBuffer !== null) {
+        for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
         total += selectorGallerySlice.levelStatistic[selectorGallerySlice.itemsBuffer[v].id];
       }
-
+      }
+      
       return total / selectorGallerySlice.itemsBuffer.length;
     };
 
@@ -445,13 +449,13 @@ const Account = () => {
           </div>
 
           <div className={ac.statistic}>
-            <div className={ac.itemContainer}><p>All hearts:</p> <p className={ac.item}>{selectorSingInSlice.singInId ? selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId].length : ''}</p></div>
+            <div className={ac.itemContainer}><p>All hearts:</p> <p className={ac.item}>{selectorSingInSlice.singInId && selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId] !== undefined ? selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId].length : ''}</p></div>
             <div className={ac.itemContainer}><p>All view:</p> <p className={ac.item}>{totalView()}</p></div>
             <div className={ac.totalItemContainer}><p>Total level:</p> <p className={ac.totalItem}>{totalLevel()}</p></div>
           </div>
           
         </div>
-        {storagePath !== '' ? <StorageWork data={{storagePath, file, setStoragePath}}/> : ''}
+        {storageAccPath !== '' ? <StorageWork data={{storageAccPath, file, setStorageAccPath}}/> : ''}
 
         <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Name</p>
         <div className={ac.userInfo}>

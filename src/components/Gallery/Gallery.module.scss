@@ -71,6 +71,7 @@
 
         border-bottom: 2px solid white;
 
+
         button {
             width: 100px;
             height: 20px;
@@ -80,6 +81,8 @@
 
             color: rgb(82, 82, 82);
             font-weight: 600;
+
+            cursor: pointer;
         } 
         
         button:hover {
