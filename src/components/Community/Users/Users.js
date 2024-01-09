@@ -23,6 +23,7 @@ const Users = () => {
   const selectorExistUsersList = useSelector(state => state.gallery);
   const selectorVisibilityLog = useSelector(state => state.singIn);
   const selectorUserPath = useSelector(state => state.path);
+  const selectorItemsUrl = useSelector(state => state.readStorage);
 
   const [usersOpen, setUsersOpen] = useState({});
   const [country, setCountry] = useState('Ukraine');
@@ -122,6 +123,33 @@ const Users = () => {
     return onlineCount;
   };
 
+  const totalView = () => {
+
+    let total = 0;
+
+    if(selectorExistUsersList.itemsBuffer !== null) {
+      for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
+        
+        total += selectorExistUsersList.viewsStatistic[selectorExistUsersList.itemsBuffer[v].id];
+      }
+    }
+  
+    return total;
+  };
+
+  const totalLevel = () => {
+
+    let total = 0;
+
+    if(selectorExistUsersList.itemsBuffer !== null) {
+      for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
+      total += selectorExistUsersList.levelStatistic[selectorExistUsersList.itemsBuffer[v].id];
+    }
+    }
+    
+    return total / selectorExistUsersList.itemsBuffer.length;
+  };
+
   return (
     <div className={us.container}>
       <div className={us.usersicon} style={{width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
@@ -138,14 +166,16 @@ const Users = () => {
 
               {usersOpen[value.uid] ?
                 <div className={us.userdata}>
-                  <UsersFoto style={{width: '50px', height: '50px',}} />
+                  {selectorItemsUrl.itemsURL.find(element => element.id === value.uid) === undefined ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
+                   <img src={`${selectorItemsUrl.itemsURL.find(element => element.id === value.uid).url}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>
-                    <p style={{fontSize: '14px'}}>Total level:</p>
-                    <p style={{fontSize: '14px'}}>Total likes:</p>
-                    <p style={{fontSize: '14px'}}>Sex:</p>
-                    <p style={{fontSize: '14px'}}>Age:</p>
-                    <p style={{fontSize: '14px'}}>Phone number:</p>
-                    <p style={{fontSize: '14px'}}>Email:</p>
+                    <p style={{fontSize: '14px'}}>Total level: {totalLevel()}</p>
+                    <p style={{fontSize: '14px'}}>Total views: {totalView()}</p>
+                    <p style={{fontSize: '14px'}}>Total likes: {selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId] !== undefined ? selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId].length : ''}</p>
+                    <p style={{fontSize: '14px'}}>Sex: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p>
+                    <p style={{fontSize: '14px'}}>Age: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p>
+                    <p style={{fontSize: '14px'}}>Phone number: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.phone : ''}</p>
+                    <p style={{fontSize: '14px'}}>Email: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p>
                     <p style={{fontSize: '14px'}}>Here with:</p>
                   </div>
                 </div> : ''}

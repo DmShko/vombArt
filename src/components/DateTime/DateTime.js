@@ -5,9 +5,6 @@ import ti from './DateTime.module.scss';
 
 const DateTime = () => {
     
-    const selectorGallSlice = useSelector(state => state.gallery);
-    const dispatch = useDispatch();
-   
     const [ timeValue, setTimeValue ]= useState({time: new Date()});
     const [ newDateObj, setNewDateObj ]= useState({});
 

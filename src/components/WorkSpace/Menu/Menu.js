@@ -174,6 +174,8 @@ const Menu = () => {
   return (
     
     <div className={mn.container}>
+      <p style={{fontSize: '20px', fontWeight: '600',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
+      <img src={`${selectorGallSlice.account.url}`} style={{width: '60px', height: '60px', borderRadius: '50%'}} alt='current user foto'></img>
       <button type='button' name='style' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add/Del style {buttonAngelStyle ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
       {buttonStyleState ? <Style /> : ''}
       <button type='button' name='item' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add element {buttonAngelNewItem ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>

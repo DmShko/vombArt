@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react';
 // import { useLocation } from 'react-router-dom';
+
 import { nanoid } from 'nanoid';
 
 import ga from './Gallery.module.scss'

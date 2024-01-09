@@ -361,3 +361,50 @@
 .forgot:hover {
     color: goldenrod;
 }
+
+.forgotCont {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center; 
+
+    gap: 5px;
+
+    margin-top: 10px;
+
+    .forgotLab {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center; 
+
+        gap: 5px;
+
+        .forgotIn {
+            height: 20px;
+
+            padding: 3px;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            text-align: left;
+
+            color: #1C274C;
+
+            border: 2px solid lightgray;
+
+            border-radius: 6px;
+        }
+    }
+
+    .button:hover {
+
+        cursor: pointer;
+
+        background-color: rgba(194, 212, 31, 0.801);
+    }
+
+}

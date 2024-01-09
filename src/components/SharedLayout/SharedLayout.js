@@ -4,11 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
+
+import { Tooltip } from 'react-tooltip'
+
 import { getDatabase, ref, onValue } from 'firebase/database';
 import readerStorAPI from '../../API/readerStorageAPI'
 
 import ModalArt from 'components/ModalArt/ModalArt';
 import ModalSettings from 'components/ModalSettings/ModalSettings';
+import Footer from 'components/Footer/Footer';
 import singUpAPI from '../../API/singUpAPI';
 import singInAPI from '../../API/singInAPI';
 import singOutAPI from '../../API/singOutAPI';
@@ -32,11 +36,13 @@ import {ReactComponent as UserNameImg} from '../../images/user-id-svgrepo-com.sv
 import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg'; 
 import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
-import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg'
-import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg'
+import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
+import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg';
 
-import { ReactComponent as StatisticImg } from '../../images/statistics-presentation-svgrepo-com.svg'
-import { ReactComponent as ContactsImg } from '../../images/contacts-svgrepo-com.svg'
+import { ReactComponent as StatisticImg } from '../../images/statistics-presentation-svgrepo-com.svg';
+import { ReactComponent as ContactsImg } from '../../images/contacts-svgrepo-com.svg';
+
+import DayNight from '../DayNight/DayNight'
 
 // component import
 // import ModalArt from 'components/ModalArt/ModalArt';
@@ -81,6 +87,8 @@ const SharedLayout = () => {
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
   const [errorDrive, setErrorDrive] = useState(false);
+  const [forgotEmailSend, setForgotEmailSend] = useState('');
+  const [forgotBlockToggle, setForgotBlockToggle] = useState(false);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
@@ -369,7 +377,7 @@ const SharedLayout = () => {
     
     dispatch(change({data: evt?.target.id, operation: 'changeButtonTargetName',}));
     setModalToggle(value => !value);
-
+  
   };
 
   const toggleModalSettings = () => {
@@ -392,8 +400,10 @@ const SharedLayout = () => {
             setPassword(value)
             break;
         case 'UserName':
-            console.log(value)
             setUserName(value)
+            break;
+        case 'SendToEmail':
+            setForgotEmailSend(value)
             break;
         default: break;
     }
@@ -486,9 +496,20 @@ const SharedLayout = () => {
   };
 
   const forgotHandler = () => {
-   
-    dispatch(forgottenPassAPI(email));
 
+    setForgotBlockToggle(value => !value)
+
+  };
+
+  const sendToHandler = () => {
+
+    if(selectorGallSlice.users.find(element => element.email === forgotEmailSend) && !errors?.SendToEmail) {
+        dispatch(forgottenPassAPI(forgotEmailSend));
+        setForgotBlockToggle(false)
+    } else {
+        Notiflix.Notify.warning('There is no such mail in our database', {width: '450px', position: 'center-top', fontSize: '24px',});
+    };
+    reset({SendToEmail: ''});
   };
 
   return (
@@ -544,6 +565,8 @@ const SharedLayout = () => {
                              
                         </li>
                     </ul>
+                
+                   <DayNight />
 
                    {selectorVisibilityLog === false ? <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
@@ -556,10 +579,10 @@ const SharedLayout = () => {
                             <p className={sh.linkNav} onClick={toggleModal} id='singIn'>SingIn</p>
                            
                         </li>
-                    </ul> : <button className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
+                    </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
                     selectorGallSlice.users.length !== 0 
                     ? <div className={sh.userMenu}><UserMenu style={{width: '20px', height: '20px', stroke: 'white'}}/> {selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</div> : ''}</button>}
-
+                    <Tooltip id="menu" style={{backgroundColor: '--rt-color-white'}}/>
                 </nav>  
             </header>
 
@@ -709,6 +732,28 @@ const SharedLayout = () => {
                 {selectorTargetName === 'singIn' ? <p className={sh.forgot} onClick={forgotHandler}>I forgot my password. Will restore via mailbox.</p> :
                  ''}
 
+                {forgotBlockToggle ?
+
+                    <div className={sh.forgotCont} >
+                        <p>Enter existing account email</p>
+                        <label className={sh.forgotLab}> <EmailImg style={{width: '25px', height: '25px',}}/>
+                        <input {...register('SendToEmail', {required: 'Please fill the Email field!', 
+                            value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
+
+                            className={sh.forgotIn} 
+                            type="text"
+                            autoComplete='false'
+                            onChange={inputChange}
+                            title="SendToEmail"
+                            placeholder="Enter email..."></input>
+                        </label> 
+
+                        {errors?.SendToEmail ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.SendToEmail?.message}</p> : ''}
+
+                        <button className={sh.button} onClick={sendToHandler}>Send</button>
+                    </div> : ''
+                }
+
                 {selectorsingUpState.usersId && selectorTargetName === 'singUp' ?
                     <div className={sh.verifiInfo}>
                         <p>A mail verification letter has been sent to your mail. Follow the link in the letter and after the information that you have been verified. Login is performed automatically. If the letter does not come. You can verify your e-mail from your personal account.</p>
@@ -722,6 +767,8 @@ const SharedLayout = () => {
                     <Suspense fallback={<Loader/>}>
                         <Outlet />
                     </Suspense>
+
+                    <footer><Footer /></footer>
                 </main>
             </section>
         

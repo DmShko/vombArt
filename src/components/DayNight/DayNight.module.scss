@@ -1,0 +1,31 @@
+@keyframes animaDayNightPlus {
+    0% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes animaDayNightMinus {
+    0% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(-360deg);
+    }
+}
+
+.container {
+
+    animation-name: animaDayNightPlus;
+    animation-duration: 400ms;
+    animation-iteration-count: 1 ;
+}
+
+.container:hover {
+
+    animation-name: animaDayNightMinus;
+    animation-duration: 400ms;
+    animation-iteration-count: 1 ;
+}
