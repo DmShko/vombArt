@@ -6,6 +6,7 @@ import { change } from 'vomgallStore/gallerySlice';
 import { useForm } from 'react-hook-form';
 
 import writeUserData from 'API/writerDB';
+import getMetaAPI from 'API/getMetaDataAPI'
 import { changeReadStorage } from 'vomgallStore/readSlice'
 import StorageWork from 'components/StorageWork/StorageWork';
 import deleteStorAPI from 'API/deleteStorageAPI';
@@ -41,8 +42,9 @@ const Account = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [file, setFile] = useState();
-    const [storageAccPath, setStorageAccPath] = useState('');
+    const [file, setFile] = useState(); 
+    const [storagePath, setStoragePath] = useState('');
+    const [fileLoaded, setFileLoaded] = useState(false);
     // const [name, setName] = useState('');
     const [sex, setSex] = useState('');
     const [age, setAge] = useState('');
@@ -80,6 +82,19 @@ const Account = () => {
     },[]);
 
     useEffect(() => {
+
+      if(fileLoaded) {
+  
+        dispatch(change({ operation: 'changeLoadFiles', data: null }));
+        // write full path to array for delete all data from storeg when account wil be deleted
+        dispatch(getMetaAPI(storagePath));
+      };
+      setStoragePath('');
+      setFileLoaded(false);
+    
+    }, [fileLoaded]);
+
+    useEffect(() => {
       
       if(selectorSingInSlice.isSingIn === true) {
         if(selectorGallerySlice.personal.sex !== '' && selectorGallerySlice.personal.age !== ''
@@ -109,13 +124,13 @@ const Account = () => {
       
       // when storagePath false - indicator load hidden delete selectorSingInSlice.singInId's element in
       //selectorItemsUrl.itemsURL. When new user foto url will be load
-      if(storageAccPath === '') {
+      if(storagePath === '') {
       
         dispatch(changeReadStorage({operation: `clearUserFotoElement`, data: {id: selectorSingInSlice.singInId}}));
 
       }
   
-    },[storageAccPath]);
+    },[storagePath]);
 
     // update account array in DB
     useEffect(() => {
@@ -169,17 +184,16 @@ const Account = () => {
        // selectorItemsUrl.itemsURL ^ for update user foto
     }, [selectorSingInSlice.isSingIn, selectorItemsUrl.itemsURL]);
     
-    // clear storagePath
+
     useEffect(() => {
-      if(storageAccPath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
-    }, [storageAccPath]);
+      if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
+    }, [storagePath]);
 
     const handleFileChange = (evt) => {
       if (evt.target.files) {
-
+       
         setFile(evt.target.files[0]);
-
-        // write type of file
+       
         dispatch(
           change({
             operation: 'changeTypeOfFile',
@@ -199,10 +213,9 @@ const Account = () => {
     const addUserFoto = (_, evt) => {
 
       evt.preventDefault();
-      
-      setStorageAccPath(`${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`);
       const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Foto`;
 
+      setStoragePath(path);
       // add foto element to DB
       writeUserData(
         path,
@@ -398,10 +411,11 @@ const Account = () => {
       if(selectorGallerySlice.itemsBuffer !== null) {
         for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
         total += selectorGallerySlice.levelStatistic[selectorGallerySlice.itemsBuffer[v].id];
+        return total / selectorGallerySlice.itemsBuffer.length;
       }
       }
       
-      return total / selectorGallerySlice.itemsBuffer.length;
+
     };
 
 
@@ -455,7 +469,8 @@ const Account = () => {
           </div>
           
         </div>
-        {storageAccPath !== '' ? <StorageWork data={{storageAccPath, file, setStorageAccPath}}/> : ''}
+        
+        {storagePath !== '' ? <StorageWork data={{storagePath, file, setStoragePath, setFileLoaded}}/> : ''}
 
         <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Name</p>
         <div className={ac.userInfo}>

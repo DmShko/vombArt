@@ -18,14 +18,38 @@
 
 .container {
 
-    animation-name: animaDayNightPlus;
-    animation-duration: 400ms;
-    animation-iteration-count: 1 ;
+    display: flex;
+    align-items: center;
+
+    width: 50px;
+    height: 10px;
+
+    padding: 2px;
+
+    background-color: white;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+    .imagesCont {
+
+        display: flex;
+        align-items: center;
+
+        .images {
+
+            animation-name: animaDayNightPlus; 
+            animation-duration: 400ms;
+            animation-iteration-count: 1 ;
+        
+        }
+    
+        .images:focus {
+            animation-name: animaDayNightMinus; 
+            animation-duration: 400ms;
+            animation-iteration-count: 1 ;
+        }
+    }
+
 }
 
-.container:hover {
-
-    animation-name: animaDayNightMinus;
-    animation-duration: 400ms;
-    animation-iteration-count: 1 ;
-}

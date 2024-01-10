@@ -10,12 +10,13 @@ import Notiflix from 'notiflix';
 
 // import getUserAPI from 'API/getUserAPI';
 
-import us from './Users.module.scss'
+import us from './Users.module.scss';
 
-import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg'
-import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg'
-import { ReactComponent as UsersImg } from '../../../images/users-svgrepo-com.svg'
-import { ReactComponent as UsersFoto } from '../../../images/user-avatar-svgrepo-com.svg'
+import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg';
+import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg';
+import { ReactComponent as UsersImg } from '../../../images/users-svgrepo-com.svg';
+import { ReactComponent as UsersFoto } from '../../../images/user-avatar-svgrepo-com.svg';
+import { ReactComponent as SearchImg } from '../../../images/search-alt-2-svgrepo-com.svg';
 
 const Users = () => {
 
@@ -23,10 +24,9 @@ const Users = () => {
   const selectorExistUsersList = useSelector(state => state.gallery);
   const selectorVisibilityLog = useSelector(state => state.singIn);
   const selectorUserPath = useSelector(state => state.path);
-  const selectorItemsUrl = useSelector(state => state.readStorage);
+  const [search, setSearch] = useState('');
 
   const [usersOpen, setUsersOpen] = useState({});
-  const [country, setCountry] = useState('Ukraine');
 
   useEffect(() => {
     // generate 'menu' user click status array for drive angel mode and open user information menu
@@ -144,10 +144,15 @@ const Users = () => {
     if(selectorExistUsersList.itemsBuffer !== null) {
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
       total += selectorExistUsersList.levelStatistic[selectorExistUsersList.itemsBuffer[v].id];
+      return total / selectorExistUsersList.itemsBuffer.length;
     }
     }
     
-    return total / selectorExistUsersList.itemsBuffer.length;
+
+  };
+
+  const inputSearch = (evt) => {
+    setSearch(evt.target.value);
   };
 
   return (
@@ -157,6 +162,18 @@ const Users = () => {
         <div className={us.usercount}><p>Total: </p><p>{selectorExistUsersList.users.length}</p></div>
         <div className={us.usercount}><p>Online: </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
       </div>
+
+      <label className={us.lab}> <SearchImg style={{width: '25px', height: '25px',}} />
+        <input 
+           value={search}
+           className={us.in}
+           type="text"
+           name='Search'              
+           onChange={inputSearch}
+           autoComplete='false'
+           title="Search"
+        ></input>
+      </label>
         
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value => 
@@ -166,8 +183,8 @@ const Users = () => {
 
               {usersOpen[value.uid] ?
                 <div className={us.userdata}>
-                  {selectorItemsUrl.itemsURL.find(element => element.id === value.uid) === undefined ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
-                   <img src={`${selectorItemsUrl.itemsURL.find(element => element.id === value.uid).url}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
+                  {selectorExistUsersList.users !== undefined && selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto === '' ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
+                   <img src={`${selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>
                     <p style={{fontSize: '14px'}}>Total level: {totalLevel()}</p>
                     <p style={{fontSize: '14px'}}>Total views: {totalView()}</p>

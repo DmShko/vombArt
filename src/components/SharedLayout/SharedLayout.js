@@ -105,6 +105,15 @@ const SharedLayout = () => {
   const selectorLogOut = useSelector(state => state.singOut);
   const selectorDelAccount = useSelector(state => state.deleteAccount);
 
+  // add to users user account foto link for community section
+  useEffect(() => {
+
+    if(selectorGallSlice.account.url !== '' && selectorGallSlice.users !== undefined && selectorSingIn.isSingIn === true) {
+        dispatch(change({operation: 'changeUserFotoURL', data:{id: selectorSingIn.singInId, value: selectorGallSlice.account.url}}));
+    }
+
+  },[selectorGallSlice.account]);
+
   // see account.js file, row 24
   useEffect(() => {
 
@@ -216,6 +225,7 @@ const SharedLayout = () => {
                             },
                         uid: selectorsingUpState.usersId,
                         status: true,
+                        urlFoto: '',
                     }
                 }));
                     
@@ -247,6 +257,7 @@ const SharedLayout = () => {
                         },
                     uid: selectorsingUpState.usersId,
                     status: true,
+                    urlFoto: '',
                 }
             
             }));

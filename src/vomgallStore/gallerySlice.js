@@ -80,6 +80,11 @@ const gallerySlice = createSlice({
               value => value.email === action.payload.data.email
             ).userName = action.payload.data.userName;
             break;
+          case 'changeUserFotoURL':
+            state.users.find(
+              value => value.uid === action.payload.data.id
+            ).urlFoto = action.payload.data.value;
+            break;
           case 'changeUsers':
             state.users = [...state.users, action.payload.data];
             break;

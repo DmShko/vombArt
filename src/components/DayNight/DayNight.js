@@ -11,21 +11,22 @@ const DayNight = () => {
 
   const selectorSingInSlice = useSelector(state => state.singIn);
 
-  const [dayChange, setDayChange] = useState(false);
-
-  const over = () => {
-    setDayChange(value => !value);
-  };
-
-  const out = () => {
-    setDayChange(value => !value);
+  const [dayNight, setDayNight] = useState(false);
+  
+  const dayNightHandler = (evt) => {
+    if(evt.currentTarget.id === 'toggle') setDayNight(value => !value);
   };
 
   return (
-    <div onMouseOver={over} onMouseOut={out}>
-        {selectorSingInSlice.isSingIn ? dayChange ? <MoonImg className={dn.container} style={{width: '20px', height: '20px', padding: '3px', backgroundColor: 'lightgray', borderRadius: '50%',}}/> 
-        : <SunImg className={dn.container} style={{width: '20px', height: '20px', padding: '3px', backgroundColor: 'lightgray', borderRadius: '50%',}}/> : ''}
-    </div>
+   selectorSingInSlice.isSingIn &&
+    <div className={dn.container} style={dayNight ? {justifyContent: 'flex-end',} : {justifyContent: 'flex-start',}}>
+
+      <div onClick={dayNightHandler} id='toggle' className={dn.imagesCont}>
+        {selectorSingInSlice.isSingIn ? dayNight ? <MoonImg className={dn.images} style={{width: '18px', height: '18px', padding: '3px', backgroundColor: 'lightgray', borderRadius: '50%',}}/> 
+          : <SunImg className={dn.images} style={{width: '18px', height: '18px', padding: '3px', backgroundColor: 'lightgray', borderRadius: '50%',}}/> : ''}
+      </div>
+       
+    </div> 
   )
 }
 
