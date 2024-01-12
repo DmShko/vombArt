@@ -56,7 +56,7 @@ const DateTime = () => {
                 </div> */}
 
                 <div className={ti.animaTime} style={{backgroundImage: `conic-gradient(var(--main-text-color) ${(360/60) * (newDateObj.dateSeconds || 60)}deg, white 0deg)`}}>
-                    <p className={ti.animaTimeText}>{newDateObj.length !== 0 && newDateObj.timedata}</p>
+                    <p className={ti.animaTimeText} >{newDateObj.length !== 0 && newDateObj.timedata}</p>
                 </div>
                 
                 <div className={ti.animaYear}>

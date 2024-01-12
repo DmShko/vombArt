@@ -13,6 +13,8 @@ const Pagination = () => {
 
     
     const selectorGallSlice = useSelector(state => state.gallery);
+    const selectorUserPath = useSelector(state => state.path);
+
     // const selectorItemsUrl = useSelector(state => state.readStorage);
     const dispatch = useDispatch();
 
@@ -44,12 +46,12 @@ const Pagination = () => {
         dispatch(change({operation: 'changeSelectfractionPage', data: 0}));
 
         const pageFraction = () => {
-            // console.log("!");
+           
             let fractionsPageQuantity = [];
             let minifractionsPageQuantity = [];
 
             if(selectorGallSlice.pageQuantity !== null) {
-
+                
                 // this code fraction electorGallSlice.pageQuantity on parts
                 if(selectorGallSlice.pageQuantity.length % selectorGallSlice.fractions === 0) {
 
@@ -76,7 +78,7 @@ const Pagination = () => {
                                 minifractionsPageQuantity = []; 
                             }  
                         } else {
-                            console.log("!");
+                          
                             // fill rest
                             minifractionsPageQuantity.push(selectorGallSlice.pageQuantity[fn]);
                         }  
@@ -100,13 +102,11 @@ const Pagination = () => {
            pageFraction(); 
         };
        
-        console.log(selectorGallSlice.fractionPageQuantity.length);
-        console.log(selectorGallSlice.fractions);
         // remember current window size  
         dispatch(change({operation: 'changeLastWindowSize', data: Math.round(width)}));
         console.log(selectorGallSlice.lastWindowSize, Math.round(width));
     
-    },[width, selectorGallSlice.lastWindowSize]);
+    },[width, selectorGallSlice.lastWindowSize, selectorGallSlice.pageQuantity,]);
 
     useEffect(() => {
        
@@ -118,12 +118,17 @@ const Pagination = () => {
     useEffect(() => {
 
         pagMenuCounter();
-       
-    },[selectorGallSlice.pageSelector]);
+
+       // add selectorUserPath.logicPath below - pageQuantity chenge, when path change
+       // wait chenge selectorGallSlice.itemsBuffer (below), because in gellary create selectorGallSlice.itemsBuffer
+       // when path change and here. selectorGallSlice.itemsBuffer doesn't have time to change
+       // pageQuantity in pagMenuCounter() create on old data base and button in pagination change only on to click.
+       // add ...selectorGallSlice.pageQuantity,] too see 109 row
+    },[selectorGallSlice.pageSelector, selectorUserPath.logicPath, selectorGallSlice.itemsBuffer]);
 
     // create mini array form 'selectorGallSlice.itemsBuffer' that loaded from firebase
     const pagesCreator = ( ) => {
-        
+ 
         const totalItemsQuantity = selectorGallSlice.itemsBuffer;
 
         let miniPageBuffer = [];
@@ -168,6 +173,7 @@ const Pagination = () => {
                 dispatch(change({operation: 'changePageBuffer', data: mainPageBuffer}));
             }
         } 
+   
     };
 
     const fill = (total, onePage, mode) => {
@@ -186,9 +192,9 @@ const Pagination = () => {
 
     // create page button array 
     const pagMenuCounter = () => {
-
+        
         const totalItemsQuantity = selectorGallSlice.itemsBuffer;
-
+       
         if(totalItemsQuantity !== null) {
 
             if(totalItemsQuantity.length > selectorGallSlice.pageSelector) 

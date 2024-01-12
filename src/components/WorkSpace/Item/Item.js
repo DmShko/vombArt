@@ -25,8 +25,12 @@ const Item = (props) => {
    
   return (
     <div className={it.container}>
-      <h2>{props.data.title}</h2>
-      <p>{props.data.description}</p>
+
+      <div className={it.topInfo}>
+        <h2>{props.data.title}</h2>
+        <p>{props.data.description}</p>
+      </div>
+      
       {props.data.url !== '' && props.data.type === 'image/jpeg' ? <img src={props.data.url} alt='Content' style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}></img> 
       : props.data.url !== '' && props.data.type === 'text/plain' ? <pre style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}><BookImg style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}/></pre> 
       : props.data.url !== '' && props.data.type === 'audio/mpeg' ? <pre style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}><MusicImg style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}/></pre> : <BlotImg style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}/>}

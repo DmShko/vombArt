@@ -21,7 +21,7 @@ const DayNight = () => {
    selectorSingInSlice.isSingIn &&
     <div className={dn.container} style={dayNight ? {justifyContent: 'flex-end',} : {justifyContent: 'flex-start',}}>
 
-      <div onClick={dayNightHandler} id='toggle' className={dn.imagesCont}>
+      <div onClick={dayNightHandler} style={{boxShadow: '1px 1px 1px 1px gray', width: '24px', height: '24px', borderRadius: '50%',}} id='toggle' className={dn.imagesCont}>
         {selectorSingInSlice.isSingIn ? dayNight ? <MoonImg className={dn.images} style={{width: '18px', height: '18px', padding: '3px', backgroundColor: 'lightgray', borderRadius: '50%',}}/> 
           : <SunImg className={dn.images} style={{width: '18px', height: '18px', padding: '3px', backgroundColor: 'lightgray', borderRadius: '50%',}}/> : ''}
       </div>

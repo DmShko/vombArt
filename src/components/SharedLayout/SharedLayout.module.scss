@@ -308,6 +308,14 @@
     justify-content: space-around;
     align-items: center;
     
+    height: 90%;
+    .title {
+
+        align-items: center;
+
+        font-size: 24px;
+        font-family: 'Courgette'
+    }
 }
 
 .settingModalButtonContainer {

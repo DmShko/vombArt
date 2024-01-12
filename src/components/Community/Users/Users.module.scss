@@ -123,8 +123,11 @@
             align-items: center;
 
             margin-bottom: 5px;
+            padding: 5px 0;
 
             gap: 5px;
+
+            border-bottom: 2px solid lightgray;
 
             .userdescription {
 
@@ -132,9 +135,21 @@
                 flex-direction: column;
                 justify-content: flex-start;
 
+                gap: 5px;
+
                 width: 100%;
 
                 text-align: left;
+
+                .describe {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    width: 100%;
+
+                }
             }
  
         }

@@ -18,7 +18,7 @@ import writeUserData from 'API/writerDB';
 import { change } from 'vomgallStore/gallerySlice';
 
 // import { changePathName } from 'vomgallStore/pathSlice'
-import { updatePathStyle } from 'vomgallStore/pathSlice'
+import { updatePathStyle } from 'vomgallStore/pathSlice';
 import ModalItem from 'components/ModalItem/ModalItem';
 
 import { ReactComponent as BlotImg } from '../../images/paint-mark-1-svgrepo-com.svg';
@@ -37,7 +37,7 @@ const Gallery = () => {
   const selectorSingInSlice = useSelector(state => state.singIn);
   const selectorUserPath = useSelector(state => state.path);
   const selectorItemsUrl = useSelector(state => state.readStorage);
-  const pathSelector = selectorUserPath.logicPath ;
+  const pathSelector = selectorUserPath.logicPath;
 
   const [drawVisible, setDrawVisible] = useState(true);
   const [musicVisible, setMusicVisible] = useState(false);
@@ -217,6 +217,7 @@ const Gallery = () => {
     }
   },[selectorGallSlice.users]);
 
+  /************ */
   useEffect(() => {
     let path = [];
     // dispatch(changeReadStorage({operation: `changeItemsURL`}));
@@ -232,10 +233,88 @@ const Gallery = () => {
 
     // check selected arts and style
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
+      
+      if(selectorGallSlice.currentItemId !== '') {
+    
+        path = [
+          
+          pathCreator({
+            pathSelector,
+            section: 'chats',
+            contents: `elements/messages/${selectorGallSlice.currentItemId}`,
+            write: false,
+            users: selectorGallSlice.users,
+            userIsSingInId: selectorSingInSlice.singInId
+          })
+        ];
+
+      };
+     
+      // listenUserData(path);
+      const db = getDatabase();
+      for (let j = 0; j < path.length; j += 1) {
+        const starCountRef = ref(db, path[j]);
+
+        //firebase listener function
+        onValue(starCountRef, snapshot => {
+          // load data from database
+          const data = snapshot.val();
+
+          let items = [];
+          let keys = [];
+          // check database not empty
+          if (data !== null) {
+            // convert data-object to array of objects
+            for (const key in data) {
+              items.push(data[key]);
+
+              keys.push(key);
+            }
+
+            // add keys each object of items array
+            for (let i = 0; i < items.length; i += 1) {
+              items[i] = { ...items[i], id: keys[i] };
+            }
+
+            // item modal open
+            if(selectorGallSlice.currentItemId !== ''){
+              dispatch(
+                    change({ operation: 'changeItemsMessagesBuffer', data: items })
+              );
+            };
+          } else {
+
+            dispatch(change({ operation: 'changeItemsMessagesBuffer', data: [] }));
+
+          }
+        });
+      }
+
+    }
+      
+  }, [selectorGallSlice.currentItemId]);
+
+
+  useEffect(() => {
+    let path = [];
+    // dispatch(changeReadStorage({operation: `changeItemsURL`}));
+
+    // retun true if element contain true
+    const findProperty = data => {
+      for (const key in data) {
+        if (data[key] === true) {
+          return true;
+        }
+      }
+    };
+
+    // check selected arts and style
+    if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
+      
       dispatch(change({ operation: 'changeLoad', data: true }));
       // create items tree and create chats tree for read
 
-      if(selectorGallSlice.currentItemId === '') {
+      // if(selectorGallSlice.currentItemId === '') {
         path = [
           pathCreator({
             pathSelector,
@@ -255,19 +334,20 @@ const Gallery = () => {
             userIsSingInId: selectorSingInSlice.singInId
           })
         ];
-      } else {
-        path = [
+      // } 
+      // else {
+      //   path = [
           
-          pathCreator({
-            pathSelector,
-            section: 'chats',
-            contents: `elements/messages/${selectorGallSlice.currentItemId}`,
-            write: false,
-            users: selectorGallSlice.users,
-            userIsSingInId: selectorSingInSlice.singInId
-          })
-        ];
-      };
+      //     pathCreator({
+      //       pathSelector,
+      //       section: 'chats',
+      //       contents: `elements/messages/${selectorGallSlice.currentItemId}`,
+      //       write: false,
+      //       users: selectorGallSlice.users,
+      //       userIsSingInId: selectorSingInSlice.singInId
+      //     })
+      //   ];
+      // };
      
       // listenUserData(path);
       const db = getDatabase();
@@ -302,7 +382,7 @@ const Gallery = () => {
             // new data load to ItemsBuffer only if user switched new art or style
 
             // item modal close
-            if(selectorGallSlice.currentItemId === ''){
+            // if(selectorGallSlice.currentItemId === ''){
               j === 0 
                 ? dispatch(
                     change({ operation: 'changeItemsBuffer', data: items })
@@ -310,18 +390,18 @@ const Gallery = () => {
                 : dispatch(
                     change({ operation: 'changeMessagesBuffer', data: items })
                   );
-            };
+            // };
 
             // item modal open
-            if(selectorGallSlice.currentItemId !== ''){
-              dispatch(
-                    change({ operation: 'changeItemsMessagesBuffer', data: items })
-              );
-            };
+            // if(selectorGallSlice.currentItemId !== ''){
+            //   dispatch(
+            //         change({ operation: 'changeItemsMessagesBuffer', data: items })
+            //   );
+            // };
           } else {
             dispatch(change({ operation: 'changeItemsBuffer', data: [] }));
             dispatch(change({ operation: 'changeMessagesBuffer', data: [] }));
-            dispatch(change({ operation: 'changeItemsMessagesBuffer', data: [] }));
+            // dispatch(change({ operation: 'changeItemsMessagesBuffer', data: [] }));
           }
         });
       }
@@ -341,7 +421,8 @@ const Gallery = () => {
     // if(location.pathname === 'community') dispatch(changePathName({ changeElement: 'name', data: true }));
     
       
-  }, [pathSelector, selectorGallSlice.currentItemId]);
+  }, [pathSelector]);
+              // ^, selectorGallSlice.currentItemId
 
   useEffect(() => {
 
@@ -456,11 +537,12 @@ const Gallery = () => {
 
       setCurrentItemURL(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id).url);
       setCurrentItemType(selectorGallSlice.itemsBuffer.find(element => element.id === evt.currentTarget.id).type);
-    }
-    
 
-    // save current item id, when modalItemToggle - true and clear, when - false
-    setCurrentItemId(evt.currentTarget.id)
+    }
+
+    // // save current item id, when modalItemToggle - true and clear, when - false
+    setCurrentItemId(evt.currentTarget.id);
+   
   };
 
   // click on heart
@@ -708,7 +790,7 @@ const Gallery = () => {
             {selectorGallSlice.load ? <Loader /> : ''}
           </div>
           <ul className={ga.listItems}>
-            {selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null? (
+            {selectorGallSlice.currentItemId === '' && selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null ? (
               selectorGallSlice.pageBuffer[selectorGallSlice.pageQuantity.find(element => element.active === true).position].map(element => {
                 return (
                   <li key={element.id} id={element.id} onClick={itemClickHandle} onDoubleClick={itemDoubleClickHandle} className={ga.item} style={selectorGallSlice.selectedItems.includes(element.id) ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)'} 

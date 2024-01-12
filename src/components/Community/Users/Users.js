@@ -178,7 +178,7 @@ const Users = () => {
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value => 
             <div>
-              <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor: 'none', borderRadius: '3px'}}><p>{value.userName}</p> {value.status? <p className={us.status}>online</p> : ''} 
+              <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor: 'none', borderRadius: '3px'}}><p style={{fontFamily: 'Courgette', color: 'rgb(122, 152, 206)',}}>{value.userName}</p> {value.status? <p className={us.status}>online</p> : ''} 
               {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor:'white', borderRadius: '3px'}}/>}</li>
 
               {usersOpen[value.uid] ?
@@ -186,14 +186,14 @@ const Users = () => {
                   {selectorExistUsersList.users !== undefined && selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto === '' ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
                    <img src={`${selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>
-                    <p style={{fontSize: '14px'}}>Total level: {totalLevel()}</p>
-                    <p style={{fontSize: '14px'}}>Total views: {totalView()}</p>
-                    <p style={{fontSize: '14px'}}>Total likes: {selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId] !== undefined ? selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId].length : ''}</p>
-                    <p style={{fontSize: '14px'}}>Sex: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p>
-                    <p style={{fontSize: '14px'}}>Age: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p>
-                    <p style={{fontSize: '14px'}}>Phone number: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.phone : ''}</p>
-                    <p style={{fontSize: '14px'}}>Email: {selectorVisibilityLog.isSingIn ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p>
-                    <p style={{fontSize: '14px'}}>Here with:</p>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total level:</p> <p>{totalLevel()}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total views:</p> <p>{totalView()}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total likes:</p> <p>{selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId] !== undefined ? selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId].length : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Sex:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Age:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Phone number:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.phone : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Email:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Here with:</p></div>
                   </div>
                 </div> : ''}
             </div>

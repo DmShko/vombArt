@@ -592,7 +592,7 @@ const SharedLayout = () => {
                         </li>
                     </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
                     selectorGallSlice.users.length !== 0 
-                    ? <div className={sh.userMenu}><UserMenu style={{width: '20px', height: '20px', stroke: 'white'}}/> {selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</div> : ''}</button>}
+                    ? <div className={sh.userMenu}><UserMenu style={{width: '20px', height: '20px', fill: 'white'}}/> <p className={sh.title}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p></div> : ''}</button>}
                     <Tooltip id="menu" style={{backgroundColor: '--rt-color-white'}}/>
                 </nav>  
             </header>
