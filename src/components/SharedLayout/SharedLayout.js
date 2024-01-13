@@ -183,6 +183,7 @@ const SharedLayout = () => {
   useEffect(() => {
 
     if(!selectorSingIn.isSingIn) navigate('/');
+    if(selectorSingIn.isSingIn) setModalToggle(false);
 
   },[selectorSingIn.isSingIn]);
 

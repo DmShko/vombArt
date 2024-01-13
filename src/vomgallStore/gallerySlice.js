@@ -179,6 +179,11 @@ const gallerySlice = createSlice({
              
               state.heartsStatistic = {...state.heartsStatistic, [action.payload.data] : []};
             }
+            if(action.payload.mode === 'deleteHeart') {
+             
+             state.heartsStatistic[action.payload.data.user] =
+             state.heartsStatistic[action.payload.data.user].filter(element => element !== action.payload.data.item);
+            }
             if(action.payload.mode === 'addItem') {
               if(state.heartsStatistic[action.payload.data.user].includes(action.payload.data.item) === false) 
                 state.heartsStatistic[action.payload.data.user].push(action.payload.data.item); 
@@ -194,6 +199,10 @@ const gallerySlice = createSlice({
              
               state.viewsStatistic = {...state.viewsStatistic, [action.payload.data] : 0};
             }
+            if(action.payload.mode === 'deleteView') {
+             
+              delete state.viewsStatistic[action.payload.data];
+            }
             if(action.payload.mode === 'addValue') {
               state.viewsStatistic[action.payload.data] = state.viewsStatistic[action.payload.data] + 1; 
             }
@@ -207,6 +216,10 @@ const gallerySlice = createSlice({
             if(action.payload.mode === 'addItem') {
              
               state.levelStatistic = {...state.levelStatistic, [action.payload.data] : 0};
+            }
+            if(action.payload.mode === 'deleteLevel') {
+             
+              delete state.levelStatistic[action.payload.data];
             }
             if(action.payload.mode === 'addValue') {
               state.levelStatistic[action.payload.data.item] = action.payload.data.level; 

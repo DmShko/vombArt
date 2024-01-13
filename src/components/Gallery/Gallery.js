@@ -215,7 +215,7 @@ const Gallery = () => {
     if(selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
       dispatch(updatePathStyle({data: makeUpdatePathStyleList()}));
     }
-  },[selectorGallSlice.users]);
+  },[selectorGallSlice.users, pathSelector.name]);
 
   /************ */
   useEffect(() => {

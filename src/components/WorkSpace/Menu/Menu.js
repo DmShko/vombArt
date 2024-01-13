@@ -145,6 +145,22 @@ const Menu = () => {
                 selectorGallSlice.date, true
               );
 
+              /* ****delete item statistic**** */
+
+              // delete view statistic
+              dispatch(change({operation: 'changeViewsStatistic', mode: 'deleteView',
+              data: selectorGallSlice.selectedItems[s]}));
+
+              // delete level statistic
+              dispatch(change({operation: 'changeLevelStatistic', mode: 'deleteLevel',
+              data: selectorGallSlice.selectedItems[s]}));
+
+              // delete herats statistic
+              dispatch(change({operation: 'changeHeartsStatistic', mode: 'deleteHeart',
+              data: {item: selectorGallSlice.selectedItems[s], user: selectorSingInSlice.singInId}}));
+
+              /* ****delete item statistic**** */  
+              
               // delete file from storege
               dispatch(deleteStorAPI(`${path}${selectorGallSlice.selectedItems[s]}`));
 

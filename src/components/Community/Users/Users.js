@@ -188,7 +188,8 @@ const Users = () => {
                   <div className={us.userdescription}>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total level:</p> <p>{totalLevel()}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total views:</p> <p>{totalView()}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total likes:</p> <p>{selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId] !== undefined ? selectorExistUsersList.heartsStatistic[selectorVisibilityLog.singInId].length : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total likes:</p> <p>{selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorExistUsersList.users.find(element => element.userName === value.userName).uid] !== undefined ?
+                     selectorExistUsersList.heartsStatistic[selectorExistUsersList.users.find(element => element.userName === value.userName).uid].length : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Sex:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Age:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Phone number:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.phone : ''}</p></div>

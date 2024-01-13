@@ -7,12 +7,17 @@ import Notiflix from 'notiflix';
 import { change } from 'vomgallStore/gallerySlice';
 import { addStyleToPath } from 'vomgallStore/pathSlice';
 import { deleteStyleToPath } from 'vomgallStore/pathSlice';
+import pathCreator from '../../../MageChat/pathCreator/pathCreator';
 
 const Direction = () => {
 
   const dispatch = useDispatch();
 
+  const selectorGallSlice = useSelector(state => state.gallery);
+  
   const selectorPathState = useSelector(state => state.path.logicPath);
+
+  const selectorSingInSlice = useSelector(state => state.singIn);
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
 
@@ -54,7 +59,7 @@ const Direction = () => {
   };
 
   const addStyle = (_, evt) => {
-    console.log(getPropertyKey(selectorPathState.arts));
+    
     evt.preventDefault();
     if (
       getPropertyKey(selectorPathState.arts) !== undefined) {
@@ -79,9 +84,33 @@ const Direction = () => {
  
   };
 
+  // retun true if element contain true
+  const findProperty = data => {
+    for (const key in data) {
+      if (data[key] === true) {
+        return true;
+      }
+    }
+  };
+
   const deleteStyle = (_, evt) => {
     evt.preventDefault();
 
+    console.log(selectorPathState);
+    // check selected arts and style
+    if (findProperty(selectorPathState.arts) && findProperty(selectorPathState.style)) {
+      const path = [
+        pathCreator({
+        selectorPathState,
+        section: 'items',
+        contents: 'elements',
+        write: false,
+        users: selectorGallSlice.users,
+        userIsSingInId: selectorSingInSlice.singInId
+      })];
+
+      console.log(path);
+    }
     if (
       getPropertyKey(selectorPathState.arts) !== undefined
     ) {
@@ -125,11 +154,12 @@ const Direction = () => {
         <fieldset className={di.fset}>
           <legend>{checkAdd ? 'Add Style' : 'Delete Style'}</legend>
           <div className={di.field}>
-            <div>
+            <div className={di.radioCont}>
               <label>
                 {' '}
                 Add{' '}
                 <input
+                  className={di.radio}
                   type="radio"
                   name="add"
                   checked={checkAdd}
@@ -140,6 +170,7 @@ const Direction = () => {
                 {' '}
                 Delete{' '}
                 <input
+                  className={di.radio}
                   type="radio"
                   name="delete"
                   checked={checkDel}
