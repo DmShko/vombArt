@@ -98,19 +98,19 @@ const Direction = () => {
 
     console.log(selectorPathState);
     // check selected arts and style
-    if (findProperty(selectorPathState.arts) && findProperty(selectorPathState.style)) {
-      const path = [
-        pathCreator({
-        selectorPathState,
-        section: 'items',
-        contents: 'elements',
-        write: false,
-        users: selectorGallSlice.users,
-        userIsSingInId: selectorSingInSlice.singInId
-      })];
+    // if (findProperty(selectorPathState.arts) && findProperty(selectorPathState.style)) {
+    //   const path = [
+    //     pathCreator({
+    //     selectorPathState,
+    //     section: 'items',
+    //     contents: 'elements',
+    //     write: false,
+    //     users: selectorGallSlice.users,
+    //     userIsSingInId: selectorSingInSlice.singInId
+    //   })];
 
-      console.log(path);
-    }
+    //   console.log(path);
+    // }
     if (
       getPropertyKey(selectorPathState.arts) !== undefined
     ) {
