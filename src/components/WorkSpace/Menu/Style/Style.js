@@ -7,7 +7,7 @@ import Notiflix from 'notiflix';
 import { change } from 'vomgallStore/gallerySlice';
 import { addStyleToPath } from 'vomgallStore/pathSlice';
 import { deleteStyleToPath } from 'vomgallStore/pathSlice';
-import pathCreator from '../../../MageChat/pathCreator/pathCreator';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 const Direction = () => {
 
@@ -15,7 +15,7 @@ const Direction = () => {
 
   const selectorGallSlice = useSelector(state => state.gallery);
   
-  const selectorPathState = useSelector(state => state.path.logicPath);
+  const pathSelector = useSelector(state => state.path.logicPath);
 
   const selectorSingInSlice = useSelector(state => state.singIn);
 
@@ -62,12 +62,12 @@ const Direction = () => {
     
     evt.preventDefault();
     if (
-      getPropertyKey(selectorPathState.arts) !== undefined) {
+      getPropertyKey(pathSelector.arts) !== undefined) {
       dispatch(
         change({
           operation: 'addUserStyle',
-          currentUserName: selectorPathState.name,
-          artsName: getPropertyKey(selectorPathState.arts),
+          currentUserName: pathSelector.name,
+          artsName: getPropertyKey(pathSelector.arts),
           data: style,
         })
       );
@@ -80,58 +80,51 @@ const Direction = () => {
       );
       
     } else Notiflix.Notify.info('Please, select art section!', {width: '450px', position: 'center-top', fontSize: '24px',});
-    reset({style: ''});
+    reset({Style: ''});
  
-  };
-
-  // retun true if element contain true
-  const findProperty = data => {
-    for (const key in data) {
-      if (data[key] === true) {
-        return true;
-      }
-    }
   };
 
   const deleteStyle = (_, evt) => {
     evt.preventDefault();
 
-    console.log(selectorPathState);
-    // check selected arts and style
-    // if (findProperty(selectorPathState.arts) && findProperty(selectorPathState.style)) {
-    //   const path = [
-    //     pathCreator({
-    //     selectorPathState,
-    //     section: 'items',
-    //     contents: 'elements',
-    //     write: false,
-    //     users: selectorGallSlice.users,
-    //     userIsSingInId: selectorSingInSlice.singInId
-    //   })];
+      const path = `${selectorGallSlice.users.find(element => 
+        element.uid === selectorSingInSlice.singInId).userName}/items/${getPropertyKey(pathSelector.arts)}`;
+      console.log(path);
+       // listenAccount(path);
+       const db = getDatabase();
+       const starCountRef = ref(db, `${path}/${style.toLowerCase()}`);
 
-    //   console.log(path);
-    // }
-    if (
-      getPropertyKey(selectorPathState.arts) !== undefined
-    ) {
-      dispatch(
-        change({
-          operation: 'deleteUserStyle',
-          currentUserName: selectorPathState.name,
-          artsName: getPropertyKey(selectorPathState.arts),
-          data: style,
-        })
-      );
+       //firebase listener function
+       onValue(starCountRef, snapshot => {
 
-      // delete style from 'logicPath'
-      dispatch(
-        deleteStyleToPath({
-          data: style,
-        })
-      );
-    }else Notiflix.Notify.info('Please, select art section!', {width: '450px', position: 'center-top', fontSize: '24px',});
+        // load account array from DB
+        const styleData = snapshot.val();
 
-    reset({ style: '' });
+        if(getPropertyKey(pathSelector.arts) !== undefined && pathSelector.arts[getPropertyKey(pathSelector.arts)] !== undefined) 
+        { 
+          if(styleData === null) {
+            dispatch(
+              change({
+                operation: 'deleteUserStyle',
+                currentUserName: pathSelector.name,
+                artsName: getPropertyKey(pathSelector.arts),
+                data: style,
+              })
+            );
+  
+            // delete style from 'logicPath'
+            dispatch(
+              deleteStyleToPath({
+                data: style,
+              })
+            );
+          }else Notiflix.Notify.info(`This style is not empty. In first delete style content.`, {width: '450px', position: 'center-top', fontSize: '24px',});
+          
+        }else Notiflix.Notify.info('This style is absent or art section is not selected!', {width: '450px', position: 'center-top', fontSize: '24px',});
+
+       });
+
+    reset({ Style: '' });
   };
 
 

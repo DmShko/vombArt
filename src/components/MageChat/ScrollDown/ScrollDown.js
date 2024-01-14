@@ -12,7 +12,7 @@ const ScrollDown = ({ data, scrollDownDetect }) => {
   };
 
   return (
-    <div className={sd.container} onClick={scrollOn} style={scrollDownDetect ? {backgroundColor: 'gray', animationIterationCount: 0, visibility: 'hidden'}: selectorGallerySlice.messagesBuffer !== undefined && selectorGallerySlice.mesBuffLength === selectorGallerySlice.messagesBuffer.length ? {backgroundColor: 'gray', animationIterationCount: 0, visibility: 'visible'} : {backgroundColor: 'lightgreen'}}>
+    <div className={sd.container} onClick={scrollOn} style={scrollDownDetect ? {backgroundColor: 'gray', animationIterationCount: 0, visibility: 'hidden'}: selectorGallerySlice.messagesBuffer !== undefined && selectorGallerySlice.mesBuffLength === selectorGallerySlice.messagesBuffer.length ? {backgroundColor: 'gray', animationIterationCount: 0, visibility: 'visible'} : {backgroundColor: 'rgba(194, 212, 31, 0.801)'}}>
         <AngelImgDown style={{width:'30px', height:'30px'}}/>
     </div>
   )
