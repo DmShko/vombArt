@@ -62,7 +62,8 @@ const Direction = () => {
     
     evt.preventDefault();
     if (
-      getPropertyKey(pathSelector.arts) !== undefined) {
+      getPropertyKey(pathSelector.arts) !== undefined && Object.keys(pathSelector.style).includes(style.toLowerCase()) === false
+      && Object.keys(selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).arts[getPropertyKey(pathSelector.arts)].style).length < 20) {
       dispatch(
         change({
           operation: 'addUserStyle',
@@ -75,21 +76,24 @@ const Direction = () => {
       // add style to 'logicPath'
       dispatch(
         addStyleToPath({
-          data: style,
+          data: style.toLowerCase(),
         })
       );
       
-    } else Notiflix.Notify.info('Please, select art section!', {width: '450px', position: 'center-top', fontSize: '24px',});
+    } else Notiflix.Notify.info('Please, select art section! Max style length - 20!', {width: '450px', position: 'center-top', fontSize: '24px',});
     reset({Style: ''});
  
   };
 
   const deleteStyle = (_, evt) => {
+
     evt.preventDefault();
+
+      const checkStyle = ['oil', 'watercolor', 'digital', 'mix', 'poem', 'liric', 'classic', 'pop'];
 
       const path = `${selectorGallSlice.users.find(element => 
         element.uid === selectorSingInSlice.singInId).userName}/items/${getPropertyKey(pathSelector.arts)}`;
-      console.log(path);
+      
        // listenAccount(path);
        const db = getDatabase();
        const starCountRef = ref(db, `${path}/${style.toLowerCase()}`);
@@ -100,7 +104,8 @@ const Direction = () => {
         // load account array from DB
         const styleData = snapshot.val();
 
-        if(getPropertyKey(pathSelector.arts) !== undefined && pathSelector.arts[getPropertyKey(pathSelector.arts)] !== undefined) 
+        if(getPropertyKey(pathSelector.arts) !== undefined && pathSelector.arts[getPropertyKey(pathSelector.arts)] !== undefined
+        && checkStyle.includes(style.toLowerCase()) === false) 
         { 
           if(styleData === null) {
             dispatch(
@@ -115,12 +120,12 @@ const Direction = () => {
             // delete style from 'logicPath'
             dispatch(
               deleteStyleToPath({
-                data: style,
+                data: style.toLowerCase(),
               })
             );
           }else Notiflix.Notify.info(`This style is not empty. In first delete style content.`, {width: '450px', position: 'center-top', fontSize: '24px',});
           
-        }else Notiflix.Notify.info('This style is absent or art section is not selected!', {width: '450px', position: 'center-top', fontSize: '24px',});
+        }else Notiflix.Notify.info('This style is absent locked or art section is not selected!', {width: '450px', position: 'center-top', fontSize: '24px',});
 
        });
 

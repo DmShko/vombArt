@@ -449,7 +449,14 @@ const Gallery = () => {
 
     switch (currentTarget.name) {
       case 'Lirics':
-        
+
+        // reset styles
+        for(const key in selectorUserPath.logicPath.style) {
+
+          dispatch(changePath({changeElement: `style.${key}`, data: false}));
+          
+        };
+
         // visibility 'Lirics' on
         setLiricsVisible(true);
 
@@ -464,6 +471,13 @@ const Gallery = () => {
         dispatch(changePath({ changeElement: 'arts.draw', data: false }));
         break;
       case 'Music':
+
+        // reset styles
+        for(const key in selectorUserPath.logicPath.style) {
+
+          dispatch(changePath({changeElement: `style.${key}`, data: false}));
+          
+        };
 
         // visibility 'Music' on
         setMusicVisible(true);
@@ -480,6 +494,13 @@ const Gallery = () => {
         break;
       case 'Drawing':
 
+        // reset styles
+        for(const key in selectorUserPath.logicPath.style) {
+
+          dispatch(changePath({changeElement: `style.${key}`, data: false}));
+          
+        };
+        
         // visibility 'Drawing' on
         setDrawVisible(true);
 
@@ -795,7 +816,7 @@ const Gallery = () => {
                 return (
                   <li key={element.id} id={element.id} onClick={itemClickHandle} onDoubleClick={itemDoubleClickHandle} className={ga.item} style={selectorGallSlice.selectedItems.includes(element.id) ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)'} 
                   : {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08)'}}>
-                    <Item data={element} />
+                    <Item data={element}/>
                   </li>
                 );
               })
