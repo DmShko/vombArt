@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-com.svg';
+import { ReactComponent as BasketImg } from '../../../images/delete-2-svgrepo-com.svg';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 
@@ -14,6 +15,8 @@ const MessageItem = ({ data }) => {
   const selectorGallerySlice = useSelector(state => state.gallery);
   const selectorSingInSlice = useSelector(state => state.singIn);
   const selectorItemsUrl = useSelector(state => state.readStorage);
+
+  const [deleteToggle, setDeleteToggle] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -59,25 +62,40 @@ const MessageItem = ({ data }) => {
         {!answer ? 
         <>
           <div className={me.title}>
-            {selectorSingInSlice.isSingIn && selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName === data.name ? <img src={`${selectorGallerySlice.account.url}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
+            {selectorSingInSlice.isSingIn ? <img src={`${selectorGallerySlice.users
+              .find(element => element.userName === data.name).urlFoto}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
               <p style={{ color: 'blue',fontSize: '12px', }}>{`${data.time}:${data.second}`}</p>
             </div>
             <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
+            {selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
+            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : '' :
+            selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
+            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : ''}
           </div>
           <p className={me.message}>{data.message}</p>
         </> : 
         <>
           <div className={me.title}>
-          {selectorSingInSlice.isSingIn && selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName === data.name ? <img src={`${selectorGallerySlice.account.url}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
+          {selectorSingInSlice.isSingIn ? <img src={`${selectorGallerySlice.users.
+            find(element => element.userName === data.name).urlFoto}`} 
+            alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
               <p style={{ color: 'blue',fontSize: '12px', }}>{`${data.time}:${data.second}`}</p>
             </div>
             <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
+            {selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
+            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : '' :
+            selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
+            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : ''}
           </div>
          
           <div className={me.answerStamp}>

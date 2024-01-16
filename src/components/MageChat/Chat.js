@@ -174,11 +174,13 @@ const MageChat = () => {
   const addMessage = (_,evt) => {
 
     evt.preventDefault();
-
+    
     // simple mode
     if(selectorGallerySlice.answerId === '') {
+      
       // create chats tree
       if(selectorGallerySlice.currentItemId === '') {
+    
         const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
 
         // to database
@@ -221,7 +223,7 @@ const MageChat = () => {
       dispatch(change({ operation: 'updateAnswerId', data: '' }));
     }     
 
-    reset({message: '', });
+    reset({Message: '', });
 
   };
 
@@ -406,7 +408,7 @@ const MageChat = () => {
                 </div> : ''}       
                 <label className={ma.lab}>
                     
-                    <textarea {...register('Messange', {required: 'Please fill field!', 
+                    <textarea {...register('Message', {required: 'Please fill field!', 
 
                         maxLength: {value:300, message: 'Invalid length!'},  value:message,})}
                         wrap='soft'

@@ -3,7 +3,7 @@
     flex-direction: column;
     
     padding: 5px;
-
+    
     .title {
         display: flex;
         flex-direction: row;
@@ -41,7 +41,7 @@
 
         color: gray;
 
-        border-radius: 0 0 6px 6px;
+        border-radius: 10px 10px 0 0;
 
         background-color: white;
     }
@@ -57,7 +57,7 @@
 
         color: gray;
 
-        border-radius: 0 0 6px 0;
+        border-radius: 0 0 10px 0;
 
         background-color: white;
     }
@@ -79,7 +79,7 @@
         font-style: italic;
         font-weight: 600;
 
-        border-radius: 6px 6px 0 0;
+        border-radius: 10px 10px 0 0;
 
         background-color: white;
 
@@ -92,7 +92,7 @@
 
     .newMessage {
 
-        border-radius: 6px ;
+        border-radius: 6px;
 
         padding: 5px;
 
