@@ -134,6 +134,8 @@ const Menu = () => {
             userIsSingInId: selectorSingInSlice.singInId
           });
 
+          const pathMess = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/`, write: false, users: selectorGallSlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
           if(selectorGallSlice.selectedItems.length !== 0) {
           
             for(let s=0; s < selectorGallSlice.selectedItems.length; s += 1){
@@ -141,6 +143,16 @@ const Menu = () => {
               // delete item from DB (write 'null')
               writeUserData(
                 `${path}${selectorGallSlice.selectedItems[s]}`,
+                null,
+                selectorGallSlice.date, true
+              );
+
+              // clear itemsMesagesBuffer
+              dispatch(change({ operation: 'changeItemsMessage', data: [] }));
+
+              // delete all item messages from DB (write 'null')
+              writeUserData(
+                `${pathMess}/${selectorGallSlice.selectedItems[s]}`,
                 null,
                 selectorGallSlice.date, true
               );

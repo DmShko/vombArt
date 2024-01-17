@@ -156,7 +156,7 @@ const Users = () => {
   };
 
   return (
-    <div className={us.container}>
+    <div className={us.container} style={selectorExistUsersList.dayNight ? {backgroundColor: '#24325f',} : {backgroundColor: ''}}>
       <div className={us.usersicon} style={{width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
       <div className={us.userstitle}>
         <div className={us.usercount}><p>Total: </p><p>{selectorExistUsersList.users.length}</p></div>

@@ -49,7 +49,7 @@ const MageChat = () => {
 
   useEffect(() => {
     // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
-    if(selectorGallerySlice.messagesBuffer !== undefined){
+    if(selectorGallerySlice.messagesBuffer !== undefined && messageBlock.current !== null){
 
       if(selectorGallerySlice.mesBuffLength !== selectorGallerySlice.messagesBuffer.length && selectorGallerySlice.messagesBuffer.length != 0
         && selectorGallerySlice.messagesBuffer.length * messageBlock.current.offsetHeight >= 200) {
@@ -65,7 +65,7 @@ const MageChat = () => {
   useEffect(() => { 
     
     // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
-    if(selectorGallerySlice.itemsMessagesBuffer !== undefined){
+    if(selectorGallerySlice.itemsMessagesBuffer !== undefined && messageBlock.current !== null){
     
       if(selectorGallerySlice.itemMesBuffLength !== selectorGallerySlice.itemsMessagesBuffer.length && selectorGallerySlice.itemsMessagesBuffer.length != 0) {
          

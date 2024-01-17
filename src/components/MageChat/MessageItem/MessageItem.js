@@ -5,6 +5,8 @@ import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-c
 import { ReactComponent as BasketImg } from '../../../images/delete-2-svgrepo-com.svg';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
+import writeUserData from 'API/writerDB';
+import pathCreator from '../../MageChat/pathCreator/pathCreator';
 
 import me from './MessageItem.module.scss'
 
@@ -15,6 +17,7 @@ const MessageItem = ({ data }) => {
   const selectorGallerySlice = useSelector(state => state.gallery);
   const selectorSingInSlice = useSelector(state => state.singIn);
   const selectorItemsUrl = useSelector(state => state.readStorage);
+  const pathSelector = useSelector(state => state.path.logicPath);
 
   const [deleteToggle, setDeleteToggle] = useState(false);
 
@@ -56,9 +59,38 @@ const MessageItem = ({ data }) => {
 
   };
 
+  const delMessage = () => {
+    
+    dispatch(change({ operation: 'deleteMessage', data: data.id }));
+    
+    const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+    console.log(`${path}${data.id}`)
+    // delete message from DB (write 'null')
+    writeUserData(
+      `${path}${data.id}`,
+      null,
+      selectorGallerySlice.date, true
+    );
+
+  };
+
+  const delItemMessage = () => {
+    dispatch(change({ operation: 'deleteItemsMessage', data: data.id }));
+
+    const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: false, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+    // delete message from DB (write 'null')
+    writeUserData(
+      `${path}${data.id}`,
+      null,
+      selectorGallerySlice.date, true
+    );
+
+  };
+
   return (
      
-      <div className={me.container}>
+      <div className={me.container} id={data.id}>
         {!answer ? 
         <>
           <div className={me.title}>
@@ -69,13 +101,17 @@ const MessageItem = ({ data }) => {
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
               <p style={{ color: 'blue',fontSize: '12px', }}>{`${data.time}:${data.second}`}</p>
             </div>
-            <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
-            {selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
-            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : '' :
-            selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
-            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : ''}
+
+            <div className={me.operation}>
+              <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
+              {selectorSingInSlice.singInId ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
+              === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}} onClick={delMessage}/> : '' :
+              selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
+              === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delItemMessage}/> : '' : ''}
+            </div>
+            
           </div>
           <p className={me.message}>{data.message}</p>
         </> : 
@@ -89,13 +125,17 @@ const MessageItem = ({ data }) => {
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
               <p style={{ color: 'blue',fontSize: '12px', }}>{`${data.time}:${data.second}`}</p>
             </div>
-            <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
-            {selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
-            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : '' :
-            selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
-            === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-            ? <BasketImg className={me.svg} style={{width: '25px', height: '25px',}}/> : ''}
+
+            <div className={me.operation}>
+              <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
+              {selectorSingInSlice.singInId ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
+              === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delMessage}/> : '' :
+              selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
+              === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
+              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delItemMessage}/> : '' : ''}
+            </div>
+            
           </div>
          
           <div className={me.answerStamp}>

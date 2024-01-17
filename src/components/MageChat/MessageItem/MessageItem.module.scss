@@ -16,10 +16,11 @@
 
         padding-bottom: 10px;
 
-        .svg:hover{
+        .svg{
 
-            fill: rgba(194, 212, 31, 0.801);
-     
+            cursor: pointer;
+         
+            
         }
 
         .stamp {
@@ -30,6 +31,16 @@
             align-items: baseline;
 
             gap: 5px;
+        }
+
+        .operation {
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
         }
 
     }

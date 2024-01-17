@@ -30,7 +30,6 @@
 
     border-radius: 50px;
 
-    cursor: pointer;
     .imagesCont {
 
         display: flex;
@@ -41,7 +40,8 @@
             animation-name: animaDayNightPlus; 
             animation-duration: 400ms;
             animation-iteration-count: 1 ;
-        
+            
+            cursor: pointer;
         }
     
         .images:focus {

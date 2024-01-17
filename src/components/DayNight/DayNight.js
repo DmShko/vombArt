@@ -1,17 +1,25 @@
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import dn from './DayNight.module.scss';
 
 import {ReactComponent as SunImg} from '../../images/sun-2-svgrepo-com.svg';
 import {ReactComponent as MoonImg} from '../../images/moon-svgrepo-com.svg';
+import { change } from 'vomgallStore/gallerySlice';
 
 const DayNight = () => {
 
+  const dispatch = useDispatch();
   const selectorSingInSlice = useSelector(state => state.singIn);
 
   const [dayNight, setDayNight] = useState(false);
+
+  useEffect(() => {
+
+    dispatch(change({ operation: 'changeDayNight', data: dayNight }));
+
+  }, [dayNight])
   
   const dayNightHandler = (evt) => {
     if(evt.currentTarget.id === 'toggle') setDayNight(value => !value);

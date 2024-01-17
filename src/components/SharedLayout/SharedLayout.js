@@ -775,7 +775,7 @@ const SharedLayout = () => {
             </ModalArt>}
 
             <section className={sh.section} style={selectorGallSlice.currentItemId !== '' || modalSettingsToggle ? {marginRight: `${(window.innerWidth - document.body.offsetWidth)+35}px`} : {width: '95%'}}>
-                <main className={sh.container}>
+                <main className={sh.container} style={selectorGallSlice.dayNight ? {backgroundColor: 'gray'} : {backgroundColor: ''}}>
                     <Suspense fallback={<Loader/>}>
                         <Outlet />
                     </Suspense>

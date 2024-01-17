@@ -42,6 +42,7 @@ const galleryInitialState = {
   },
   actualUserLength: 0,
   actualUsers: [],
+  dayNight: true,
 };
 
 // {
@@ -124,8 +125,14 @@ const gallerySlice = createSlice({
           case 'changeMessagesBuffer':
             state.messagesBuffer = action.payload.data;
             break;
+          case 'deleteMessage':
+            state.messagesBuffer = state.messagesBuffer.filter(element => element.id !== action.payload.data);
+            break;
           case 'changeItemsMessagesBuffer':
             state.itemsMessagesBuffer = action.payload.data;
+            break;
+          case 'deleteItemsMessage':
+            state.itemsMessagesBuffer = state.itemsMessagesBuffer.filter(element => element.id !== action.payload.data);
             break;
           case 'changeLoad':
             state.load = action.payload.data;
@@ -298,6 +305,9 @@ const gallerySlice = createSlice({
             break;
           case 'updatePersonal':
             state.personal = action.payload.data;
+            break;
+          case 'changeDayNight':
+            state.dayNight = action.payload.data;
             break;
           default:
             break;
