@@ -534,7 +534,7 @@ const SharedLayout = () => {
                     <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
-                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
                             Lirics
                             </NavLink>
                            
@@ -542,7 +542,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
                             Music
                             </NavLink>
                            
@@ -550,7 +550,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
                             Drawing
                             </NavLink>
                            
@@ -558,7 +558,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} onClick={navClick} to={selectorSingIn.isSingIn ? "/community" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/community" : "/"}>
                             Community
                             </NavLink>
                            
@@ -568,12 +568,12 @@ const SharedLayout = () => {
                     <ul className={sh.list}>
                         <li className={sh.link}>
 
-                           <p className={sh.linkNav} onClick={toggleModal} id='about'>About</p>
+                           <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='about'>About</p>
                             
                         </li>
                         <li className={sh.link}>
 
-                          <p className={sh.linkNav} onClick={toggleModal} id='contacts'>Contacts</p>
+                          <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='contacts'>Contacts</p>
                              
                         </li>
                     </ul>
@@ -583,23 +583,23 @@ const SharedLayout = () => {
                    {selectorVisibilityLog === false ? <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <p className={sh.linkNav} onClick={toggleModal} id='singUp'>SingUp</p>
+                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singUp'>SingUp</p>
                             
                         </li>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
-                            <p className={sh.linkNav} onClick={toggleModal} id='singIn'>SingIn</p>
+                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singIn'>SingIn</p>
                            
                         </li>
-                    </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
+                    </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94', color: 'rgb(122, 152, 206)', } : {backgroundColor: ''}} className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
                     selectorGallSlice.users.length !== 0 
-                    ? <div className={sh.userMenu}><UserMenu style={{width: '20px', height: '20px', fill: 'white'}}/> <p className={sh.title}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p></div> : ''}</button>}
+                    ? <div className={sh.userMenu}><UserMenu style={selectorGallSlice.dayNight ? {width: '20px', height: '20px', fill: 'rgb(122, 152, 206)'} : {width: '20px', height: '20px', fill: 'white'}}/> <p className={sh.title}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p></div> : ''}</button>}
                     <Tooltip id="menu" style={{backgroundColor: '--rt-color-white'}}/>
                 </nav>  
             </header>
 
             {
-                modalSettingsToggle && <ModalSettings data={modalSettingsToggle}>
+                modalSettingsToggle && <ModalSettings data={modalSettingsToggle}> 
                     <div className={sh.settingModalButtonContainer}>
                         <div className={sh.settingModalButton} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
                         <div className={sh.settingModalButton} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Giud</p></div>
@@ -774,16 +774,17 @@ const SharedLayout = () => {
 
             </ModalArt>}
 
-            <section className={sh.section} style={selectorGallSlice.currentItemId !== '' || modalSettingsToggle ? {marginRight: `${(window.innerWidth - document.body.offsetWidth)+35}px`} : {width: '95%'}}>
-                <main className={sh.container} style={selectorGallSlice.dayNight ? {backgroundColor: 'gray'} : {backgroundColor: ''}}>
-                    <Suspense fallback={<Loader/>}>
-                        <Outlet />
-                    </Suspense>
+            <div style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94'} : {backgroundColor: ''}}>   
+                <section className={sh.section} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94'} : {backgroundColor: ''}}>
+                    <main className={sh.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94'} : {backgroundColor: ''}}>
+                        <Suspense fallback={<Loader/>}>
+                            <Outlet />
+                        </Suspense>
 
-                    <footer><Footer /></footer>
-                </main>
-            </section>
-        
+                        <footer><Footer /></footer>
+                    </main>
+                </section>
+            </div> 
     </>
   )
 }

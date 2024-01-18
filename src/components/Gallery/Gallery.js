@@ -682,11 +682,15 @@ const Gallery = () => {
         </div>
       </ ModalItem>
     }
-    <div className={ga.container}>
-      <div className={ga.arts}>
-        <button
+    <div className={ga.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83', } : {backgroundColor: ''}}>
+      <div className={ga.arts} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray', } : {borderColor: ''}}>
+        <button 
           type="button"
-          style={
+          style={ selectorGallSlice.dayNight ?
+            selectorUserPath.logicPath.arts.lirics
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+              : { backgroundColor: 'rgb(122, 152, 206)' }
+              :
             selectorUserPath.logicPath.arts.lirics
               ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
               : { backgroundColor: 'rgba(209, 209, 209, 0.522)' }
@@ -702,6 +706,13 @@ const Gallery = () => {
         <button
           type="button"
           style={
+          selectorGallSlice.dayNight ?
+            selectorUserPath.logicPath.arts.music
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', borderLeft: '2px solid lightgray',
+              borderRight: '2px solid lightgray', }
+              : { backgroundColor: 'rgb(122, 152, 206)', borderLeft: '2px solid lightgray',
+              borderRight: '2px solid lightgray', }
+              :
             selectorUserPath.logicPath.arts.music
               ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', borderLeft: '2px solid white',
               borderRight: '2px solid white', }
@@ -718,6 +729,11 @@ const Gallery = () => {
         <button
           type="button"
           style={
+            selectorGallSlice.dayNight ?
+            selectorUserPath.logicPath.arts.draw
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+              : { backgroundColor: 'rgb(122, 152, 206)' }
+              :
             selectorUserPath.logicPath.arts.draw
               ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
               : { backgroundColor: 'rgba(209, 209, 209, 0.522)' }
@@ -733,8 +749,8 @@ const Gallery = () => {
 
       <div>
         <div>
-          <p className={ga.title}>Styles</p>
-          <ul className={ga.style}>
+          <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>Styles</p>
+          <ul className={ga.style} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray',} : {borderColor: ''}}>
             {drawVisible 
               ? selectorGallSlice.users
                   .find(value => value.userName === selectorUserPath.logicPath.name)
@@ -744,6 +760,11 @@ const Gallery = () => {
                         type="button"
                         name={value}
                         style={
+                          selectorGallSlice.dayNight ?
+                          value.toLowerCase() === selectorGallSlice.colorActive
+                            ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+                            : { backgroundColor: 'rgb(122, 152, 206)' }
+                            :
                           value.toLowerCase() === selectorGallSlice.colorActive
                             ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
                             : { backgroundColor: 'var(--text-color)' }
@@ -764,6 +785,11 @@ const Gallery = () => {
                         type="button"
                         name={value}
                         style={
+                          selectorGallSlice.dayNight ?
+                          value.toLowerCase() === selectorGallSlice.colorActive
+                            ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+                            : { backgroundColor: 'rgb(122, 152, 206)' }
+                            :
                           value.toLowerCase() === selectorGallSlice.colorActive
                             ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
                             : { backgroundColor: 'var(--text-color)' }
@@ -785,9 +811,14 @@ const Gallery = () => {
                         type="button"
                         name={value}
                         style={
+                          selectorGallSlice.dayNight ?
                           value.toLowerCase() === selectorGallSlice.colorActive
                             ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
-                            : { backgroundColor: 'var(--text-color)' }
+                            : { backgroundColor: 'rgb(122, 152, 206)' }
+                            :
+                          value.toLowerCase() === selectorGallSlice.colorActive
+                            ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+                            : { backgroundColor: 'var(--text-color)' }  
                         }
                         onClick={clickButtonStyle}
                       >
@@ -802,8 +833,8 @@ const Gallery = () => {
         <div>
           <div className={ga.total}>
 
-            <p className={ga.title}>Elements</p>
-            <p className={ga.title}></p>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? `total ${selectorGallSlice.itemsBuffer.length} pcs`: 'total 0 pcs'}
+            <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>Elements</p>
+            <p className={ga.title} ></p> <p style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? `total ${selectorGallSlice.itemsBuffer.length} pcs`: 'total 0 pcs'}</p>
             
           </div>
           

@@ -282,17 +282,17 @@ const Pagination = () => {
 
     return(
         
-    <div className={pa.container} ref={ref}>
+    <div className={pa.container} ref={ref} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83',} : {backgroundColor: ''}}>
         
-        <label className={pa.lab} ref={pagLabContainer}> Quantity/page
-            <select className={pa.datalist} value={selectorGallSlice.pageSelector} onChange={selectChange}>
-                <option value={2}>2</option>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={40}>40</option>
-                <option value={80}>80</option>
-                <option value={100}>100</option>
+        <label className={pa.lab} ref={pagLabContainer}> <p style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: ''}}>Quantity/page</p>
+            <select className={pa.datalist} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: ''}} value={selectorGallSlice.pageSelector} onChange={selectChange}>
+                <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={2}>2</option>
+                <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={5}>5</option>
+                <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={10}>10</option>
+                <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={20}>20</option>
+                <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={40}>40</option>
+                <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={80}>80</option>
+                <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={100}>100</option>
             </select>
         </label>
 
@@ -307,11 +307,13 @@ const Pagination = () => {
             <ul>
                 {
                     selectorGallSlice.fractionPageQuantity.length === 0 ? selectorGallSlice.pageQuantity.length !== 0 ? selectorGallSlice.pageQuantity.map(value => 
-                        {return <li key={nanoid()}> <button style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        {return <li key={nanoid()}> <button style={selectorGallSlice.dayNight ? value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgb(122, 152, 206)'} :
+                        value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
                         onClick={pageSelected} name={value.name}>{value.name}</button></li>}    
                     ) : '' :
                     selectorGallSlice.fractionPageQuantity[selectorGallSlice.selectfractionPage].map(value => 
-                        {return <li key={nanoid()}><button style={value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        {return <li key={nanoid()}><button style={selectorGallSlice.dayNight ? value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgb(122, 152, 206)'} :
+                        value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
                         onClick={pageSelected} name={value.name}>{value.name}</button> </li>}    
                     ) 
                 }

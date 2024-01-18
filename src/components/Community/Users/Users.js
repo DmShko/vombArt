@@ -156,15 +156,16 @@ const Users = () => {
   };
 
   return (
-    <div className={us.container} style={selectorExistUsersList.dayNight ? {backgroundColor: '#24325f',} : {backgroundColor: ''}}>
-      <div className={us.usersicon} style={{width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
+    <div className={us.container} style={selectorExistUsersList.dayNight ? {backgroundColor: '#485a94',} : {backgroundColor: ''}}>
+      <div className={us.usersicon} style={selectorExistUsersList.dayNight ? {width: '100%', borderBottom: '2px solid rgb(122, 152, 206)',} : {width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
       <div className={us.userstitle}>
-        <div className={us.usercount}><p>Total: </p><p>{selectorExistUsersList.users.length}</p></div>
-        <div className={us.usercount}><p>Online: </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
+        <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>Total: </p><p style={selectorExistUsersList.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: ''}}>{selectorExistUsersList.users.length}</p></div>
+        <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>Online: </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
       </div>
 
-      <label className={us.lab}> <SearchImg style={{width: '25px', height: '25px',}} />
+      <label className={us.lab} style={selectorExistUsersList.dayNight ? { borderColor: 'rgb(122, 152, 206)' } : {borderColor: ''}}> <SearchImg style={{width: '25px', height: '25px',}}/>
         <input 
+          style={selectorExistUsersList.dayNight ? { backgroundColor: 'rgb(122, 152, 206)' } : {backgroundColor: ''}}
            value={search}
            className={us.in}
            type="text"
@@ -182,7 +183,7 @@ const Users = () => {
               {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor:'white', borderRadius: '3px'}}/>}</li>
 
               {usersOpen[value.uid] ?
-                <div className={us.userdata}>
+                <div className={us.userdata} style={selectorExistUsersList.dayNight ? { borderBottom: '2px solid rgb(122, 152, 206)' } : {borderBottom: ''}}>
                   {selectorExistUsersList.users !== undefined && selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto === '' ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
                    <img src={`${selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>

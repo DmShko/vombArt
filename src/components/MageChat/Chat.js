@@ -272,13 +272,13 @@ const MageChat = () => {
   };
 
   return (
-    <div className={ma.container}>
+    <div className={ma.container} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83',} : {backgroundColor: ''}}>
         
         <form onSubmit={handleSubmit(addMessage)}>
-           
-            <p className={ma.messagesCounter} style={{color: 'white', fontWeight: '600'}}>{`${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p>
+       
+            <p className={ma.messagesCounter} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: '600'} : {color: 'white', fontWeight: '600'}}>{`${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p>
              
-            <div className={ma.area} wrap='soft' onScroll={scrollEnd}>
+            <div className={ma.area} wrap='soft' onScroll={scrollEnd} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: 'white',}}>
 
               {selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
 
@@ -334,7 +334,7 @@ const MageChat = () => {
                 </div>
                   : ''}
 
-                <button onClick={searchMenuHandle} style={{border: 'none'}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
+                <button onClick={searchMenuHandle} style={selectorGallerySlice.dayNight ? {border: 'none', backgroundColor: 'rgb(122, 152, 206)',} : {border: 'none', backgroundColor: '',}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
 
                 {searchMenuToggle ? <div>
                   
@@ -346,8 +346,9 @@ const MageChat = () => {
                       <p>SearchByName</p>
                                
                       <input {...register('SearchName', { 
-                    
+                        
                         value: searchName, })} 
+                        style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}
                         className={ma.insearch} 
                         type="text"
                         autoComplete='false'
@@ -370,6 +371,7 @@ const MageChat = () => {
                         <input {...register('SearchDate', { 
             
                           value: searchDate, })} 
+                          style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}
                           className={ma.insearch} 
                           type="text"
                           autoComplete='false'
@@ -392,6 +394,7 @@ const MageChat = () => {
                         <input {...register('SearchText', { 
             
                           value: searchText, })} 
+                          style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}
                           className={ma.insearch} 
                           type="text"
                           autoComplete='false'
@@ -411,6 +414,7 @@ const MageChat = () => {
                     <textarea {...register('Message', {required: 'Please fill field!', 
 
                         maxLength: {value:300, message: 'Invalid length!'},  value:message,})}
+                        style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}
                         wrap='soft'
                         className={ma.in} 
                         type="text"
@@ -422,7 +426,7 @@ const MageChat = () => {
                     </textarea>
                 </label>
 
-                <button className={ma.button}>Send <SendImg style={{width: '25px', height: '25px',}} /></button>
+                <button className={ma.button} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}>Send <SendImg style={{width: '25px', height: '25px',}} /></button>
             </div>
                                 
         </form>
