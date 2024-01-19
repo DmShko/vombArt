@@ -271,6 +271,19 @@ const MageChat = () => {
     } 
   };
 
+  const changeBorderOver = (evt) => {
+    
+    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+
+  };
+
+  const changeBorderOut = (evt) => {
+
+    if(selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+    if(!selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  '';
+    
+  };
+
   return (
     <div className={ma.container} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83',} : {backgroundColor: ''}}>
         
@@ -330,11 +343,11 @@ const MageChat = () => {
                     </div>
                   
                   <p className={ma.answer}>...{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message}</p>
-                  <button onClick={cancelHandle}>Cancel</button>
+                  <button onClick={cancelHandle} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut}>Cancel</button>
                 </div>
                   : ''}
 
-                <button onClick={searchMenuHandle} style={selectorGallerySlice.dayNight ? {border: 'none', backgroundColor: 'rgb(122, 152, 206)',} : {border: 'none', backgroundColor: '',}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
+                <button onClick={searchMenuHandle} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {border: 'none', backgroundColor: 'rgb(122, 152, 206)',} : {border: 'none', backgroundColor: '',}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
 
                 {searchMenuToggle ? <div>
                   
@@ -426,7 +439,7 @@ const MageChat = () => {
                     </textarea>
                 </label>
 
-                <button className={ma.button} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}>Send <SendImg style={{width: '25px', height: '25px',}} /></button>
+                <button className={ma.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}>Send <SendImg style={{width: '25px', height: '25px',}} /></button>
             </div>
                                 
         </form>

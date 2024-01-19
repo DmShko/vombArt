@@ -30,7 +30,7 @@
 
         .lab {
             padding-bottom: 10px;
-
+          
             .in {
 
                 border: none;
@@ -55,6 +55,16 @@
 
         .radio {
             cursor: pointer;
+        }
+
+        .radioLab {
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
         }
     }
 

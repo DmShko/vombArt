@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-com.svg';
 import { ReactComponent as BasketImg } from '../../../images/delete-2-svgrepo-com.svg';
+import { ReactComponent as BackImgDarck } from '../../../images/back-square-svgrepo-com2.svg';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 import writeUserData from 'API/writerDB';
@@ -64,7 +65,7 @@ const MessageItem = ({ data }) => {
     dispatch(change({ operation: 'deleteMessage', data: data.id }));
     
     const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
-    console.log(`${path}${data.id}`)
+   
     // delete message from DB (write 'null')
     writeUserData(
       `${path}${data.id}`,
@@ -101,15 +102,18 @@ const MessageItem = ({ data }) => {
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
               <p style={{ color: 'blue',fontSize: '12px', }}>{`${data.time}:${data.second}`}</p>
             </div>
-
+            
             <div className={me.operation}>
-              <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
+             {selectorGallerySlice.dayNight ? <BackImgDarck className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/> : 
+             <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>}
               {selectorSingInSlice.singInId ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
               === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}} onClick={delMessage}/> : '' :
+              ? <BasketImg className={me.svg} style={selectorGallerySlice.dayNight ? {width: '22px', height: '22px', backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px',} : 
+              {width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}} onClick={delMessage}/> : '' :
               selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
               === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delItemMessage}/> : '' : ''}
+              ? <BasketImg className={me.svg} style={selectorGallerySlice.dayNight ? {width: '22px', height: '22px', backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px',} :
+              {width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delItemMessage}/> : '' : ''}
             </div>
             
           </div>
@@ -127,13 +131,16 @@ const MessageItem = ({ data }) => {
             </div>
 
             <div className={me.operation}>
-              <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>
+              {selectorGallerySlice.dayNight ? <BackImgDarck className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/> : 
+              <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>}
               {selectorSingInSlice.singInId ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
               === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delMessage}/> : '' :
+              ? <BasketImg className={me.svg} style={selectorGallerySlice.dayNight ? {width: '22px', height: '22px', backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px',} :
+              {width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delMessage}/> : '' :
               selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === data.id).name 
               === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
-              ? <BasketImg className={me.svg} style={{width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delItemMessage}/> : '' : ''}
+              ? <BasketImg className={me.svg} style={selectorGallerySlice.dayNight ? {width: '22px', height: '22px', backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px',} :
+              {width: '22px', height: '22px', backgroundColor: 'white', borderRadius: '6px',}}  onClick={delItemMessage}/> : '' : ''}
             </div>
             
           </div>

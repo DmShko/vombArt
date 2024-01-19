@@ -1,7 +1,5 @@
 .container {
 
-    
-
     .fise{
      
         .fset{
@@ -74,13 +72,20 @@
             .radios {
                     
                 display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
+                flex-direction: column;
+                justify-content: flex-start;
 
-                gap: 10px;
+                margin-bottom: 10px;
+  
+                .radioLab {
 
-                flex-wrap: wrap;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+        
+                    gap: 10px;
+                }
             }
         }
     } 

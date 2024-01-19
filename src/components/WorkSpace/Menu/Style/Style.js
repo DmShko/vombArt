@@ -143,6 +143,19 @@ const Direction = () => {
     }
   };
 
+  const changeBorderOver = (evt) => {
+    
+    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+
+  };
+
+  const changeBorderOut = (evt) => {
+
+    if(selectorGallSlice.dayNight) evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+    if(!selectorGallSlice.dayNight) evt.currentTarget.style.backgroundColor =  '';
+    
+  };
+
   return (
     <div className={di.container}>
       <form
@@ -150,12 +163,12 @@ const Direction = () => {
         onSubmit={checkAdd ? handleSubmit(addStyle) : handleSubmit(deleteStyle)}
       >
         <fieldset className={di.fset}>
-          <legend>{checkAdd ? 'Add Style' : 'Delete Style'}</legend>
+          <legend>{checkAdd ? <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Add Style</p> : <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Delete Style</p>}</legend>
           <div className={di.field}>
             <div className={di.radioCont}>
-              <label>
+              <label className={di.radioLab}>
                 {' '}
-                Add{' '}
+                <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Add</p>{' '}
                 <input
                   className={di.radio}
                   type="radio"
@@ -164,9 +177,9 @@ const Direction = () => {
                   onChange={checked}
                 ></input>
               </label>
-              <label>
+              <label className={di.radioLab}>
                 {' '}
-                Delete{' '}
+                <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Delete</p>{' '}
                 <input
                   className={di.radio}
                   type="radio"
@@ -179,7 +192,7 @@ const Direction = () => {
 
             <label className={di.lab}>
               {' '}
-              Style name
+              <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Style name</p>
               <input
                 {...register('Style', {
                   required: 'Please fill the Style field!',
@@ -188,6 +201,7 @@ const Direction = () => {
                   value: style,
                 })}
                 className={di.in}
+                style = {selectorGallSlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                 type="text"
                 autoComplete="false"
                 onChange={inputChange}
@@ -196,7 +210,7 @@ const Direction = () => {
               ></input>
             </label>
 
-            <button className={di.button}>{checkAdd ? 'Add' : 'Delete'}</button>
+            <button className={di.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>{checkAdd ? 'Add' : 'Delete'}</button>
           </div>
         </fieldset>
       </form>

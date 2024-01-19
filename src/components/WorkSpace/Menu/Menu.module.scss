@@ -13,6 +13,8 @@
 
     box-shadow: inset  0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
     color: rgb(82, 82, 82);
+
+    overflow: hidden;
     
     button {
        width: 100%;
@@ -20,6 +22,9 @@
 
        color: rgb(82, 82, 82);
        font-weight: 600;
+
+       cursor: pointer;
+
        .butCont {
             display: flex;
             flex-direction: row;

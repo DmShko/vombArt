@@ -27,7 +27,7 @@ const Item = (props) => {
     <div className={it.container}>
 
       <div className={it.topInfo}>
-        <h2>{props.data.title}</h2>
+        <h2 style={selectorGallSlice.dayNight ? {backgroundColor: '#1C274C'} : {backgroundColor: ''}}>{props.data.title}</h2>
         <p>{props.data.description}</p>
       </div>
       

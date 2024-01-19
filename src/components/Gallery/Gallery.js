@@ -664,6 +664,20 @@ const Gallery = () => {
 
   };
 
+  const changeBorderOver = (evt) => {
+
+    if(selectorGallSlice.dayNight) evt.currentTarget.style.outline =  '2px solid lightgray';
+    if(!selectorGallSlice.dayNight) evt.currentTarget.style.outline =  '2px solid #1C274C';
+
+  };
+
+  const changeBorderOut = (evt) => {
+
+    if(selectorGallSlice.dayNight) evt.currentTarget.style.outline =  'none';
+    if(!selectorGallSlice.dayNight) evt.currentTarget.style.outline =  'none';
+    
+  };
+
   return (
     <>
     {
@@ -845,8 +859,8 @@ const Gallery = () => {
             {selectorGallSlice.currentItemId === '' && selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null ? (
               selectorGallSlice.pageBuffer[selectorGallSlice.pageQuantity.find(element => element.active === true).position].map(element => {
                 return (
-                  <li key={element.id} id={element.id} onClick={itemClickHandle} onDoubleClick={itemDoubleClickHandle} className={ga.item} style={selectorGallSlice.selectedItems.includes(element.id) ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)'} 
-                  : {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08)'}}>
+                  <li key={element.id} id={element.id} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} onClick={itemClickHandle} onDoubleClick={itemDoubleClickHandle} className={ga.item} style={selectorGallSlice.dayNight ? selectorGallSlice.selectedItems.includes(element.id) ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)', backgroundColor: 'rgb(122, 152, 206)'} 
+                  : {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08)', backgroundColor: 'rgb(122, 152, 206)'}: selectorGallSlice.selectedItems.includes(element.id) ? {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 3px 3px rgba(194, 212, 31, 0.8)'} : {boxShadow: 'inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08)'}} >
                     <Item data={element}/>
                   </li>
                 );

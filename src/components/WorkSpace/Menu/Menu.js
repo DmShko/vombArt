@@ -199,18 +199,40 @@ const Menu = () => {
       );
   };
 
+  const changeBorderOver = (evt) => {
+    
+    if(evt.currentTarget.name === 'delete') {
+      evt.currentTarget.style.backgroundColor =  'rgba(212, 99, 7, 0.801)';
+    
+    } else {
+      evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+    } 
+
+  };
+
+  const changeBorderOut = (evt) => {
+
+    if(selectorGallSlice.dayNight) evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+    if(!selectorGallSlice.dayNight) evt.currentTarget.style.backgroundColor =  '';
+    
+  };
+
   return (
     
     <div className={mn.container}>
-      <p style={{fontSize: '20px', fontWeight: '600',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
+      <p style={selectorGallSlice.dayNight ? {fontSize: '20px', fontWeight: '600', color: 'rgb(122, 152, 206)'} : {fontSize: '20px', fontWeight: '600',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
       <img src={`${selectorSingInSlice.isSingIn ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).urlFoto : ''}`} style={{width: '80px', height: '80px', borderRadius: '50%'}} alt='current user foto'></img>
-      <button type='button' name='style' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add/Del style {buttonAngelStyle ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
+      <button type='button' name='style' onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
+      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add/Del style {buttonAngelStyle ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
       {buttonStyleState ? <Style /> : ''}
-      <button type='button' name='item' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add element {buttonAngelNewItem ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
+      <button type='button' name='item' onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
+      : {borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add element {buttonAngelNewItem ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
       {buttonItemState ? <NewItem /> : ''}
-      {selectorGallSlice.selectedItems.length !== 0 && selectorGallSlice.selectedItems.length === 1 ? <button type='button' className={mn.edit} name='edit' style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Edit {buttonAngelEdit ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button> : ''}
+      {selectorGallSlice.selectedItems.length !== 0 && selectorGallSlice.selectedItems.length === 1 ? <button type='button' className={mn.edit} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} name='edit' style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
+      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Edit {buttonAngelEdit ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button> : ''}
       {buttonEditState && selectorGallSlice.selectedItems.length === 1 ? <Edit /> : ''}
-      {selectorGallSlice.selectedItems.length !== 0 ? <button type='button' className={mn.delete} name='delete'style={{ borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={deleteItems}>Delete </button> : ''}
+      {selectorGallSlice.selectedItems.length !== 0 ? <button type='button' className={mn.delete} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} name='delete' style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
+      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={deleteItems}>Delete </button> : ''}
       
     </div>
   )

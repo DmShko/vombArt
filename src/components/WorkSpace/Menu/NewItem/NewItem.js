@@ -174,15 +174,28 @@ const NewItem = () => {
     }
   };
 
+  const changeBorderOver = (evt) => {
+    
+    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+
+  };
+
+  const changeBorderOut = (evt) => {
+
+    if(selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+    if(!selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  '';
+    
+  };
+
   return (
     <div className={nf.container}>
       <form className={nf.fise} onSubmit={handleSubmit(addItem)}>
         <fieldset className={nf.fset}>
-          <legend>New item</legend>
+          <legend style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>New item</legend>
           <div className={nf.field}>
             <label className={nf.lab}>
               {' '}
-              Title
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Title</p>
               <input
                 {...register('Title', {
                   required: 'Please fill the Title field!',
@@ -191,6 +204,7 @@ const NewItem = () => {
                   value: title,
                 })}
                 className={nf.in}
+                style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                 type="text"
                 autoComplete="false"
                 onChange={inputChange}
@@ -200,15 +214,16 @@ const NewItem = () => {
             </label>
             <label className={nf.lab}>
               {' '}
-              Description
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Description</p>
               <textarea
                 {...register('Description', {
                   required: 'Please fill the Description field!',
 
-                  maxLength: { value: 100, message: 'Invalid length!' },
+                  maxLength: { value: 30, message: 'Invalid length!' },
                   value: description,
                 })}
                 className={nf.in}
+                style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                 type="text"
                 onChange={inputChange}
                 autoComplete="false"
@@ -218,9 +233,9 @@ const NewItem = () => {
             </label>
             <label className={nf.lab}>
               {' '}
-              <p className={nf.p}>Seach file</p>
+              <p className={nf.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor:'pointer'} : {color: '', cursor:'pointer'}}>Seach file</p>
               <span style={{ border: 'none', fontSize: '12px' }}>
-                {selectorGallerySlice.loadFiles || 'No search file...'}
+                {<p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>{selectorGallerySlice.loadFiles}</p> || <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>No search file...</p>}
               </span>
               <input
                 {...register('Load', {
@@ -228,6 +243,7 @@ const NewItem = () => {
                   value: file,
                 })}
                 className={nf.load}
+                style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                 type="file"
                 onChange={handleFileChange}
                 autoComplete="false"
@@ -244,7 +260,7 @@ const NewItem = () => {
               ''
             )}
             {successIcon ? <SuccessImg style={{width: '20px', height: '20px'}}/> : ''}
-            <button className={nf.button}>Add Item</button>
+            <button className={nf.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>Add Item</button>
           </div>
         </fieldset>
       </form>

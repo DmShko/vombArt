@@ -215,16 +215,29 @@ const EditItem = () => {
     }
   };
 
+  const changeBorderOver = (evt) => {
+    
+    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+
+  };
+
+  const changeBorderOut = (evt) => {
+
+    if(selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+    if(!selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  '';
+    
+  };
+
   return (
     <div className={ed.container}>
       <form className={ed.fise} onSubmit={handleSubmit(addItem)}>
         <fieldset className={ed.fset}>
-          <legend>Edit item</legend>
+          <legend style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Edit item</legend>
 
           <div className={ed.radios}>
-              <label>
+              <label className={ed.radioLab}>
                 {' '}
-                Title{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Title</p>{' '}
                 <input
                   type="radio"
                   name="title"
@@ -232,9 +245,9 @@ const EditItem = () => {
                   onChange={checked}
                 ></input>
               </label>
-              <label>
+              <label className={ed.radioLab}>
                 {' '}
-                Description{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Description</p>{' '}
                 <input
                   type="radio"
                   name="description"
@@ -243,9 +256,9 @@ const EditItem = () => {
                 ></input>
               </label>
 
-              <label>
+              <label className={ed.radioLab}>
                 {' '}
-                File{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>File</p>{' '}
                 <input
                   type="radio"
                   name="file"
@@ -254,10 +267,11 @@ const EditItem = () => {
                 ></input>
               </label>
 
-              <label>
+              <label className={ed.radioLab}>
                 {' '}
-                All{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>All</p>{' '}
                 <input
+                  style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                   type="radio"
                   name="all"
                   checked={checkAll}
@@ -268,7 +282,7 @@ const EditItem = () => {
           <div className={ed.field}>
             {checkTitle || checkAll ? <label className={ed.lab}>
               {' '}
-              Title
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Title</p>
               <input
                 {...register('Title', {
                   required: 'Please fill the Title field!',
@@ -277,6 +291,7 @@ const EditItem = () => {
                   value: title,
                 })}
                 className={ed.in}
+                style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                 type="text"
                 autoComplete="false"
                 onChange={inputChange}
@@ -286,7 +301,7 @@ const EditItem = () => {
             </label> : ''}
             {checkDescription || checkAll ? <label className={ed.lab}>
               {' '}
-              Description
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Description</p>
               <textarea
                 {...register('Description', {
                   required: 'Please fill the Description field!',
@@ -295,6 +310,7 @@ const EditItem = () => {
                   value: description,
                 })}
                 className={ed.in}
+                style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                 type="text"
                 onChange={inputChange}
                 autoComplete="false"
@@ -302,9 +318,9 @@ const EditItem = () => {
                 placeholder="Enter short description..."
               ></textarea>
             </label> : ''}
-            {checkFile || checkAll ? <label className={ed.lab}>
+            {checkFile || checkAll ? <label className={ed.lab} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
               {' '}
-              <p className={ed.p}>Seach file</p>
+              <p className={ed.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor: 'pointer'} : {color: '', cursor: 'pointer'}}>Seach file</p>
               <span style={{ border: 'none', fontSize: '12px' }}>
                 {selectorGallerySlice.loadFiles || 'No search file...'}
               </span>
@@ -314,6 +330,7 @@ const EditItem = () => {
                   value: file,
                 })}
                 className={ed.load}
+                style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                 type="file"
                 onChange={handleFileChange}
                 autoComplete="false"
@@ -329,7 +346,7 @@ const EditItem = () => {
             ) : (
               ''
             )}
-            <button className={ed.button}>Change Item</button>
+            <button className={ed.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>Change Item</button>
           </div>
         </fieldset>
       </form>
