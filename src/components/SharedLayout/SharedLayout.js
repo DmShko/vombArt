@@ -35,6 +35,7 @@ import {ReactComponent as EmailImg} from '../../images/email-8-svgrepo-com.svg';
 import {ReactComponent as UserNameImg} from '../../images/user-id-svgrepo-com.svg';
 import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg'; 
 import {ReactComponent as UserMenuDarck} from '../../images/user-svgrepo-com-darck.svg'; 
+import { ReactComponent as WarningImg } from '../../images/warning-1-svgrepo-com.svg';
 import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
@@ -388,7 +389,7 @@ const SharedLayout = () => {
  
   const toggleModal = (evt) => {
     
-    dispatch(change({data: evt?.target.id, operation: 'changeButtonTargetName',}));
+    dispatch(change({data: evt?.currentTarget.id, operation: 'changeButtonTargetName',}));
     setModalToggle(value => !value);
   
   };
@@ -559,7 +560,9 @@ const SharedLayout = () => {
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
                             <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
-                            Lirics
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Writing</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Письмо</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Pismo</p> : <p>Lyrics</p>}
                             </NavLink>
                            
                         </li>
@@ -567,7 +570,9 @@ const SharedLayout = () => {
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
                             <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
-                            Music
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Music</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Музика</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Muzyka</p> : <p>Muzyka</p>}
                             </NavLink>
                            
                         </li>
@@ -575,7 +580,9 @@ const SharedLayout = () => {
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
                             <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
-                            Drawing
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Painting</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Живопис</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Obraz</p> : <p>Drawing</p>}
                             </NavLink>
                            
                         </li>
@@ -583,7 +590,9 @@ const SharedLayout = () => {
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
                             <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/community" : "/"}>
-                            Community
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Community</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Громада</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wspólnota</p> : <p>Community</p>}
                             </NavLink>
                            
                         </li>
@@ -592,12 +601,20 @@ const SharedLayout = () => {
                     <ul className={sh.list}>
                         <li className={sh.link}>
 
-                           <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='about'>About</p>
+                           <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='about'>
+                           {selectorGallSlice.settings.languageSelector === 'English' ? <p>About</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про сайт</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O witrynie</p> : <p>About</p>}
+                           </p>
                             
                         </li>
                         <li className={sh.link}>
 
-                          <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='contacts'>Contacts</p>
+                          <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='contacts'>
+                          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Contacts</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Контакти</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Łączność</p> : <p>About</p>}
+                          </p>
                              
                         </li>
                     </ul>
@@ -607,12 +624,20 @@ const SharedLayout = () => {
                    {selectorVisibilityLog === false ? <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singUp'>SingUp</p>
+                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singUp'>
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
+                            </p>
                             
                         </li>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
-                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singIn'>SingIn</p>
+                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singIn'>
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignIn</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>zalogować się</p> : <p>SignIn</p>}
+                            </p>
                            
                         </li>
                     </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" name={'settings'} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94', color: 'rgb(122, 152, 206)', } : {backgroundColor: ''}} className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
@@ -640,22 +665,52 @@ const SharedLayout = () => {
                 {selectorTargetName === 'singIn' || selectorTargetName === 'singUp' ? 
                 <div className={sh.toggleSingMode}>
                     <button onClick={changeSingMode} id='singIn' style={selectorTargetName === 'singIn' ? {backgroundColor: 'lightblue', color: 'white',  borderRight: 'solid 2px white', fontSize: '16px'} 
-                    : {backgroundColor: 'lightgray', borderBottom: 'solid 2px white',}}><p>SingIn</p></button>
+                    : {backgroundColor: 'lightgray', borderBottom: 'solid 2px white',}}><p>
+                         {selectorGallSlice.settings.languageSelector === 'English' ? <p>SingIn</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>zalogować się</p> : <p>SingIn</p>}
+                    </p></button>
                     <button onClick={changeSingMode} id='singUp' style={selectorTargetName === 'singUp' ? {backgroundColor: 'lightblue', color: 'white',  borderLeft: 'solid 2px white' , fontSize: '16px'}
-                    : {backgroundColor: 'lightgray', borderBottom: 'solid 2px white',}}><p>SingUp</p></button>
+                    : {backgroundColor: 'lightgray', borderBottom: 'solid 2px white',}}><p>
+                         {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
+                    </p></button>
                 </div> : ''}
              
                 {selectorTargetName === 'about'? 
                 <div className={sh.about}>
                     <img src={AdminFoto} alt='Developer foto' style={{width: '150px', }}></img>
-                    <h2 style={{color: 'black'}}>About VomBart and me.</h2>
-                    <p>Hello! My name is Dmitry Shevchenko. I have many hobbies, including painting. 
+                    <h2 style={{color: 'black'}}>
+                    {selectorGallSlice.settings.languageSelector === 'English' ? <p>About VomBart and me.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про VomBart та про мене.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O VomBart i o mnie</p> : <p>About VomBart and me.</p>}
+                    </h2>
+                    <p>
+                    {selectorGallSlice.settings.languageSelector === 'English' ? <p>Hello! My name is Dmitry Shevchenko. I have many hobbies, including painting. 
                             Since childhood, I dreamed of learning to draw professionally, because
                              I knew that then I would be happy. That's exactly what happens. 
                              I could not become an artist at the level of famous masters. 
                              However, I am happy when I do it again and again. 
-                             I sincerely thank the artist Olga Vlasova, who at a certain stage helped to improve my technical level.
-                             </p>
+                             I sincerely thank the artist Olga Vlasova, who at a certain stage helped to improve my technical level.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>
+                            Привіт! Мене звати Дмитро Шевченко. Маю багато захоплень, зокрема малювання.
+                            З дитинства я мріяв навчитися професійно малювати, т.к
+                            я знав, що тоді я буду щасливий. 
+                            Саме так і відбувається.
+                            Я не міг стати художником рівня відомих майстрів.
+                            Проте я щасливий, коли роблю це знову і знову.
+                            Щиро дякую художнику Ользі Власовій, яка на певному етапі допомогла підвищити мій технічний рівень.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>
+                            Cześć! Nazywam się Dmitrij Szewczenko. Mam wiele zainteresowań, w tym malowanie.
+                            Od dzieciństwa marzyłam o tym, żeby nauczyć się rysować zawodowo, bo
+                              Wiedziałem, że wtedy będę szczęśliwy. Dokładnie tak się dzieje.
+                              Nie mogłem zostać artystą na poziomie znanych mistrzów.
+                              Jednak jestem szczęśliwy, gdy robię to po raz kolejny.
+                              Serdecznie dziękuję artystce Oldze Własowej, która na pewnym etapie pomogła podnieść mój poziom techniczny.    
+                            </p> : <p>About VomBart and me.</p>}
+                        
+                    </p>
                 </div> : ''}
               
                 {selectorTargetName === 'contacts' ? 
@@ -670,7 +725,11 @@ const SharedLayout = () => {
                 <div className={sh.sing}>
                     <form className={sh.fise} onSubmit={handleSubmit(addUser)}>
                         <fieldset>
-                        <legend>SingUp</legend>
+                        <legend>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
+                        </legend>
 
                             <div className={sh.field}>
                             
@@ -684,7 +743,11 @@ const SharedLayout = () => {
                                 autoComplete='false'
                                 onChange={inputChange}
                                 title="Email"
-                                placeholder="Enter email..."></input>
+                                placeholder=
+                                {selectorGallSlice.settings.languageSelector === 'English' ? "Enter email...": 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? "Введіть email...": 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? "Wpisz email" : "Enter email..."}>
+                                </input>
                             </label>
                            
                             <label className={sh.lab}> <KeyImg style={{width: '25px', height: '25px',}} />
@@ -696,7 +759,10 @@ const SharedLayout = () => {
                                 autoComplete='false'
                                 onChange={inputChange}
                                 title="Password"
-                                placeholder="Enter password..."></input>
+                                placeholder=
+                                {selectorGallSlice.settings.languageSelector === 'English' ? "Enter password...": 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? "Введіть пароль...": 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? "Wpisz hasło" : "Enter password..."}></input>
                             </label>
                            
                             <label className={sh.lab}> <UserNameImg style={{width: '25px', height: '25px',}}/>
@@ -708,10 +774,17 @@ const SharedLayout = () => {
                                 autoComplete='false'
                                 onChange={inputChange}
                                 title="UserName"
-                                placeholder="Enter User name..."></input>
+                                placeholder=
+                                {selectorGallSlice.settings.languageSelector === 'English' ? "Enter User name...": 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? "Введіть ім'я користувача...": 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? "Wpisz nazwę użytkownika" : "Enter User name..."}></input>
                             </label>
 
-                            <button className={sh.button}>SingUp</button>
+                            <button className={sh.button}>
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
+                            </button>
                             </div>
                         
                         </fieldset>
@@ -722,7 +795,11 @@ const SharedLayout = () => {
                 <div className={sh.sing}>
                     <form className={sh.fise} onSubmit={handleSubmit(addUser)}>
                         <fieldset >
-                        <legend >SingIn</legend>
+                        <legend >
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>SingIn</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zalogować się</p> : <p>SingIn</p>}
+                        </legend>
                            
                             <div className={sh.field}>
                             <label className={sh.lab}> <EmailImg style={{width: '25px', height: '25px',}}/>
@@ -735,7 +812,12 @@ const SharedLayout = () => {
                                 autoComplete='false'
                                 onChange={inputChange}
                                 title="Email"
-                                placeholder="Enter email..."></input>
+                                placeholder=
+                                {selectorGallSlice.settings.languageSelector === 'English' ? "Enter email...": 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? "Введіть email...": 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? "Wpisz email" : "Enter email..."}>
+
+                                </input>
                             </label>
                            
                             <label className={sh.lab}> <KeyImg style={{width: '25px', height: '25px',}} />
@@ -749,10 +831,17 @@ const SharedLayout = () => {
                             onChange={inputChange}
                             autoComplete='false'
                             title="Password"
-                            placeholder="Enter password..."></input>
+                            placeholder=
+                            {selectorGallSlice.settings.languageSelector === 'English' ? "Enter password...": 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? "Введіть пароль...": 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? "Wpisz hasło" : "Enter password..."}></input>
                             </label>
 
-                            <button className={sh.button}>SingIn</button>
+                            <button className={sh.button}>
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SingIn</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zalogować się</p> : <p>SingIn</p>}
+                            </button>
                         </div>
                         
                         </fieldset>
@@ -760,19 +849,33 @@ const SharedLayout = () => {
                    
                 </div> : ''}
                 
-                    { errorDrive ? errors?.Email ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Email?.message}</p> : 
-                    errors?.Password ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Password?.message}</p> :
-                    errors?.UserName ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p> : '' : ''}
+                    { errorDrive ? errors?.Email ? <div className={sh.error}><WarningImg style={{width: '20px', height: '20px'}}/><p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Email?.message}</p></div> : 
+                    errors?.Password ? <div className={sh.error}><WarningImg style={{width: '20px', height: '20px'}}/><p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Password?.message}</p></div> :
+                    errors?.UserName ? <div className={sh.error}><WarningImg style={{width: '20px', height: '20px'}}/><p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p></div> : '' : ''}
 
-                {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' target="_blank">Try using a special resource to create a password.</a> :
-                 ''}
-                {selectorTargetName === 'singIn' ? <p className={sh.forgot} onClick={forgotHandler}>I forgot my password. Will restore via mailbox.</p> :
+                {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' style={{textAlign: 'center', width: '90%', marginBottom: '10px'}} target="_blank">
+                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Try using a special resource to create a password.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Спробуйте скористатися спеціальним ресурсом для створення пароля.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Spróbuj użyć specjalnego zasobu, aby utworzyć hasło.
+                </p> : <p>Try using a special resource to create a password.</p>}
+                </a> : ''}
+                {selectorTargetName === 'singIn' ? <p className={sh.forgot} onClick={forgotHandler}>
+                {selectorGallSlice.settings.languageSelector === 'English' ? <p>I forgot my password. Will restore via mailbox.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Я забув свій пароль. Буде відновлено через поштову скриньку.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapomniałem hasła. Przywrócę przez skrzynkę pocztową.
+                </p> : <p>I forgot my password. Will restore via mailbox.</p>}
+                </p> :
                  ''}
 
                 {forgotBlockToggle ?
 
                     <div className={sh.forgotCont} >
-                        <p>Enter existing account email</p>
+                        <p>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Enter existing account email</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Введіть існуючу електронну адресу облікового запису</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wprowadź adres e-mail istniejącego konta
+                </p> : <p>Enter existing account email</p>}
+                        </p>
                         <label className={sh.forgotLab}> <EmailImg style={{width: '25px', height: '25px',}}/>
                         <input {...register('SendToEmail', {required: 'Please fill the Email field!', 
                             value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
@@ -787,13 +890,22 @@ const SharedLayout = () => {
 
                         {errors?.SendToEmail ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.SendToEmail?.message}</p> : ''}
 
-                        <button className={sh.button} onClick={sendToHandler}>Send</button>
+                        <button className={sh.button} onClick={sendToHandler}>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Send</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Надіслати</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>wysłać
+                        </p> : <p>Send</p>}
+                        </button>
                     </div> : ''
                 }
 
-                {selectorsingUpState.usersId && selectorTargetName === 'singUp' ?
+                {selectorTargetName === 'singUp'  ?
                     <div className={sh.verifiInfo}>
-                        <p>A mail verification letter has been sent to your mail. Follow the link in the letter and after the information that you have been verified. Login is performed automatically. If the letter does not come. You can verify your e-mail from your personal account.</p>
+                        <p>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>A confirmation email will be sent to your email address. Follow the link in the letter and after the information that you are verified, continue using the site. Login is automatic. If the letter does not arrive, you can confirm your e-mail from your personal account.</p> : 
+                        selectorGallSlice.settings.languageSelector === 'Українська' ? <p>На вашу пошту буде надіслано лист із підтвердженням. Перейдіть за посиланням у листі та після інформації, що ви перевірені подовжуйте користуватися сайтом. Вхід здійснюється автоматично. Якщо лист не приходить, ви можете підтвердити свою електронну пошту з особистого кабінету.</p> : 
+                        selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Na Twój adres e-mail zostanie wysłana wiadomość e-mail z potwierdzeniem. Kliknij link zawarty w piśmie i po zweryfikowaniu informacji kontynuuj korzystanie z witryny. Logowanie odbywa się automatycznie. Jeśli list nie dotrze, możesz potwierdzić swój adres e-mail ze swojego konta osobistego.</p> : <p>A confirmation email will be sent to your email address. Follow the link in the letter and after the information that you are verified, continue using the site. Login is automatic. If the letter does not arrive, you can confirm your e-mail from your personal account.</p>}
+                        </p>
                     </div>
                  :''}
 

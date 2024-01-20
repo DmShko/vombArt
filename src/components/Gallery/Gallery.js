@@ -682,9 +682,10 @@ const Gallery = () => {
     <>
     {
       modalItemToggle && <ModalItem openClose={ModalItemToggleFunction}>
-        <div style={currentItemType !== 'text/plain' ? {width: '100%', marginTop: '510px',} : {width: '100%', marginTop: '260px',}}>
-          {currentItemType === 'image/jpeg' ? <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0'}}></img> 
-          : currentItemType === 'text/plain' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0', border: 'none'}}></iframe>
+        <div className={ga.content} style={currentItemType !== 'text/plain' ? {width: '100%', marginTop: '510px', } : {width: '100%', marginTop: '360px',}}>
+          {currentItemType === 'image/jpeg' ? <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0',}}></img> 
+          : currentItemType === 'text/plain' ? <iframe src={currentItemURL} style={selectorGallSlice.dayNight ? {width: '100%', height: '300px', margin:'0', border: 'none', backgroundColor: 'rgb(122, 152, 206)',} 
+          : {width: '100%', height: '300px', margin:'0', border: 'none', backgroundColor: '',}}></iframe>
           : currentItemType === 'audio/mpeg' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0, auto', border: 'none'}}></iframe> : ''}
            
 

@@ -10,6 +10,7 @@ import pathCreator from '../../../MageChat/pathCreator/pathCreator';
 import { change } from 'vomgallStore/gallerySlice';
 
 import { ReactComponent as SuccessImg } from '../../../../images/success-svgrepo-com.svg';
+import { ReactComponent as WarningImg } from '../../../../images/warning-1-svgrepo-com.svg';
 
 import nf from './NewItem.module.scss';
 
@@ -200,7 +201,7 @@ const NewItem = () => {
                 {...register('Title', {
                   required: 'Please fill the Title field!',
 
-                  maxLength: { value: 16, message: 'Invalid length!' },
+                  maxLength: { value: 16, message: 'Title to long!' },
                   value: title,
                 })}
                 className={nf.in}
@@ -219,7 +220,7 @@ const NewItem = () => {
                 {...register('Description', {
                   required: 'Please fill the Description field!',
 
-                  maxLength: { value: 30, message: 'Invalid length!' },
+                  maxLength: { value: 30, message: 'Description to long!' },
                   value: description,
                 })}
                 className={nf.in}
@@ -231,6 +232,11 @@ const NewItem = () => {
                 placeholder="Enter short description..."
               ></textarea>
             </label>
+
+            <p style={{color: 'orange', fontSize: '14px', fontWeight: '600', textAlign: 'center'}}>
+              {errors?.Title ? <div className={nf.error}><WarningImg style={{width: '15px', height: '15px'}}/>{errors.Title.message}</div> 
+              : errors?.Description ? <div className={nf.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Description.message}</div> : ''}</p>  
+
             <label className={nf.lab}>
               {' '}
               <p className={nf.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor:'pointer'} : {color: '', cursor:'pointer'}}>Seach file</p>
@@ -259,7 +265,7 @@ const NewItem = () => {
             ) : (
               ''
             )}
-            {successIcon ? <SuccessImg style={{width: '20px', height: '20px'}}/> : ''}
+            {successIcon ? <SuccessImg style={{width: '20px', height: '20px',}}/> : ''}
             <button className={nf.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>Add Item</button>
           </div>
         </fieldset>

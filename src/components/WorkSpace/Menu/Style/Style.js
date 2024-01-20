@@ -9,6 +9,8 @@ import { addStyleToPath } from 'vomgallStore/pathSlice';
 import { deleteStyleToPath } from 'vomgallStore/pathSlice';
 import { getDatabase, ref, onValue } from 'firebase/database';
 
+import { ReactComponent as WarningImg } from '../../../../images/warning-1-svgrepo-com.svg';
+
 const Direction = () => {
 
   const dispatch = useDispatch();
@@ -197,7 +199,7 @@ const Direction = () => {
                 {...register('Style', {
                   required: 'Please fill the Style field!',
 
-                  maxLength: { value: 16, message: 'Invalid length!' },
+                  maxLength: { value: 16, message: 'Too long!' },
                   value: style,
                 })}
                 className={di.in}
@@ -209,7 +211,7 @@ const Direction = () => {
                 placeholder="Enter style name..."
               ></input>
             </label>
-
+            {errors?.Style ? <div className={di.error}><WarningImg style={{width: '15px', height: '15px'}}/> <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors.Style.message}</p></div> : ''}    
             <button className={di.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>{checkAdd ? 'Add' : 'Delete'}</button>
           </div>
         </fieldset>

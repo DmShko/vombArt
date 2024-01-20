@@ -18,6 +18,12 @@ const UserSettings = () => {
 
   useEffect(() => {
 
+    dispatch(change({ operation: 'changeDayNight', data: selectorGallerySlice.settings.checkDesign }));
+
+  },[selectorGallerySlice.settings.checkDesign])
+
+  useEffect(() => {
+
     dispatch(change({operation: 'updateSettings', data:{item: 'checkDesign', value: design}}));
 
   },[design])
@@ -144,7 +150,7 @@ const UserSettings = () => {
         
         <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>Design</p>
           <div className={se.status}>
-            <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkDesign ? 'black' : 'bright'}</p>
+            <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkDesign ? 'darck' : 'bright'}</p>
             <label>
               <input className={se.box}
                 type="checkbox"

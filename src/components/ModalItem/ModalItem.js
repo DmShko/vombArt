@@ -1,5 +1,5 @@
 import { React, useEffect }from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPortal } from 'react-dom';
 
 import Chat from 'components/MageChat/Chat';
@@ -11,6 +11,8 @@ import moit from './ModalItem.module.scss'
 const modalRootItem = document.querySelector('#root-modal-item');
 
 const ModalItem = ({ children, openClose }) => {
+
+  const selectorGallSlice = useSelector(state => state.gallery);
 
   const dispatch = useDispatch();
   // close modal window by 'Escape'
@@ -45,8 +47,8 @@ const ModalItem = ({ children, openClose }) => {
 
   return createPortal(
    
-    <div className={moit.backdrop} style={{top: `${window.scrollY}px`}} onClick={clickBackdrob}>
-        <div className={moit.container}>
+    <div className={moit.backdrop} style={{top: `${window.scrollY}px`,}} onClick={clickBackdrob}>
+        <div className={moit.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94',} : {backgroundColor: '',}}>
             {children}
             <div className={moit.chatContainer}>
               <Chat className={moit.chat}/>

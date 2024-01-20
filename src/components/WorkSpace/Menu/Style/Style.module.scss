@@ -16,6 +16,8 @@
         border: none;
         border-radius: 6px;
 
+        margin-top: 5px;
+
         padding: 5px;
 
         transition: background-color, 400ms;
@@ -65,6 +67,15 @@
             align-items: center;
 
             gap: 10px;
+        }
+
+        .error {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center; 
+
+            gap: 5px;
         }
     }
 

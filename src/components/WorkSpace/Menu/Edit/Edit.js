@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
+import { ReactComponent as WarningImg } from '../../../../images/warning-1-svgrepo-com.svg';
+
 import writeUserData from 'API/writerDB';
 import StorageWork from 'components/StorageWork/StorageWork';
 import pathCreator from '../../../MageChat/pathCreator/pathCreator';
@@ -326,7 +328,7 @@ const EditItem = () => {
               </span>
               <input
                 {...register('Load', {
-                  required: 'Please fill the Description field!',
+                  required: 'Please fill the File field!',
                   value: file,
                 })}
                 className={ed.load}
@@ -339,6 +341,12 @@ const EditItem = () => {
                 placeholder="Enter short description..."
               ></input>
             </label> : ''}
+
+            <p style={{color: 'orange', fontSize: '14px', fontWeight: '600', textAlign: 'center'}}>
+              {errors?.Title ? <div className={ed.error}><WarningImg style={{width: '15px', height: '15px'}}/>{errors.Title.message}</div> :
+               errors?.Description ? <div className={ed.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Description.message} </div>
+              : errors?.Load ? <div className={ed.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Load.message}</div> : ''} </p>
+
             {storagePath !== '' ? (
               <StorageWork
                 data={{ storagePath, file, setStoragePath }}

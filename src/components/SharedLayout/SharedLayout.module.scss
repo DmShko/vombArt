@@ -253,6 +253,15 @@
 
 }
 
+.error {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; 
+
+    gap: 5px;
+}
+
 .about {
     padding: 20px;
     text-align: justify;
@@ -363,7 +372,16 @@
 }
 
 .forgot {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center; 
+
+    text-align: center;
+    
     cursor: pointer;
+    width: 90%;
 }
 
 .forgot:hover {
@@ -376,6 +394,10 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center; 
+
+    text-align: center;
+
+    width: 90%;
 
     gap: 5px;
 
