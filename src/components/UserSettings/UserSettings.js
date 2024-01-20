@@ -89,12 +89,12 @@ const UserSettings = () => {
   return (
     <div className={se.container}>
 
-    <p style={{color: 'gray', fontWeight: 600}}>RESOURSE SETTINGS</p>
+    <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: 600} : {color: 'gray', fontWeight: 600}}>RESOURSE SETTINGS</p>
 
-      <div className={se.check}>
-        <p style={{color: 'white'}}>Sounds</p>
+      <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+        <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>Sounds</p>
           <div className={se.status}>
-            <p style={{color: 'white'}}>{selectorGallerySlice.settings.checkSound ? 'on' : 'off'}</p>
+            <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkSound ? 'on' : 'off'}</p>
             <label>
               <input className={se.box}
                 type="checkbox"
@@ -108,15 +108,15 @@ const UserSettings = () => {
 
       {selectorGallerySlice.settings.checkSound ?
         <div className={se.soundcheck}>
-          <p style={{color: 'gray'}}>Input messages </p>
-          <select className={se.sounddatalist} value={selectorGallerySlice.settings.inputMessageSoundSelector} onChange={inputMessageSoundSelectChange}>
+          <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: 'gray'}}>Input messages </p>
+          <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.inputMessageSoundSelector} onChange={inputMessageSoundSelectChange}>
               <option value={'Sound_1'}>Sound_1</option>
               <option value={'Sound_2'}>Sound_2</option>
               <option value={'Sound_3'}>Sound_3</option>
             </select>
 
-            <p style={{color: 'gray'}}>Output messages </p>
-            <select className={se.sounddatalist} value={selectorGallerySlice.settings.outputMessageSoundSelector} onChange={outputMessageSoundSelectChange}>
+            <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: 'gray'}}>Output messages </p>
+            <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.outputMessageSoundSelector} onChange={outputMessageSoundSelectChange}>
               <option value={'Sound_1'}>Sound_1</option>
               <option value={'Sound_2'}>Sound_2</option>
               <option value={'Sound_3'}>Sound_3</option>
@@ -124,10 +124,10 @@ const UserSettings = () => {
         </div>
             : ''}
 
-      <div className={se.check}>
-        <p style={{color: 'white'}}>Email</p>
+      <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+        <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>Email</p>
           <div className={se.status}>
-            <p style={{color: 'white'}}>{selectorGallerySlice.settings.checkEmail ? 'show' : 'not show'}</p>
+            <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkEmail ? 'show' : 'not show'}</p>
             <label>
               <input className={se.box}
                 type="checkbox"
@@ -140,11 +140,11 @@ const UserSettings = () => {
       </div> 
 
 
-      <div className={se.check}>
+      <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
         
-        <p style={{color: 'white'}}>Design</p>
+        <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>Design</p>
           <div className={se.status}>
-            <p style={{color: 'white'}}>{selectorGallerySlice.settings.checkDesign ? 'black' : 'bright'}</p>
+            <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkDesign ? 'black' : 'bright'}</p>
             <label>
               <input className={se.box}
                 type="checkbox"
@@ -155,20 +155,20 @@ const UserSettings = () => {
             </label>
           </div>
       </div> 
-      <div className={se.check}>
-        <p style={{color: 'white'}}>Lenguage</p>
+      <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+        <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>Lenguage</p>
         <label>
-          <select className={se.datalist} value={selectorGallerySlice.settings.languageSelector} onChange={langSelectChange}>
-            <option value={'Українська'}>Українська</option>
-            <option value={'English'}>English</option>
-            <option value={'Polska'}>Polska</option>
+          <select className={se.datalist} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)'} : {backgroundColor: 'white', color: ''}} value={selectorGallerySlice.settings.languageSelector} onChange={langSelectChange}>
+            <option style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}} value={'Українська'}>Українська</option>
+            <option style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}} value={'English'}>English</option>
+            <option style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}} value={'Polska'}>Polska</option>
           </select>
         </label>
       </div>
-      <div className={se.check}>
-        <p style={{color: 'white'}}>Show/Hidden phone number</p>
+      <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+        <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>Show/Hidden phone number</p>
         <div className={se.status}>
-            <p style={{color: 'white'}}>{selectorGallerySlice.settings.checkPhone ? 'show' : 'not show'}</p>
+            <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkPhone ? 'show' : 'not show'}</p>
             <label>
               <input className={se.box}
                 type="checkbox"
@@ -180,10 +180,10 @@ const UserSettings = () => {
           </div>
       </div>
 
-      <div className={se.check}>
-        <p style={{color: 'white'}}>Color schem</p>
+      <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+        <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>Color schem</p>
         <div className={se.status}>
-            <p style={{color: 'white'}}>{selectorGallerySlice.settings.checkColorSchem ? 'user' : 'default'}</p>
+            <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkColorSchem ? 'user' : 'default'}</p>
             <label>
               <input className={se.box}
                 type="checkbox"
@@ -196,7 +196,7 @@ const UserSettings = () => {
       </div>
 
       {selectorGallerySlice.settings.checkColorSchem ? 
-        <div style={{color: 'white', backgroundColor: 'lightgray'}}>
+        <div style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)'} : {backgroundColor: 'lightgray', color: ''}}>
               <p>Select schem</p>
         </div> :
       ''}

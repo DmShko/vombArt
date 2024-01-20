@@ -34,6 +34,7 @@ import {ReactComponent as KeyImg} from '../../images/key-svgrepo-com.svg';
 import {ReactComponent as EmailImg} from '../../images/email-8-svgrepo-com.svg';
 import {ReactComponent as UserNameImg} from '../../images/user-id-svgrepo-com.svg';
 import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg'; 
+import {ReactComponent as UserMenuDarck} from '../../images/user-svgrepo-com-darck.svg'; 
 import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
@@ -524,6 +525,29 @@ const SharedLayout = () => {
     reset({SendToEmail: ''});
   };
 
+  const changeBorderOver = (evt) => {
+    
+    if(evt.currentTarget.name === 'delete') {
+      evt.currentTarget.style.backgroundColor =  'goldenrod';
+    
+    } else {
+      evt.currentTarget.style.backgroundColor =  'goldenrod';
+    } 
+
+  };
+
+  const changeBorderOut = (evt) => {
+    
+    if(selectorGallSlice.dayNight && evt.currentTarget.name === 'settings'){
+      evt.currentTarget.style.backgroundColor =  '#485a94';  
+    }else {
+      evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)'; 
+    };
+
+    if(!selectorGallSlice.dayNight) evt.currentTarget.style.backgroundColor =  '';
+    
+  };
+
   return (
     <>
             <header className={sh.header}>
@@ -591,9 +615,10 @@ const SharedLayout = () => {
                             <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singIn'>SingIn</p>
                            
                         </li>
-                    </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94', color: 'rgb(122, 152, 206)', } : {backgroundColor: ''}} className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
+                    </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" name={'settings'} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94', color: 'rgb(122, 152, 206)', } : {backgroundColor: ''}} className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
                     selectorGallSlice.users.length !== 0 
-                    ? <div className={sh.userMenu}><UserMenu style={selectorGallSlice.dayNight ? {width: '20px', height: '20px', fill: 'rgb(122, 152, 206)'} : {width: '20px', height: '20px', fill: 'white'}}/> <p className={sh.title}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p></div> : ''}</button>}
+                    ? <div className={sh.userMenu}>{selectorGallSlice.dayNight ? <UserMenuDarck style={{width: '20px', height: '20px', fill: 'rgb(122, 152, 206)'}}/> : 
+                    <UserMenu style={{width: '20px', height: '20px', fill: 'white'}}/>} <p className={sh.title}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p></div> : ''}</button>}
                     <Tooltip id="menu" style={{backgroundColor: '--rt-color-white'}}/>
                 </nav>  
             </header>
@@ -601,10 +626,10 @@ const SharedLayout = () => {
             {
                 modalSettingsToggle && <ModalSettings data={modalSettingsToggle}> 
                     <div className={sh.settingModalButtonContainer}>
-                        <div className={sh.settingModalButton} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
-                        <div className={sh.settingModalButton} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Giud</p></div>
-                        <div className={sh.settingModalButton} onClick={accountHandle}><ContactsImg style={{width: '25px', height: '25px'}} /><p>Account</p></div>
-                        <div className={sh.settingModalButton} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Giud</p></div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={accountHandle}><ContactsImg style={{width: '25px', height: '25px'}} /><p>Account</p></div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>
                     </div>
                 </ ModalSettings>
             }

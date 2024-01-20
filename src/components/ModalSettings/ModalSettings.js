@@ -1,4 +1,5 @@
-import { React, useEffect, useRef }from 'react'
+import { React, useEffect, useRef}from 'react'
+import { useSelector } from 'react-redux';
 import { createPortal } from 'react-dom';
 
 import moset from './ModalSettings.module.scss'
@@ -6,6 +7,8 @@ import moset from './ModalSettings.module.scss'
 const modalRootSettings = document.querySelector('#root-modal-settings');
 
 const ModalSettings = ({ children, data }) => {
+
+  const selectorGallSlice = useSelector(state => state.gallery);
 
   const modal = useRef();
 
@@ -25,7 +28,7 @@ const ModalSettings = ({ children, data }) => {
 
   return createPortal(
    
-    <div ref={modal}  className={moset.container}>
+    <div ref={modal}  className={moset.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94'} : {backgroundColor: ''}}>
         {children}
     </div>
 

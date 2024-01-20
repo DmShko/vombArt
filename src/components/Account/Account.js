@@ -418,12 +418,25 @@ const Account = () => {
 
     };
 
+    const changeBorderOver = (evt) => {
+
+     evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+  
+    };
+  
+    const changeBorderOut = (evt) => {
+  
+      if(selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+      if(!selectorGallerySlice.dayNight) evt.currentTarget.style.backgroundColor =  '';
+      
+    };
+
 
     return (
 
       <div className={ac.container}>
 
-        <div className={ac.userfoto}>
+        <div className={ac.userfoto} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)'} : {backgroundColor: 'lightgray', color: ''}}>
 
           <div className={ac.file}>
 
@@ -433,7 +446,7 @@ const Account = () => {
 
             <label className={ac.lab}>
         
-              <p className={ac.p}>Seach file</p>
+              <p className={ac.p} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83',} : {backgroundColor: '', color: ''}}>Seach file</p>
               
               <span style={{ border: 'none', fontSize: '12px' }}>
                   {selectorGallerySlice.loadFiles || 'No search file...'}
@@ -456,25 +469,25 @@ const Account = () => {
               
             </label>
             
-            <button className={ac.button}>Add/Change foto</button>
+            <button className={ac.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>Add/Change foto</button>
 
           </form>
 
           </div>
 
-          <div className={ac.statistic}>
-            <div className={ac.itemContainer}><p>All hearts:</p> <p className={ac.item}>{selectorSingInSlice.singInId && selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId] !== undefined ? selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId].length : ''}</p></div>
-            <div className={ac.itemContainer}><p>All view:</p> <p className={ac.item}>{totalView()}</p></div>
-            <div className={ac.totalItemContainer}><p>Total level:</p> <p className={ac.totalItem}>{totalLevel()}</p></div>
+          <div className={ac.statistic} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: 'white', color: ''}}>
+            <div className={ac.itemContainer} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}><p>All hearts:</p> <p className={ac.item} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{selectorSingInSlice.singInId && selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId] !== undefined ? selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId].length : ''}</p></div>
+            <div className={ac.itemContainer} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}><p>All view:</p> <p className={ac.item} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{totalView()}</p></div>
+            <div className={ac.totalItemContainer} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}><p>Total level:</p> <p className={ac.totalItem} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{totalLevel()}</p></div>
           </div>
           
         </div>
         
         {storagePath !== '' ? <StorageWork data={{storagePath, file, setStoragePath, setFileLoaded}}/> : ''}
 
-        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Name</p>
-        <div className={ac.userInfo}>
-          <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>Name</p>
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
+          <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
     
           {/* <form className={ac.fise} >
             <label className={ac.lab}>
@@ -493,93 +506,98 @@ const Account = () => {
           </form> */}
         </div>
 
-        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Sex</p>
-        <div className={ac.userInfo}>
-          <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.sex : ''}</p>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>Sex</p>
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
+          <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.sex : ''}</p>
           <form className={ac.fise} >
           <label className={ac.lab}>
 
               <input
                 value = {sex}
                 className={ac.infoInput}
+                style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="text"
                 onChange={handleSex}
                 autoComplete="false"
                 title="Sex"
                 placeholder="Enter other sex..."
               ></input>
-          <button onClick={sexClick}>Save</button>
+          <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={sexClick}>Save</button>
           </label>
         </form>
         </div>
 
-        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Age</p>       
-        <div className={ac.userInfo}>
-        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.age : ''}</p>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>Age</p>       
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.age : ''}</p>
         <form className={ac.fise} >    
           <label className={ac.lab}>
 
               <input
                 value = {age}
                 className={ac.infoInput}
+                style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="text"
                 onChange={handleAge}
                 autoComplete="false"
                 title="Age"
                 placeholder="Enter other age..."
               ></input>
-          <button onClick={ageClick}>Save</button>
+          <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={ageClick}>Save</button>
           </label>
           </form>
         </div>
 
-        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Phone</p>
-        <div className={ac.userInfo}>
-        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.phone : ''}</p>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>Phone</p>
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.phone : ''}</p>
           <label className={ac.lab}>
               <input
                 value = {phone}
                 className={ac.infoInput}
+                style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="text"
                 onChange={handlePhone}
                 autoComplete="false"
                 title="Phone"
                 placeholder="Enter other phone..."
               ></input>
-          <button onClick={phoneClick}>Save</button>
+          <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={phoneClick}>Save</button>
           </label>
          
         </div>
 
-        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Email</p>
-        <div className={ac.userInfo}>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>Email</p>
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
 
-        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).email : ''}</p>
-        <p style={{ color: 'white', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId && auth.currentUser !== null && auth.currentUser.emailVerified ? <p style={{color: 'green'}}>{'confirmed'}</p> : <p style={{color: 'orange'}}>{'not confirmed'}</p>}</p>
-        {auth.currentUser !== null && !auth.currentUser.emailVerified ? <button onClick={confirmEmail}>Confirm</button> : ''}       
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).email : ''}</p>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId && auth.currentUser !== null && auth.currentUser.emailVerified ? <p style={{color: 'green'}}>{'confirmed'}</p> : <p style={{color: 'orange'}}>{'not confirmed'}</p>}</p>
+        {auth.currentUser !== null && !auth.currentUser.emailVerified ? <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={confirmEmail}>Confirm</button> : ''}       
 
           <label className={ac.lab}>
               <input
                 value = {email}
                 className={ac.infoInput}
+                style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="text"
                 onChange={handleEmail}
                 autoComplete="false"
                 title="Email"
                 placeholder="Enter other email..."
               ></input>
-          <button onClick={emailClick}>Change</button>
+          <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={emailClick}>Change</button>
           </label>
          
         </div>
 
-        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Password</p>
-        <div className={ac.userInfo}>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>Password</p>
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
 
           <label className={ac.lab}>
               <input
                 value = {password}
                 className={ac.infoInput}
+                style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="password"
                 onChange={handlePassword}
                 autoComplete="false"
@@ -593,6 +611,7 @@ const Account = () => {
               <input
                 value = {passwordRepeate}
                 className={ac.infoInput}
+                style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="password"
                 onChange={handlePasswordRepeate}
                 autoComplete="false"
@@ -602,14 +621,14 @@ const Account = () => {
           
           </label>
 
-          <button onClick={passwordClick}>Change</button>
+          <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={passwordClick}>Change</button>
          
         </div>
 
-        <p style={{ color: 'gray', fontSize: '18px', fontWeight: '600' }}>Delete account</p>
-        <div className={ac.userInfo}>
-          <button style={{width: 'fit-content'}} onClick={delAccount}>Delete only account</button>
-          <button style={{width: 'fit-content'}} onClick={delAccountWithData}>Delete account whith all data</button>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>Delete account</p>
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
+          <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={delAccount}>Delete only account</button>
+          <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={delAccountWithData}>Delete account whith all data</button>
         </div>
 
       </div>

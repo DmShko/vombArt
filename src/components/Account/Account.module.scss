@@ -99,6 +99,8 @@
                 border-radius: 6px;
                 padding: 5px;
 
+                transition: background-color 400ms;
+
                 cursor: pointer;
             }
 
@@ -195,6 +197,8 @@
             border: none;
             border-radius: 6px;
             padding: 5px;
+
+            transition: background-color 400ms;
 
             cursor: pointer;
 
