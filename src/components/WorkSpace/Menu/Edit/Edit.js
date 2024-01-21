@@ -37,12 +37,26 @@ const EditItem = () => {
 
   const [checkAll, setCheckAll] = useState(false);
 
+  const [errorDrive, setErrorDrive] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({ mode: 'onBlur' });
+
+  // off errors message, when inputs changenavigate('/home');
+  useEffect(() => {
+
+    setErrorDrive(false);
+
+    const errorMessageOn = setTimeout(() => {
+        setErrorDrive(true);
+        clearTimeout(errorMessageOn);
+    }, 2000);
+
+  },[title, description, file,]);
 
   useEffect(() => {
     if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
@@ -234,12 +248,20 @@ const EditItem = () => {
     <div className={ed.container}>
       <form className={ed.fise} onSubmit={handleSubmit(addItem)}>
         <fieldset className={ed.fset}>
-          <legend style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Edit item</legend>
+          <legend style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+          {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Edit item</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Ред. елемент</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Edytuj rzecz</p> : <p>Edit item</p>}
+          </legend>
 
           <div className={ed.radios}>
               <label className={ed.radioLab}>
                 {' '}
-                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Title</p>{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Title</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Заголовок</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Tytuł</p> : <p>Title</p>}
+                </p>{' '}
                 <input
                   type="radio"
                   name="title"
@@ -249,7 +271,11 @@ const EditItem = () => {
               </label>
               <label className={ed.radioLab}>
                 {' '}
-                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Description</p>{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Description</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Опис</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Opis</p> : <p>Description</p>}
+                </p>{' '}
                 <input
                   type="radio"
                   name="description"
@@ -260,7 +286,11 @@ const EditItem = () => {
 
               <label className={ed.radioLab}>
                 {' '}
-                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>File</p>{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>File</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Файл</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Plik</p> : <p>File</p>}
+                </p>{' '}
                 <input
                   type="radio"
                   name="file"
@@ -271,7 +301,11 @@ const EditItem = () => {
 
               <label className={ed.radioLab}>
                 {' '}
-                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>All</p>{' '}
+                <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>All</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Все</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wszystko</p> : <p>All</p>}
+                </p>{' '}
                 <input
                   style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
                   type="radio"
@@ -284,12 +318,23 @@ const EditItem = () => {
           <div className={ed.field}>
             {checkTitle || checkAll ? <label className={ed.lab}>
               {' '}
-              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Title</p>
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Title</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Заголовок</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Tytuł</p> : <p>Title</p>}
+              </p>
               <input
                 {...register('Title', {
-                  required: 'Please fill the Title field!',
+                  required: 
+                  selectorGallerySlice.settings.languageSelector === 'English' ? 'Please fill the Title field!' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Будь ласка, заповніть заголовок! ': 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Proszę, wypełnić pole tytuł!' : 'Please fill the Title field!',
 
-                  maxLength: { value: 16, message: 'Invalid length!' },
+                  maxLength: { value: 16, message: 
+                    selectorGallerySlice.settings.languageSelector === 'English' ? 'Title is too long!': 
+                    selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Заголовок занадто товгий!' : 
+                    selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Tytuł jest za długi!' : 'Title is too long!' 
+                  },
                   value: title,
                 })}
                 className={ed.in}
@@ -298,17 +343,30 @@ const EditItem = () => {
                 autoComplete="false"
                 onChange={inputChange}
                 title="Title"
-                placeholder="Enter style..."
+                placeholder={selectorGallerySlice.settings.languageSelector === 'English' ? "Enter title...": 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть заголовок...": 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wprowadź tytuł..." : "Enter style..."}
               ></input>
             </label> : ''}
             {checkDescription || checkAll ? <label className={ed.lab}>
               {' '}
-              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Description</p>
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Description</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Опис</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Opis</p> : <p>Description</p>}
+              </p>
               <textarea
                 {...register('Description', {
-                  required: 'Please fill the Description field!',
+                  required: 
+                  selectorGallerySlice.settings.languageSelector === 'English' ? 'Please fill the Description field!' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Будь ласка, заповніть поле Опис! ': 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Proszę, wypełnić pole Opis!' : 'Please fill the Description field!',
 
-                  maxLength: { value: 100, message: 'Invalid length!' },
+                  maxLength: { value: 100, message: 
+                    selectorGallerySlice.settings.languageSelector === 'English' ? 'Description is too long!': 
+                    selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Опис занадто товгий!' : 
+                    selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Opis jest za długi!' : 'Description is too long!' 
+                  },
                   value: description,
                 })}
                 className={ed.in}
@@ -317,18 +375,30 @@ const EditItem = () => {
                 onChange={inputChange}
                 autoComplete="false"
                 title="Description"
-                placeholder="Enter short description..."
+                placeholder={selectorGallerySlice.settings.languageSelector === 'English' ? "Enter short description...": 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть короткий опис...": 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wprowadź krótki opisl..." : "Enter short description..."}
               ></textarea>
             </label> : ''}
             {checkFile || checkAll ? <label className={ed.lab} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
               {' '}
-              <p className={ed.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor: 'pointer'} : {color: '', cursor: 'pointer'}}>Seach file</p>
+              <p className={ed.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor: 'pointer'} : {color: '', cursor: 'pointer'}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Seach file</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вибрати файл</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wybierz plik</p> : <p>Seach file</p>}
+              </p>
               <span style={{ border: 'none', fontSize: '12px' }}>
-                {selectorGallerySlice.loadFiles || 'No search file...'}
+                {selectorGallerySlice.loadFiles || 
+                selectorGallerySlice.settings.languageSelector === 'English' ? 'No search file...' : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Файл не вибрано...' : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Nie wybrano pliku...' : 'No search file...'}
               </span>
               <input
                 {...register('Load', {
-                  required: 'Please fill the File field!',
+                  required: 
+                  selectorGallerySlice.settings.languageSelector === 'English' ? 'Please selected file!' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Будь ласка виберіть Файл! ': 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Proszę, wybierz plik!' : 'Please selected file!',
                   value: file,
                 })}
                 className={ed.load}
@@ -338,14 +408,16 @@ const EditItem = () => {
                 autoComplete="false"
                 title="Load file..."
                 multiple="multiple"
-                placeholder="Enter short description..."
+                placeholder={selectorGallerySlice.settings.languageSelector === 'English' ? "Selected file...": 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? "Виберіть файл...": 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wybierz plik..." : "Selected file..."}
               ></input>
             </label> : ''}
 
             <p style={{color: 'orange', fontSize: '14px', fontWeight: '600', textAlign: 'center'}}>
-              {errors?.Title ? <div className={ed.error}><WarningImg style={{width: '15px', height: '15px'}}/>{errors.Title.message}</div> :
+              {errorDrive ? errors?.Title ? <div className={ed.error}><WarningImg style={{width: '15px', height: '15px'}}/>{errors.Title.message}</div> :
                errors?.Description ? <div className={ed.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Description.message} </div>
-              : errors?.Load ? <div className={ed.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Load.message}</div> : ''} </p>
+              : errors?.Load ? <div className={ed.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Load.message}</div> : '' : ''} </p>
 
             {storagePath !== '' ? (
               <StorageWork
@@ -354,7 +426,11 @@ const EditItem = () => {
             ) : (
               ''
             )}
-            <button className={ed.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>Change Item</button>
+            <button className={ed.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+            {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Change Item</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Змінити елемент</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Zmień element</p> : <p>Seach file</p>}
+            </button>
           </div>
         </fieldset>
       </form>

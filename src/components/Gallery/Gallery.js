@@ -690,9 +690,22 @@ const Gallery = () => {
            
 
           <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} /><p>{`Likes: ${heartsCount()}`}</p></div> 
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/><p>{`Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/><p>{`Views: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} />
+            <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Likes: ${heartsCount()}` : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? `Вподобайки: ${heartsCount()}` : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `Lubi: ${heartsCount()}` : `Likes: ${heartsCount()}`}</p></div> 
+
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/>
+            <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? `Рівень: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `Poziom: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              `Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
+
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/>
+            <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Views: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? `Перегляди: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `Wyświetlenia: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              `Views: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
           </div>
         </div>
       </ ModalItem>
@@ -713,7 +726,11 @@ const Gallery = () => {
           name="Lirics"
           onClick={clickButtonArts}
         > 
-          <div className={ga.artIcon}>Lirics <WriteImg style={
+          <div className={ga.artIcon}>
+          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Writing</p> : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Письмо</p> : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Pismo</p> : <p>Writing</p>} 
+          <WriteImg style={
             { width: '20px', height: '20px', }
           }/></div>
           
@@ -737,7 +754,11 @@ const Gallery = () => {
           name="Music"
           onClick={clickButtonArts}
         >
-          <div className={ga.artIcon}> Music <MusicImg style={
+          <div className={ga.artIcon}> 
+          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Music</p> : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Музика</p> : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Muzyka</p> : <p>Music</p>}  
+          <MusicImg style={
             { width: '20px', height: '20px',}
           }/></div>
         </button>
@@ -756,7 +777,11 @@ const Gallery = () => {
           name="Drawing"
           onClick={clickButtonArts}
         >
-          <div className={ga.artIcon}>Drawing <DrawImg style={
+          <div className={ga.artIcon}>
+          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Drawing</p> : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Живопис</p> : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Rysunek</p> : <p>Drawing</p>} 
+          <DrawImg style={
             { width: '20px', height: '20px', }
           }/></div>
         </button>
@@ -764,7 +789,11 @@ const Gallery = () => {
 
       <div>
         <div>
-          <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>Styles</p>
+          <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>
+          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Styles</p> : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Стилі</p> : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Style</p> : <p>Styles</p>}
+          </p>
           <ul className={ga.style} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray',} : {borderColor: ''}}>
             {drawVisible 
               ? selectorGallSlice.users
@@ -786,7 +815,18 @@ const Gallery = () => {
                         }
                         onClick={clickButtonStyle}
                       >
-                        {value}
+                        {value === 'Oil' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Oil' : 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Масло' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Masło' : '' : 
+                        value === 'Watercolor' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Watercolor': 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Акварель' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Akwarela' : '' : 
+                        value === 'Digital' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Digital': 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Цифровий' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Cyfrowy' : '' :
+                        value === 'Mix' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Mix': 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Змішаний' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Mieszany' : '' : value}
                       </button>
                     </li>
                   ))
@@ -811,7 +851,12 @@ const Gallery = () => {
                         }
                         onClick={clickButtonStyle}
                       >
-                        {value}
+                        {value === 'Classic' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Classic' : 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Класика' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Klasyczny' : '' : 
+                        value === 'Pop' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Pop': 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Популярна' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Popularny' : '' : value}
                       </button>
                     </li>
                   ))
@@ -837,7 +882,12 @@ const Gallery = () => {
                         }
                         onClick={clickButtonStyle}
                       >
-                        {value}
+                        {value === 'Poem' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Poem' : 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Вірші' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Wiersz' : '' : 
+                        value === 'Liric' ? selectorGallSlice.settings.languageSelector === 'English' ? 'Lyric': 
+                          selectorGallSlice.settings.languageSelector === 'Українська' ? 'Лірика' : 
+                          selectorGallSlice.settings.languageSelector === 'Polska' ? 'Liryczny' : '' : value}
                       </button>
                     </li>
                   ))
@@ -848,8 +898,19 @@ const Gallery = () => {
         <div>
           <div className={ga.total}>
 
-            <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>Elements</p>
-            <p className={ga.title} ></p> <p style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? `total ${selectorGallSlice.itemsBuffer.length} pcs`: 'total 0 pcs'}</p>
+            <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>
+            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Elements</p> : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Елементи</p> : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Elementy</p> : <p>Elements</p>}
+            </p>
+            <p className={ga.title} ></p> <p style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? 
+              selectorGallSlice.settings.languageSelector === 'English' ? `total ${selectorGallSlice.itemsBuffer.length} pcs` : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? `всього ${selectorGallSlice.itemsBuffer.length} шт` : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `razem ${selectorGallSlice.itemsBuffer.length} szt` : 'Total'`${selectorGallSlice.itemsBuffer.length} pcs`:
+
+              selectorGallSlice.settings.languageSelector === 'English' ? `total 0 pcs` : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? `всього 0 шт` : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `razem 0 szt` : 'Total'`${selectorGallSlice.itemsBuffer.length} pcs`}</p>
             
           </div>
           

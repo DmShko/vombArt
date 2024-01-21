@@ -32,6 +32,19 @@ const NewItem = () => {
   const [title, setTitle] = useState('');
   const [fileLoaded, setFileLoaded] = useState(false);
   const [successIcon, setSuccessIcon] = useState(false);
+  const [errorDrive, setErrorDrive] = useState(false);
+
+  // off errors message, when inputs changenavigate('/home');
+  useEffect(() => {
+
+    setErrorDrive(false);
+
+    const errorMessageOn = setTimeout(() => {
+        setErrorDrive(true);
+        clearTimeout(errorMessageOn);
+    }, 2000);
+
+  },[title, description,]);
 
   const {
     register,
@@ -192,16 +205,31 @@ const NewItem = () => {
     <div className={nf.container}>
       <form className={nf.fise} onSubmit={handleSubmit(addItem)}>
         <fieldset className={nf.fset}>
-          <legend style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>New item</legend>
+          <legend style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+          {selectorGallerySlice.settings.languageSelector === 'English' ? <p>New item</p> : 
+              selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Новий елемент</p> : 
+              selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Nowy przedmiot</p> : <p>New item</p>}
+          </legend>
           <div className={nf.field}>
             <label className={nf.lab}>
               {' '}
-              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Title</p>
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Title</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Заголовок</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Tytuł</p> : <p>Title</p>}
+              </p>
               <input
                 {...register('Title', {
-                  required: 'Please fill the Title field!',
+                  required: 
+                  selectorGallerySlice.settings.languageSelector === 'English' ? 'Please fill the Title field!' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Будь ласка, заповніть заголовок! ': 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Proszę, wypełnić pole tytuł!' : 'Please fill the Title field!',
 
-                  maxLength: { value: 16, message: 'Title to long!' },
+                  maxLength: { value: 16, message: 
+                    selectorGallerySlice.settings.languageSelector === 'English' ? 'Title is too long!': 
+                    selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Заголовок занадто товгий!' : 
+                    selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Tytuł jest za długi!' : 'Title is too long!'
+                  },
                   value: title,
                 })}
                 className={nf.in}
@@ -210,17 +238,30 @@ const NewItem = () => {
                 autoComplete="false"
                 onChange={inputChange}
                 title="Title"
-                placeholder="Enter style..."
+                placeholder={selectorGallerySlice.settings.languageSelector === 'English' ? "Enter style...": 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть стиль...": 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wprowadź styl..." : "Enter style..."}
               ></input>
             </label>
             <label className={nf.lab}>
               {' '}
-              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Description</p>
+              <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Description</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Опис</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Opis</p> : <p>Description</p>}
+              </p>
               <textarea
                 {...register('Description', {
-                  required: 'Please fill the Description field!',
+                  required: 
+                  selectorGallerySlice.settings.languageSelector === 'English' ? 'Please fill the Description field!' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Будь ласка, заповніть поле Description! ': 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Proszę, wypełnić pole Description!' : 'Please fill the Description field!',
 
-                  maxLength: { value: 30, message: 'Description to long!' },
+                  maxLength: { value: 30, message: 
+                    selectorGallerySlice.settings.languageSelector === 'English' ? 'Description is too long!': 
+                    selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Опис занадто товгий!' : 
+                    selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Opis jest za długi!' : 'Description is too long!' 
+                  },
                   value: description,
                 })}
                 className={nf.in}
@@ -229,23 +270,32 @@ const NewItem = () => {
                 onChange={inputChange}
                 autoComplete="false"
                 title="Description"
-                placeholder="Enter short description..."
+                placeholder={selectorGallerySlice.settings.languageSelector === 'English' ? "Enter short description...": 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть короткий опис...": 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wprowadź krótki opisl..." : "Enter short description..."}
               ></textarea>
             </label>
 
             <p style={{color: 'orange', fontSize: '14px', fontWeight: '600', textAlign: 'center'}}>
-              {errors?.Title ? <div className={nf.error}><WarningImg style={{width: '15px', height: '15px'}}/>{errors.Title.message}</div> 
-              : errors?.Description ? <div className={nf.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Description.message}</div> : ''}</p>  
+              {errorDrive ? errors?.Title ? <div className={nf.error}><WarningImg style={{width: '15px', height: '15px'}}/>{errors.Title.message}</div> 
+              : errors?.Description ? <div className={nf.error}><WarningImg style={{width: '20px', height: '20px'}}/>{errors.Description.message}</div> : '' : ''}</p>  
 
             <label className={nf.lab}>
               {' '}
-              <p className={nf.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor:'pointer'} : {color: '', cursor:'pointer'}}>Seach file</p>
+              <p className={nf.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor:'pointer'} : {color: '', cursor:'pointer'}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Seach file</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вибрати файл</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wybierz plik</p> : <p>Seach file</p>}
+              </p>
               <span style={{ border: 'none', fontSize: '12px' }}>
                 {<p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>{selectorGallerySlice.loadFiles}</p> || <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>No search file...</p>}
               </span>
               <input
                 {...register('Load', {
-                  required: 'Please fill the Description field!',
+                  required: 
+                  selectorGallerySlice.settings.languageSelector === 'English' ? 'Please fill the File field!' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Будь ласка, заповніть поле File! ': 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Proszę, wypełnić pole File!' : 'Please fill the File field!',
                   value: file,
                 })}
                 className={nf.load}
@@ -266,7 +316,11 @@ const NewItem = () => {
               ''
             )}
             {successIcon ? <SuccessImg style={{width: '20px', height: '20px',}}/> : ''}
-            <button className={nf.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>Add Item</button>
+            <button className={nf.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+            {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Add Item</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Додати елемент</p> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Dodaj Przedmiot</p> : <p>Add Item</p>}
+            </button>
           </div>
         </fieldset>
       </form>

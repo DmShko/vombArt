@@ -498,7 +498,7 @@ const SharedLayout = () => {
   };
 
   const statisticHandle = () => {
-    navigate('/statistic')
+    navigate('/guide')
     // close modal settings
     setModalSettingsToggle(false);
   };
@@ -559,7 +559,7 @@ const SharedLayout = () => {
                     <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
-                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
                             {selectorGallSlice.settings.languageSelector === 'English' ? <p>Writing</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Письмо</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Pismo</p> : <p>Lyrics</p>}
@@ -569,7 +569,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
                             {selectorGallSlice.settings.languageSelector === 'English' ? <p>Music</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Музика</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Muzyka</p> : <p>Muzyka</p>}
@@ -579,7 +579,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
                             {selectorGallSlice.settings.languageSelector === 'English' ? <p>Painting</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Живопис</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Obraz</p> : <p>Drawing</p>}
@@ -589,7 +589,7 @@ const SharedLayout = () => {
 
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/community" : "/"}>
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/community" : "/"}>
                             {selectorGallSlice.settings.languageSelector === 'English' ? <p>Community</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Громада</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wspólnota</p> : <p>Community</p>}
@@ -601,7 +601,7 @@ const SharedLayout = () => {
                     <ul className={sh.list}>
                         <li className={sh.link}>
 
-                           <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='about'>
+                           <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='about'>
                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>About</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про сайт</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O witrynie</p> : <p>About</p>}
@@ -610,7 +610,7 @@ const SharedLayout = () => {
                         </li>
                         <li className={sh.link}>
 
-                          <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='contacts'>
+                          <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='contacts'>
                           {selectorGallSlice.settings.languageSelector === 'English' ? <p>Contacts</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Контакти</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Łączność</p> : <p>About</p>}
@@ -624,7 +624,7 @@ const SharedLayout = () => {
                    {selectorVisibilityLog === false ? <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
-                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singUp'>
+                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='singUp'>
                             {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
@@ -633,7 +633,7 @@ const SharedLayout = () => {
                         </li>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
-                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'orange'} : {color: ''}} onClick={toggleModal} id='singIn'>
+                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='singIn'>
                             {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignIn</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>zalogować się</p> : <p>SignIn</p>}
@@ -651,10 +651,26 @@ const SharedLayout = () => {
             {
                 modalSettingsToggle && <ModalSettings data={modalSettingsToggle}> 
                     <div className={sh.settingModalButtonContainer}>
-                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>Settings</p></div>
-                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>Giud</p></div>
-                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={accountHandle}><ContactsImg style={{width: '25px', height: '25px'}} /><p>Account</p></div>
-                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>Logout</div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Settings</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Налаштування</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Ustawienia</p> : <p>Settings</p>}
+                        </p></div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Giud</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Інструкція</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Instrukcja</p> : <p>Giud</p>}
+                        </p></div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={accountHandle}><ContactsImg style={{width: '25px', height: '25px'}} /><p>
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Account</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Профіль</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Profil</p> : <p>Account</p>}
+                        </p></div>
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Logout</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Вийти</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wychodzić</p> : <p>Logout</p>}
+                        </div>
                     </div>
                 </ ModalSettings>
             }
@@ -885,7 +901,9 @@ const SharedLayout = () => {
                             autoComplete='false'
                             onChange={inputChange}
                             title="SendToEmail"
-                            placeholder="Enter email..."></input>
+                            placeholder={selectorGallSlice.settings.languageSelector === 'English' ? "Enter email...": 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? "Введіть email...": 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? "Wpisz email" : "Enter email..."}></input>
                         </label> 
 
                         {errors?.SendToEmail ? <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.SendToEmail?.message}</p> : ''}

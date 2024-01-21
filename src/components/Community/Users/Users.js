@@ -159,8 +159,16 @@ const Users = () => {
     <div className={us.container} style={selectorExistUsersList.dayNight ? {backgroundColor: '#485a94',} : {backgroundColor: ''}}>
       <div className={us.usersicon} style={selectorExistUsersList.dayNight ? {width: '100%', borderBottom: '2px solid rgb(122, 152, 206)',} : {width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
       <div className={us.userstitle}>
-        <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>Total: </p><p style={selectorExistUsersList.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: ''}}>{selectorExistUsersList.users.length}</p></div>
-        <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>Online: </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
+        <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>
+        {selectorExistUsersList.settings.languageSelector === 'English' ? <p>Total:</p> : 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? <p>Всього:</p> : 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? <p>Razem:</p> : <p>Total:</p>}
+        </p><p style={selectorExistUsersList.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: ''}}>{selectorExistUsersList.users.length}</p></div>
+        <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>
+        {selectorExistUsersList.settings.languageSelector === 'English' ? <p>Online:</p> : 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? <p>У мережі:</p> : 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? <p>W sieci:</p> : <p>Online:</p>}
+        </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
       </div>
 
       <label className={us.lab} style={selectorExistUsersList.dayNight ? { borderColor: 'rgb(122, 152, 206)' } : {borderColor: ''}}> <SearchImg style={{width: '25px', height: '25px',}}/>

@@ -10,7 +10,7 @@ import NotFound from './components/NotFound/NotFound';
 import Home from 'pages/Home/Home';
 import WorkSpace from 'components/WorkSpace/WorkSpace';
 import UserSettings from './components/UserSettings/UserSettings';
-import Statistic from './components/Statistic/Statistic';
+import Guide from './components/Guide/Guide';
 import Account from './components/Account/Account';
 
 const LIRICS = '/lirics';
@@ -19,7 +19,7 @@ const DRAWING = '/drawing';
 const COMMUNITY = '/community';
 const NOTFOUND = '/*';
 const USERSETTINGS = '/usersettings';
-const STATISTIC = '/statistic';
+const GUIDE = '/Guide';
 const ACCOUNT = '/account';
 
 const App = () => {
@@ -32,7 +32,7 @@ const appRoutes = [
   {path: DRAWING, element: <WorkSpace />,},  
   {path: COMMUNITY, element: <Community />,}, 
   {path: USERSETTINGS, element: <UserSettings />,},
-  {path: STATISTIC, element: <Statistic />,},
+  {path: GUIDE, element: <Guide />,},
   {path: ACCOUNT, element: <Account />,},
   {path: NOTFOUND, element: <NotFound />,},
   

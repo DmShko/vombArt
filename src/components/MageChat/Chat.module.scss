@@ -49,7 +49,7 @@
                 
         }
         
-        button {
+        .searchbutton {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -69,7 +69,7 @@
             cursor: pointer;
         }
 
-        button:hover {
+        .searchbutton:hover {
             background-color: rgba(194, 212, 31,);
         }
     }
@@ -83,8 +83,28 @@
         padding: 5px;
 
         }
+
+        .sendbutton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            gap: 5px;
+
+            font-weight: 600;
+
+            margin: 5px auto;
+
+            border: 2px solid gray;
+            border-radius: 6px;
+
+            transition: background-color 400ms;
+        }
+
+        .sendbutton:hover {
+            background-color: rgba(194, 212, 31,);
+        }
    
-    
         .area {
             
             width: 90%;
@@ -216,7 +236,7 @@
                 justify-content: space-between;
                 align-items: center;
 
-                width: 50%;
+                width: 70%;
 
                 font-size: 14px;
             }

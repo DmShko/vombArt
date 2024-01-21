@@ -289,7 +289,10 @@ const MageChat = () => {
         
         <form onSubmit={handleSubmit(addMessage)}>
        
-            <p className={ma.messagesCounter} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: '600'} : {color: 'white', fontWeight: '600'}}>{`${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p>
+            <p className={ma.messagesCounter} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: '600'} : {color: 'white', fontWeight: '600'}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages` : 
+              selectorGallerySlice.settings.languageSelector === 'Українська' ? `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} повідомлень` : 
+              selectorGallerySlice.settings.languageSelector === 'Polska' ? `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} wiadomości` : `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p>
              
             <div className={ma.area} wrap='soft' onScroll={scrollEnd} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: 'white',}}>
 
@@ -309,13 +312,21 @@ const MageChat = () => {
                    
             <div className={ma.field}>
                 
-                <h1 className={ma.title}>Messanger</h1>
+                <h1 className={ma.title}>
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Messanger</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Посланець</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Posłaniec</p> : <p>Messanger</p>}
+                </h1>
 
                 {selectorGallerySlice.answerId !== '' ? 
                   selectorGallerySlice.currentItemId === '' ? 
                   <div className={ma.answerStamp}>
 
-                    <p className={ma.answerStampTitle}>Reply to message:</p>
+                    <p className={ma.answerStampTitle}>
+                    {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Reply to message:</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Відповідь на повідомлення:</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Odpowiedz na wiadomość:</p> : <p>Reply to message:</p>}
+                    </p>
 
                     <div className={ma.answerTitle}>
                       <p className={ma.answerStyle}>{selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name}</p>
@@ -327,11 +338,19 @@ const MageChat = () => {
                     </div>
                     
                     <p className={ma.answer}>...{selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message}</p>
-                    <button onClick={cancelHandle}>Cancel</button>
+                    <button className={ma.searchbutton} onClick={cancelHandle}>
+                    {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Cancel</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Закрити</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Zamknąć</p> : <p>Cancel</p>}
+                    </button>
                   </div> :
                   <div className={ma.answerStamp}> 
              
-                    <p className={ma.answerStampTitle}>Reply to message:</p>
+                    <p className={ma.answerStampTitle}>
+                    {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Reply to message:</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Відповідь на повідомлення:</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Odpowiedz na wiadomość:</p> : <p>Reply to message:</p>}
+                    </p>
 
                     <div className={ma.answerTitle}>
                       <p className={ma.answerStyle}>{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name}</p>
@@ -343,11 +362,15 @@ const MageChat = () => {
                     </div>
                   
                   <p className={ma.answer}>...{selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message}</p>
-                  <button onClick={cancelHandle} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut}>Cancel</button>
+                  <button className={ma.searchbutton} onClick={cancelHandle} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut}>
+                  {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Cancel</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Закрити</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Zamknąć</p> : <p>Cancel</p>}
+                  </button>
                 </div>
                   : ''}
 
-                <button onClick={searchMenuHandle} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {border: 'none', backgroundColor: 'rgb(122, 152, 206)',} : {border: 'none', backgroundColor: '',}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
+                <button className={ma.searchbutton} onClick={searchMenuHandle} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {border: 'none', backgroundColor: 'rgb(122, 152, 206)',} : {border: 'none', backgroundColor: '',}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>
 
                 {searchMenuToggle ? <div>
                   
@@ -356,7 +379,11 @@ const MageChat = () => {
 
                     <div className={ma.serachlable}>
 
-                      <p>SearchByName</p>
+                      <p>
+                      {selectorGallerySlice.settings.languageSelector === 'English' ? <p>SearchByName</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Знайти за назвою</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Znajdź według nazwy</p> : <p>SearchByName</p>}
+                      </p>
                                
                       <input {...register('SearchName', { 
                         
@@ -367,7 +394,10 @@ const MageChat = () => {
                         autoComplete='false'
                         onChange={inputSearch}
                         title="searchName"
-                        placeholder="Enter name...">
+                        placeholder=
+                        {selectorGallerySlice.settings.languageSelector === 'English' ? "Enter name...": 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть ім'я...": 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wpisz imię..." : "Enter name..."}>
          
                       </input>
 
@@ -379,7 +409,10 @@ const MageChat = () => {
                       
                       <div className={ma.serachlable}>
 
-                        <p>SearchByDate</p>
+                        <p>{selectorGallerySlice.settings.languageSelector === 'English' ? <p>SearchByDate</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Знайти за датою</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Znajdź według daty</p> : <p>SearchByDate</p>}
+                        </p>
                                 
                         <input {...register('SearchDate', { 
             
@@ -390,7 +423,10 @@ const MageChat = () => {
                           autoComplete='false'
                           onChange={inputSearch}
                           title="searchDate"
-                          placeholder="Enter date...">
+                          placeholder=
+                          {selectorGallerySlice.settings.languageSelector === 'English' ? "Enter date...": 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть дату...": 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wpisz datę..." : "Enter date..."}>
 
                         </input>
                         
@@ -402,7 +438,11 @@ const MageChat = () => {
 
                       <div className={ma.serachlable}>   
                     
-                        <p>SearchByText</p>
+                        <p>
+                        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>SearchByText</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Знайти за текстом</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Znajdź według tekstu</p> : <p>SearchByText</p>}
+                        </p>
                                 
                         <input {...register('SearchText', { 
             
@@ -413,7 +453,10 @@ const MageChat = () => {
                           autoComplete='false'
                           onChange={inputSearch}
                           title="searchText"
-                          placeholder="Enter text...">
+                          placeholder=
+                          {selectorGallerySlice.settings.languageSelector === 'English' ? "Enter text...": 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть текст...": 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wpisz tekst..." : "Enter text..."}>
 
                         </input>
 
@@ -434,12 +477,20 @@ const MageChat = () => {
                         autoComplete='false'
                         onChange={inputChange}
                         title="Messange"
-                        placeholder="Enter messange...">
+                        placeholder=
+                        {selectorGallerySlice.settings.languageSelector === 'English' ? "Enter messange...": 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? "Введіть повідомлення...": 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? "Wpisz wiadomość" : "Enter messange..."}>
 
                     </textarea>
                 </label>
 
-                <button className={ma.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}>Send <SendImg style={{width: '25px', height: '25px',}} /></button>
+                <button className={ma.sendbutton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}>
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Send</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Надіслати</p> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wysłać</p> : <p>Send</p>} 
+                  <SendImg style={{width: '25px', height: '25px',}} />
+                </button>
             </div>
                                 
         </form>

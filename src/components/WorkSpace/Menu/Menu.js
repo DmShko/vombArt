@@ -220,19 +220,37 @@ const Menu = () => {
   return (
     
     <div className={mn.container}>
-      <p style={selectorGallSlice.dayNight ? {fontSize: '20px', fontWeight: '600', color: 'rgb(122, 152, 206)'} : {fontSize: '20px', fontWeight: '600',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
+      <p style={selectorGallSlice.dayNight ? {fontSize: '24px', fontWeight: '600', fontFamily: 'Agbalumo', color: 'rgb(122, 152, 206)'} : {fontSize: '24px', fontWeight: '600', fontFamily: 'Agbalumo',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
       <img src={`${selectorSingInSlice.isSingIn ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).urlFoto : ''}`} style={{width: '80px', height: '80px', borderRadius: '50%'}} alt='current user foto'></img>
       <button type='button' name='style' onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
-      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add/Del style {buttonAngelStyle ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
+      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>
+       {selectorGallSlice.settings.languageSelector === 'English' ? <p>Add/Del style</p> : 
+          selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Дод./Вид. стиль</p> : 
+          selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Dod./Usuw. styl</p> : <p>Add/Del style</p>}
+        {buttonAngelStyle ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
       {buttonStyleState ? <Style /> : ''}
+
       <button type='button' name='item' onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
-      : {borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Add element {buttonAngelNewItem ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
+      : {borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>
+        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Add element </p> : 
+          selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Додати елемент</p> : 
+          selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Dodaj element</p> : <p>Add element </p>}
+      {buttonAngelNewItem ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button>
       {buttonItemState ? <NewItem /> : ''}
+
       {selectorGallSlice.selectedItems.length !== 0 && selectorGallSlice.selectedItems.length === 1 ? <button type='button' className={mn.edit} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} name='edit' style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
-      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>Edit {buttonAngelEdit ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button> : ''}
+      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>
+        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Edit </p> : 
+          selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Редагувати</p> : 
+          selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Edytować</p> : <p>Edit </p>}
+      {buttonAngelEdit ? <AngelImgDown className={mn.img}/> : <AngelImgRight className={mn.img}/>}</div></button> : ''}
       {buttonEditState && selectorGallSlice.selectedItems.length === 1 ? <Edit /> : ''}
       {selectorGallSlice.selectedItems.length !== 0 ? <button type='button' className={mn.delete} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} name='delete' style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
-      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={deleteItems}>Delete </button> : ''}
+      : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={deleteItems}>
+        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Delete </p> : 
+          selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Видалити</p> : 
+          selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Usunąć</p> : <p>Delete </p>} 
+      </button> : ''}
       
     </div>
   )

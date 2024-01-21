@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
@@ -28,6 +28,20 @@ const Direction = () => {
   const [checkAdd, setCheckAdd] = useState(true);
 
   const [checkDel, setCheckDel] = useState(false);
+
+  const [errorDrive, setErrorDrive] = useState(false);
+
+  // off errors message, when inputs changenavigate('/home');
+  useEffect(() => {
+
+    setErrorDrive(false);
+
+    const errorMessageOn = setTimeout(() => {
+        setErrorDrive(true);
+        clearTimeout(errorMessageOn);
+    }, 2000);
+
+  },[style]);
 
   // retun key of element, that have value true
   const getPropertyKey = (data) => {
@@ -63,28 +77,31 @@ const Direction = () => {
   const addStyle = (_, evt) => {
     
     evt.preventDefault();
-    if (
-      getPropertyKey(pathSelector.arts) !== undefined && Object.keys(pathSelector.style).includes(style.toLowerCase()) === false
-      && Object.keys(selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).arts[getPropertyKey(pathSelector.arts)].style).length < 20) {
-      dispatch(
-        change({
-          operation: 'addUserStyle',
-          currentUserName: pathSelector.name,
-          artsName: getPropertyKey(pathSelector.arts),
-          data: style,
-        })
-      );
+    if(style !== '' && !errors.Style) {
+  
+      if (
+        getPropertyKey(pathSelector.arts) !== undefined && Object.keys(pathSelector.style).includes(style.toLowerCase()) === false
+        && Object.keys(selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).arts[getPropertyKey(pathSelector.arts)].style).length < 20) {
+        dispatch(
+          change({
+            operation: 'addUserStyle',
+            currentUserName: pathSelector.name,
+            artsName: getPropertyKey(pathSelector.arts),
+            data: style,
+          })
+        );
 
-      // add style to 'logicPath'
-      dispatch(
-        addStyleToPath({
-          data: style.toLowerCase(),
-        })
-      );
-      
-    } else Notiflix.Notify.info('Please, select art section! Max style length - 20!', {width: '450px', position: 'center-top', fontSize: '24px',});
-    reset({Style: ''});
- 
+        // add style to 'logicPath'
+        dispatch(
+          addStyleToPath({
+            data: style.toLowerCase(),
+          })
+        );
+        
+      } else Notiflix.Notify.info('Please, select art section! Max style length - 20!', {width: '450px', position: 'center-top', fontSize: '24px',});
+      reset({Style: ''});
+     
+    }
   };
 
   const deleteStyle = (_, evt) => {
@@ -125,6 +142,9 @@ const Direction = () => {
                 data: style.toLowerCase(),
               })
             );
+
+            setSelectDirection('');
+            
           }else Notiflix.Notify.info(`This style is not empty. In first delete style content.`, {width: '450px', position: 'center-top', fontSize: '24px',});
           
         }else Notiflix.Notify.info('This style is absent locked or art section is not selected!', {width: '450px', position: 'center-top', fontSize: '24px',});
@@ -165,12 +185,24 @@ const Direction = () => {
         onSubmit={checkAdd ? handleSubmit(addStyle) : handleSubmit(deleteStyle)}
       >
         <fieldset className={di.fset}>
-          <legend>{checkAdd ? <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Add Style</p> : <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Delete Style</p>}</legend>
+          <legend>{checkAdd ? <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
+          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Add Style</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Додати стиль</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Dodaj styl</p> : <p>Add Style</p>}
+            </p> : <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
+            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Delete Style</p> : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Видалити стиль</p> : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Usuń styl</p> : <p>Delete Style</p>}
+            </p>}</legend>
           <div className={di.field}>
             <div className={di.radioCont}>
               <label className={di.radioLab}>
                 {' '}
-                <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Add</p>{' '}
+                <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
+                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Add</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Додати</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Dodać</p> : <p>Add</p>}
+                </p>{' '}
                 <input
                   className={di.radio}
                   type="radio"
@@ -181,7 +213,11 @@ const Direction = () => {
               </label>
               <label className={di.radioLab}>
                 {' '}
-                <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>Delete</p>{' '}
+                <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
+                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Delete</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Видалити</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Usunąć</p> : <p>Delete</p>}
+                </p>{' '}
                 <input
                   className={di.radio}
                   type="radio"
@@ -194,12 +230,23 @@ const Direction = () => {
 
             <label className={di.lab}>
               {' '}
-              <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>Style name</p>
+              <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
+              {selectorGallSlice.settings.languageSelector === 'English' ? <p>Style name</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Назва стилю</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Nazwa stylu</p> : <p>Style name</p>}
+              </p>
               <input
                 {...register('Style', {
-                  required: 'Please fill the Style field!',
+                  required: 
+                    selectorGallSlice.settings.languageSelector === 'English' ? 'Please fill the Style field!' : 
+                    selectorGallSlice.settings.languageSelector === 'Українська' ? 'Будь ласка, заповніть поле Стилю! ': 
+                    selectorGallSlice.settings.languageSelector === 'Polska' ? 'Proszę, wypełnić pole Styl!' : 'Please fill the Style field!',
 
-                  maxLength: { value: 16, message: 'Too long!' },
+                  maxLength: { value: 16, message: 
+                    selectorGallSlice.settings.languageSelector === 'English' ? 'Style is too long!': 
+                    selectorGallSlice.settings.languageSelector === 'Українська' ? 'Стиль занадто товгий!' : 
+                    selectorGallSlice.settings.languageSelector === 'Polska' ? 'Styl jest za długi!' : 'Style is too long!'
+                  },
                   value: style,
                 })}
                 className={di.in}
@@ -208,11 +255,17 @@ const Direction = () => {
                 autoComplete="false"
                 onChange={inputChange}
                 title="Style"
-                placeholder="Enter style name..."
+                placeholder={selectorGallSlice.settings.languageSelector === 'English' ? "Enter style name...": 
+                selectorGallSlice.settings.languageSelector === 'Українська' ? "Введіть назву стилю...": 
+                selectorGallSlice.settings.languageSelector === 'Polska' ? "Wprowadź nazwę stylu..." : "Enter style name..."}
               ></input>
             </label>
-            {errors?.Style ? <div className={di.error}><WarningImg style={{width: '15px', height: '15px'}}/> <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors.Style.message}</p></div> : ''}    
-            <button className={di.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>{checkAdd ? 'Add' : 'Delete'}</button>
+            {errorDrive ? errors?.Style ? <div className={di.error}><WarningImg style={{width: '15px', height: '15px'}}/> <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors.Style.message}</p></div> : '' : ''}    
+            <button className={di.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
+            {selectorGallSlice.settings.languageSelector === 'English' ? checkAdd ? <p>Add</p> : <p>Delete</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? checkAdd ? <p>Додати</p> : <p>Видалити</p> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? checkAdd ? <p>Dodać</p> : <p>Usunąć</p> : checkAdd ? <p>Add</p> : <p>Delete</p>}
+            </button>
           </div>
         </fieldset>
       </form>
