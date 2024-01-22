@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
+import { change } from 'vomgallStore/gallerySlice';
+
 import ti from './DateTime.module.scss';
 
 const DateTime = () => {
+
+    const dispatch = useDispatch();
+    const selectorGallSlice = useSelector(state => state.gallery);
     
     const [ timeValue, setTimeValue ]= useState({time: new Date()});
     const [ newDateObj, setNewDateObj ]= useState({});
@@ -39,7 +44,10 @@ const DateTime = () => {
         const yeardata =  timeValue.time.getFullYear();
   
         setNewDateObj({ timedata, datedata, yeardata, dateSeconds });
-        // dispatch(change({ operation: 'changeDate', data: {timedata, datedata, yeardata, dateSeconds} }));
+        
+        // save day if he different
+        if(datedata !== selectorGallSlice.date) dispatch(change({ operation: 'changeDate', data: datedata }));
+
     };
 
     return (

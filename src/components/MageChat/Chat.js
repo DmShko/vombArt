@@ -7,6 +7,7 @@ import writeUserData from 'API/writerDB';
 import pathCreator from './pathCreator/pathCreator';
 import MessageItem from './MessageItem/MessageItem';
 import ScrollDown from './ScrollDown/ScrollDown';
+import MessageCleaner from 'components/MageChat/MessageCleaner/MessageCleaner';
 
 import { ReactComponent as EmptyImg } from '../../images/empty-white-box-svgrepo-com.svg';
 import { ReactComponent as SendImg } from '../../images/send-alt-2-svgrepo-com.svg';
@@ -286,7 +287,9 @@ const MageChat = () => {
 
   return (
     <div className={ma.container} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83',} : {backgroundColor: ''}}>
-        
+
+        <MessageCleaner />
+
         <form onSubmit={handleSubmit(addMessage)}>
        
             <p className={ma.messagesCounter} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: '600'} : {color: 'white', fontWeight: '600'}}>
