@@ -8,6 +8,7 @@ import pathCreator from './pathCreator/pathCreator';
 import MessageItem from './MessageItem/MessageItem';
 import ScrollDown from './ScrollDown/ScrollDown';
 import MessageCleaner from 'components/MageChat/MessageCleaner/MessageCleaner';
+import Notiflix from 'notiflix';
 
 import { ReactComponent as EmptyImg } from '../../images/empty-white-box-svgrepo-com.svg';
 import { ReactComponent as SendImg } from '../../images/send-alt-2-svgrepo-com.svg';
@@ -172,60 +173,74 @@ const MageChat = () => {
         // dispatch(change({ operation: 'changeDate', data: {timedata, datedata, yeardata, dateSeconds} }));
   };
 
+  // retun true if element contain true
+  const findProperty = data => {
+    for (const key in data) {
+      if (data[key] === true) {
+        return true;
+      }
+    }
+  };
+
   const addMessage = (_,evt) => {
 
     evt.preventDefault();
     
-    // simple mode
-    if(selectorGallerySlice.answerId === '') {
-      
-      // create chats tree
-      if(selectorGallerySlice.currentItemId === '') {
-    
-        const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+      // check selected arts and style
+      if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
 
-        // to database
-        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
-
-      } else {
-        const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
-
-        // to database
-        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+        // simple mode
+        if(selectorGallerySlice.answerId === '') {
+          
+          // create chats tree
+          if(selectorGallerySlice.currentItemId === '') {
         
-      } 
+            const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+            // to database
+            writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+
+          } else {
+            const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+            // to database
+            writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+            
+          } 
+        } else {
+          // answer mode
+          // create chats tree
+          if(selectorGallerySlice.currentItemId === '') {
+            const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+            // to database
+            writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
+            messageAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message, 
+            dateAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
+            timeAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
+            nameAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
+            secondsAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, tick(), false);
+
+          } else {
+            const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
+
+            // to database
+            writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
+            messageAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message,
+            dateAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
+            timeAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
+            nameAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
+            secondsAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, tick(), false);
+          } 
+
+      
+          dispatch(change({ operation: 'updateAnswerId', data: '' }));
+        }     
+
+        reset({Message: '', });
     } else {
-      // answer mode
-      // create chats tree
-      if(selectorGallerySlice.currentItemId === '') {
-        const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
-
-        // to database
-        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
-        messageAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message, 
-        dateAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
-        timeAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
-        nameAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
-        secondsAnswer: selectorGallerySlice.messagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, tick(), false);
-
-      } else {
-        const path = pathCreator({pathSelector, section: 'chats', contents: `elements/messages/${selectorGallerySlice.currentItemId}`, write: true, users: selectorGallerySlice.users, userIsSingInId: selectorSingInSlice.singInId});
-
-        // to database
-        writeUserData(path, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, 
-        messageAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).message,
-        dateAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).date, 
-        timeAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).time, 
-        nameAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).name,
-        secondsAnswer: selectorGallerySlice.itemsMessagesBuffer.find(element => element.id === selectorGallerySlice.answerId).second, message: message, answerStatus: true}, tick(), false);
-      } 
-
-   
-      dispatch(change({ operation: 'updateAnswerId', data: '' }));
-    }     
-
-    reset({Message: '', });
-
+      Notiflix.Notify.info('Style not selected', {width: '450px', position: 'center-top', fontSize: '24px',});
+    }
   };
 
   const inputChange = (evt) => {
@@ -377,15 +392,15 @@ const MageChat = () => {
 
                 {searchMenuToggle ? <div>
                   
-                  <div>
-                    <label className={ma.labserach}> 
+                  <div className={ma.searchcont} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: '',}}>
+                    <label className={ma.labsearch}> 
 
                     <div className={ma.serachlable}>
 
                       <p>
-                      {selectorGallerySlice.settings.languageSelector === 'English' ? <p>SearchByName</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Знайти за назвою</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Znajdź według nazwy</p> : <p>SearchByName</p>}
+                      {selectorGallerySlice.settings.languageSelector === 'English' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByName</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за назвою</p> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według nazwy</p> : <p>SearchByName</p>}
                       </p>
                                
                       <input {...register('SearchName', { 
@@ -408,13 +423,13 @@ const MageChat = () => {
 
                     </label>
 
-                    <label className={ma.labserach}>
+                    <label className={ma.labsearch}>
                       
                       <div className={ma.serachlable}>
 
-                        <p>{selectorGallerySlice.settings.languageSelector === 'English' ? <p>SearchByDate</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Знайти за датою</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Znajdź według daty</p> : <p>SearchByDate</p>}
+                        <p>{selectorGallerySlice.settings.languageSelector === 'English' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByDate</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за датою</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według daty</p> : <p>SearchByDate</p>}
                         </p>
                                 
                         <input {...register('SearchDate', { 
@@ -437,14 +452,14 @@ const MageChat = () => {
 
                     </label>
 
-                    <label className={ma.labserach}> 
+                    <label className={ma.labsearch}> 
 
                       <div className={ma.serachlable}>   
                     
                         <p>
-                        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>SearchByText</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Знайти за текстом</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Znajdź według tekstu</p> : <p>SearchByText</p>}
+                        {selectorGallerySlice.settings.languageSelector === 'English' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByText</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за текстом</p> : 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według tekstu</p> : <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByText</p>}
                         </p>
                                 
                         <input {...register('SearchText', { 

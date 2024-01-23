@@ -215,42 +215,57 @@
 
             gap: 10px;
         }
-    
-        .labserach {
 
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
+        .searchcont {
 
-            width: 95%;
+            width: 70%;
 
-            gap: 5px;
+            margin: 0 auto 5px auto;
 
-            padding: 10px;
+            border: 2px solid white;
 
-            .serachlable {
+            border-radius: 10px;
+
+            .labsearch {
 
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 justify-content: space-between;
                 align-items: center;
+    
+                width: 95%;
+    
+                gap: 5px;
+    
+                padding: 10px;
+    
+                .serachlable {
+    
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+    
+                    width: 80%;
+    
+                    font-size: 14px;
 
-                width: 70%;
+                    font-weight: 600;
 
-                font-size: 14px;
-            }
-
-            .insearch {
-
-                width: 60%;
-
-                border: none;
-                border-radius: 6px;
-            }
-
-            .insearch:focus {
-                outline: none;
-            }
+                }
+    
+                .insearch {
+    
+                    width: 60%;
+    
+                    border: none;
+                    border-radius: 6px;
+                }
+    
+                .insearch:focus {
+                    outline: none;
+                }
+            }    
         }
+    
 }

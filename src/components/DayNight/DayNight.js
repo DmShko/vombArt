@@ -2,6 +2,9 @@ import { useState, useEffect} from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import writeUserData from 'API/writerDB';
+import { getDatabase, ref, onValue } from 'firebase/database';
+
 import dn from './DayNight.module.scss';
 
 import {ReactComponent as SunImg} from '../../images/sun-2-svgrepo-com.svg';
@@ -14,12 +17,48 @@ const DayNight = () => {
   const selectorSingInSlice = useSelector(state => state.singIn);
   const selectorGallSlice = useSelector(state => state.gallery);
 
-  const [dayNight, setDayNight] = useState(false);
+  const [dayNight, setDayNight] = useState(selectorGallSlice.dayNight);
 
   useEffect(() => {
 
-    dispatch(change({ operation: 'changeDayNight', data: dayNight }));
+    const db = getDatabase();
+    
+    //firebase listener function
+    onValue(ref(db,`${selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/dayNight`), snapshot => {
+
+      // load data from database
+      const data = snapshot.val();
+
+      if(data !== null && data !== undefined) {
+        dispatch(change({operation: 'changeDayNight', data: data.value }));
+        dispatch(change({operation: 'updateSettings', data:{item: 'checkDesign', value: data.value}}));
+      }
+
+    });
+    
+
+  }, [])
+
+  useEffect(() => {
+
+    writeUserData(
+      `${selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/dayNight`,
+      {value: selectorGallSlice.dayNight},
+      null, true
+    );
+
+  }, [selectorGallSlice.dayNight])
+
+  useEffect(() => {
+
+    dispatch(change({operation: 'changeDayNight', data: dayNight }));
     dispatch(change({operation: 'updateSettings', data:{item: 'checkDesign', value: dayNight}}));
+
+    // writeUserData(
+    //   `${selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/dayNight`,
+    //   {value: selectorGallSlice.dayNight},
+    //   null, true
+    // );
 
   }, [dayNight])
   

@@ -457,6 +457,9 @@ const Gallery = () => {
           
         };
 
+        // highlite active button off
+        dispatch(change({ operation: 'changeColorActive', data: ''}));
+
         // visibility 'Lirics' on
         setLiricsVisible(true);
 
@@ -479,6 +482,9 @@ const Gallery = () => {
           
         };
 
+        // highlite active button off
+        dispatch(change({ operation: 'changeColorActive', data: ''}));
+
         // visibility 'Music' on
         setMusicVisible(true);
 
@@ -500,6 +506,9 @@ const Gallery = () => {
           dispatch(changePath({changeElement: `style.${key}`, data: false}));
           
         };
+
+        // highlite active button off
+        dispatch(change({ operation: 'changeColorActive', data: ''}));
         
         // visibility 'Drawing' on
         setDrawVisible(true);
@@ -645,7 +654,7 @@ const Gallery = () => {
         }
       }
     }
-    console.log(rating);
+   
     if(rating < 100) {
       // add new item or new value to 'levelStatistic'
       if(Object.keys(selectorGallSlice.levelStatistic).length !== 0 && Object.keys(selectorGallSlice.levelStatistic).includes(selectorGallSlice.currentItemId)) {

@@ -37,7 +37,7 @@ const Item = (props) => {
       
       <div className={it.info}>
         <div className={it.data}><HeartImg className={it.img}/><p>{`${heartsCount()}`}</p></div>
-        <div className={it.data}><LevelImg className={it.img}/><p>{`${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[props.data.id] : ''}`}</p></div>
+        <div className={it.data}><LevelImg className={it.img}/><p>{`${selectorGallSlice.levelStatistic !== null && selectorGallSlice.levelStatistic[props.data.id] !== undefined ? selectorGallSlice.levelStatistic[props.data.id] : ''}`}</p></div>
       </div>
     </div>
   );

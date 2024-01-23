@@ -220,7 +220,7 @@ const Menu = () => {
   return (
     
     <div className={mn.container}>
-      <p style={selectorGallSlice.dayNight ? {fontSize: '24px', fontWeight: '600', fontFamily: 'Agbalumo', color: 'rgb(122, 152, 206)'} : {fontSize: '24px', fontWeight: '600', fontFamily: 'Agbalumo',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
+      <p style={selectorGallSlice.dayNight ? {fontSize: '30px', fontWeight: '600', fontFamily: 'Agbalumo', color: 'rgb(122, 152, 206)'} : {fontSize: '30px', fontWeight: '600', fontFamily: 'Agbalumo',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
       <img src={`${selectorSingInSlice.isSingIn ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).urlFoto : ''}`} style={{width: '80px', height: '80px', borderRadius: '50%'}} alt='current user foto'></img>
       <button type='button' name='style' onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
       : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>
