@@ -10,6 +10,8 @@ import ScrollDown from './ScrollDown/ScrollDown';
 import MessageCleaner from 'components/MageChat/MessageCleaner/MessageCleaner';
 import Notiflix from 'notiflix';
 
+import { nanoid } from "nanoid";
+
 import { ReactComponent as EmptyImg } from '../../images/empty-white-box-svgrepo-com.svg';
 import { ReactComponent as SendImg } from '../../images/send-alt-2-svgrepo-com.svg';
 import { ReactComponent as TriangleUpImg } from '../../images/triangle-up-svgrepo-com.svg';
@@ -144,7 +146,7 @@ const MageChat = () => {
       // new fresh element it's first element of unsort array
       freshMessage = unSortedMessages[0];
       }
-    
+      
       // the latest message should be at the bottom
       return sortedMessages.reverse();
     }
@@ -185,7 +187,9 @@ const MageChat = () => {
   const addMessage = (_,evt) => {
 
     evt.preventDefault();
-    
+
+    // check not personal message
+    if(selectorGallerySlice.modalPersonalIsOpen === false) {
       // check selected arts and style
       if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
 
@@ -240,6 +244,16 @@ const MageChat = () => {
         reset({Message: '', });
     } else {
       Notiflix.Notify.info('Style not selected', {width: '450px', position: 'center-top', fontSize: '24px',});
+    }
+    } else {
+      // if message is personal
+      const myPath = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/personalChat/${selectorGallerySlice.selectedPerson}/${nanoid()}`;
+      const personPath = `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}/personalChat/${selectorSingInSlice.singInId}/${nanoid()}`;
+      // to database
+      // write to current user
+      writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+      // write to person
+      writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}`, message: message,}, tick(), false);
     }
   };
 
@@ -314,14 +328,17 @@ const MageChat = () => {
              
             <div className={ma.area} wrap='soft' onScroll={scrollEnd} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: 'white',}}>
 
-              {selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
+              {!selectorGallerySlice.modalPersonalIsOpen && selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
 
                 <ul className={ma.list}>
                     {
-                      selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.messagesBuffer).map(value => 
+                      !selectorGallerySlice.modalPersonalIsOpen ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer !== null && selectorGallerySlice.messagesBuffer !== undefined ? sortMessages(selectorGallerySlice.messagesBuffer).map(value => 
                       { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
                        selectorGallerySlice.itemsMessagesBuffer !== null && selectorGallerySlice.itemsMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.itemsMessagesBuffer).map(value => 
-                      { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
+                      { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
+                      
+                      selectorGallerySlice.selectedPerson !== '' && Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 && selectorGallerySlice.personalMessagesBuffer !== null && selectorGallerySlice.personalMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson]).map(value => 
+                      { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
 

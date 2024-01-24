@@ -5,6 +5,8 @@ const galleryInitialState = {
   account: {},
   personal: {sex: '', age: '', phone: ''},
   itemsBuffer: null,
+  personalMessagesBuffer: {},
+  selectedPerson: '',
   messagesBuffer: [],
   itemsMessagesBuffer: [],
   searchedUser: true,
@@ -42,7 +44,8 @@ const galleryInitialState = {
   },
   actualUserLength: 0,
   actualUsers: [],
-  dayNight: true,
+  dayNight: false,
+  modalPersonalIsOpen: false,
 };
 
 // {
@@ -127,6 +130,15 @@ const gallerySlice = createSlice({
             break;
           case 'deleteMessage':
             state.messagesBuffer = state.messagesBuffer.filter(element => element.id !== action.payload.data);
+            break;
+          case 'changePersonalMessagesBuffer':
+            state.personalMessagesBuffer = action.payload.data;
+            break;
+          case 'deletePersonalMessagesBuffer':
+            state.personalMessagesBuffer = state.personalMessagesBuffer.filter(element => element.id !== action.payload.data);
+            break;
+          case 'changeSelectedPerson':
+            state.selectedPerson = action.payload.data;
             break;
           case 'changeItemsMessagesBuffer':
             state.itemsMessagesBuffer = action.payload.data;
@@ -308,6 +320,9 @@ const gallerySlice = createSlice({
             break;
           case 'changeDayNight':
             state.dayNight = action.payload.data;
+            break;
+          case 'changeModalPersonalIsOpen':
+            state.modalPersonalIsOpen = action.payload.data;
             break;
           default:
             break;

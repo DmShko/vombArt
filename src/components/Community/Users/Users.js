@@ -12,11 +12,14 @@ import Notiflix from 'notiflix';
 
 import us from './Users.module.scss';
 
+import ModalPersonal from 'components/ModalPersonal/ModalPersonal';
+
 import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg';
 import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg';
 import { ReactComponent as UsersImg } from '../../../images/users-svgrepo-com.svg';
 import { ReactComponent as UsersFoto } from '../../../images/user-avatar-svgrepo-com.svg';
 import { ReactComponent as SearchImg } from '../../../images/search-alt-2-svgrepo-com.svg';
+import {ReactComponent as OwnMessageImg} from '../../../images/message-svgrepo-com.svg';
 
 const Users = () => {
 
@@ -27,6 +30,13 @@ const Users = () => {
   const [search, setSearch] = useState('');
 
   const [usersOpen, setUsersOpen] = useState({});
+  const [modalPersonalToggle, setModalPersonalToggle] = useState(false); 
+
+  useEffect(() => {
+   
+    dispatch(change({operation: 'changeModalPersonalIsOpen', data: modalPersonalToggle}));
+    
+  },[modalPersonalToggle]);
 
   useEffect(() => {
     // generate 'menu' user click status array for drive angel mode and open user information menu
@@ -155,6 +165,24 @@ const Users = () => {
     setSearch(evt.target.value);
   };
 
+  const ModalPersonalToggle = () => {
+    // open personal messages modal window
+    setModalPersonalToggle(value => !value);
+  };
+
+  const personalMessageHandler = (evt) => {
+
+    if(selectorVisibilityLog.isSingIn) {
+
+      ModalPersonalToggle();
+
+      // write selected person
+      dispatch(change({operation: 'changeSelectedPerson', data: evt.target.id}));
+
+    }
+
+  };
+
   return (
     <div className={us.container} style={selectorExistUsersList.dayNight ? {backgroundColor: '#485a94',} : {backgroundColor: ''}}>
       <div className={us.usersicon} style={selectorExistUsersList.dayNight ? {width: '100%', borderBottom: '2px solid rgb(122, 152, 206)',} : {width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
@@ -187,7 +215,9 @@ const Users = () => {
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value => 
             <div>
-              <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor: 'none', borderRadius: '3px'}}><p style={{fontFamily: 'Courgette', color: 'rgb(122, 152, 206)',}}>{value.userName}</p> {value.status? <p className={us.status}>online</p> : ''} 
+              <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} 
+                style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor: 'none', borderRadius: '3px'}}><p style={{fontFamily: 'Courgette', color: 'rgb(122, 152, 206)',}}>{value.userName}</p> 
+                 {value.status? <p className={us.status}>online</p> : ''} 
               {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor:'white', borderRadius: '3px'}}/>}</li>
 
               {usersOpen[value.uid] ?
@@ -205,10 +235,18 @@ const Users = () => {
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Email:</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkEmail ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Here with:</p></div>
                   </div>
+        
+                   { selectorVisibilityLog.singInId !== value.uid ? <OwnMessageImg style={{width: '30px', height: '30px',}} id={value.uid} name={'ownMessage'} onClick={personalMessageHandler}/> : ''}
+                 
                 </div> : ''}
             </div>
          )}
         </ul>
+
+        {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
+
+        </ ModalPersonal>}
+
     </div>
   )
 }

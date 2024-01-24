@@ -106,6 +106,7 @@ const MessageItem = ({ data }) => {
             <div className={me.operation}>
              {selectorGallerySlice.dayNight ? <BackImgDarck className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/> : 
              <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>}
+
               {selectorSingInSlice.singInId ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
               === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
               ? <BasketImg className={me.svg} style={selectorGallerySlice.dayNight ? {width: '22px', height: '22px', backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px',} : 
@@ -133,6 +134,7 @@ const MessageItem = ({ data }) => {
             <div className={me.operation}>
               {selectorGallerySlice.dayNight ? <BackImgDarck className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/> : 
               <BackImg className={me.svg} style={{width: '25px', height: '25px',}} onClick={answerButtonHandle}/>}
+
               {selectorSingInSlice.singInId ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.find(element => element.id === data.id).name 
               === selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName
               ? <BasketImg className={me.svg} style={selectorGallerySlice.dayNight ? {width: '22px', height: '22px', backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px',} :

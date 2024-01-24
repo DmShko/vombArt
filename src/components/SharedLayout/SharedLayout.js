@@ -12,6 +12,7 @@ import readerStorAPI from '../../API/readerStorageAPI'
 
 import ModalArt from 'components/ModalArt/ModalArt';
 import ModalSettings from 'components/ModalSettings/ModalSettings';
+import ModalPersonal from 'components/ModalPersonal/ModalPersonal';
 import Footer from 'components/Footer/Footer';
 import singUpAPI from '../../API/singUpAPI';
 import singInAPI from '../../API/singInAPI';
@@ -26,7 +27,6 @@ import { changePathName } from 'vomgallStore/pathSlice';
 import { changeSingIn } from 'vomgallStore/singInSlice';
 import { changeSingUp } from 'vomgallStore/singUpSlice';
 import { changeDelAccount } from 'vomgallStore/deleteAccountSlice';
-
 // import { auth } from "../../firebase";
 // import { onAuthStateChanged   } from "firebase/auth";
 
@@ -35,7 +35,8 @@ import {ReactComponent as EmailImg} from '../../images/email-8-svgrepo-com.svg';
 import {ReactComponent as UserNameImg} from '../../images/user-id-svgrepo-com.svg';
 import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg'; 
 import {ReactComponent as UserMenuDarck} from '../../images/user-svgrepo-com-darck.svg'; 
-import { ReactComponent as WarningImg } from '../../images/warning-1-svgrepo-com.svg';
+import {ReactComponent as WarningImg} from '../../images/warning-1-svgrepo-com.svg';
+import {ReactComponent as OwnMessageImg} from '../../images/message-svgrepo-com.svg';
 import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
@@ -91,6 +92,7 @@ const SharedLayout = () => {
   const [errorDrive, setErrorDrive] = useState(false);
   const [forgotEmailSend, setForgotEmailSend] = useState('');
   const [forgotBlockToggle, setForgotBlockToggle] = useState(false);
+  const [ modalPersonalToggle, setModalPersonalToggle] = useState(false); 
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
@@ -107,6 +109,44 @@ const SharedLayout = () => {
   const selectorLogOut = useSelector(state => state.singOut);
   const selectorDelAccount = useSelector(state => state.deleteAccount);
 
+  useEffect(() => {
+
+    if(selectorVisibilityLog) {
+        
+        const db = getDatabase();
+        //firebase listener function
+        onValue(ref(db, `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/personalChat`), snapshot => {
+            // load data from database
+            const data = snapshot.val();
+
+            let items = {};
+            let buffer = [];
+        
+            if(data !== null) {
+
+                for (const key in data) {
+
+                    for (const childKey in data[key]) {
+
+                        // convert data-object to array of objects 
+                        buffer.push({...data[key][childKey], id: childKey});
+                        
+                    }
+                   
+                    items = {...items, [key]: buffer};
+                    buffer = [];
+                }
+              
+                dispatch(change({ operation: 'changePersonalMessagesBuffer', data: items }));
+
+            }
+
+        });
+
+    }
+
+  },[selectorGallSlice.selectedPerson]);
+
   // add to users user account foto link for community section
   useEffect(() => {
 
@@ -115,6 +155,12 @@ const SharedLayout = () => {
     }
 
   },[selectorGallSlice.account]);
+
+  useEffect(() => {
+   
+    dispatch(change({operation: 'changeModalPersonalIsOpen', data: modalPersonalToggle}));
+    
+  },[modalPersonalToggle]);
 
   // see account.js file, row 24
   useEffect(() => {
@@ -394,8 +440,8 @@ const SharedLayout = () => {
   
   };
 
-  const toggleModalSettings = () => {
-    
+  const toggleModalSettings = (evt) => {
+   
     setModalSettingsToggle(value => !value);
 
   };
@@ -549,6 +595,23 @@ const SharedLayout = () => {
     
   };
 
+  const ModalPersonalToggle = () => {
+    // open personal messages modal window
+    setModalPersonalToggle(value => !value);
+    
+  };
+
+  const personalMessageHandler = () => {
+   
+
+    if(selectorVisibilityLog) {
+     
+      ModalPersonalToggle();
+
+    }
+
+  };
+
   return (
     <>
             <header className={sh.header}>
@@ -621,6 +684,8 @@ const SharedLayout = () => {
                 
                    <DayNight />
 
+                   {selectorVisibilityLog && <OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'goldenrod'}}/> }
+
                    {selectorVisibilityLog === false ? <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
@@ -647,6 +712,11 @@ const SharedLayout = () => {
                     <Tooltip id="menu" style={{backgroundColor: '--rt-color-white'}}/>
                 </nav>  
             </header>
+
+            {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
+              <div>
+              </div>          
+            </ ModalPersonal>}
 
             {
                 modalSettingsToggle && <ModalSettings data={modalSettingsToggle}> 

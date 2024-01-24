@@ -939,7 +939,7 @@ const Gallery = () => {
             ) : (
               <div className={ga.notResult}>
                 <p>This section empty. Hurry up to load new elements!</p>{' '}
-                <BlotImg className={ga.blotImg} />
+                <BlotImg className={ga.blotImg}/>
               </div>
             )}
           </ul>

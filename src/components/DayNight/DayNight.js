@@ -23,8 +23,9 @@ const DayNight = () => {
 
     const db = getDatabase();
     
-    //firebase listener function
-    onValue(ref(db,`${selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/dayNight`), snapshot => {
+    if(selectorSingInSlice.isSingIn) {
+      //firebase listener function
+      onValue(ref(db,`${selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/dayNight`), snapshot => {
 
       // load data from database
       const data = snapshot.val();
@@ -34,18 +35,20 @@ const DayNight = () => {
         dispatch(change({operation: 'updateSettings', data:{item: 'checkDesign', value: data.value}}));
       }
 
-    });
+      });
+    } 
     
-
   }, [])
 
   useEffect(() => {
 
-    writeUserData(
-      `${selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/dayNight`,
-      {value: selectorGallSlice.dayNight},
-      null, true
-    );
+    if(selectorSingInSlice.isSingIn) {
+      writeUserData(
+        `${selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/dayNight`,
+        {value: selectorGallSlice.dayNight},
+        null, true
+      );
+    }
 
   }, [selectorGallSlice.dayNight])
 
