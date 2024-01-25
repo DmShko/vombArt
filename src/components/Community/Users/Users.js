@@ -177,7 +177,7 @@ const Users = () => {
       ModalPersonalToggle();
 
       // write selected person
-      dispatch(change({operation: 'changeSelectedPerson', data: evt.target.id}));
+      dispatch(change({operation: 'changeSelectedPerson', data: evt.currentTarget.id}));
 
     }
 

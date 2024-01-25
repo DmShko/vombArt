@@ -19,10 +19,10 @@ const MessageCleaner = () => {
     if(selectorGallSlice.messagesBuffer.length !== 0)
 
       selectorGallSlice.messagesBuffer.forEach(element => {
-        // check message mounth is equal
+        // check message mounth is equal current mounth
         if(Number(selectorGallSlice.date.split('/')[1]) === Number(element.date.split('/')[1])) {
 
-          if(Number(selectorGallSlice.date.split('/')[0]) - Number(element.date.split('/')[0]) > 2) {
+          if(Number(selectorGallSlice.date.split('/')[0]) - Number(element.date.split('/')[0]) > 7) {
             
             dispatch(change({ operation: 'deleteMessage', data: element.id }));
       
@@ -36,11 +36,11 @@ const MessageCleaner = () => {
             );
   
           }
-        // check message mounth not equal. When message create last mounth or in last numbers of mounth and
+        // check message mounth field not equal current mounth. When message create last mounth or in last numbers of mounth and
         // user did't logIn long time and logIn next mounth.
         }else {
 
-          if(31 - Number(element.date.split('/')[0]) + Number(selectorGallSlice.date.split('/')[0]) > 2) {
+          if(31 - Number(element.date.split('/')[0]) + Number(selectorGallSlice.date.split('/')[0]) > 7) {
            
             dispatch(change({ operation: 'deleteMessage', data: element.id }));
       

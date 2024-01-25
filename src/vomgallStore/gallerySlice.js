@@ -135,7 +135,7 @@ const gallerySlice = createSlice({
             state.personalMessagesBuffer = action.payload.data;
             break;
           case 'deletePersonalMessagesBuffer':
-            state.personalMessagesBuffer = state.personalMessagesBuffer.filter(element => element.id !== action.payload.data);
+            state.personalMessagesBuffer[action.payload.userArray] = state.personalMessagesBuffer[action.payload.userArray].filter(element => element.id !== action.payload.data);
             break;
           case 'changeSelectedPerson':
             state.selectedPerson = action.payload.data;

@@ -5,6 +5,7 @@ import useSound from 'use-sound';
 
 import writeUserData from 'API/writerDB';
 import pathCreator from './pathCreator/pathCreator';
+import PersonMessageItem from './PersonMessageItem/PersonMessageItem';
 import MessageItem from './MessageItem/MessageItem';
 import ScrollDown from './ScrollDown/ScrollDown';
 import MessageCleaner from 'components/MageChat/MessageCleaner/MessageCleaner';
@@ -246,14 +247,51 @@ const MageChat = () => {
       Notiflix.Notify.info('Style not selected', {width: '450px', position: 'center-top', fontSize: '24px',});
     }
     } else {
-      // if message is personal
-      const myPath = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/personalChat/${selectorGallerySlice.selectedPerson}/${nanoid()}`;
-      const personPath = `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}/personalChat/${selectorSingInSlice.singInId}/${nanoid()}`;
-      // to database
-      // write to current user
-      writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
-      // write to person
-      writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}`, message: message,}, tick(), false);
+
+      // simple mode
+      if(selectorGallerySlice.answerId === '') {
+
+        const messageId = nanoid();
+        // if message is personal
+        const myPath = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/personalChat/${selectorGallerySlice.selectedPerson}/${messageId}`;
+        const personPath = `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}/personalChat/${selectorSingInSlice.singInId}/${messageId}`;
+        // to database
+        // write to current user
+        writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+        // write to person
+        writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+
+        reset({Message: '', });
+
+      } else {
+        const messageId = nanoid();
+        // if message is personal
+        const myPath = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/personalChat/${selectorGallerySlice.selectedPerson}/${messageId}`;
+        const personPath = `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}/personalChat/${selectorSingInSlice.singInId}/${messageId}`;
+        // to database
+       
+        // write to current user
+        writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`
+        , 
+            messageAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).message, 
+            dateAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).date, 
+            timeAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).time, 
+            nameAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).name,
+            secondsAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).second, 
+            message: message, answerStatus: true}, tick(), false);
+        // write to person
+        writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`,
+            messageAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).message, 
+            dateAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).date, 
+            timeAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).time, 
+            nameAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).name,
+            secondsAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).second,
+            message: message, answerStatus: true}, tick(), false);
+
+        dispatch(change({ operation: 'updateAnswerId', data: '' }));
+
+        reset({Message: '', });
+      }
     }
   };
 
@@ -322,9 +360,11 @@ const MageChat = () => {
         <form onSubmit={handleSubmit(addMessage)}>
        
             <p className={ma.messagesCounter} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: '600'} : {color: 'white', fontWeight: '600'}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages` : 
-              selectorGallerySlice.settings.languageSelector === 'Українська' ? `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} повідомлень` : 
-              selectorGallerySlice.settings.languageSelector === 'Polska' ? `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} wiadomości` : `${selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length} messages`}</p>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? `${ selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} messages` : 
+              selectorGallerySlice.settings.languageSelector === 'Українська' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} повідомлень` : 
+              selectorGallerySlice.settings.languageSelector === 'Polska' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} wiadomości` : 
+              `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' 
+              ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} messages`}</p>
              
             <div className={ma.area} wrap='soft' onScroll={scrollEnd} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: 'white',}}>
 
@@ -338,7 +378,7 @@ const MageChat = () => {
                       { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id} style={value.id === selectorGallerySlice.answerId ? {boxShadow: '0 2px 2px 0.5px lightcoral'} : {boxShadow: 'none'}}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} /> : 
                       
                       selectorGallerySlice.selectedPerson !== '' && Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 && selectorGallerySlice.personalMessagesBuffer !== null && selectorGallerySlice.personalMessagesBuffer !== undefined ? sortMessages(selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson]).map(value => 
-                      { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id}><MessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
+                      { return value.message.includes(searchText) && value.date.includes(searchDate) && value.name.includes(searchName) ? <li className={ma.item} ref={messageBlock} key={value.id}><PersonMessageItem data={value} /></li> : ''}) : <EmptyImg style={{width: '100px', height: '100px',}} />
                     }
                 </ul>
 
@@ -353,7 +393,7 @@ const MageChat = () => {
                   selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Posłaniec</p> : <p>Messanger</p>}
                 </h1>
 
-                {selectorGallerySlice.answerId !== '' ? 
+                {selectorGallerySlice.answerId !== '' ? selectorGallerySlice.selectedPerson === '' ?
                   selectorGallerySlice.currentItemId === '' ? 
                   <div className={ma.answerStamp}>
 
@@ -403,6 +443,31 @@ const MageChat = () => {
                       selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Zamknąć</p> : <p>Cancel</p>}
                   </button>
                 </div>
+                  :
+                  <div className={ma.answerStamp}>
+
+                  <p className={ma.answerStampTitle}>
+                  {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Reply to message:</p> : 
+                    selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Відповідь на повідомлення:</p> : 
+                    selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Odpowiedz na wiadomość:</p> : <p>Reply to message:</p>}
+                  </p>
+
+                  <div className={ma.answerTitle}>
+                    <p className={ma.answerStyle}>{selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).name}</p>
+                    <p className={ma.answerStyle}>{selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).date}</p>
+                    <div className={ma.time}>
+                      <p className={ma.answerStyle}>{selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).time}</p>
+                      <p className={ma.answerStyle}>:{selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).second}</p>
+                    </div>
+                  </div>
+
+                  <p className={ma.answer}>...{selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).message}</p>
+                  <button className={ma.searchbutton} onClick={cancelHandle}>
+                  {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Cancel</p> : 
+                    selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Закрити</p> : 
+                    selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Zamknąć</p> : <p>Cancel</p>}
+                  </button>
+                  </div>
                   : ''}
 
                 <button className={ma.searchbutton} onClick={searchMenuHandle} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {border: 'none', backgroundColor: 'rgb(122, 152, 206)',} : {border: 'none', backgroundColor: '',}}>{searchMenuToggle ? <TriangleUpImg style={{width: '10px', height: '10px'}}/> : <TriangleDownImg style={{width: '10px', height: '10px'}}/>}</button>

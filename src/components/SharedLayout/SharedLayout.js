@@ -21,6 +21,8 @@ import writeUserData from 'API/writerDB';
 import changeVeriAPI from 'API/emailVerifiAPI';
 import forgottenPassAPI from 'API/forgottenPasswordAPI';
 
+import { nanoid } from "nanoid";
+
 import { change } from 'vomgallStore/gallerySlice';
 import { changeSingOut } from 'vomgallStore/singOutSlice';
 import { changePathName } from 'vomgallStore/pathSlice';
@@ -219,6 +221,8 @@ const SharedLayout = () => {
         dispatch(changeSingIn({data: '', operation: 'changeToken'}));
         dispatch(changeSingIn({data: '', operation: 'changeSingInId'}));
         dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
+
+        dispatch(change({ operation: 'changePersonalMessagesBuffer', data: {} }));
        
         // dispatch(changePathName({data: ''})); 
         dispatch(changeSingOut({operation: 'changeisLogOut', data: false}));    
@@ -440,7 +444,7 @@ const SharedLayout = () => {
   
   };
 
-  const toggleModalSettings = (evt) => {
+  const toggleModalSettings = () => {
    
     setModalSettingsToggle(value => !value);
 
@@ -715,6 +719,16 @@ const SharedLayout = () => {
 
             {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
               <div>
+                <ul>
+                    {
+                       Object.keys(selectorGallSlice.personalMessagesBuffer).map(value => {
+                         return <li key={nanoid()}>
+                            <img src={selectorGallSlice.users.find(element => element.uid === value).urlFoto} style={{width: '45px', height: '45px', borderRadius: '50px',}} alt='user foto'></img>
+                            <p>{selectorGallSlice.users.find(element => element.uid === value).userName}</p>
+                         </li>
+                       }) 
+                    }
+                </ul>
               </div>          
             </ ModalPersonal>}
 
