@@ -39,6 +39,7 @@ import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg';
 import {ReactComponent as UserMenuDarck} from '../../images/user-svgrepo-com-darck.svg'; 
 import {ReactComponent as WarningImg} from '../../images/warning-1-svgrepo-com.svg';
 import {ReactComponent as OwnMessageImg} from '../../images/message-svgrepo-com.svg';
+import {ReactComponent as OpenMessageImg} from '../../images/message-open-svgrepo-com.svg';
 import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
@@ -156,7 +157,7 @@ const SharedLayout = () => {
 
     }
 
-  },[selectorGallSlice.selectedPerson]);
+  },[selectorGallSlice.selectedPerson, companionOpen]);
 
   // add to users user account foto link for community section
   useEffect(() => {
@@ -168,7 +169,7 @@ const SharedLayout = () => {
   },[selectorGallSlice.account]);
 
   useEffect(() => {
-   
+
     dispatch(change({operation: 'changeModalPersonalIsOpen', data: modalPersonalToggle}));
     
   },[modalPersonalToggle]);
@@ -645,9 +646,6 @@ const SharedLayout = () => {
     
     if(selectorVisibilityLog) {
 
-      // messages count 0, while companion doesn't selected
-      // dispatch(change({ operation: 'changePersonalMessagesBuffer', data: {}}));
-
       ModalPersonalToggle();
 
     }
@@ -655,6 +653,12 @@ const SharedLayout = () => {
   };
 
   const togglePersoneBlock = (evt) => {
+
+    Object.keys(companionOpen).forEach(element => {
+
+      if(companionOpen[element]) companionOpen[element] = false;
+     
+    });
 
     setCompamionOpen({...companionOpen, [evt.currentTarget.id]: !companionOpen[evt.currentTarget.id]});
     // write selected person
@@ -770,10 +774,11 @@ const SharedLayout = () => {
                       Object.keys(selectorGallSlice.personalMessagesBuffer).map(value => {
                         return <li key={nanoid()}>
                           <div className={sh.personblock} id={value} onMouseOver={changeCompanionOver} onMouseOut={changeCompanionOut} style={selectorGallSlice.dayNight ? companionOpen[value] ? 
-                          {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)',} : {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83',} :
-                           companionOpen[value] ? {backgroundColor: 'lightgray', color: 'white',} : {backgroundColor: 'white', color: '#384a83',}} onClick={togglePersoneBlock}>
-                            <img src={selectorGallSlice.users.find(element => element.uid === value).urlFoto} style={{width: '45px', height: '45px', borderRadius: '50px',}} alt='user foto'></img>
+                          {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)', border: 'none',} : {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83',} :
+                           companionOpen[value] ? {backgroundColor: 'lightgray', color: 'white', border: 'none',} : {backgroundColor: 'white', color: '#384a83',}} onClick={togglePersoneBlock}>
+                            <img src={selectorGallSlice.users.find(element => element.uid === value).urlFoto} style={{width: '40px', height: '40px', borderRadius: '50px',}} alt='user foto'></img>
                             <p>{selectorGallSlice.users.find(element => element.uid === value).userName}</p>
+                            <OpenMessageImg style={{width: '30px', height: '30px', }}/>
                           </div>
                          </li>
                       }) 

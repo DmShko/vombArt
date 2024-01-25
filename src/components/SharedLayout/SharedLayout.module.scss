@@ -452,22 +452,24 @@
 
     list-style: none;
 
+    gap: 5px;
+
     padding: 0;
 
-    height: 50px;
+    height: 100%;
 
     .personblock {
 
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center; 
     
         list-style: none;
     
-        width: 90%;
+        width: 150px;
     
-        gap: 10px;
+        gap: 5px;
     
         margin: 0 auto;
         padding: 5px;
@@ -475,6 +477,11 @@
         background-color: lightgray;
     
         border-radius: 6px 0 0 6px;
+
+        box-shadow: 1px 1px 1px 1px #384a83;
+        // border-right: none;
+
+        cursor: pointer;
     }
 
     .personblock:hover {
