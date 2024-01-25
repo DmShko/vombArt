@@ -439,4 +439,46 @@
         background-color: rgba(194, 212, 31, 0.801);
     }
 
+    
+
+}
+
+.personlist {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center; 
+
+    list-style: none;
+
+    padding: 0;
+
+    height: 50px;
+
+    .personblock {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center; 
+    
+        list-style: none;
+    
+        width: 90%;
+    
+        gap: 10px;
+    
+        margin: 0 auto;
+        padding: 5px;
+    
+        background-color: lightgray;
+    
+        border-radius: 6px 0 0 6px;
+    }
+
+    .personblock:hover {
+        background-color: rgba(194, 212, 31, 0.801);
+    }
+         
 }

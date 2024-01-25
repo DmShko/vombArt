@@ -75,15 +75,25 @@
     }
 
     
+        .messagertitleblock {
 
-        .messagesCounter {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
 
-        width: 95%;
+            width: 95%;
 
-        padding: 5px;
+            margin: 0 auto;
 
+            .messagesCounter {
+                
+        
+                padding: 5px;
+        
+            }
         }
-
+        
         .sendbutton {
             display: flex;
             justify-content: center;

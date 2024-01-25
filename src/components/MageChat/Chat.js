@@ -358,14 +358,18 @@ const MageChat = () => {
         <MessageCleaner />
 
         <form onSubmit={handleSubmit(addMessage)}>
-       
-            <p className={ma.messagesCounter} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: '600'} : {color: 'white', fontWeight: '600'}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? `${ selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} messages` : 
-              selectorGallerySlice.settings.languageSelector === 'Українська' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} повідомлень` : 
-              selectorGallerySlice.settings.languageSelector === 'Polska' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} wiadomości` : 
-              `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' 
-              ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} messages`}</p>
-             
+
+            <div className={ma.messagertitleblock}>
+              <p className={ma.messagesCounter} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: '600'} : {color: 'white', fontWeight: '600'}}>
+                {selectorGallerySlice.settings.languageSelector === 'English' ? `${ selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} messages` : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} повідомлень` : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} wiadomości` : 
+                `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' 
+                ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} messages`}</p>
+
+              <p style={{color: 'rgb(122, 152, 206)',}}>Messages older than 10 days are automatically deleted.</p> 
+            </div>
+
             <div className={ma.area} wrap='soft' onScroll={scrollEnd} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: 'white',}}>
 
               {!selectorGallerySlice.modalPersonalIsOpen && selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}

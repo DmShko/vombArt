@@ -42,6 +42,7 @@ const galleryInitialState = {
     inputSoundSelector: 'Sound_1',
     outputSoundSelector: 'Sound_1',
   },
+  selectedCompanion: '',
   actualUserLength: 0,
   actualUsers: [],
   dayNight: false,

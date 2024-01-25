@@ -94,7 +94,8 @@ const SharedLayout = () => {
   const [errorDrive, setErrorDrive] = useState(false);
   const [forgotEmailSend, setForgotEmailSend] = useState('');
   const [forgotBlockToggle, setForgotBlockToggle] = useState(false);
-  const [ modalPersonalToggle, setModalPersonalToggle] = useState(false); 
+  const [modalPersonalToggle, setModalPersonalToggle] = useState(false); 
+  const [companionOpen, setCompamionOpen] = useState({});
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
@@ -110,6 +111,14 @@ const SharedLayout = () => {
   const selectorItemsUrl = useSelector(state => state.readStorage);
   const selectorLogOut = useSelector(state => state.singOut);
   const selectorDelAccount = useSelector(state => state.deleteAccount);
+
+  useEffect(() => {
+    // generate 'menu' user click status array for drive angel mode and open user information menu
+    Object.keys(selectorGallSlice.personalMessagesBuffer).forEach(element => {
+      setCompamionOpen({...companionOpen, [element]: false});
+    });
+    
+  },[selectorGallSlice.users]);
 
   useEffect(() => {
 
@@ -599,6 +608,33 @@ const SharedLayout = () => {
     
   };
 
+  const changeCompanionOver = (evt) => {
+    
+    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+
+  };
+
+  const changeCompanionOut = (evt) => {
+    
+    if(selectorGallSlice.dayNight) {
+
+      if(companionOpen[evt.currentTarget.id]) {
+        evt.currentTarget.style.backgroundColor =  '#384a83';
+      }else {
+        evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+      };
+      
+    }else {
+      if(companionOpen[evt.currentTarget.id]) {
+        evt.currentTarget.style.backgroundColor =  'lightgray';
+      }else {
+        evt.currentTarget.style.backgroundColor =  'white';
+      };
+    };
+    
+    
+  };
+
   const ModalPersonalToggle = () => {
     // open personal messages modal window
     setModalPersonalToggle(value => !value);
@@ -606,13 +642,23 @@ const SharedLayout = () => {
   };
 
   const personalMessageHandler = () => {
-   
-
+    
     if(selectorVisibilityLog) {
-     
+
+      // messages count 0, while companion doesn't selected
+      // dispatch(change({ operation: 'changePersonalMessagesBuffer', data: {}}));
+
       ModalPersonalToggle();
 
     }
+
+  };
+
+  const togglePersoneBlock = (evt) => {
+
+    setCompamionOpen({...companionOpen, [evt.currentTarget.id]: !companionOpen[evt.currentTarget.id]});
+    // write selected person
+    dispatch(change({operation: 'changeSelectedPerson', data: evt.currentTarget.id}));
 
   };
 
@@ -719,14 +765,18 @@ const SharedLayout = () => {
 
             {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
               <div>
-                <ul>
+                <ul className={sh.personlist}>
                     {
-                       Object.keys(selectorGallSlice.personalMessagesBuffer).map(value => {
-                         return <li key={nanoid()}>
+                      Object.keys(selectorGallSlice.personalMessagesBuffer).map(value => {
+                        return <li key={nanoid()}>
+                          <div className={sh.personblock} id={value} onMouseOver={changeCompanionOver} onMouseOut={changeCompanionOut} style={selectorGallSlice.dayNight ? companionOpen[value] ? 
+                          {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)',} : {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83',} :
+                           companionOpen[value] ? {backgroundColor: 'lightgray', color: 'white',} : {backgroundColor: 'white', color: '#384a83',}} onClick={togglePersoneBlock}>
                             <img src={selectorGallSlice.users.find(element => element.uid === value).urlFoto} style={{width: '45px', height: '45px', borderRadius: '50px',}} alt='user foto'></img>
                             <p>{selectorGallSlice.users.find(element => element.uid === value).userName}</p>
+                          </div>
                          </li>
-                       }) 
+                      }) 
                     }
                 </ul>
               </div>          
