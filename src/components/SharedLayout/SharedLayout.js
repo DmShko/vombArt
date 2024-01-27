@@ -114,7 +114,7 @@ const SharedLayout = () => {
   const selectorDelAccount = useSelector(state => state.deleteAccount);
 
   useEffect(() => {
-    // generate 'menu' user click status array for drive angel mode and open user information menu
+    
     Object.keys(selectorGallSlice.personalMessagesBuffer).forEach(element => {
       setCompamionOpen({...companionOpen, [element]: false});
     });
@@ -157,7 +157,7 @@ const SharedLayout = () => {
 
     }
 
-  },[selectorGallSlice.selectedPerson, companionOpen]);
+  },[selectorGallSlice.selectedPerson, companionOpen, modalPersonalToggle]);
 
   // add to users user account foto link for community section
   useEffect(() => {
