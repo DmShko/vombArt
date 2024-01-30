@@ -3,6 +3,7 @@ import { Suspense, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useSpring, animated } from '@react-spring/web'
 
 
 import { Tooltip } from 'react-tooltip'
@@ -98,6 +99,16 @@ const SharedLayout = () => {
   const [modalPersonalToggle, setModalPersonalToggle] = useState(false); 
   const [companionOpen, setCompamionOpen] = useState({});
 
+  const spring = useSpring({
+
+    loop: true,
+    from: { transform: 'rotateX(0)',},
+    to: [{ transform: 'perspective(70px) rotateX(-45deg)',}, 
+     { transform: 'perspective(70px) rotateX(45deg)',},
+    { transform: 'perspective(70px) rotateX(0)',},],
+    config: {duration : 700, friction: 300,},
+  })
+
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
   const dispatch = useDispatch();
@@ -120,6 +131,35 @@ const SharedLayout = () => {
     });
     
   },[selectorGallSlice.users]);
+
+  // 'personalMessagesBuffer' loaded create personalNewMessagesBuffer
+  useEffect(() => {
+
+    let unreadMessages = {};
+    let tempUnreadMessages = [];
+    let unreadPerson = [];
+    
+    if(Object.keys(selectorGallSlice.personalMessagesBuffer).length !== 0) {
+      for(const key in selectorGallSlice.personalMessagesBuffer) {
+
+          tempUnreadMessages = [];
+
+          for(let p = 0; p < selectorGallSlice.personalMessagesBuffer[key].length; p += 1) {
+         
+              if(selectorGallSlice.personalMessagesBuffer[key][p].unread === true) {
+                tempUnreadMessages.push(selectorGallSlice.personalMessagesBuffer[key][p].id);
+                unreadPerson = [...unreadPerson, key]
+              };
+          };
+
+          // only person with unread messages
+          if(unreadPerson.includes(key)) unreadMessages = {...unreadMessages, [key]: tempUnreadMessages};
+      };
+    }
+
+    dispatch(change({ operation: 'changePersonalNewMessagesBuffer', data: unreadMessages }));
+    
+  },[selectorGallSlice.personalMessagesBuffer]);
 
   useEffect(() => {
 
@@ -737,8 +777,11 @@ const SharedLayout = () => {
                     </ul>
                 
                    <DayNight />
-
-                   {selectorVisibilityLog && <OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'goldenrod'}}/> }
+                   
+                   {selectorVisibilityLog ? Object.keys(selectorGallSlice.personalNewMessagesBuffer).length === 0 ?
+                    <OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'goldenrod'}}/> :
+                     <animated.div style={spring}><OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'goldenrod'}}/></animated.div> : ''
+                   }
 
                    {selectorVisibilityLog === false ? <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
@@ -768,6 +811,7 @@ const SharedLayout = () => {
             </header>
 
             {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
+
               <div>
                 <ul className={sh.personlist}>
                     {
@@ -778,7 +822,8 @@ const SharedLayout = () => {
                            companionOpen[value] ? {backgroundColor: 'lightgray', color: 'white', border: 'none',} : {backgroundColor: 'white', color: '#384a83',}} onClick={togglePersoneBlock}>
                             <img src={selectorGallSlice.users.find(element => element.uid === value).urlFoto} style={{width: '40px', height: '40px', borderRadius: '50px',}} alt='user foto'></img>
                             <p>{selectorGallSlice.users.find(element => element.uid === value).userName}</p>
-                            <OpenMessageImg style={{width: '30px', height: '30px', }}/>
+                            {Object.keys(selectorGallSlice.personalNewMessagesBuffer).includes(value) ? <OwnMessageImg style={{width: '30px', height: '30px', fill: 'goldenrod'}}/>
+                            : <OpenMessageImg style={{width: '30px', height: '30px',}}/>}
                           </div>
                          </li>
                       }) 

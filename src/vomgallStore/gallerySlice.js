@@ -6,6 +6,7 @@ const galleryInitialState = {
   personal: {sex: '', age: '', phone: ''},
   itemsBuffer: null,
   personalMessagesBuffer: {},
+  personalNewMessagesBuffer: {},
   selectedPerson: '',
   messagesBuffer: [],
   itemsMessagesBuffer: [],
@@ -137,6 +138,12 @@ const gallerySlice = createSlice({
             break;
           case 'deletePersonalMessagesBuffer':
             state.personalMessagesBuffer[action.payload.userArray] = state.personalMessagesBuffer[action.payload.userArray].filter(element => element.id !== action.payload.data);
+            break;
+          case 'changePersonalNewMessagesBuffer':
+            state.personalNewMessagesBuffer = action.payload.data;
+            break;
+          case 'deletePersonalNewMessagesBuffer':
+            state.personalNewMessagesBuffer[action.payload.userArray] = state.personalNewMessagesBuffer[action.payload.userArray].filter(element => element.id !== action.payload.data);
             break;
           case 'changeSelectedPerson':
             state.selectedPerson = action.payload.data;

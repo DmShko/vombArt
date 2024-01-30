@@ -257,9 +257,9 @@ const MageChat = () => {
         const personPath = `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}/personalChat/${selectorSingInSlice.singInId}/${messageId}`;
         // to database
         // write to current user
-        writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+        writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message, unread: true,}, tick(), false);
         // write to person
-        writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message,}, tick(), false);
+        writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message, unread: true,}, tick(), false);
 
         reset({Message: '', });
 
@@ -278,7 +278,7 @@ const MageChat = () => {
             timeAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).time, 
             nameAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).name,
             secondsAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).second, 
-            message: message, answerStatus: true}, tick(), false);
+            message: message, answerStatus: true, unread: true,}, tick(), false);
         // write to person
         writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`,
             messageAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).message, 
@@ -286,7 +286,7 @@ const MageChat = () => {
             timeAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).time, 
             nameAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).name,
             secondsAnswer: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].find(element => element.id === selectorGallerySlice.answerId).second,
-            message: message, answerStatus: true}, tick(), false);
+            message: message, answerStatus: true, unread: true,}, tick(), false);
 
         dispatch(change({ operation: 'updateAnswerId', data: '' }));
 
