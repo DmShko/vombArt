@@ -107,6 +107,7 @@ const SharedLayout = () => {
      { transform: 'perspective(70px) rotateX(45deg)',},
     { transform: 'perspective(70px) rotateX(0)',},],
     config: {duration : 700, friction: 300,},
+
   })
 
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
@@ -139,17 +140,22 @@ const SharedLayout = () => {
     let tempUnreadMessages = [];
     let unreadPerson = [];
     
-    if(Object.keys(selectorGallSlice.personalMessagesBuffer).length !== 0) {
+    if(selectorSingIn.isSingIn && Object.keys(selectorGallSlice.personalMessagesBuffer).length !== 0) {
       for(const key in selectorGallSlice.personalMessagesBuffer) {
 
           tempUnreadMessages = [];
 
           for(let p = 0; p < selectorGallSlice.personalMessagesBuffer[key].length; p += 1) {
-         
-              if(selectorGallSlice.personalMessagesBuffer[key][p].unread === true) {
-                tempUnreadMessages.push(selectorGallSlice.personalMessagesBuffer[key][p].id);
-                unreadPerson = [...unreadPerson, key]
-              };
+            
+           
+            if(selectorGallSlice.personalMessagesBuffer[key][p].name !== selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName
+              && selectorGallSlice.personalMessagesBuffer[key][p].unread === true ) {
+
+              tempUnreadMessages.push(selectorGallSlice.personalMessagesBuffer[key][p].id);
+              unreadPerson = [...unreadPerson, key]
+
+            };
+              
           };
 
           // only person with unread messages
@@ -694,6 +700,30 @@ const SharedLayout = () => {
 
   const togglePersoneBlock = (evt) => {
 
+    // clear newMessages flag
+    if(Object.keys(selectorGallSlice.personalNewMessagesBuffer.length !== 0) && Object.keys(selectorGallSlice.personalMessagesBuffer).length !== 0) {
+      
+      for(const key in selectorGallSlice.personalNewMessagesBuffer) {
+
+          for(let p = 0; p < selectorGallSlice.personalNewMessagesBuffer[key].length; p += 1) {
+
+            writeUserData(
+              `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/personalChat/${key}/${selectorGallSlice.personalNewMessagesBuffer[key][p]}`,
+              {...selectorGallSlice.personalMessagesBuffer[key][p], unread: false,},
+              null, true
+            );
+              
+              // selectorGallSlice.personalMessagesBuffer[key].find(element => element.id === 
+              //   selectorGallSlice.personalNewMessagesBuffer[key][p]).unread = false;
+          };
+
+      };
+
+    }
+
+    // clear newMessages array
+    dispatch(change({ operation: 'changePersonalNewMessagesBuffer', data: {} }));
+
     Object.keys(companionOpen).forEach(element => {
 
       if(companionOpen[element]) companionOpen[element] = false;
@@ -779,7 +809,7 @@ const SharedLayout = () => {
                    <DayNight />
                    
                    {selectorVisibilityLog ? Object.keys(selectorGallSlice.personalNewMessagesBuffer).length === 0 ?
-                    <OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'goldenrod'}}/> :
+                    <OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'transparent',}}/> :
                      <animated.div style={spring}><OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'goldenrod'}}/></animated.div> : ''
                    }
 
