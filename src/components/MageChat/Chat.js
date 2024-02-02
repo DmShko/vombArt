@@ -106,36 +106,54 @@ const MageChat = () => {
       for(let iteration = 0; iteration < data.length; iteration += 1) {
         
         for(let current = 0; current < unSortedMessages.length; current += 1) {
-          // next element fresh fresh if his data > (compare with current) etc...
-          if(Number(freshMessage.date.split('/')[0]) < Number(unSortedMessages[current].date.split('/')[0])) {
+
+          if(Number(freshMessage.date.split('/')[2]) < Number(unSortedMessages[current].date.split('/')[2])) {
             freshMessage = unSortedMessages[current];
             continue;
-          };
+          }
 
-          if(Number(freshMessage.date.split('/')[0]) === Number(unSortedMessages[current].date.split('/')[0])) {
-            
-            if(Number(freshMessage.time.split(':')[0]) < Number(unSortedMessages[current].time.split(':')[0])) {
+          if(Number(freshMessage.date.split('/')[2]) === Number(unSortedMessages[current].date.split('/')[2])) {
+
+            if(Number(freshMessage.date.split('/')[1]) < Number(unSortedMessages[current].date.split('/')[1])) {
               freshMessage = unSortedMessages[current];
               continue;
             }
 
-            if(Number(freshMessage.time.split(':')[0]) === Number(unSortedMessages[current].time.split(':')[0])) {
-              
-              if(Number(freshMessage.time.split(':')[1]) < Number(unSortedMessages[current].time.split(':')[1])) {
+            if(Number(freshMessage.date.split('/')[1]) === Number(unSortedMessages[current].date.split('/')[1])) {
+
+              // next element fresh fresh if his data > (compare with current) etc...
+              if(Number(freshMessage.date.split('/')[0]) < Number(unSortedMessages[current].date.split('/')[0])) {
                 freshMessage = unSortedMessages[current];
                 continue;
-              }
-              if(Number(freshMessage.time.split(':')[1]) === Number(unSortedMessages[current].time.split(':')[1])) {
-            
-                if(Number(freshMessage.second) < Number(unSortedMessages[current].second)) {
-                  
+              };
+
+              if(Number(freshMessage.date.split('/')[0]) === Number(unSortedMessages[current].date.split('/')[0])) {
+                
+                if(Number(freshMessage.time.split(':')[0]) < Number(unSortedMessages[current].time.split(':')[0])) {
                   freshMessage = unSortedMessages[current];
                   continue;
                 }
-              }
-              continue;
-            };
 
+                if(Number(freshMessage.time.split(':')[0]) === Number(unSortedMessages[current].time.split(':')[0])) {
+                  
+                  if(Number(freshMessage.time.split(':')[1]) < Number(unSortedMessages[current].time.split(':')[1])) {
+                    freshMessage = unSortedMessages[current];
+                    continue;
+                  }
+                  if(Number(freshMessage.time.split(':')[1]) === Number(unSortedMessages[current].time.split(':')[1])) {
+                
+                    if(Number(freshMessage.second) < Number(unSortedMessages[current].second)) {
+                      
+                      freshMessage = unSortedMessages[current];
+                      continue;
+                    }
+                  }
+                  continue;
+                };
+              }
+
+
+            }
           }
         }
       // write new fresh element to sort array
