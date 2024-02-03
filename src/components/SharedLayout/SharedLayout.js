@@ -102,10 +102,10 @@ const SharedLayout = () => {
   const spring = useSpring({
 
     loop: true,
-    from: { transform: 'rotateX(0)',},
-    to: [{ transform: 'perspective(70px) rotateX(-45deg)',}, 
-     { transform: 'perspective(70px) rotateX(45deg)',},
-    { transform: 'perspective(70px) rotateX(0)',},],
+    from: { transform: 'rotateY(0)',},
+    to: [{ transform: 'perspective(70px) rotateY(-45deg)',}, 
+     { transform: 'perspective(70px) rotateY(45deg)',},
+    { transform: 'perspective(70px) rotateY(0)',},],
     config: {duration : 700, friction: 300,},
 
   })
@@ -204,6 +204,13 @@ const SharedLayout = () => {
     }
 
   },[selectorGallSlice.selectedPerson, companionOpen, modalPersonalToggle]);
+
+  // unselect person when modal window closed
+  useEffect(() => {
+
+    if(selectorGallSlice.selectedPerson === '') setCompamionOpen({}); 
+
+  },[selectorGallSlice.selectedPerson]);
 
   // add to users user account foto link for community section
   useEffect(() => {
@@ -709,12 +716,10 @@ const SharedLayout = () => {
 
             writeUserData(
               `${selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}/personalChat/${key}/${selectorGallSlice.personalNewMessagesBuffer[key][p]}`,
-              {...selectorGallSlice.personalMessagesBuffer[key][p], unread: false,},
+              {...selectorGallSlice.personalMessagesBuffer[key].find(element => element.id === selectorGallSlice.personalNewMessagesBuffer[key][p]), unread: false,},
               null, true
             );
-              
-              // selectorGallSlice.personalMessagesBuffer[key].find(element => element.id === 
-              //   selectorGallSlice.personalNewMessagesBuffer[key][p]).unread = false;
+                
           };
 
       };

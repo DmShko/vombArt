@@ -72,7 +72,7 @@ const MageChat = () => {
     // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
     if(selectorGallerySlice.itemsMessagesBuffer !== undefined && messageBlock.current !== null){
     
-      if(selectorGallerySlice.itemMesBuffLength !== selectorGallerySlice.itemsMessagesBuffer.length && selectorGallerySlice.itemsMessagesBuffer.length != 0) {
+      if(selectorGallerySlice.itemMesBuffLength !== selectorGallerySlice.itemsMessagesBuffer.length && selectorGallerySlice.itemsMessagesBuffer.length !== 0) {
          
         dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
 
@@ -275,7 +275,7 @@ const MageChat = () => {
         const personPath = `${selectorGallerySlice.users.find(element => element.uid === selectorGallerySlice.selectedPerson).userName}/personalChat/${selectorSingInSlice.singInId}/${messageId}`;
         // to database
         // write to current user
-        writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message, unread: true,}, tick(), false);
+        writeUserData(myPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message, unread: false,}, tick(), false);
         // write to person
         writeUserData(personPath, {name: `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}`, message: message, unread: true,}, tick(), false);
 
