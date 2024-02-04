@@ -133,7 +133,31 @@ const Users = () => {
     return onlineCount;
   };
 
-  const totalView = () => {
+  const styleLikes = () => {
+
+    let total = 0;
+    
+    if(selectorExistUsersList.itemsBuffer.length !== 0) {
+
+      for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
+        
+        for(const key in selectorExistUsersList.heartsStatistic) {
+          if(selectorExistUsersList.heartsStatistic[key].includes(selectorExistUsersList.itemsBuffer[v].id))
+        total += 1;
+        }
+        
+      }
+    }
+
+    if(total !== 0) {
+      return total.toString();
+    }else {
+      return '';
+    };
+    
+  };
+
+  const styleView = () => {
 
     let total = 0;
     
@@ -154,7 +178,7 @@ const Users = () => {
     
   };
 
-  const totalLevel = () => {
+  const styleLevel = () => {
 
     let total = 0;
 
@@ -239,10 +263,9 @@ const Users = () => {
                   {selectorExistUsersList.users !== undefined && selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto === '' ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
                    <img src={`${selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style level:</p> <p>{totalLevel()}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style views:</p> <p>{totalView()}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style likes:</p> <p>{selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorExistUsersList.users.find(element => element.userName === value.userName).uid] !== undefined ?
-                     selectorExistUsersList.heartsStatistic[selectorExistUsersList.users.find(element => element.userName === value.userName).uid].length : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style level:</p> <p>{styleLevel()}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style views:</p> <p>{styleView()}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style likes:</p> <p>{styleLikes()}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Sex:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Age:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Phone number:</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkPhone ? selectorExistUsersList.personal.phone : ''}</p></div>
@@ -250,7 +273,7 @@ const Users = () => {
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Here with:</p></div>
                   </div>
         
-                   { selectorVisibilityLog.singInId !== value.uid ? <OwnMessageImg style={{width: '30px', height: '30px',}} id={value.uid} name={'ownMessage'} onClick={personalMessageHandler}/> : ''}
+                   { selectorVisibilityLog.singInId !== value.uid ? <OwnMessageImg style={{width: '30px', height: '30px', cursor: 'pointer',}} id={value.uid} name={'ownMessage'} onClick={personalMessageHandler}/> : ''}
                  
                 </div> : ''}
             </div>

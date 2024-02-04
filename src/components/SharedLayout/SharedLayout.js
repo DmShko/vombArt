@@ -814,8 +814,8 @@ const SharedLayout = () => {
                    <DayNight />
                    
                    {selectorVisibilityLog ? Object.keys(selectorGallSlice.personalNewMessagesBuffer).length === 0 ?
-                    <OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'transparent',}}/> :
-                     <animated.div style={spring}><OwnMessageImg  onClick={personalMessageHandler} style={{width: '30px', height: '30px', fill: 'goldenrod'}}/></animated.div> : ''
+                    <OwnMessageImg  onClick={personalMessageHandler} style={{width: '35px', height: '35px', fill: 'lightgray', cursor: 'pointer',}}/> :
+                     <animated.div style={spring}><OwnMessageImg  onClick={personalMessageHandler} style={{width: '35px', height: '35px', fill: 'goldenrod', cursor: 'pointer',}}/></animated.div> : ''
                    }
 
                    {selectorVisibilityLog === false ? <ul className={sh.list}>
