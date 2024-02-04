@@ -136,35 +136,43 @@ const Users = () => {
   const totalView = () => {
 
     let total = 0;
+    
+    if(selectorExistUsersList.itemsBuffer.length !== 0) {
 
-    if(Object.keys(selectorExistUsersList.viewsStatistic).length !== 0) {
+      for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
 
-      for(const key in selectorExistUsersList.viewsStatistic) {
-        total += selectorExistUsersList.viewsStatistic[key];
+        total += selectorExistUsersList.viewsStatistic[selectorExistUsersList.itemsBuffer[v].id];
+       
       }
     }
 
-    return total.toString();
+    if(total !== 0) {
+      return total.toString();
+    }else {
+      return '';
+    };
+    
   };
 
   const totalLevel = () => {
 
     let total = 0;
 
-    if(Object.keys(selectorExistUsersList.levelStatistic).length !== 0) {
+    if(selectorExistUsersList.itemsBuffer.length !== 0) {
 
-      for(const key in selectorExistUsersList.levelStatistic) {
-        total += selectorExistUsersList.levelStatistic[key];
+      for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
+        
+        total += selectorExistUsersList.levelStatistic[selectorExistUsersList.itemsBuffer[v].id];
+       
       }
 
       if(total !== 0) {
-         return total / selectorExistUsersList.itemsBuffer.length;
+        return (total / selectorExistUsersList.itemsBuffer.length).toString();
       }else {
-        return 0;
+       return '';
       };
-     
-    }
- 
+
+    } 
   };
 
   const inputSearch = (evt) => {
@@ -231,9 +239,9 @@ const Users = () => {
                   {selectorExistUsersList.users !== undefined && selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto === '' ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
                    <img src={`${selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total level:</p> <p>{totalLevel()}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total views:</p> <p>{totalView()}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Total likes:</p> <p>{selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorExistUsersList.users.find(element => element.userName === value.userName).uid] !== undefined ?
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style level:</p> <p>{totalLevel()}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style views:</p> <p>{totalView()}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style likes:</p> <p>{selectorVisibilityLog.singInId && selectorExistUsersList.heartsStatistic[selectorExistUsersList.users.find(element => element.userName === value.userName).uid] !== undefined ?
                      selectorExistUsersList.heartsStatistic[selectorExistUsersList.users.find(element => element.userName === value.userName).uid].length : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Sex:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Age:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>

@@ -203,7 +203,7 @@ const SharedLayout = () => {
 
     }
 
-  },[selectorGallSlice.selectedPerson, companionOpen, modalPersonalToggle]);
+  },[selectorGallSlice.selectedPerson, companionOpen, modalPersonalToggle, selectorGallSlice.users]);
 
   // unselect person when modal window closed
   useEffect(() => {
