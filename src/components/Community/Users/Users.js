@@ -137,28 +137,34 @@ const Users = () => {
 
     let total = 0;
 
-    if(selectorExistUsersList.itemsBuffer !== null) {
-      for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
-        
-        total += selectorExistUsersList.viewsStatistic[selectorExistUsersList.itemsBuffer[v].id];
+    if(Object.keys(selectorExistUsersList.viewsStatistic).length !== 0) {
+
+      for(const key in selectorExistUsersList.viewsStatistic) {
+        total += selectorExistUsersList.viewsStatistic[key];
       }
     }
-  
-    return total;
+
+    return total.toString();
   };
 
   const totalLevel = () => {
 
     let total = 0;
 
-    if(selectorExistUsersList.itemsBuffer !== null) {
-      for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
-      total += selectorExistUsersList.levelStatistic[selectorExistUsersList.itemsBuffer[v].id];
-      return total / selectorExistUsersList.itemsBuffer.length;
-    }
-    }
-    
+    if(Object.keys(selectorExistUsersList.levelStatistic).length !== 0) {
 
+      for(const key in selectorExistUsersList.levelStatistic) {
+        total += selectorExistUsersList.levelStatistic[key];
+      }
+
+      if(total !== 0) {
+         return total / selectorExistUsersList.itemsBuffer.length;
+      }else {
+        return 0;
+      };
+     
+    }
+ 
   };
 
   const inputSearch = (evt) => {

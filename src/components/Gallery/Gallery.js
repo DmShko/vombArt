@@ -39,7 +39,7 @@ const Gallery = () => {
   const selectorItemsUrl = useSelector(state => state.readStorage);
   const pathSelector = selectorUserPath.logicPath;
 
-  const [drawVisible, setDrawVisible] = useState(true);
+  const [drawVisible, setDrawVisible] = useState(false);
   const [musicVisible, setMusicVisible] = useState(false);
   const [liricsVisible, setLiricsVisible] = useState(false);
  
@@ -444,21 +444,77 @@ const Gallery = () => {
      
   },[selectorItemsUrl.itemsURL]);
 
+
+  //change logicPath
+  useEffect(() => {
+
+    if(drawVisible) {
+
+      // reset styles
+      for(const key in selectorUserPath.logicPath.style) {
+
+        dispatch(changePath({changeElement: `style.${key}`, data: false}));
+        
+      };
+
+      // highlite active button off
+      dispatch(change({ operation: 'changeColorActive', data: ''}));
+
+      dispatch(changePath({ changeElement: 'arts.draw', data: true }));
+
+      // reset another value
+      dispatch(changePath({ changeElement: 'arts.lirics', data: false }));
+      dispatch(changePath({ changeElement: 'arts.music', data: false }));
+
+    };
+
+    if(musicVisible) {
+
+      // reset styles
+      for(const key in selectorUserPath.logicPath.style) {
+
+        dispatch(changePath({changeElement: `style.${key}`, data: false}));
+        
+      };
+
+      // highlite active button off
+      dispatch(change({ operation: 'changeColorActive', data: ''}));
+
+      dispatch(changePath({ changeElement: 'arts.music', data: true }));
+
+      // reset another value
+      dispatch(changePath({ changeElement: 'arts.lirics', data: false }));
+      dispatch(changePath({ changeElement: 'arts.draw', data: false }));
+
+    };
+
+    if(liricsVisible) {
+
+      // reset styles
+      for(const key in selectorUserPath.logicPath.style) {
+
+      dispatch(changePath({changeElement: `style.${key}`, data: false}));
+  
+      };
+
+      // highlite active button off
+      dispatch(change({ operation: 'changeColorActive', data: ''}));
+
+      dispatch(changePath({ changeElement: 'arts.lirics', data: true }));
+
+      // reset another value
+      dispatch(changePath({ changeElement: 'arts.music', data: false }));
+      dispatch(changePath({ changeElement: 'arts.draw', data: false }));
+
+    };
+
+  },[drawVisible, musicVisible, liricsVisible]);
+
   // handler arts button click
   const clickButtonArts = ({ currentTarget }) => {
 
     switch (currentTarget.name) {
       case 'Lirics':
-
-        // reset styles
-        for(const key in selectorUserPath.logicPath.style) {
-
-          dispatch(changePath({changeElement: `style.${key}`, data: false}));
-          
-        };
-
-        // highlite active button off
-        dispatch(change({ operation: 'changeColorActive', data: ''}));
 
         // visibility 'Lirics' on
         setLiricsVisible(true);
@@ -466,24 +522,9 @@ const Gallery = () => {
         // visibility ather reset
         setDrawVisible(false);
         setMusicVisible(false);
-
-        dispatch(changePath({ changeElement: 'arts.lirics', data: true }));
-
-        // reset another value
-        dispatch(changePath({ changeElement: 'arts.music', data: false }));
-        dispatch(changePath({ changeElement: 'arts.draw', data: false }));
+        
         break;
       case 'Music':
-
-        // reset styles
-        for(const key in selectorUserPath.logicPath.style) {
-
-          dispatch(changePath({changeElement: `style.${key}`, data: false}));
-          
-        };
-
-        // highlite active button off
-        dispatch(change({ operation: 'changeColorActive', data: ''}));
 
         // visibility 'Music' on
         setMusicVisible(true);
@@ -491,25 +532,10 @@ const Gallery = () => {
         // visibility ather reset
         setDrawVisible(false);
         setLiricsVisible(false);
-
-        dispatch(changePath({ changeElement: 'arts.music', data: true }));
-
-        // reset another value
-        dispatch(changePath({ changeElement: 'arts.lirics', data: false }));
-        dispatch(changePath({ changeElement: 'arts.draw', data: false }));
+        
         break;
       case 'Drawing':
 
-        // reset styles
-        for(const key in selectorUserPath.logicPath.style) {
-
-          dispatch(changePath({changeElement: `style.${key}`, data: false}));
-          
-        };
-
-        // highlite active button off
-        dispatch(change({ operation: 'changeColorActive', data: ''}));
-        
         // visibility 'Drawing' on
         setDrawVisible(true);
 
@@ -517,11 +543,6 @@ const Gallery = () => {
         setMusicVisible(false);
         setLiricsVisible(false);
 
-        dispatch(changePath({ changeElement: 'arts.draw', data: true }));
-
-        // reset another value
-        dispatch(changePath({ changeElement: 'arts.lirics', data: false }));
-        dispatch(changePath({ changeElement: 'arts.music', data: false }));
         break;
       default:
         break;
@@ -804,7 +825,7 @@ const Gallery = () => {
             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Style</p> : <p>Styles</p>}
           </p>
           <ul className={ga.style} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray',} : {borderColor: ''}}>
-            {drawVisible 
+            {selectorUserPath.logicPath.arts['draw'] 
               ? selectorGallSlice.users
                   .find(value => value.userName === selectorUserPath.logicPath.name)
                   .arts.draw.style.map(value => (
@@ -840,7 +861,7 @@ const Gallery = () => {
                     </li>
                   ))
               : ''}
-            {musicVisible
+            {selectorUserPath.logicPath.arts['music'] 
               ? selectorGallSlice.users
                   .find(value => value.userName === selectorUserPath.logicPath.name)
                   .arts.music.style.map(value => (
@@ -871,7 +892,7 @@ const Gallery = () => {
                   ))
               : ''}
 
-            {liricsVisible
+            {selectorUserPath.logicPath.arts['lirics'] 
               ? selectorGallSlice.users
                   .find(value => value.userName === selectorUserPath.logicPath.name)
                   .arts.lirics.style.map(value => (

@@ -16,7 +16,7 @@ const MessageCleaner = () => {
 
     // for messagesBuffer
 
-    if(selectorGallSlice.messagesBuffer.length !== 0)
+    if(selectorGallSlice.messagesBuffer.length !== 0) {
 
       selectorGallSlice.messagesBuffer.forEach(element => {
         // check message mounth is equal current mounth
@@ -58,55 +58,106 @@ const MessageCleaner = () => {
         }
         
       });
-      
+    };
+    // eslint-disable-next-line  
   }, [selectorGallSlice.messagesBuffer]);
 
   useEffect(() => {
 
     // for itemsMessagesBuffer
 
-    if(selectorGallSlice.itemsMessagesBuffer.length !== 0)
+    if(selectorGallSlice.itemsMessagesBuffer.length !== 0) {
 
-    selectorGallSlice.itemsMessagesBuffer.forEach(element => {
-      if(Number(selectorGallSlice.date.split('/')[1]) === Number(element.date.split('/')[1])) {
+      selectorGallSlice.itemsMessagesBuffer.forEach(element => {
+        if(Number(selectorGallSlice.date.split('/')[1]) === Number(element.date.split('/')[1])) {
 
-        if(Number(selectorGallSlice.date.split('/')[0]) - Number(element.date.split('/')[0]) > 2) {
+          if(Number(selectorGallSlice.date.split('/')[0]) - Number(element.date.split('/')[0]) > 2) {
+            
+            dispatch(change({ operation: 'deleteMessage', data: element.id }));
+      
+            const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallSlice.users, userIsSingInId: selectorSingInSlice.singInId});
           
-          dispatch(change({ operation: 'deleteMessage', data: element.id }));
-    
-          const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallSlice.users, userIsSingInId: selectorSingInSlice.singInId});
-        
-          // delete message from DB (write 'null')
-          writeUserData(
-            `${path}${element.id}`,
-            null,
-            selectorGallSlice.date, true
-          );
+            // delete message from DB (write 'null')
+            writeUserData(
+              `${path}${element.id}`,
+              null,
+              selectorGallSlice.date, true
+            );
+
+          }
+
+        }else {
+
+          if(31 - Number(element.date.split('/')[0]) + Number(selectorGallSlice.date.split('/')[0]) > 2) {
+          
+            dispatch(change({ operation: 'deleteMessage', data: element.id }));
+      
+            const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallSlice.users, userIsSingInId: selectorSingInSlice.singInId});
+          
+            // delete message from DB (write 'null')
+            writeUserData(
+              `${path}${element.id}`,
+              null,
+              selectorGallSlice.date, true
+            );
+
+          }
 
         }
-
-      }else {
-
-        if(31 - Number(element.date.split('/')[0]) + Number(selectorGallSlice.date.split('/')[0]) > 2) {
-         
-          dispatch(change({ operation: 'deleteMessage', data: element.id }));
-    
-          const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallSlice.users, userIsSingInId: selectorSingInSlice.singInId});
         
-          // delete message from DB (write 'null')
-          writeUserData(
-            `${path}${element.id}`,
-            null,
-            selectorGallSlice.date, true
-          );
-
-        }
-
-      }
-      
-    });
-      
+      });
+    };
+      // eslint-disable-next-line
   }, [selectorGallSlice.itemsMessagesBuffer]);
+
+  useEffect(() => {
+
+    // for personalMessagesBuffer
+
+    if(Object.keys(selectorGallSlice.personalMessagesBuffer).length !== 0) {
+
+      for(const key in selectorGallSlice.personalMessagesBuffer)
+        selectorGallSlice.personalMessagesBuffer[key].forEach(element => {
+          if(Number(selectorGallSlice.date.split('/')[1]) === Number(element.date.split('/')[1])) {
+
+            if(Number(selectorGallSlice.date.split('/')[0]) - Number(element.date.split('/')[0]) > 2) {
+              
+              dispatch(change({ operation: 'deleteMessage', data: element.id }));
+        
+              const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallSlice.users, userIsSingInId: selectorSingInSlice.singInId});
+            
+              // delete message from DB (write 'null')
+              writeUserData(
+                `${path}${element.id}`,
+                null,
+                selectorGallSlice.date, true
+              );
+
+            }
+
+          }else {
+
+            if(31 - Number(element.date.split('/')[0]) + Number(selectorGallSlice.date.split('/')[0]) > 2) {
+            
+              dispatch(change({ operation: 'deleteMessage', data: element.id }));
+        
+              const path = pathCreator({pathSelector, section: 'chats', contents: 'messages', write: false, users: selectorGallSlice.users, userIsSingInId: selectorSingInSlice.singInId});
+            
+              // delete message from DB (write 'null')
+              writeUserData(
+                `${path}${element.id}`,
+                null,
+                selectorGallSlice.date, true
+              );
+
+            }
+
+          }
+          
+        });
+    };
+      // eslint-disable-next-line
+  }, [selectorGallSlice.personalMessagesBuffer]);
 
   return (
     <div>
