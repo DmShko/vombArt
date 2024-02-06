@@ -936,11 +936,11 @@ const Gallery = () => {
             <p className={ga.title} ></p> <p style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? 
               selectorGallSlice.settings.languageSelector === 'English' ? `total ${selectorGallSlice.itemsBuffer.length} pcs` : 
               selectorGallSlice.settings.languageSelector === 'Українська' ? `всього ${selectorGallSlice.itemsBuffer.length} шт` : 
-              selectorGallSlice.settings.languageSelector === 'Polska' ? `razem ${selectorGallSlice.itemsBuffer.length} szt` : 'Total'`${selectorGallSlice.itemsBuffer.length} pcs`:
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `razem ${selectorGallSlice.itemsBuffer.length} szt` : 'total'`${selectorGallSlice.itemsBuffer.length} pcs`:
 
-              selectorGallSlice.settings.languageSelector === 'English' ? `total 0 pcs` : 
-              selectorGallSlice.settings.languageSelector === 'Українська' ? `всього 0 шт` : 
-              selectorGallSlice.settings.languageSelector === 'Polska' ? `razem 0 szt` : 'Total'`${selectorGallSlice.itemsBuffer.length} pcs`}</p>
+              selectorGallSlice.settings.languageSelector === 'English' ? 'empty' : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? `порожньо` : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `pusty` : 'empty'}</p>
             
           </div>
           
