@@ -1,7 +1,7 @@
   .animaSection {
     perspective: 1000px;
     perspective-origin: center; 
-
+    
     margin-bottom: 20px;
   }
   
@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    // gap: 30px;
   
     width: 100%;
     // max-width: calc(100vw / 2);
@@ -30,7 +30,7 @@
   
       font-size: 34px;
       background: none;
-      min-width: 100px;
+      min-width: fit-content;
       height: 50px;
       border-radius: 4px;
       
@@ -112,7 +112,7 @@
   
       font-size: 34px;
       background: none;
-      min-width: 100px;
+      min-width: fit-content;
       height: 50px;
       border-radius: 4px;
       margin-left: auto;
@@ -135,3 +135,16 @@
 
       margin-bottom: 20px;
   }
+
+//******************************@media rules************************************
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+ 
+}
+
+//-------------------min-width: 1440px----------------------------
+@media screen and (min-width: 1440px) {
+  
+}
+//******************************end************************************

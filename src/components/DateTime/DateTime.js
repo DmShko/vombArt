@@ -59,10 +59,6 @@ const DateTime = () => {
                     <p className={ti.animaDateText}>{newDateObj.length !== 0 && newDateObj.datedata}</p>
                 </div>
 
-                {/* <div className={ti.timeProgress} style={{borderImage: `conic-gradient(var(--main-text-color) ${(360/60) * (newDateObj.dateSeconds || 60)}deg, rgba(255, 255, 255, 0.5) 0deg)`}}>
-                            
-                </div> */}
-
                 <div className={ti.animaTime} style={{backgroundImage: `conic-gradient(var(--main-text-color) ${(360/60) * (newDateObj.dateSeconds || 60)}deg, white 0deg)`}}>
                     <p className={ti.animaTimeText} >{newDateObj.length !== 0 && newDateObj.timedata}</p>
                 </div>

@@ -1,11 +1,11 @@
 @import './nullStyles.scss';
 
-%linktemp{
-    display: flex;
-    flex-direction: row;
+// %linktemp{
+//     display: flex;
+//     flex-direction: row;
 
-    color: white;
-}
+//     color: white;
+// }
 
 .header {
 
@@ -23,9 +23,11 @@
     border-bottom: 1px solid rgba(139, 139, 139, 0.7);
 
     box-shadow: inset 0 0 7px #b6b5b5, 0px 2px 1px rgba(16, 16, 24, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
-   
-    .pageNav {
 
+    .pageNav {
+        
+        visibility: visible;
+        
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -47,23 +49,70 @@
         }
 
         .home {
+
+            font-size: 20px;
             font-family: 'Agbalumo';
         }
-        
 
-        .list {
+        .authList {
             display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            list-style: none;
+
+            border-radius: 6px;
+            box-shadow: inset 1px 1px 4px 3px #d1d1d1;
+            padding: 0;
+            .link {
+
+                .linkNav{
+                    display: flex;
+                    flex-direction: row;
+                    
+                    color: white;
+                    font-size: 16px;
+                    font-weight: 500;
+
+                    padding: 0 3px;
+                   
+                    text-decoration: none;
+                }
+
+                padding: 4px 4px;
+                &:hover {
+                    
+                    box-shadow: inset 1px 1px 4px 3px rgba(194, 212, 31, 0.801);
+                    border-radius: 6px;
+                }
+
+                &:active {
+                    
+                    box-shadow: inset 1px 1px 4px 3px #e0e0e0;
+                    background-color: rgba(209, 209, 209, 0.522);
+                    border-radius: 6px;
+                }
+
+                border-radius: 6px;
+                transition: box-shadow 400ms;
+            }
+        }
+ 
+        .list {
+            display: none;
             flex-direction: row;
             justify-content: space-between;
 
             border-radius: 6px;
             box-shadow: inset 1px 1px 4px 3px #d1d1d1;
-            
+            list-style: none;
 
             .link {
 
                 .linkNav{
-                    @extend %linktemp;
+                    display: flex;
+                    flex-direction: row;
+                 
+                    color: white;
                     font-size: 16px;
                     font-weight: 500;
 
@@ -93,6 +142,9 @@
         }
 
         .button {
+
+            display: none;
+
             width: 100px;
 
             color: white;
@@ -102,6 +154,24 @@
         }
 
         .button:hover {
+            background-color: goldenrod;
+        }
+
+        .burgerButton {
+            display: block;
+
+            padding: 0;
+
+            transition: background-color 400ms;
+
+            border: none;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+        }
+
+        .burgerButton:hover {
             background-color: goldenrod;
         }
 
@@ -327,40 +397,124 @@
     }
 }
 
-.settingModalButtonContainer {
-
+.settingContainer {
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    flex-direction: row;
+    // gap: 15px;
+    width: 100%;
+    // padding: 0 20px;
 
-    gap: 10px;
-
-    .settingModalButton {
+    .settingModalButtonContainer {
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-around;
         align-items: center;
-    
-        width: 100%;
-
+        width: 50%;
         gap: 10px;
-
-        padding: 5px;
-
-        cursor: pointer;
     
-        border: 1px solid #1C274C;
-        border-radius: 6px;
-
-        transition: background-color 400ms;
+        .settingModalButton {
+    
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        
+            width: 70%;
+    
+            gap: 10px;
+    
+            padding: 5px;
+    
+            cursor: pointer;
+        
+            border: 1px solid #1C274C;
+            border-radius: 6px;
+    
+            transition: background-color 400ms;
+        }
+        .settingModalButton:hover {
+            background-color: goldenrod;
+        }
+    
     }
-    .settingModalButton:hover {
-        background-color: goldenrod;
-    }
+    
+    .settingModalBurger {
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+        .pageNavBurger {
+            
+            visibility: visible;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            
+            width: 70%;
+            height: 100%;
+            padding: 10px;
+            border-right: 3px solid #1C274C;
+    
+            .linkBurger {
+    
+                font-size: 24px;
+                font-weight: bold;
+            }
+    
+            .listBurger {
+                
+                display: flex;
+                flex-direction: column;
+    
+                border-radius: 6px;
+                list-style: none;
+                padding: 0;
 
+                .linkBurger {
+                   
+                    .linkNavBurger{
+                        display: flex;
+                        justify-content: space-around;
+                        flex-direction: row;
+                        
+                        color: #1C274C;
+                        font-size: 16px;
+                        font-weight: 500;
+    
+                        padding: 0 3px;
+                       
+                        text-decoration: none;
+                    }
+    
+                    padding: 4px 4px;
+                    &:hover {
+                        
+                        box-shadow: inset 1px 1px 4px 3px rgba(194, 212, 31, 0.801);
+                        border-radius: 6px;
+                    }
+    
+                    &:active {
+                        
+                        box-shadow: inset 1px 1px 4px 3px #e0e0e0;
+                        background-color: rgba(209, 209, 209, 0.522);
+                        border-radius: 6px;
+                    }
+    
+                    border-radius: 6px;
+                    transition: box-shadow 400ms;
+            
+                }
+            }
+        }
+    }
+    
 }
+
 
 .verifiInfo {
     display: flex;
@@ -489,3 +643,226 @@
     }
          
 }
+
+//******************************@media rules************************************
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .header {
+        .pageNav {
+            
+            visibility: visible;
+            
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            
+            width: 95%;
+            height: 100%;
+
+            margin: 0 auto;
+
+            background-image:url(../../images/body-background/pawel-czerwinski-oykbZuvajO0-unsplash.jpg);
+            
+            border-radius: 6px;
+
+            .link {
+
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .home {
+                font-family: 'Agbalumo';
+            }
+            
+            .list {
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                border-radius: 6px;
+                box-shadow: inset 1px 1px 4px 3px #d1d1d1;
+            
+                .link {
+
+                    .linkNav{
+                        display: flex;
+                        flex-direction: row;
+                        
+                        color: white;
+                        font-size: 16px;
+                        font-weight: 500;
+
+                        padding: 0 3px;
+                    
+                        text-decoration: none;
+                    }
+
+                    padding: 4px 4px;
+                    &:hover {
+                        
+                        box-shadow: inset 1px 1px 4px 3px rgba(194, 212, 31, 0.801);
+                        border-radius: 6px;
+                    }
+
+                    &:active {
+                        
+                        box-shadow: inset 1px 1px 4px 3px #e0e0e0;
+                        background-color: rgba(209, 209, 209, 0.522);
+                        border-radius: 6px;
+                    }
+
+                    border-radius: 6px;
+                    transition: box-shadow 400ms;
+            
+                }
+            }
+
+            .button {
+                display: block;
+
+                width: 100px;
+
+                color: white;
+                transition: background-color 400ms;
+
+                cursor: pointer;
+            }
+
+            .burgerButton {
+                display: none;
+            }
+
+        }
+    }
+    .settingContainer {
+
+        .settingModalButtonContainer {
+
+            .settingModalButton {
+            
+                width: 90%;
+            }
+        }
+    }
+
+    .settingContainer {
+        .settingModalBurger {
+            display: none;
+        }
+    }
+}
+
+//-------------------min-width: 1440px----------------------------
+@media screen and (min-width: 1440px) {
+    .header {
+        .pageNav {
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            
+            width: 95%;
+            height: 100%;
+
+            margin: 0 auto;
+
+            background-image:url(../../images/body-background/pawel-czerwinski-oykbZuvajO0-unsplash.jpg);
+            
+            border-radius: 6px;
+
+            .link {
+
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .home {
+                font-family: 'Agbalumo';
+            }
+            
+
+            .list {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                border-radius: 6px;
+                box-shadow: inset 1px 1px 4px 3px #d1d1d1;
+                
+
+                .link {
+
+                    .linkNav{
+                        display: flex;
+                        flex-direction: row;
+                        
+                        color: white;
+                        font-size: 16px;
+                        font-weight: 500;
+
+                        padding: 0 3px;
+                    
+                        text-decoration: none;
+                    }
+
+                    padding: 4px 4px;
+                    &:hover {
+                        
+                        box-shadow: inset 1px 1px 4px 3px rgba(194, 212, 31, 0.801);
+                        border-radius: 6px;
+                    }
+
+                    &:active {
+                        
+                        box-shadow: inset 1px 1px 4px 3px #e0e0e0;
+                        background-color: rgba(209, 209, 209, 0.522);
+                        border-radius: 6px;
+                    }
+
+                    border-radius: 6px;
+                    transition: box-shadow 400ms;
+            
+                }
+            }
+
+            .button {
+                display: block;
+
+                width: 100px;
+
+                color: white;
+                transition: background-color 400ms;
+
+                cursor: pointer;
+            }
+
+            .burgerButton {
+                display: none;
+            }
+
+        }
+    }
+
+    .settingContainer {
+
+        .settingModalButtonContainer {
+
+            .settingModalButton {
+            
+                width: 90%;
+            }
+        }
+    }
+
+    .settingContainer {
+        .settingModalBurger {
+            display: none;
+        }
+    }
+}
+//******************************end************************************

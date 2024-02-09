@@ -16,7 +16,7 @@ const ModalSettings = ({ children, data }) => {
     document.body.style.overflow = 'hidden'
     
     const timer = setTimeout(() => {
-      data ? modal.current.style.right = '35px' : modal.current.style.right = '0px';
+      data ? modal.current.style.right = '5px' : modal.current.style.right = '0';
     }, 100);
 
     return () => {

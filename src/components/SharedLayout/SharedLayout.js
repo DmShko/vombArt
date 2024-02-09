@@ -40,6 +40,8 @@ import {ReactComponent as UserMenu} from '../../images/user-svgrepo-com.svg';
 import {ReactComponent as UserMenuDarck} from '../../images/user-svgrepo-com-darck.svg'; 
 import {ReactComponent as WarningImg} from '../../images/warning-1-svgrepo-com.svg';
 import {ReactComponent as OwnMessageImg} from '../../images/message-svgrepo-com.svg';
+import {ReactComponent as BurgerImg} from '../../images/hamburger-menu-svgrepo-com.svg';
+import {ReactComponent as BurgerDarkImg} from '../../images/hamburger-menu-svgrepo-com-dark.svg';
 import {ReactComponent as OpenMessageImg} from '../../images/message-open-svgrepo-com.svg';
 import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
@@ -818,7 +820,8 @@ const SharedLayout = () => {
                      <animated.div style={spring}><OwnMessageImg  onClick={personalMessageHandler} style={{width: '35px', height: '35px', fill: 'goldenrod', cursor: 'pointer',}}/></animated.div> : ''
                    }
 
-                   {selectorVisibilityLog === false ? <ul className={sh.list}>
+                   {selectorVisibilityLog === false ? 
+                      <ul className={sh.authList}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
                             <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='singUp'>
@@ -837,11 +840,22 @@ const SharedLayout = () => {
                             </p>
                            
                         </li>
-                    </ul> : <button data-tooltip-id='menu' data-tooltip-content="Open menu" name={'settings'} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94', color: 'rgb(122, 152, 206)', } : {backgroundColor: ''}} className={sh.button} onClick={toggleModalSettings} type='button'>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
-                    selectorGallSlice.users.length !== 0 
-                    ? <div className={sh.userMenu}>{selectorGallSlice.dayNight ? <UserMenuDarck style={{width: '20px', height: '20px', fill: 'rgb(122, 152, 206)'}}/> : 
-                    <UserMenu style={{width: '20px', height: '20px', fill: 'white'}}/>} <p className={sh.title}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p></div> : ''}</button>}
-                    <Tooltip id="menu" style={{backgroundColor: '--rt-color-white'}}/>
+                    </ul> : 
+                      <>
+                        <button name={'settings'} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94', color: 'rgb(122, 152, 206)', } : {backgroundColor: ''}} className={sh.button} onClick={toggleModalSettings} type='button'>
+                          {selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
+                        selectorGallSlice.users.length !== 0 
+                        ? <div className={sh.userMenu}>{selectorGallSlice.dayNight ? <UserMenuDarck style={{width: '20px', height: '20px', fill: 'rgb(122, 152, 206)'}}/> : 
+                        <UserMenu style={{width: '20px', height: '20px', fill: 'white'}}/>} <p className={sh.title}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p></div> : ''}</button>
+                        
+                        <button name={'burgerSettings'} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: '#485a94', color: 'rgb(122, 152, 206)', } : {backgroundColor: 'lightgray'}} className={sh.burgerButton} onClick={toggleModalSettings} type='button'>
+                          {selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId) !== undefined ||
+                        selectorGallSlice.users.length !== 0 
+                        ? <div className={sh.userMenu}>{selectorGallSlice.dayNight ? <BurgerDarkImg style={{width: '30px', height: '30px', fill: 'rgb(122, 152, 206)'}}/> : 
+                        <BurgerImg style={{width: '30px', height: '30px', fill: 'white'}}/>}</div> : ''}</button>
+                      </>
+                    }
+ 
                 </nav>  
             </header>
 
@@ -868,7 +882,79 @@ const SharedLayout = () => {
             </ ModalPersonal>}
 
             {
-                modalSettingsToggle && <ModalSettings data={modalSettingsToggle}> 
+                modalSettingsToggle && <ModalSettings data={modalSettingsToggle}>
+                  
+                  <div className={sh.settingContainer}>
+
+                    <div className={sh.settingModalBurger}>
+
+                      <nav className={sh.pageNavBurger}>
+                          
+                        <ul className={sh.listBurger}>
+                            <li className={`${sh.navOneItem} ${sh.linkBurger}`}>
+                                
+                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
+                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Writing</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Письмо</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Pismo</p> : <p>Lyrics</p>}
+                                </NavLink>
+                              
+                            </li>
+
+                            <li className={`${sh.navOneItem} ${sh.linkBurger}`}>
+
+                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
+                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Music</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Музика</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Muzyka</p> : <p>Muzyka</p>}
+                                </NavLink>
+                              
+                            </li>
+
+                            <li className={`${sh.navOneItem} ${sh.linkBurger}`}>
+
+                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
+                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Painting</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Живопис</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Obraz</p> : <p>Drawing</p>}
+                                </NavLink>
+                              
+                            </li>
+
+                            <li className={`${sh.navOneItem} ${sh.linkBurger}`}>
+
+                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/community" : "/"}>
+                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Community</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Громада</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wspólnota</p> : <p>Community</p>}
+                                </NavLink>
+                              
+                            </li>
+                        </ul>
+
+                        <ul className={sh.listBurger}>
+                            <li className={sh.linkBurger}>
+
+                              <p className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='about'>
+                              {selectorGallSlice.settings.languageSelector === 'English' ? <p>About</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про сайт</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O witrynie</p> : <p>About</p>}
+                              </p>
+                                
+                            </li>
+                            <li className={sh.linkBurger}>
+
+                              <p className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='contacts'>
+                              {selectorGallSlice.settings.languageSelector === 'English' ? <p>Contacts</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Контакти</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Łączność</p> : <p>About</p>}
+                              </p>
+                                
+                            </li>
+                        </ul>
+                      </nav>
+                    </div>
+
                     <div className={sh.settingModalButtonContainer}>
                         <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>
                         {selectorGallSlice.settings.languageSelector === 'English' ? <p>Settings</p> : 
@@ -891,10 +977,11 @@ const SharedLayout = () => {
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wychodzić</p> : <p>Logout</p>}
                         </div>
                     </div>
+
+                  </div> 
                 </ ModalSettings>
             }
             
-        
             {modalToggle && <ModalArt openClose={toggleModal}>
                
                 {selectorTargetName === 'singIn' || selectorTargetName === 'singUp' ? 

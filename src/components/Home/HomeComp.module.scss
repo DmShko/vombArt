@@ -5,7 +5,7 @@
     .hero {
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
 
@@ -17,13 +17,14 @@
 
         margin-top: 70px;
 
-        height: 200px;
+        height: fit-content;
 
         background: url(../../images/hero/blue-abstract-bokeh-lights-picjumbo-com.jpg);
 
         background-size: cover;
 
         .leftblock {
+   
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -36,6 +37,14 @@
 
         }
 
+        img {
+            width: 100%;
+            height: 90% ;
+            border-radius: 8px; 
+            opacity: 70%;
+            box-shadow: 1px 1px 4px 3px rgb(84, 92, 138);
+        }
+
     }
 
     .heroCommunity {
@@ -43,4 +52,48 @@
         background-size: cover;
     }
 }
+
+//******************************@media rules************************************
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    
+    .container {
+        .hero {
+
+            flex-direction: row;
+            height: 200px;
+
+            img {
+                width: 350px;
+                height: 90%;
+                border-radius: 8px; 
+                opacity: 70%;
+                box-shadow: 1px 1px 4px 3px rgb(84, 92, 138);
+            }
+        }
+    }
+ 
+}
+
+//-------------------min-width: 1440px----------------------------
+@media screen and (min-width: 1440px) {
+    
+    .container {
+        .hero {
+
+            flex-direction: row;
+            height: 200px;
+
+            img {
+                width: 350px;
+                height: 90%;
+                border-radius: 8px; 
+                opacity: 70%;
+                box-shadow: 1px 1px 4px 3px rgb(84, 92, 138);
+            }
+        }
+    }
+}
+//******************************end************************************
 
