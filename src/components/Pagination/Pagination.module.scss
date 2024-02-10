@@ -19,15 +19,14 @@
 
     .lab {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-around;
-        align-items: center;
+        align-items: start;
 
         width: 200px;
         height: 40px;
         color: white;
         font-weight: 600;
-
     }
 
     .datalist {
@@ -39,7 +38,7 @@
         border: none;
         border-radius: 6px;
 
-        margin-left: 10px;
+        margin-left: 0;
 
         option {
             color: gray;
@@ -135,3 +134,36 @@
         color: white;
     }
 }
+//******************************@media rules************************************
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .container {
+        .lab {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .datalist {
+ 
+            margin-left: 10px;
+        }
+    }
+}
+
+//-------------------min-width: 1440px----------------------------
+@media screen and (min-width: 1440px) {
+    .container {
+        .lab {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .datalist {
+ 
+            margin-left: 10px;
+        }
+    }
+}
+//******************************end************************************

@@ -78,7 +78,7 @@
         .messagertitleblock {
 
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: space-between;
             align-items: center;
 
@@ -87,8 +87,8 @@
             margin: 0 auto;
 
             .messagesCounter {
-                
-        
+                width: 100%;
+                text-align: left;
                 padding: 5px;
         
             }
@@ -117,7 +117,7 @@
    
         .area {
             
-            width: 90%;
+            width: 85%;
             height: 200px;
 
             padding: 10px 20px;
@@ -279,3 +279,44 @@
         }
     
 }
+
+//******************************@media rules************************************
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .container {
+        .messagertitleblock {
+
+            flex-direction: row;
+            .messagesCounter {
+                width: unset;
+                text-align: initial;
+            }
+        }
+
+        .area {
+            
+            width: 90%;
+        }
+    }
+}
+
+//-------------------min-width: 1440px----------------------------
+@media screen and (min-width: 1440px) {
+    .container {
+        .messagertitleblock {
+
+            flex-direction: row;
+            .messagesCounter {
+                width: unset;
+                text-align: initial;
+            }
+        }
+        
+        .area {
+            
+            width: 90%;
+        }
+    }
+}
+//******************************end************************************

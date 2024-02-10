@@ -1,10 +1,10 @@
 .container {
-    // width: 80vw;
+
+    width: 90%;
     
     height: 100vh;
 
-    padding: 0 20px;
-
+    padding: 0 15px;
     background-color: lightgrey;
 
     overflow-y: scroll;
@@ -57,6 +57,7 @@
     .style {
 
         display: flex;
+        justify-content: space-around;
         flex-wrap: wrap;
         
         row-gap: 10px;
@@ -108,18 +109,19 @@
     .listItems {
 
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        flex-wrap: wrap;
-
-        column-gap: 10px;
+        // flex-wrap: wrap;
+        // column-gap: 10px;
         row-gap: 10px;
-     
 
+        width: 100%;
         list-style: none;
         padding: 0;
 
         .item {
-            width: calc((100% / 3) - 20px);
+            // width: 100%;
+            // width: calc((100% / 3) - 20px);
             height: 200px;
             border-radius: 6px;
             background-color: white;
@@ -167,3 +169,72 @@
     }
     
 }
+
+//******************************@media rules************************************
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .container {
+       
+       position: initial;
+       width: unset;
+
+       padding: 0 20px;
+
+       .style {
+
+        justify-content: initial;
+
+       }
+
+       .listItems {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        column-gap: 10px;
+
+        width: unset;
+
+          .item {
+            width: calc((100% / 3) - 20px);
+          }
+       }
+    }
+}
+
+//-------------------min-width: 1440px----------------------------
+@media screen and (min-width: 1440px) {
+    .container {
+      
+        position: initial;
+        width: unset;
+
+        padding: 0 20px;
+
+        .style {
+
+            justify-content: initial;
+            
+        }
+
+        .listItems {
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            column-gap: 10px;
+
+            width: unset;
+
+            .item {
+                width: calc((100% / 3) - 20px);
+            }
+        }
+    }
+}
+//******************************end************************************
