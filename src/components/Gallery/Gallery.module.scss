@@ -1,6 +1,6 @@
 .container {
 
-    width: 90%;
+    // width: 100%;
     
     height: 100vh;
 
@@ -21,6 +21,7 @@
     .title {
         color: white;
         font-weight: 600;
+        margin-bottom: 5px;
     }
     
     .arts {
@@ -45,7 +46,7 @@
             color: rgb(82, 82, 82);
             font-weight: 600;
         } 
-        
+
         .artIcon {
             
             display: flex;
@@ -54,6 +55,7 @@
 
         }
     }
+
     .style {
 
         display: flex;
@@ -69,9 +71,9 @@
         list-style: none;
 
         border: none;
-
+        border-radius: 6px 6px 0 0;
         border-bottom: 2px solid white;
-
+        box-shadow: inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08);
 
         button {
             width: 100px;
@@ -109,24 +111,25 @@
     .listItems {
 
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
-        // flex-wrap: wrap;
-        // column-gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        column-gap: 10px;
         row-gap: 10px;
 
-        width: 100%;
         list-style: none;
         padding: 0;
 
         .item {
-            // width: 100%;
-            // width: calc((100% / 3) - 20px);
-            height: 200px;
+            
+            width: calc(100% / 1.7);
+            // height: calc(width * 2);
+            
             border-radius: 6px;
             background-color: white;
             
-            padding: 5px;
+            padding: 20px 5px;
 
             cursor: pointer;
 
@@ -189,17 +192,11 @@
 
        .listItems {
 
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        column-gap: 10px;
-
         width: unset;
 
           .item {
             width: calc((100% / 3) - 20px);
+            margin: 0;
           }
        }
     }
@@ -222,17 +219,11 @@
 
         .listItems {
 
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            flex-wrap: wrap;
-
-            column-gap: 10px;
-
             width: unset;
 
             .item {
                 width: calc((100% / 3) - 20px);
+                margin: 0;
             }
         }
     }

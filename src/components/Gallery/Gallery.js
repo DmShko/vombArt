@@ -746,11 +746,11 @@ const Gallery = () => {
           type="button"
           style={ selectorGallSlice.dayNight ?
             selectorUserPath.logicPath.arts.lirics
-              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)' }
               : { backgroundColor: 'rgb(122, 152, 206)' }
               :
             selectorUserPath.logicPath.arts.lirics
-              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)' }
               : { backgroundColor: 'rgba(209, 209, 209, 0.522)' }
           }
           name="Lirics"
@@ -771,13 +771,13 @@ const Gallery = () => {
           selectorGallSlice.dayNight ?
             selectorUserPath.logicPath.arts.music
               ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', borderLeft: '2px solid lightgray',
-              borderRight: '2px solid lightgray', }
+              borderRight: '2px solid lightgray', boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)'}
               : { backgroundColor: 'rgb(122, 152, 206)', borderLeft: '2px solid lightgray',
               borderRight: '2px solid lightgray', }
               :
             selectorUserPath.logicPath.arts.music
               ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', borderLeft: '2px solid white',
-              borderRight: '2px solid white', }
+              borderRight: '2px solid white', boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)'}
               : { backgroundColor: 'rgba(209, 209, 209, 0.522)', borderLeft: '2px solid white',
               borderRight: '2px solid white', }
           }
@@ -797,11 +797,11 @@ const Gallery = () => {
           style={
             selectorGallSlice.dayNight ?
             selectorUserPath.logicPath.arts.draw
-              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)'}
               : { backgroundColor: 'rgb(122, 152, 206)' }
               :
             selectorUserPath.logicPath.arts.draw
-              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)' }
+              ? { backgroundColor: 'rgba(194, 212, 31, 0.801)', boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)' }
               : { backgroundColor: 'rgba(209, 209, 209, 0.522)' }
           }
           name="Drawing"

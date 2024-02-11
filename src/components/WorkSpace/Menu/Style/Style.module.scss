@@ -1,82 +1,156 @@
-.fset {
-    
-    border-radius: 6px;
-    border: 2px solid lightgray;
-    
-    .field {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        button {
-
-        width: 80%;
+.container {
+    width: 80%;
+    .fset {
         
-        border: none;
         border-radius: 6px;
-
-        margin-top: 5px;
-
+        border: 2px solid lightgray;
         padding: 5px;
 
-        transition: background-color, 400ms;
-        
-        }
-
-        button:hover {
-                        
-            background-color: rgba(194, 212, 31, 0.801);
+        .field {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             
-        }
+            .lab {
+                width: 100%;
+                .in {
+                    width: 100%;
+                }
+            }
+            
 
-        .lab {
-            padding-bottom: 10px;
-          
-            .in {
+            button {
 
+                width: 50%;
+                
                 border: none;
-                border-bottom: 2px solid lightgrey;
+                border-radius: 6px;
+
+                margin-top: 5px;
+
+                padding: 5px;
+
+                transition: background-color, 400ms;
+            
             }
 
-            .in:focus {
-                outline: none;
+            button:hover {
+                            
+                background-color: rgba(194, 212, 31, 0.801);
+                
+            }
+
+            .lab {
+                padding-bottom: 10px;
+            
+                .in {
+
+                    border: none;
+                    border-bottom: 2px solid lightgrey;
+                }
+
+                .in:focus {
+                    outline: none;
+                }
+            }
+
+            .radioCont {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+
+                width: 100%;
+
+                margin-bottom: 10px;
+            }
+
+            .radio {
+                cursor: pointer;
+            }
+
+            .radioLab {
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                gap: 10px;
+            }
+
+            .error {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center; 
+
+                gap: 5px;
             }
         }
 
-        .radioCont {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-
-            width: 100%;
-
-            margin-bottom: 10px;
-        }
-
-        .radio {
-            cursor: pointer;
-        }
-
-        .radioLab {
-
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-
-            gap: 10px;
-        }
-
-        .error {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center; 
-
-            gap: 5px;
-        }
     }
-
 }
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .container {
+        width: 100%;
+         
+        .fset {
+            
+            .field {
+                width: 90%;
+                margin: 0 auto;
+
+                 button {
+                    width: 80%;
+                }
+
+                .radioCont {
+                    gap: 5px;
+                }
+
+                .radioLab {
+                    gap: 5px;
+                }
+
+            }
+                
+                
+        } 
+      
+    }
+}
+
+//-------------------min-width: 1440px----------------------------
+@media screen and (min-width: 1440px) {
+    .container {
+        width: 100%;
+           
+        .fset {
+            
+            .field {
+                width: 90%;
+                margin: 0 auto;
+
+                 button {
+                    width: 80%;
+                }
+
+                .radioCont {
+                    gap: 5px;
+                }
+
+                .radioLab {
+                    gap: 5px;
+                }
+            }
+                
+                
+        }
+        
+    }
+}
+//******************************end************************************

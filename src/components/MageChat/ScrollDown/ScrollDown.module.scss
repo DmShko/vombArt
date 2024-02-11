@@ -19,7 +19,7 @@
     justify-content: center;
     align-items: center;
 
-    right: 70px;
+    right: calc(100vw / 11);
 
     width: 40px;
     height: 40px;
@@ -40,4 +40,3 @@
     transition: padding 400ms;
     visibility: visible;
 }
-
