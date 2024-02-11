@@ -6,7 +6,7 @@
     justify-content: flex-start;
 
     width: 90vw;
-    height: 100vw;
+    // height: 100vw;
 
     gap: 10px;
 
@@ -211,3 +211,20 @@
         }
     }
 }
+
+//******************************@media rules************************************
+
+//-------------------(min-width: 768px) and (max-width: 1439px)-----------------
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .container {
+        height: 100vw;
+    }
+ }
+ 
+ //-------------------min-width: 1440px----------------------------
+ @media screen and (min-width: 1440px) {
+     .container {
+        height: 100vw;
+    }
+ }
+ //******************************end************************************

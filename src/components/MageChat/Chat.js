@@ -383,9 +383,12 @@ const MageChat = () => {
                 selectorGallerySlice.settings.languageSelector === 'Українська' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 && selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson] ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : 'No'} повідомлень` : 
                 selectorGallerySlice.settings.languageSelector === 'Polska' ? `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 && selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson] ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : 'No'} wiadomości` : 
                 `${selectorGallerySlice.selectedPerson === '' ? selectorGallerySlice.currentItemId === '' 
-                ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : '0'} messages`}</p>
+                ? selectorGallerySlice.messagesBuffer.length : selectorGallerySlice.itemsMessagesBuffer.length : Object.keys(selectorGallerySlice.personalMessagesBuffer).length !== 0 ? selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length : 'No'} messages`}</p>
 
-              <p style={{color: 'rgb(122, 152, 206)',}}>Messages older than 10 days are automatically deleted.</p> 
+              <p style={{color: 'rgb(122, 152, 206)',}}>
+              {selectorGallerySlice.settings.languageSelector === 'English' ? 'Messages older than 10 days are automatically deleted.' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Повідомлення, старші за 10 днів, видалятимуться автоматичко.' : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Wiadomości starsze niż 10 dni są automatycznie usuwane.' : 'Messages older than 10 days are automatically deleted.'}</p> 
             </div>
 
             <div className={ma.area} wrap='soft' onScroll={scrollEnd} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: 'white',}}>

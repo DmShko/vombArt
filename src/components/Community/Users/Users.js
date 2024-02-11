@@ -247,16 +247,19 @@ const Users = () => {
            onChange={inputSearch}
            autoComplete='false'
            title="Search"
+           placeholder={selectorExistUsersList.settings.languageSelector === 'English' ? "User name...": 
+           selectorExistUsersList.settings.languageSelector === 'Українська' ? "Ім'я користувача...": 
+           selectorExistUsersList.settings.languageSelector === 'Polska' ? "Nazwa użytkownika..." : "User name..."}
         ></input>
       </label>
         
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value => 
             <div>
-              <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} 
+             {value.userName.toLowerCase().includes(search) ? <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} 
                 style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor: 'none', borderRadius: '3px'}}><p style={{fontFamily: 'Courgette', color: 'rgb(122, 152, 206)',}}>{value.userName}</p> 
                  {value.status? <p className={us.status}>online</p> : ''} 
-              {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor:'white', borderRadius: '3px'}}/>}</li>
+              {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor:'white', borderRadius: '3px'}}/>}</li> : ''}
 
               {usersOpen[value.uid] ?
                 <div className={us.userdata} style={selectorExistUsersList.dayNight ? { borderBottom: '2px solid rgb(122, 152, 206)' } : {borderBottom: ''}}>
@@ -273,7 +276,7 @@ const Users = () => {
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Here with:</p></div>
                   </div>
         
-                   { selectorVisibilityLog.singInId !== value.uid ? <OwnMessageImg style={{width: '30px', height: '30px', cursor: 'pointer',}} id={value.uid} name={'ownMessage'} onClick={personalMessageHandler}/> : ''}
+                   { selectorVisibilityLog.singInId !== value.uid ? <OwnMessageImg style={{width: '40px', height: '40px', cursor: 'pointer', fill: 'lightgray'}} id={value.uid} name={'ownMessage'} onClick={personalMessageHandler}/> : ''}
                  
                 </div> : ''}
             </div>
