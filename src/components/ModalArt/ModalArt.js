@@ -1,6 +1,8 @@
 import {React, useEffect }from 'react'
 import { createPortal } from 'react-dom';
 
+import { ReactComponent as CloseImg } from '../../images/close-circle-svgrepo-com.svg';
+
 import mo from './Modal.module.scss'
 
 const modalRoot = document.querySelector('#root-modal');
@@ -31,9 +33,16 @@ const ModalArt = ({ openClose, children }) => {
     if (evt.target === evt.currentTarget) openClose();
   };
 
+  // close modal window by click on closeButton
+  const clickCloseButton = evt => {
+    openClose();
+  };
+
   return createPortal(
     <div className={mo.backdrop} style={{top: `${window.scrollY}px`}} onClick={clickBackdrob}>
         <div className={mo.container}>
+            <div style={{display: 'flex', width: '90%', justifyContent: 'flex-end', alignItems: 'center',}}>
+              <CloseImg style={{width: '25px', height: '25px', margin: '5px 0'}} onClick={clickCloseButton}/></div>
             {children}
         </div>
     </div>, modalRoot
