@@ -712,26 +712,27 @@ const Gallery = () => {
     <>
     {
       modalItemToggle && <ModalItem openClose={ModalItemToggleFunction}>
-        <div className={ga.content} style={currentItemType !== 'text/plain' ? {width: '100%', marginTop: '510px', } : {width: '100%', marginTop: '360px',}}>
+        <div className={ga.content} style={currentItemType !== 'text/plain' ? {width: '100%',} : {width: '100%',}}>
+
           {currentItemType === 'image/jpeg' ? <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0',}}></img> 
           : currentItemType === 'text/plain' ? <iframe src={currentItemURL} style={selectorGallSlice.dayNight ? {width: '100%', height: '300px', margin:'0', border: 'none', backgroundColor: 'rgb(122, 152, 206)',} 
           : {width: '100%', height: '300px', margin:'0', border: 'none', backgroundColor: '',}}></iframe>
-          : currentItemType === 'audio/mpeg' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0, auto', border: 'none'}}></iframe> : ''}
+          : currentItemType === 'audio/mpeg' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0 auto', border: 'none'}}></iframe> : ''}
            
 
-          <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', gap: '100px', width: '100%', marginBottom: '10px'}}>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} />
+          <div className={ga.statitem}>
+            <div className={ga.statpoint} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} />
             <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Likes: ${heartsCount()}` : 
               selectorGallSlice.settings.languageSelector === 'Українська' ? `Вподобайки: ${heartsCount()}` : 
               selectorGallSlice.settings.languageSelector === 'Polska' ? `Lubi: ${heartsCount()}` : `Likes: ${heartsCount()}`}</p></div> 
 
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><LevelImg style={{width: '25px', height: '25px'}}/>
+            <div className={ga.statpoint}><LevelImg style={{width: '25px', height: '25px'}}/>
             <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
               selectorGallSlice.settings.languageSelector === 'Українська' ? `Рівень: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
               selectorGallSlice.settings.languageSelector === 'Polska' ? `Poziom: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
               `Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
 
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent:'space-around', alignItems: 'center', gap: '5px'}}><ViewsImg style={{width: '25px', height: '25px'}}/>
+            <div className={ga.statpoint}><ViewsImg style={{width: '25px', height: '25px'}}/>
             <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Views: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}` : 
               selectorGallSlice.settings.languageSelector === 'Українська' ? `Перегляди: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}` : 
               selectorGallSlice.settings.languageSelector === 'Polska' ? `Wyświetlenia: ${selectorGallSlice.viewsStatistic !== null ? selectorGallSlice.viewsStatistic[selectorGallSlice.currentItemId] : ''}` : 

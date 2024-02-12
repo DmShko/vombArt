@@ -674,7 +674,7 @@ const Account = () => {
           <label className={ac.lab}>
               <input
                 value = {password}
-                className={ac.infoInput}
+                className={`${ac.infoInput} ${ac.pass}`}
                 style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="password"
                 onChange={handlePassword}
@@ -690,7 +690,7 @@ const Account = () => {
           <label className={ac.lab}>
               <input
                 value = {passwordRepeate}
-                className={ac.infoInput}
+                className={`${ac.infoInput} ${ac.pass}`}
                 style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: '', color: ''}}
                 type="password"
                 onChange={handlePasswordRepeate}

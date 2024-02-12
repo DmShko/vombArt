@@ -10,7 +10,7 @@
         display: flex;
         flex-direction: column;
 
-        padding: 10px;
+        // padding: 10px;
 
         .title {
             
@@ -90,7 +90,6 @@
                 width: 100%;
                 text-align: left;
                 padding: 5px;
-                
             }
         }
         
@@ -117,7 +116,7 @@
    
         .area {
             
-            width: 85%;
+            // width: 85%;
             height: 200px;
 
             padding: 10px 20px;
@@ -285,12 +284,14 @@
 //-------------------(min-width: 768px) and (max-width: 1439px)-----------------
 @media screen and (min-width: 768px) and (max-width: 1439px) {
     .container {
+
         .messagertitleblock {
 
-            margin: 0 auto;
+            margin: 0 auto 5px auto;
             flex-direction: row;
+            
             .messagesCounter {
-                width: unset;
+                width: 30%;
                 text-align: initial;
             }
         }
@@ -303,6 +304,11 @@
         .searchcont {
 
             width: 70%;
+        }
+
+        .field {
+
+            padding: 10px;
         }
     }
 }
@@ -310,15 +316,18 @@
 //-------------------min-width: 1440px----------------------------
 @media screen and (min-width: 1440px) {
     .container {
-        .messagertitleblock {
-            margin: 0 auto;
+
+         .messagertitleblock {
+
+            margin: 0 auto 5px auto;
             flex-direction: row;
+            
             .messagesCounter {
-                width: unset;
+                width: 30%;
                 text-align: initial;
             }
         }
-        
+
         .area {
             
             width: 90%;
@@ -327,6 +336,11 @@
         .searchcont {
 
             width: 70%;
+        }
+
+        .field {
+
+            padding: 10px;
         }
     }
 }

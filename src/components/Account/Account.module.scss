@@ -5,14 +5,14 @@
     align-items: flex-start;
     justify-content: flex-start;
 
-    width: 90vw;
+    width: 100%;
     // height: 100vw;
 
     gap: 10px;
 
     padding: 70px 0;
     
-    margin: 0 auto;
+    // margin: 0 auto;
 
     .statistic {
 
@@ -20,9 +20,12 @@
 
         padding: 10px;
 
-        width: 50%;
+        width: 90%;
+        margin: 0 auto;
         // height: 100%;
         background-color: white;
+        border-radius: 0 0 6px 6px;
+        box-shadow: inset 1px 1px 4px 3px rgba(1, 1, 2, 0.24);
 
         .totalItem {
 
@@ -69,11 +72,13 @@
     .userfoto {
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: flex-start;
         justify-content: space-around;
 
-        width: 100%;
+        width: 95%;
+
+        margin: 0 auto;
 
         gap: 20px;
 
@@ -81,7 +86,7 @@
 
         border-radius: 6px;
 
-        padding: 10px;
+        padding: 10px 5px;
 
         .fise{
             display: flex;
@@ -138,6 +143,7 @@
                     border-radius: 6px;
 
                     background-color: white;
+                    
                 }
 
                 .p:hover {
@@ -162,19 +168,22 @@
     .userInfo {
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         justify-content: space-around;
 
-        height: 35px;
+        width: 100%;
+        height: fit-content;
 
-        padding: 5px 10px;
+        padding: 10px 0;
 
         gap: 10px;
 
         background-color: lightgray;
 
         border-radius: 6px;
+
+        
 
         .infoInput {
 
@@ -184,8 +193,12 @@
             border-radius: 6px;
 
             margin-right: 10px;
-            
+           
         }
+    
+        .pass {
+            margin: 0;
+        } 
 
         .infoInput:focus {
             outline: none;
@@ -217,14 +230,61 @@
 //-------------------(min-width: 768px) and (max-width: 1439px)-----------------
 @media screen and (min-width: 768px) and (max-width: 1439px) {
     .container {
+
         height: 100vw;
+
+        .statistic {
+            width: 50%;
+        }
+
+        .userInfo {
+
+            flex-direction: row;
+            height: 35px;
+            width: unset;
+            padding: 5px 10px;
+
+            .pass {
+                margin: unset;
+            } 
+        }
+
+        .userfoto {
+
+            flex-direction: row;
+            padding: 10px;
+  
+        }
     }
  }
  
  //-------------------min-width: 1440px----------------------------
  @media screen and (min-width: 1440px) {
      .container {
+
         height: 100vw;
+
+        .statistic {
+            width: 50%;
+        }
+
+        .userInfo {
+
+            flex-direction: row;
+            height: 35px;
+            width: unset;
+            padding: 5px 10px;
+
+            .pass {
+                margin: unset;
+            } 
+        }
+
+        .userfoto {
+            flex-direction: row;
+            padding: 10px;
+ 
+        }
     }
  }
  //******************************end************************************

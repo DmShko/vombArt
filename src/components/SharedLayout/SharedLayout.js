@@ -861,7 +861,7 @@ const SharedLayout = () => {
 
             {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
 
-              <div>
+              <div className={sh.personcont}>
                 <ul className={sh.personlist}>
                     {
                       Object.keys(selectorGallSlice.personalMessagesBuffer).map(value => {

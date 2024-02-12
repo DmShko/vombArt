@@ -597,51 +597,66 @@
 
 }
 
-.personlist {
+.personcont {
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center; 
+    margin: 0 50px;
+    width: 100%;
+    height: fit-content;
 
-    list-style: none;
-
-    gap: 5px;
-
-    padding: 0;
-
-    height: 100%;
-
-    .personblock {
+    .personlist {
 
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center; 
-    
+ 
         list-style: none;
-    
-        width: 150px;
-    
+
         gap: 5px;
-    
-        margin: 0 auto;
-        padding: 5px;
-    
-        background-color: lightgray;
-    
-        border-radius: 6px 0 0 6px;
 
-        box-shadow: 1px 1px 1px 1px #384a83;
-        // border-right: none;
+        padding: 0;
 
-        cursor: pointer;
+        margin: 0;
+
+        height: 100%;
+
+        overflow-x: scroll;
+
+        .personblock {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center; 
+        
+            list-style: none;
+        
+            height: 120px;
+            width: 50px;
+        
+            gap: 5px;
+        
+            margin: 0 auto;
+            padding: 5px;
+        
+            background-color: lightgray;
+        
+            border-radius: 6px 6px 0 0;
+
+            box-shadow: 1px 1px 1px 1px #384a83;
+            
+            // border-right: none;
+
+            overflow-x: hidden;
+
+            cursor: pointer;
+        }
+
+        .personblock:hover {
+            background-color: rgba(194, 212, 31, 0.801);
+        }
+            
     }
-
-    .personblock:hover {
-        background-color: rgba(194, 212, 31, 0.801);
-    }
-         
 }
 
 //******************************@media rules************************************
@@ -735,9 +750,39 @@
             .burgerButton {
                 display: none;
             }
+            
 
         }
+
     }
+
+    .personcont {
+
+        margin: 50px 0;
+        height: 100%;
+        width: fit-content;
+
+        .personlist {
+            
+            flex-direction: column;
+            width: 100%;
+
+            .personblock {
+
+                display: flex;
+                flex-direction: row;
+
+                width: 150px;
+                height: initial;
+
+                border-radius: 6px 0 0 6px;
+
+                overflow-x: none;
+            }
+        
+        }
+    }
+
     .settingContainer {
 
         .settingModalButtonContainer {
@@ -845,6 +890,33 @@
                 display: none;
             }
 
+        }
+    }
+
+    .personcont {
+
+        margin: 0 50px;
+        height: 100%;
+        width: fit-content;
+
+        .personlist {
+            
+            flex-direction: column;
+            width: 100%;
+
+            .personblock {
+
+                display: flex;
+                flex-direction: row;
+
+                width: 150px;
+                height: initial;
+
+                border-radius: 6px 0 0 6px;
+
+                overflow-x: none;
+            }
+        
         }
     }
 
