@@ -7,7 +7,7 @@
     padding: 0 15px;
     background-color: lightgrey;
 
-    overflow-y: scroll;
+    // overflow-y: scroll;
 
     .loadContainer {
 
@@ -103,15 +103,20 @@
         justify-content: space-between;
         align-items: center;
 
+        margin-bottom: 5px;
+
         font-weight: 600;
 
         color: white;
+
+        border-bottom: 2px solid white;
 
         .selectall {
 
             // width: fit-content;
 
-            margin: 5px 0 15px 0;
+            margin: 5px 0 5px 0;
+
             padding: 5px;
 
             border-radius: 6px;
@@ -139,8 +144,13 @@
         column-gap: 10px;
         row-gap: 10px;
 
+        height: 65vh;
+
         list-style: none;
-        padding: 0;
+        padding: 5px 0;
+        margin: 0;
+
+        overflow-y: scroll;
 
         .item {
             

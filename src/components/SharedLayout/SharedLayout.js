@@ -1225,11 +1225,11 @@ const SharedLayout = () => {
 
                 {selectorTargetName === 'singUp'  ?
                     <div className={sh.verifiInfo}>
-                        <p>
-                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>A confirmation email will be sent to your email address. Follow the link in the letter and after the information that you are verified, continue using the site. Login is automatic. If the letter does not arrive, you can confirm your e-mail from your personal account.</p> : 
-                        selectorGallSlice.settings.languageSelector === 'Українська' ? <p>На вашу пошту буде надіслано лист із підтвердженням. Перейдіть за посиланням у листі та після інформації, що ви перевірені подовжуйте користуватися сайтом. Вхід здійснюється автоматично. Якщо лист не приходить, ви можете підтвердити свою електронну пошту з особистого кабінету.</p> : 
-                        selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Na Twój adres e-mail zostanie wysłana wiadomość e-mail z potwierdzeniem. Kliknij link zawarty w piśmie i po zweryfikowaniu informacji kontynuuj korzystanie z witryny. Logowanie odbywa się automatycznie. Jeśli list nie dotrze, możesz potwierdzić swój adres e-mail ze swojego konta osobistego.</p> : <p>A confirmation email will be sent to your email address. Follow the link in the letter and after the information that you are verified, continue using the site. Login is automatic. If the letter does not arrive, you can confirm your e-mail from your personal account.</p>}
-                        </p>
+                        
+                    {selectorGallSlice.settings.languageSelector === 'English' ? <p>A confirmation email will be sent to your email address. Follow the link in the letter and after the information that you are verified, continue using the site. Login is automatic. If the letter does not arrive, you can confirm your e-mail from your personal account.</p> : 
+                      selectorGallSlice.settings.languageSelector === 'Українська' ? <p>На вашу пошту буде надіслано лист із підтвердженням. Перейдіть за посиланням у листі та після інформації, що ви перевірені подовжуйте користуватися сайтом. Вхід здійснюється автоматично. Якщо лист не приходить, ви можете підтвердити свою електронну пошту з особистого кабінету.</p> : 
+                      selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Na Twój adres e-mail zostanie wysłana wiadomość e-mail z potwierdzeniem. Kliknij link zawarty w piśmie i po zweryfikowaniu informacji kontynuuj korzystanie z witryny. Logowanie odbywa się automatycznie. Jeśli list nie dotrze, możesz potwierdzić swój adres e-mail ze swojego konta osobistego.</p> : <p>A confirmation email will be sent to your email address. Follow the link in the letter and after the information that you are verified, continue using the site. Login is automatic. If the letter does not arrive, you can confirm your e-mail from your personal account.</p>}
+                        
                     </div>
                  :''}
 

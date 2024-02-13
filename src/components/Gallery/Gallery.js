@@ -49,6 +49,7 @@ const Gallery = () => {
   const [ currentItemType, setCurrentItemType] = useState('');
 
   const [ currentItemId, setCurrentItemId] = useState('');
+  const [ selectAllMode, setSelectAllMode] = useState(false);
   
   // const location = useLocation();
   function makeUpdatePathStyleList() {
@@ -708,6 +709,26 @@ const Gallery = () => {
     
   };
 
+  const selectAllHandle = () => {
+
+    if(selectorGallSlice.itemsBuffer.length !== 0) {
+
+      setSelectAllMode(value => !value);
+
+      let allId = [];
+
+      if(!selectAllMode) {
+        for(const a of selectorGallSlice.itemsBuffer) {
+          allId.push(a.id)
+        };
+      };
+      
+      dispatch(change({operation: 'changeAllSelectedItems', mode: selectAllMode, data: allId}));
+      
+    }
+    
+  };
+
   return (
     <>
     {
@@ -935,7 +956,7 @@ const Gallery = () => {
             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Elementy</p> : <p>Elements</p>}
             </p>
 
-            <div className={ga.selectall}>Select all</div>
+            <div className={ga.selectall} onClick={selectAllHandle}>Select all</div>
 
             <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? 
               selectorGallSlice.settings.languageSelector === 'English' ? `total ${selectorGallSlice.itemsBuffer.length} pcs` : 

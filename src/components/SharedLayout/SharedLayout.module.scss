@@ -525,6 +525,14 @@
     width: 80%;
 
     text-align: justify;
+
+    P {
+        max-height: 100px;
+        overflow-y: scroll;
+
+        cursor: all-scroll;
+    }
+    
 }
 
 .forgot {
