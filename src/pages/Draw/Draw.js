@@ -3,7 +3,7 @@ import React from 'react'
 const Draw = () => {
   return (
     
-    <WorkSpace/>
+    <div></div>
   )
 }
 

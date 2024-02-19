@@ -1,5 +1,4 @@
 import { onAuthStateChanged   } from "firebase/auth";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { auth } from "../firebase";
 

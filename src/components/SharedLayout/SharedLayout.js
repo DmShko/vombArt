@@ -183,7 +183,7 @@ const SharedLayout = () => {
                     buffer = [];
                 }
               
-                dispatch(change({ operation: 'changePersonalMessagesBuffer', data: items }));
+              dispatch(change({ operation: 'changePersonalMessagesBuffer', data: items }));
 
             }
 

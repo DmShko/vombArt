@@ -1,6 +1,6 @@
 import Account from "components/Account/Account"
 
-export const Account = () => {
+export const AccountPanel = () => {
   return (
     <Account />
   )

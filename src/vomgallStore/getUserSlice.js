@@ -44,7 +44,4 @@ const getUserSlice = createSlice({
 }
 );
 
-export const {
-  changeSingIn
-} = singInSlice.actions;
-export default singInSlice.reducer;
+export default getUserSlice.reducer;

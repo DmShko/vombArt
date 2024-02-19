@@ -32,7 +32,7 @@ const WorkSpace = () => {
        dispatch(changePath({changeElement: 'name', data: selectorGallSlice.users.find(value => value.uid === selectorSingInSlice.singInId).userName}));
     }
     
-
+  // eslint-disable-next-line
   },[]);
   
   return (

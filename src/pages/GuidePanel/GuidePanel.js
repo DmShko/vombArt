@@ -1,6 +1,6 @@
 import Guide from "components/Guide"
 
-export const Guide = () => {
+export const GuidePanel = () => {
   return (
     <Guide />
   )

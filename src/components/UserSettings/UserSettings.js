@@ -26,37 +26,37 @@ const UserSettings = () => {
   useEffect(() => {
 
     dispatch(change({ operation: 'changeDayNight', data: selectorGallerySlice.settings.checkDesign }));
-
+  // eslint-disable-next-line  
   },[selectorGallerySlice.settings.checkDesign])
 
   useEffect(() => {
 
     dispatch(change({operation: 'updateSettings', data:{item: 'checkDesign', value: design}}));
-
+  // eslint-disable-next-line  
   },[design])
 
   useEffect(() => {
 
     dispatch(change({operation: 'updateSettings', data:{item: 'checkEmail', value: email}}));
-
+  // eslint-disable-next-line  
   },[email])
 
   useEffect(() => {
 
     dispatch(change({operation: 'updateSettings', data:{item: 'checkSound', value: sound}}));
-
+  // eslint-disable-next-line  
   },[sound])
 
   useEffect(() => {
 
     dispatch(change({operation: 'updateSettings', data:{item: 'checkPhone', value: phone}}));
-
+  // eslint-disable-next-line  
   },[phone])
 
   useEffect(() => {
 
     dispatch(change({operation: 'updateSettings', data:{item: 'checkColorSchem', value: colorSchem}}));
-    
+  // eslint-disable-next-line  
   },[colorSchem])
 
 

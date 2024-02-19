@@ -60,6 +60,7 @@ const EditItem = () => {
 
   useEffect(() => {
     if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
+    // eslint-disable-next-line
   }, [storagePath]);
 
   function tick() {

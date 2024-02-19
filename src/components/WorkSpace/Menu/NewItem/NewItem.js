@@ -71,7 +71,7 @@ const NewItem = () => {
       clearTimeout();
     }  
     , 3000)
-  
+  // eslint-disable-next-line
   }, [fileLoaded]);
 
   function tick() {

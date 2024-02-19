@@ -1,6 +1,6 @@
 import Community from "components/Community/Community"
 
-export const Community = () => {
+export const CommunityPanel = () => {
   return (
     <Community />
   )

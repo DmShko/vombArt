@@ -53,7 +53,7 @@ const Menu = () => {
 
         if(data !== null) dispatch(changeItemsMetaData({operation: 'updateMetaData', data: data}));
       });
-
+  // eslint-disable-next-line    
   }, []);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const Menu = () => {
       }
       
     }
-
+  // eslint-disable-next-line
   }, [selectorItemsMetaFullPath.itemsMetaData]);
 
   const buttonToggle = ({ currentTarget }) => {

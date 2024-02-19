@@ -24,12 +24,12 @@ const StorageWork = ({ data }) => {
 
   useEffect(() => {
 
-    const uploadTask = uploadBytes(storageRef, data.file, metadata).then(() => {
+    uploadBytes(storageRef, data.file, metadata).then(() => {
    
       setLoadDone(true)
       
     });
-
+  // eslint-disable-next-line
   },[]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const StorageWork = ({ data }) => {
       data.setFileLoaded(true); 
       
     }
-
+  // eslint-disable-next-line  
   },[loadDone]);
 
 
