@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSpring, animated } from '@react-spring/web'
 
-
-import { Tooltip } from 'react-tooltip'
-
 import { getDatabase, ref, onValue } from 'firebase/database';
 import readerStorAPI from '../../API/readerStorageAPI'
 
@@ -101,17 +98,6 @@ const SharedLayout = () => {
   const [modalPersonalToggle, setModalPersonalToggle] = useState(false); 
   const [companionOpen, setCompamionOpen] = useState({});
 
-  const spring = useSpring({
-
-    loop: true,
-    from: { transform: 'rotateY(0)',},
-    to: [{ transform: 'perspective(70px) rotateY(-45deg)',}, 
-     { transform: 'perspective(70px) rotateY(45deg)',},
-    { transform: 'perspective(70px) rotateY(0)',},],
-    config: {duration : 700, friction: 300,},
-
-  })
-
   const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
   
   const dispatch = useDispatch();
@@ -132,7 +118,7 @@ const SharedLayout = () => {
     Object.keys(selectorGallSlice.personalMessagesBuffer).forEach(element => {
       setCompamionOpen({...companionOpen, [element]: false});
     });
-    
+    // eslint-disable-next-line
   },[selectorGallSlice.users]);
 
   // 'personalMessagesBuffer' loaded create personalNewMessagesBuffer
@@ -166,7 +152,7 @@ const SharedLayout = () => {
     }
 
     dispatch(change({ operation: 'changePersonalNewMessagesBuffer', data: unreadMessages }));
-    
+  // eslint-disable-next-line  
   },[selectorGallSlice.personalMessagesBuffer]);
 
   useEffect(() => {
@@ -204,14 +190,14 @@ const SharedLayout = () => {
         });
 
     }
-
+  // eslint-disable-next-line
   },[selectorGallSlice.selectedPerson, companionOpen, modalPersonalToggle, selectorGallSlice.users]);
 
   // unselect person when modal window closed
   useEffect(() => {
 
     if(selectorGallSlice.selectedPerson === '') setCompamionOpen({}); 
-
+    // eslint-disable-next-line
   },[selectorGallSlice.selectedPerson]);
 
   // add to users user account foto link for community section
@@ -220,13 +206,13 @@ const SharedLayout = () => {
     if(selectorGallSlice.account.url !== '' && selectorGallSlice.users !== undefined && selectorSingIn.isSingIn === true) {
         dispatch(change({operation: 'changeUserFotoURL', data:{id: selectorSingIn.singInId, value: selectorGallSlice.account.url}}));
     }
-
+  // eslint-disable-next-line
   },[selectorGallSlice.account]);
 
   useEffect(() => {
 
     dispatch(change({operation: 'changeModalPersonalIsOpen', data: modalPersonalToggle}));
-    
+    // eslint-disable-next-line
   },[modalPersonalToggle]);
 
   // see account.js file, row 24
@@ -258,6 +244,7 @@ const SharedLayout = () => {
 
     // now foto url definitely exist
     // go to account.js file
+    // eslint-disable-next-line
  },[selectorItemsUrl.itemsURL]);
 
   // off errors message, when inputs changenavigate('/home');
@@ -294,14 +281,14 @@ const SharedLayout = () => {
         // close modal settings
         setModalSettingsToggle(false);
     }
-    
+    // eslint-disable-next-line
   },[selectorLogOut.isLogOut]);
 
   useEffect(() => {
 
     if(!selectorSingIn.isSingIn) navigate('/');
     if(selectorSingIn.isSingIn) setModalToggle(false);
-
+  // eslint-disable-next-line
   },[selectorSingIn.isSingIn]);
 
   // 2.###########################
@@ -385,7 +372,7 @@ const SharedLayout = () => {
 
         } 
     }
-
+  // eslint-disable-next-line
   },[selectorGallSlice.actualUsers]);
 
   // auto login after create new user
@@ -397,7 +384,7 @@ const SharedLayout = () => {
       dispatch(singInAPI({email: email, password: password}));
 
     };
-     
+     // eslint-disable-next-line
   },[selectorUserExist]);
 
 
@@ -420,7 +407,7 @@ const SharedLayout = () => {
        });
  
      };  
-
+  // eslint-disable-next-line
   },[selectorSingIn.isSingIn]);
   
   useEffect(() => {
@@ -431,12 +418,11 @@ const SharedLayout = () => {
        dispatch(change({operation: 'changeUserName', data: {userName: selectorsingUpState.userName, email: selectorsingUpState.email}}));
 
     };  
-
+  // eslint-disable-next-line
   },[selectorsingUpState.userName]);
 
   // rewrite user array to DB, when he was changed
   useEffect(() => {
-
     
     // add user array to database if are not empty [] and his length more than 'selectorGallSlice.actualUserLength'
     if(selectorSingIn.isSingIn === true && selectorGallSlice.users.length >= selectorGallSlice.actualUserLength) {
@@ -475,7 +461,7 @@ const SharedLayout = () => {
             
         } 
     }
-    
+    // eslint-disable-next-line
   },[selectorGallSlice.users, selectorGallSlice.actualUserLength]);
 
   // 1.###########################
@@ -499,7 +485,7 @@ const SharedLayout = () => {
        });
  
     } 
-
+    // eslint-disable-next-line
   },[selectorsingUpState.usersId]);
  
   const toggleModal = (evt) => {
@@ -743,6 +729,16 @@ const SharedLayout = () => {
 
   };
 
+  const spring = useSpring({
+
+    loop: true,
+    from: { transform: 'perspective(70px) rotateY(45deg)',},
+    to: [{ transform: 'perspective(70px) rotateY(-45deg)',}, 
+     { transform: 'perspective(70px) rotateY(45deg)',},],
+    config: {duration : 1000, friction: 300,},
+
+  });
+
   return (
     <>
             <header className={sh.header}>
@@ -817,7 +813,12 @@ const SharedLayout = () => {
                    
                    {selectorVisibilityLog ? Object.keys(selectorGallSlice.personalNewMessagesBuffer).length === 0 ?
                     <OwnMessageImg  onClick={personalMessageHandler} style={{width: '35px', height: '35px', fill: 'lightgray', cursor: 'pointer',}}/> :
-                     <animated.div style={spring}><OwnMessageImg  onClick={personalMessageHandler} style={{width: '35px', height: '35px', fill: 'goldenrod', cursor: 'pointer',}}/></animated.div> : ''
+                    
+                     <animated.div style={spring}>
+                      <OwnMessageImg onClick={personalMessageHandler} style={{width: '35px', height: '35px', fill: 'goldenrod', cursor: 'pointer',}}/>
+                     </animated.div>   
+                    : ''
+                    
                    }
 
                    {selectorVisibilityLog === false ? 
@@ -1059,7 +1060,7 @@ const SharedLayout = () => {
                                
                                 <input {...register('Email', {required: 'Please fill the Email field!', 
             
-                                value: email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})} 
+                                value: email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})} 
                                 className={sh.in} 
                                 type="text"
                                 autoComplete='false'
@@ -1127,7 +1128,7 @@ const SharedLayout = () => {
                             <label className={sh.lab}> <EmailImg style={{width: '25px', height: '25px',}}/>
                                 <input {...register('Email', {required: 'Please fill the Email field!', 
             
-                                value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
+                                value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
 
                                 className={sh.in} 
                                 type="text"
@@ -1175,7 +1176,7 @@ const SharedLayout = () => {
                     errors?.Password ? <div className={sh.error}><WarningImg style={{width: '20px', height: '20px'}}/><p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.Password?.message}</p></div> :
                     errors?.UserName ? <div className={sh.error}><WarningImg style={{width: '20px', height: '20px'}}/><p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors?.UserName?.message}</p></div> : '' : ''}
 
-                {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' style={{textAlign: 'center', width: '90%', marginBottom: '10px'}} target="_blank">
+                {selectorTargetName === 'singUp' ? <a href='https://dmshko.github.io/password_generator/' style={{textAlign: 'center', width: '90%', marginBottom: '10px'}} target="_blank" rel="noopener noreferrer">
                 {selectorGallSlice.settings.languageSelector === 'English' ? <p>Try using a special resource to create a password.</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Спробуйте скористатися спеціальним ресурсом для створення пароля.</p> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Spróbuj użyć specjalnego zasobu, aby utworzyć hasło.
@@ -1200,7 +1201,7 @@ const SharedLayout = () => {
                         </p>
                         <label className={sh.forgotLab}> <EmailImg style={{width: '25px', height: '25px',}}/>
                         <input {...register('SendToEmail', {required: 'Please fill the Email field!', 
-                            value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+\@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
+                            value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
 
                             className={sh.forgotIn} 
                             type="text"

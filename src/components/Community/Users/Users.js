@@ -137,7 +137,7 @@ const Users = () => {
 
     let total = 0;
     
-    if(selectorExistUsersList.itemsBuffer.length !== 0) {
+    if(selectorExistUsersList.itemsBuffer !== null && selectorExistUsersList.itemsBuffer.length !== 0) {
 
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
         
@@ -161,7 +161,7 @@ const Users = () => {
 
     let total = 0;
     
-    if(selectorExistUsersList.itemsBuffer.length !== 0) {
+    if(selectorExistUsersList.itemsBuffer !== null && selectorExistUsersList.itemsBuffer.length !== 0) {
 
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
 
@@ -182,7 +182,7 @@ const Users = () => {
 
     let total = 0;
 
-    if(selectorExistUsersList.itemsBuffer.length !== 0) {
+    if(selectorExistUsersList.itemsBuffer !== null && selectorExistUsersList.itemsBuffer.length !== 0) {
 
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
         
