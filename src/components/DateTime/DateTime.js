@@ -23,7 +23,7 @@ const DateTime = () => {
         return () => {
             setTimeout(timerID);
         };
-
+        // eslint-disable-next-line
     },[newDateObj]);
 
     const tick = () => {

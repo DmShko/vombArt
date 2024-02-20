@@ -159,9 +159,10 @@ const MageChat = () => {
         }
       // write new fresh element to sort array
       sortedMessages = [...sortedMessages, freshMessage];
+
       
-      // eslint-disable-next-line
       // rest of data it's new unsort array
+      // eslint-disable-next-line
       unSortedMessages = unSortedMessages.filter(element => element.id !== freshMessage.id);
 
       // new fresh element it's first element of unsort array
