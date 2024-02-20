@@ -43,7 +43,7 @@ const Gallery = () => {
   const [musicVisible, setMusicVisible] = useState(false);
   const [liricsVisible, setLiricsVisible] = useState(false);
  
-  const [itemClickId, setItemClickId] = useState([]);
+  // const [itemClickId, setItemClickId] = useState([]);
   const [ modalItemToggle, setModalItemToggle] = useState(false);
   const [ currentItemURL, setCurrentItemURL] = useState('');
   const [ currentItemType, setCurrentItemType] = useState('');
@@ -102,7 +102,7 @@ const Gallery = () => {
 
       });
     }
-
+    // eslint-disable-next-line
   },[]);
 
   // get elements URL from fireBase Storage see row 335 
@@ -133,14 +133,14 @@ const Gallery = () => {
       });
 
     }
-
+  // eslint-disable-next-line
   },[selectorGallSlice.itemsBuffer]);
 
   // change currentItemId in 'gellary' slice  
   useEffect(() => {
 
     dispatch(change({operation: 'changeCurrentItemId', data: currentItemId}));
-
+    // eslint-disable-next-line
   },[currentItemId]);
 
   // start viewsHandle
@@ -150,7 +150,7 @@ const Gallery = () => {
       viewsHandle();
       levelCount ();
     }
-
+    // eslint-disable-next-line
   },[selectorGallSlice.currentItemId]);
 
   // write statistic to DB
@@ -216,6 +216,7 @@ const Gallery = () => {
     if(selectorGallSlice.users !== null && selectorGallSlice.users !== undefined) {
       dispatch(updatePathStyle({data: makeUpdatePathStyleList()}));
     }
+    // eslint-disable-next-line
   },[selectorGallSlice.users, pathSelector.name]);
 
   /************ */
@@ -292,7 +293,7 @@ const Gallery = () => {
       }
 
     }
-      
+   // eslint-disable-next-line   
   }, [selectorGallSlice.currentItemId]);
 
 
@@ -421,7 +422,7 @@ const Gallery = () => {
 
     // if(location.pathname === 'community') dispatch(changePathName({ changeElement: 'name', data: true }));
     
-      
+   // eslint-disable-next-line   
   }, [pathSelector]);
               // ^, selectorGallSlice.currentItemId
 
@@ -442,7 +443,7 @@ const Gallery = () => {
       });
 
     }
-     
+   // eslint-disable-next-line  
   },[selectorItemsUrl.itemsURL]);
 
 
@@ -508,7 +509,7 @@ const Gallery = () => {
       dispatch(changePath({ changeElement: 'arts.draw', data: false }));
 
     };
-
+    // eslint-disable-next-line
   },[drawVisible, musicVisible, liricsVisible]);
 
   // handler arts button click
@@ -736,9 +737,9 @@ const Gallery = () => {
         <div className={ga.content} style={currentItemType !== 'text/plain' ? {width: '100%',} : {width: '100%',}}>
 
           {currentItemType === 'image/jpeg' ? <img src={currentItemURL} alt='Content' style={{width: '100%', objectFit: 'contain', margin:'10px 0',}}></img> 
-          : currentItemType === 'text/plain' ? <iframe src={currentItemURL} style={selectorGallSlice.dayNight ? {width: '100%', height: '300px', margin:'0', border: 'none', backgroundColor: 'rgb(122, 152, 206)',} 
+          : currentItemType === 'text/plain' ? <iframe src={currentItemURL} title="textFrame" style={selectorGallSlice.dayNight ? {width: '100%', height: '300px', margin:'0', border: 'none', backgroundColor: 'rgb(122, 152, 206)',} 
           : {width: '100%', height: '300px', margin:'0', border: 'none', backgroundColor: '',}}></iframe>
-          : currentItemType === 'audio/mpeg' ? <iframe src={currentItemURL} style={{width: '100%', height: '300px', margin:'0 auto', border: 'none'}}></iframe> : ''}
+          : currentItemType === 'audio/mpeg' ? <iframe src={currentItemURL} title="audioFrame" style={{width: '100%', height: '300px', margin:'0 auto', border: 'none'}}></iframe> : ''}
            
 
           <div className={ga.statitem}>

@@ -32,7 +32,7 @@ const MageChat = () => {
   const messageBlock = useRef();
 
   const [timeValue, setTimeValue] = useState({ time: new Date() });
-  const [newDateObj, setNewDateObj] = useState({});
+  // const [newDateObj, setNewDateObj] = useState({});
   const [message, setMessage] = useState('');
   const [searchName, setSearchName] = useState('');
   const [searchDate, setSearchDate] = useState('');
@@ -40,8 +40,9 @@ const MageChat = () => {
   const [searchMenuToggle, setSearchMenuToggle] = useState(false);
   const [play] = useSound(boopSfx);
 
-  const { register, handleSubmit, formState:{errors}, reset} = useForm({mode: 'onBlur'});
-
+  const { register, handleSubmit, reset} = useForm({mode: 'onBlur'});
+  //formState:{errors}           ^
+  
   useEffect(() => {
 
     // first fill mesBuffLength and itemMesBuffLength
@@ -49,14 +50,14 @@ const MageChat = () => {
       dispatch(change({ operation: 'updateMesBuffLength', data: selectorGallerySlice.messagesBuffer.length }));
       dispatch(change({ operation: 'updateItemMesBuffLength', data: selectorGallerySlice.itemsMessagesBuffer.length }));
     }
-
+  // eslint-disable-next-line
   },[]);
 
   useEffect(() => {
     // info is 'green' only if 'messagesBuffer' is different without 'mesBuffLength'
     if(selectorGallerySlice.messagesBuffer !== undefined && messageBlock.current !== null){
 
-      if(selectorGallerySlice.mesBuffLength !== selectorGallerySlice.messagesBuffer.length && selectorGallerySlice.messagesBuffer.length != 0
+      if(selectorGallerySlice.mesBuffLength !== selectorGallerySlice.messagesBuffer.length && selectorGallerySlice.messagesBuffer.length !== 0
         && selectorGallerySlice.messagesBuffer.length * messageBlock.current.offsetHeight >= 200) {
 
         dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
@@ -64,7 +65,7 @@ const MageChat = () => {
         play();
       }
     }
-
+    // eslint-disable-next-line
   },[selectorGallerySlice.messagesBuffer]);
 
   useEffect(() => { 
@@ -80,14 +81,14 @@ const MageChat = () => {
 
       } 
     }
-
+    // eslint-disable-next-line
   },[selectorGallerySlice.itemsMessagesBuffer]);
 
   useEffect(() => {
 
     // clear item answer status, when modal open
     dispatch(change({ operation: 'updateAnswerId', data: '' }));
-
+    // eslint-disable-next-line
   },[selectorGallerySlice.currentItemId]);
 
 
@@ -158,7 +159,8 @@ const MageChat = () => {
         }
       // write new fresh element to sort array
       sortedMessages = [...sortedMessages, freshMessage];
-
+      
+      // eslint-disable-next-line
       // rest of data it's new unsort array
       unSortedMessages = unSortedMessages.filter(element => element.id !== freshMessage.id);
 

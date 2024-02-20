@@ -37,7 +37,7 @@ const DayNight = () => {
 
       });
     } 
-    
+   // eslint-disable-next-line 
   }, [])
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const DayNight = () => {
         null, true
       );
     }
-
+    // eslint-disable-next-line
   }, [selectorGallSlice.dayNight])
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const DayNight = () => {
     //   {value: selectorGallSlice.dayNight},
     //   null, true
     // );
-
+    // eslint-disable-next-line
   }, [dayNight])
   
   const dayNightHandler = (evt) => {

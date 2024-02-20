@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-com.svg';
 import { ReactComponent as BasketImg } from '../../../images/delete-2-svgrepo-com.svg';
 import { ReactComponent as BackImgDarck } from '../../../images/back-square-svgrepo-com2.svg';
 
-import { getDatabase, ref, onValue } from 'firebase/database';
+// import { getDatabase, ref, onValue } from 'firebase/database';
 import writeUserData from 'API/writerDB';
-import pathCreator from '../../MageChat/pathCreator/pathCreator';
+// import pathCreator from '../../MageChat/pathCreator/pathCreator';
 
 import me from './PersonMessageItem.module.scss'
 
@@ -17,10 +17,10 @@ const PersonMessageItem = ({ data }) => {
 
   const selectorGallerySlice = useSelector(state => state.gallery);
   const selectorSingInSlice = useSelector(state => state.singIn);
-  const selectorItemsUrl = useSelector(state => state.readStorage);
-  const pathSelector = useSelector(state => state.path.logicPath);
+  // const selectorItemsUrl = useSelector(state => state.readStorage);
+  // const pathSelector = useSelector(state => state.path.logicPath);
 
-  const [deleteToggle, setDeleteToggle] = useState(false);
+  // const [deleteToggle, setDeleteToggle] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -84,8 +84,8 @@ const PersonMessageItem = ({ data }) => {
         </> : 
         <>
           <div className={me.title}>
-          {selectorSingInSlice.isSingIn ? <img src={`${selectorGallerySlice.users.
-            find(element => element.userName === data.name).urlFoto}`} 
+          {selectorSingInSlice.isSingIn ? 
+            <img src={`${selectorGallerySlice.users.find(element => element.userName === data.name).urlFoto}`} 
             alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>

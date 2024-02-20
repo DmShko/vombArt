@@ -1,4 +1,4 @@
-import { useState, useEffect, createRef } from 'react';
+import { useEffect, createRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { nanoid } from 'nanoid';
@@ -11,7 +11,6 @@ import pa from './Pagination.module.scss';
 
 const Pagination = () => {
 
-    
     const selectorGallSlice = useSelector(state => state.gallery);
     const selectorUserPath = useSelector(state => state.path);
 
@@ -24,21 +23,22 @@ const Pagination = () => {
     // get pagButtonContainer size
     const { width, ref } = useResizeDetector();
 
-
-    const pagContainer = createRef();
+    // const pagContainer = createRef();
     const pagLabContainer = createRef();
     const pagButtonContainer = createRef();
-    const pagButton = createRef();
+    // const pagButton = createRef();
 
     useEffect(() => {
         if(selectorGallSlice.pageQuantity.length !== 0 ) {
             dispatch(change({operation: 'changeFractions', data: 5}));
             // dispatch(change({operation: 'changePageQuantity', data: []}));
          } 
+         // eslint-disable-next-line
     },[]);
 
     useEffect(() => {
         dispatch(change({operation: 'changeLastWindowSize', data: selectorGallSlice.lastWindowSize - 100}));
+        // eslint-disable-next-line
     },[selectorGallSlice.pageSelector]);
 
     useEffect(() => {
@@ -105,14 +105,14 @@ const Pagination = () => {
         // remember current window size  
         dispatch(change({operation: 'changeLastWindowSize', data: Math.round(width)}));
         console.log(selectorGallSlice.lastWindowSize, Math.round(width));
-    
+    // eslint-disable-next-line
     },[width, selectorGallSlice.lastWindowSize, selectorGallSlice.pageQuantity,]);
 
     useEffect(() => {
        
         pagesCreator();
   
-        
+    // eslint-disable-next-line    
     },[selectorGallSlice.pageQuantity, selectorGallSlice.itemsBuffer]);
 
     useEffect(() => {
@@ -124,6 +124,7 @@ const Pagination = () => {
        // when path change and here. selectorGallSlice.itemsBuffer doesn't have time to change
        // pageQuantity in pagMenuCounter() create on old data base and button in pagination change only on to click.
        // add ...selectorGallSlice.pageQuantity,] too see 109 row
+       // eslint-disable-next-line
     },[selectorGallSlice.pageSelector, selectorUserPath.logicPath, selectorGallSlice.itemsBuffer]);
 
     // create mini array form 'selectorGallSlice.itemsBuffer' that loaded from firebase

@@ -20,7 +20,7 @@ const MessageItem = ({ data }) => {
   const selectorItemsUrl = useSelector(state => state.readStorage);
   const pathSelector = useSelector(state => state.path.logicPath);
 
-  const [deleteToggle, setDeleteToggle] = useState(false);
+  // const [deleteToggle, setDeleteToggle] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -52,6 +52,7 @@ const MessageItem = ({ data }) => {
      });
 
    };  
+   // eslint-disable-next-line
   },[selectorSingInSlice.isSingIn, selectorItemsUrl.itemsURL]);
 
   const answerButtonHandle = () => {
@@ -122,8 +123,8 @@ const MessageItem = ({ data }) => {
         </> : 
         <>
           <div className={me.title}>
-          {selectorSingInSlice.isSingIn ? <img src={`${selectorGallerySlice.users.
-            find(element => element.userName === data.name).urlFoto}`} 
+          {selectorSingInSlice.isSingIn ? 
+            <img src={`${selectorGallerySlice.users.find(element => element.userName === data.name).urlFoto}`} 
             alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>

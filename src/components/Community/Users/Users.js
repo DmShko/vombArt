@@ -35,7 +35,7 @@ const Users = () => {
   useEffect(() => {
    
     dispatch(change({operation: 'changeModalPersonalIsOpen', data: modalPersonalToggle}));
-    
+    // eslint-disable-next-line
   },[modalPersonalToggle]);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Users = () => {
     selectorExistUsersList.users.forEach(element => {
       setUsersOpen({...usersOpen, [element.uid]: false});
     });
-    
+    // eslint-disable-next-line
   },[selectorExistUsersList.users]);
 
   useEffect(() => {
@@ -68,6 +68,7 @@ const Users = () => {
     
 
       // selectorVisibilityLog - when singOut button click
+      // eslint-disable-next-line
   },[selectorVisibilityLog.isSingIn]) 
   
   // change 'usersOpen' if only all element false

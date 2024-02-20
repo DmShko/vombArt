@@ -81,7 +81,7 @@ const Account = () => {
         });
    
       };  
-
+      // eslint-disable-next-line
     },[]);
 
     useEffect(() => {
@@ -94,7 +94,7 @@ const Account = () => {
       };
       setStoragePath('');
       setFileLoaded(false);
-    
+    // eslint-disable-next-line
     }, [fileLoaded]);
 
     useEffect(() => {
@@ -113,15 +113,14 @@ const Account = () => {
 
         }
       }
-
+    // eslint-disable-next-line
     },[selectorGallerySlice.personal]);
 
     const {
       register,
       handleSubmit,
-      formState: { errors },
     } = useForm({ mode: 'onBlur' });
-
+    //formState: { errors },
     // clear user foro url from itemsURL if load is completed
     useEffect(() => {
       
@@ -132,7 +131,7 @@ const Account = () => {
         dispatch(changeReadStorage({operation: `clearUserFotoElement`, data: {id: selectorSingInSlice.singInId}}));
 
       }
-  
+      // eslint-disable-next-line
     },[storagePath]);
 
     // update account array in DB
@@ -148,7 +147,7 @@ const Account = () => {
           null, true
         );
       }
-  
+    // eslint-disable-next-line
     },[selectorGallerySlice.account]);
 
     // see sharedLayuot.js file, row 68 
@@ -185,11 +184,13 @@ const Account = () => {
   
      };  
        // selectorItemsUrl.itemsURL ^ for update user foto
+       // eslint-disable-next-line
     }, [selectorSingInSlice.isSingIn, selectorItemsUrl.itemsURL]);
     
 
     useEffect(() => {
       if(storagePath) dispatch(change({ operation: 'changeLoadFiles', data: null }));
+      // eslint-disable-next-line
     }, [storagePath]);
 
     const handleFileChange = (evt) => {

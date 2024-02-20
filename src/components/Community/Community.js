@@ -1,4 +1,4 @@
-import getUserAPI from '../../API/getUserAPI'
+// import getUserAPI from '../../API/getUserAPI'
 import Gallery from 'components/Gallery/Gallery'
 import Users from 'components/Community/Users/Users'
 import Chat from 'components/MageChat/Chat';
@@ -19,6 +19,7 @@ const Community = () => {
 
   useEffect(() => {
     dispatch(changeCommunity({data: true}));
+    // eslint-disable-next-line
   },[]);
 
   return (
