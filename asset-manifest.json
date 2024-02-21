@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.5230aa20.css",
-    "main.js": "/vombArt/static/js/main.7cb84d83.js",
+    "main.css": "/vombArt/static/css/main.7a662edb.css",
+    "main.js": "/vombArt/static/js/main.3df2f2b4.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.363ce0b781fc883833bb.jpg",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
@@ -10,6 +10,7 @@
     "static/media/IMG_20190804_135033765.jpg": "/vombArt/static/media/IMG_20190804_135033765.9aca370e133ec714f085.jpg",
     "static/media/wood_wall_2-wallpaper-640x480.jpg": "/vombArt/static/media/wood_wall_2-wallpaper-640x480.1effa4c1d580aa6f7e73.jpg",
     "static/media/message-incoming-132126.mp3": "/vombArt/static/media/message-incoming-132126.71ffe8d5a3a0e9bdc45d.mp3",
+    "static/media/birds-svgrepo-com.svg": "/vombArt/static/media/birds-svgrepo-com.82d270bc8f4f2024d81986c1908b17e7.svg",
     "static/media/logo-built_black.svg": "/vombArt/static/media/logo-built_black.cc25c3d4b99b8564b9756152e123df07.svg",
     "static/media/logo-built_white.svg": "/vombArt/static/media/logo-built_white.dffde23be78bc138b4d07d3d74e71b89.svg",
     "static/media/settings-svgrepo-com.svg": "/vombArt/static/media/settings-svgrepo-com.68d1da9876102edbc46fa0505de08997.svg",
@@ -61,12 +62,12 @@
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
-    "main.5230aa20.css.map": "/vombArt/static/css/main.5230aa20.css.map",
-    "main.7cb84d83.js.map": "/vombArt/static/js/main.7cb84d83.js.map",
+    "main.7a662edb.css.map": "/vombArt/static/css/main.7a662edb.css.map",
+    "main.3df2f2b4.js.map": "/vombArt/static/js/main.3df2f2b4.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5230aa20.css",
-    "static/js/main.7cb84d83.js"
+    "static/css/main.7a662edb.css",
+    "static/js/main.3df2f2b4.js"
   ]
 }
