@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/vombArt/static/css/main.7a662edb.css",
-    "main.js": "/vombArt/static/js/main.c80385ad.js",
+    "main.js": "/vombArt/static/js/main.6c3f01cf.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.363ce0b781fc883833bb.jpg",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
@@ -63,11 +63,11 @@
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
     "main.7a662edb.css.map": "/vombArt/static/css/main.7a662edb.css.map",
-    "main.c80385ad.js.map": "/vombArt/static/js/main.c80385ad.js.map",
+    "main.6c3f01cf.js.map": "/vombArt/static/js/main.6c3f01cf.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7a662edb.css",
-    "static/js/main.c80385ad.js"
+    "static/js/main.6c3f01cf.js"
   ]
 }
