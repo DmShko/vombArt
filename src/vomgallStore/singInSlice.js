@@ -47,8 +47,7 @@ const singInSlice = createSlice({
 
       state.isLoading = false;
       state.isSingIn = true;
-      console.log(typeof(action.payload));
-
+    
       // if(typeof(action.payload) !== 'string') {
         state.token = action.payload.user.accessToken;
         state.singInId = action.payload.user.uid;
@@ -62,7 +61,7 @@ const singInSlice = createSlice({
                   
       state.isLoading = false;
       state.error = action.payload;
-      console.log(action.payload)
+      
       // auth/invalid-login-credentials       
       Notiflix.Notify.warning(`${action.payload}`, {width: '450px', position: 'center-top', fontSize: '24px',});
       

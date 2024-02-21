@@ -426,9 +426,9 @@ const MageChat = () => {
                   <div className={ma.answerStamp}>
 
                     <p className={ma.answerStampTitle}>
-                    {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Reply to message:</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Відповідь на повідомлення:</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Odpowiedz na wiadomość:</p> : <p>Reply to message:</p>}
+                    {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Reply to message:</span> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Відповідь на повідомлення:</span> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Odpowiedz na wiadomość:</span> : <span>Reply to message:</span>}
                     </p>
 
                     <div className={ma.answerTitle}>
@@ -450,9 +450,9 @@ const MageChat = () => {
                   <div className={ma.answerStamp}> 
              
                     <p className={ma.answerStampTitle}>
-                    {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Reply to message:</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Відповідь на повідомлення:</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Odpowiedz na wiadomość:</p> : <p>Reply to message:</p>}
+                    {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Reply to message:</span> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Відповідь на повідомлення:</span> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Odpowiedz na wiadomość:</span> : <span>Reply to message:</span>}
                     </p>
 
                     <div className={ma.answerTitle}>
@@ -475,9 +475,9 @@ const MageChat = () => {
                   <div className={ma.answerStamp}>
 
                   <p className={ma.answerStampTitle}>
-                  {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Reply to message:</p> : 
-                    selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Відповідь на повідомлення:</p> : 
-                    selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Odpowiedz na wiadomość:</p> : <p>Reply to message:</p>}
+                  {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Reply to message:</span> : 
+                    selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Відповідь на повідомлення:</span> : 
+                    selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Odpowiedz na wiadomość:</span> : <span>Reply to message:</span>}
                   </p>
 
                   <div className={ma.answerTitle}>
@@ -508,9 +508,9 @@ const MageChat = () => {
                     <div className={ma.serachlable}>
 
                       <p>
-                      {selectorGallerySlice.settings.languageSelector === 'English' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByName</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за назвою</p> : 
-                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według nazwy</p> : <p>SearchByName</p>}
+                      {selectorGallerySlice.settings.languageSelector === 'English' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByName</span> : 
+                      selectorGallerySlice.settings.languageSelector === 'Українська' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за назвою</span> : 
+                      selectorGallerySlice.settings.languageSelector === 'Polska' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według nazwy</span> : <span>SearchByName</span>}
                       </p>
                                
                       <input {...register('SearchName', { 
@@ -537,9 +537,9 @@ const MageChat = () => {
                       
                       <div className={ma.serachlable}>
 
-                        <p>{selectorGallerySlice.settings.languageSelector === 'English' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByDate</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за датою</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według daty</p> : <p>SearchByDate</p>}
+                        <p>{selectorGallerySlice.settings.languageSelector === 'English' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByDate</span> : 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за датою</span> : 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według daty</span> : <span>SearchByDate</span>}
                         </p>
                                 
                         <input {...register('SearchDate', { 
@@ -567,9 +567,9 @@ const MageChat = () => {
                       <div className={ma.serachlable}>   
                     
                         <p>
-                        {selectorGallerySlice.settings.languageSelector === 'English' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByText</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за текстом</p> : 
-                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według tekstu</p> : <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByText</p>}
+                        {selectorGallerySlice.settings.languageSelector === 'English' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByText</span> : 
+                          selectorGallerySlice.settings.languageSelector === 'Українська' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Знайти за текстом</span> : 
+                          selectorGallerySlice.settings.languageSelector === 'Polska' ? <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>Znajdź według tekstu</span> : <span style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: 'white',}}>SearchByText</span>}
                         </p>
                                 
                         <input {...register('SearchText', { 

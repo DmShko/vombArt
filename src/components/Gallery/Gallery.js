@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; 
 // import { useLocation } from 'react-router-dom';
 
 import { nanoid } from 'nanoid';
@@ -51,7 +52,8 @@ const Gallery = () => {
   const [ currentItemId, setCurrentItemId] = useState('');
   const [ selectAllMode, setSelectAllMode] = useState(false);
   
-  // const location = useLocation();
+  const location = useLocation();
+
   function makeUpdatePathStyleList() {
 
     let updateStyles = [];
@@ -566,8 +568,8 @@ const Gallery = () => {
   };
 
   const itemClickHandle = ({ currentTarget }) => {
-
-    if(selectorGallSlice.selectedItems !== undefined) {
+  
+    if(selectorGallSlice.selectedItems !== undefined && location.pathname !== '/community') {
 
       dispatch(change({operation: 'changeSelectedItems', data: currentTarget.id}));
       
@@ -780,9 +782,9 @@ const Gallery = () => {
           onClick={clickButtonArts}
         > 
           <div className={ga.artIcon}>
-          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Writing</p> : 
-            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Письмо</p> : 
-            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Pismo</p> : <p>Writing</p>} 
+          {selectorGallSlice.settings.languageSelector === 'English' ? 'Writing' : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? 'Письмо' : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? 'Pismo' : 'Writing'} 
           <WriteImg style={
             { width: '20px', height: '20px', }
           }/></div>
@@ -808,9 +810,9 @@ const Gallery = () => {
           onClick={clickButtonArts}
         >
           <div className={ga.artIcon}> 
-          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Music</p> : 
-            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Музика</p> : 
-            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Muzyka</p> : <p>Music</p>}  
+          {selectorGallSlice.settings.languageSelector === 'English' ? 'Music' : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? 'Музика' : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? 'Muzyka' : 'Music'}  
           <MusicImg style={
             { width: '20px', height: '20px',}
           }/></div>
@@ -831,9 +833,9 @@ const Gallery = () => {
           onClick={clickButtonArts}
         >
           <div className={ga.artIcon}>
-          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Drawing</p> : 
-            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Живопис</p> : 
-            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Rysunek</p> : <p>Drawing</p>} 
+          {selectorGallSlice.settings.languageSelector === 'English' ? 'Drawing' : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? 'Живопис' : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? 'Rysunek' : 'Drawing'} 
           <DrawImg style={
             { width: '20px', height: '20px', }
           }/></div>
@@ -843,9 +845,9 @@ const Gallery = () => {
       <div>
         <div>
           <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>
-          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Styles</p> : 
-            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Стилі</p> : 
-            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Style</p> : <p>Styles</p>}
+          {selectorGallSlice.settings.languageSelector === 'English' ? 'Styles' : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? 'Стилі' : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? 'Style' : 'Styles'}
           </p>
           <ul className={ga.style} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray',} : {borderColor: ''}}>
             {selectorUserPath.logicPath.arts['draw'] 
@@ -952,12 +954,12 @@ const Gallery = () => {
           <div className={ga.total}>
 
             <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>
-            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Elements</p> : 
-            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Елементи</p> : 
-            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Elementy</p> : <p>Elements</p>}
+            {selectorGallSlice.settings.languageSelector === 'English' ? 'Elements' : 
+            selectorGallSlice.settings.languageSelector === 'Українська' ? 'Елементи' : 
+            selectorGallSlice.settings.languageSelector === 'Polska' ? 'Elementy' : 'Elements'}
             </p>
 
-            <div className={ga.selectall} onClick={selectAllHandle}>Select all</div>
+            {location.pathname !== '/community' ? <div className={ga.selectall} onClick={selectAllHandle}>Select all</div> : ''}
 
             <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>{selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0 ? 
               selectorGallSlice.settings.languageSelector === 'English' ? `total ${selectorGallSlice.itemsBuffer.length} pcs` : 

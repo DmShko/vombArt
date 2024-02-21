@@ -104,7 +104,7 @@ const Pagination = () => {
        
         // remember current window size  
         dispatch(change({operation: 'changeLastWindowSize', data: Math.round(width)}));
-        console.log(selectorGallSlice.lastWindowSize, Math.round(width));
+       
     // eslint-disable-next-line
     },[width, selectorGallSlice.lastWindowSize, selectorGallSlice.pageQuantity,]);
 
@@ -286,9 +286,9 @@ const Pagination = () => {
     <div className={pa.container} ref={ref} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83',} : {backgroundColor: ''}}>
         
         <label className={pa.lab} ref={pagLabContainer}> <p style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: ''}}>
-            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Quantity/page</p> : 
-                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Кількість/стор.</p> : 
-                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Ilość/strona</p> : <p>Quantity/page</p>}
+            {selectorGallSlice.settings.languageSelector === 'English' ? <span>Quantity/page</span> : 
+                selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Кількість/стор.</span> : 
+                selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Ilość/strona</span> : <span>Quantity/page</span>}
             </p>
             <select className={pa.datalist} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)',} : {backgroundColor: ''}} value={selectorGallSlice.pageSelector} onChange={selectChange}>
                 <option style={selectorGallSlice.dayNight ? {color: '#1C274C',} : {color: ''}} value={2}>2</option>

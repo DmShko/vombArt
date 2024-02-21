@@ -20,6 +20,7 @@ import { ReactComponent as UsersImg } from '../../../images/users-svgrepo-com.sv
 import { ReactComponent as UsersFoto } from '../../../images/user-avatar-svgrepo-com.svg';
 import { ReactComponent as SearchImg } from '../../../images/search-alt-2-svgrepo-com.svg';
 import {ReactComponent as OwnMessageImg} from '../../../images/message-svgrepo-com.svg';
+import { ReactComponent as BirdsImg } from '../../../images/birds-svgrepo-com.svg';
 
 const Users = () => {
 
@@ -227,14 +228,14 @@ const Users = () => {
       <div className={us.usersicon} style={selectorExistUsersList.dayNight ? {width: '100%', borderBottom: '2px solid rgb(122, 152, 206)',} : {width: '100%', borderBottom: '2px solid lightgray',}}>{<UsersImg style={{width: '30px', height: '30px',}} />}</div>
       <div className={us.userstitle}>
         <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>
-        {selectorExistUsersList.settings.languageSelector === 'English' ? <p>Total:</p> : 
-                      selectorExistUsersList.settings.languageSelector === 'Українська' ? <p>Всього:</p> : 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? <p>Razem:</p> : <p>Total:</p>}
+        {selectorExistUsersList.settings.languageSelector === 'English' ? <span>Total:</span> : 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? <span>Всього:</span> : 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? <span>Razem:</span> : <span>Total:</span>}
         </p><p style={selectorExistUsersList.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: ''}}>{selectorExistUsersList.users.length}</p></div>
         <div className={us.usercount}><p style={selectorExistUsersList.dayNight ? {color: '#1C274C',} : {color: ''}}>
-        {selectorExistUsersList.settings.languageSelector === 'English' ? <p>Online:</p> : 
-                      selectorExistUsersList.settings.languageSelector === 'Українська' ? <p>У мережі:</p> : 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? <p>W sieci:</p> : <p>Online:</p>}
+        {selectorExistUsersList.settings.languageSelector === 'English' ? <span>Online:</span> : 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? <span>У мережі:</span> : 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? <span>W sieci:</span> : <span>Online:</span>}
         </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
       </div>
 
@@ -256,8 +257,8 @@ const Users = () => {
         
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value => 
-            <div>
-             {value.userName.toLowerCase().includes(search) ? <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} 
+            <div key={nanoid()}>
+             {value.userName.toLowerCase().includes(search.toLowerCase()) ? <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} 
                 style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor: 'none', borderRadius: '3px'}}><p style={{fontFamily: 'Courgette', color: 'rgb(122, 152, 206)',}}>{value.userName}</p> 
                  {value.status? <p className={us.status}>online</p> : ''} 
               {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor:'white', borderRadius: '3px'}}/>}</li> : ''}
@@ -283,7 +284,7 @@ const Users = () => {
             </div>
          )}
         </ul>
-
+        <BirdsImg style={{width: '100px', height: '100px',}}/>
         {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
 
         </ ModalPersonal>}

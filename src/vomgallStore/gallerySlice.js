@@ -98,7 +98,7 @@ const gallerySlice = createSlice({
             state.users = state.users.filter(element => element.uid !== action.payload.data.id);
             break;
           case 'updateUsersArray':
-            console.log(action.payload.data)
+           
             state.users = action.payload.data;
             break;
           case 'changeAllUserStatus':

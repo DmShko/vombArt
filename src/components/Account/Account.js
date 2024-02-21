@@ -451,9 +451,9 @@ const Account = () => {
             <label className={ac.lab}>
         
               <p className={ac.p} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83',} : {backgroundColor: '', color: ''}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Seach file</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вибрати файл</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wybierz plik</p> : <p>Seach file</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Seach file</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вибрати файл</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wybierz plik</span> : <span>Seach file</span>}
               </p>
               
               <span style={{ border: 'none', fontSize: '12px' }}>
@@ -492,19 +492,19 @@ const Account = () => {
 
           <div className={ac.statistic} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83'} : {backgroundColor: 'white', color: ''}}>
             <div className={ac.itemContainer} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}><p>
-            {selectorGallerySlice.settings.languageSelector === 'English' ? <p>All hearts:</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Всі вподабайки:</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wszystkie ulubione:</p> : <p>All hearts:</p>}
+            {selectorGallerySlice.settings.languageSelector === 'English' ? <span>All hearts:</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Всі вподабайки:</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wszystkie ulubione:</span> : <span>All hearts:</span>}
             </p> <p className={ac.item} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{selectorSingInSlice.singInId && selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId] !== undefined ? selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId].length : ''}</p></div>
             <div className={ac.itemContainer} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}><p>
-            {selectorGallerySlice.settings.languageSelector === 'English' ? <p>All view:</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Всі перегляди:</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wszystkie widoki:</p> : <p>All view:</p>}
+            {selectorGallerySlice.settings.languageSelector === 'English' ? <span>All view:</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Всі перегляди:</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wszystkie widoki:</span> : <span>All view:</span>}
             </p> <p className={ac.item} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{totalView()}</p></div>
             <div className={ac.totalItemContainer} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}><p>
-            {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Total level:</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Загальний рівень:</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Poziom ogólny:</p> : <p>Total level:</p>}
+            {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Total level:</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Загальний рівень:</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Poziom ogólny:</span> : <span>Total level:</span>}
             </p> <p className={ac.totalItem} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{totalLevel()}</p></div>
           </div>
           
@@ -513,9 +513,9 @@ const Account = () => {
         {storagePath !== '' ? <StorageWork data={{storagePath, file, setStoragePath, setFileLoaded}}/> : ''}
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Name</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Ім'я</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Imię</p> : <p>Name</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Name</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Ім'я</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Imię</span> : <span>Name</span>}
         </p>
         <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
           <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
@@ -538,9 +538,9 @@ const Account = () => {
         </div>
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Sex</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Стать</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Seks</p> : <p>Sex</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Sex</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Стать</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Seks</span> : <span>Sex</span>}
         </p>
         <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
           <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.sex : ''}</p>
@@ -569,9 +569,9 @@ const Account = () => {
         </div>
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Age</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вік</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wiek</p> : <p>Age</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Age</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вік</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wiek</span> : <span>Age</span>}
         </p>       
         <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.age : ''}</p>
@@ -600,9 +600,9 @@ const Account = () => {
         </div>
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Phone</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Телефон</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Telefon</p> : <p>Phone</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Phone</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Телефон</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Telefon</span> : <span>Phone</span>}
         </p>
         <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.personal.phone : ''}</p>
@@ -629,14 +629,14 @@ const Account = () => {
         </div>
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Email</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Пошта</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Poczta</p> : <p>Email</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Email</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Пошта</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Poczta</span> : <span>Email</span>}
         </p>
         <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).email : ''}</p>
-        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId && auth.currentUser !== null && auth.currentUser.emailVerified ? <p style={{color: 'green'}}>{'confirmed'}</p> : <p style={{color: 'orange'}}>{'not confirmed'}</p>}</p>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId && auth.currentUser !== null && auth.currentUser.emailVerified ? <span style={{color: 'green'}}>{'confirmed'}</span> : <span style={{color: 'orange'}}>{'not confirmed'}</span>}</p>
         {auth.currentUser !== null && !auth.currentUser.emailVerified ? <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={confirmEmail}>
         {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Confirm</p> : 
                 selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Підтвердити</p> : 
@@ -666,9 +666,9 @@ const Account = () => {
         </div>
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Password</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Пароль</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Hasło</p> : <p>Password</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Password</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Пароль</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Hasło</span> : <span>Password</span>}
         </p>
         <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
 
@@ -713,9 +713,9 @@ const Account = () => {
         </div>
 
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '18px', fontWeight: '600' } : {color: 'gray', fontSize: '18px', fontWeight: '600' }}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Delete account</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Видалити профіль</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Usuń profil</p> : <p>Delete account</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Delete account</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Видалити профіль</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Usuń profil</span> : <span>Delete account</span>}
         </p>
         <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
           <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={delAccount}>

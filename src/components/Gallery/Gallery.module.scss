@@ -16,6 +16,7 @@
         align-items: center;
 
         height: 10px;
+        margin-bottom: 5px;
     }
 
     .title {
@@ -150,8 +151,11 @@
         padding: 5px 0;
         margin: 0;
 
-        overflow-y: scroll;
+        border-top: 3px solid #1C274C;
+        border-bottom: 3px solid #1C274C;
 
+        overflow-y: scroll;
+       
         .item {
             
             width: calc(100% / 1.7);

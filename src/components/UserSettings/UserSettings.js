@@ -103,16 +103,16 @@ const UserSettings = () => {
     <div className={se.container}>
 
     <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontWeight: 600} : {color: 'gray', fontWeight: 600}}>
-    {selectorGallerySlice.settings.languageSelector === 'English' ? <p>RESOURSE SETTINGS</p> : 
-      selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>НАЛАШТУВАННЯ РЕСУРСУ</p> : 
-      selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>USTAWIENIE ZASOBÓW</p> : <p>RESOURSE SETTINGS</p>}
+    {selectorGallerySlice.settings.languageSelector === 'English' ? <span>RESOURSE SETTINGS</span> : 
+      selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>НАЛАШТУВАННЯ РЕСУРСУ</span> : 
+      selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>USTAWIENIE ZASOBÓW</span> : <span>RESOURSE SETTINGS</span>}
     </p>
 
       <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
         <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Sounds</p> : 
-          selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Звук</p> : 
-          selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Dźwięk</p> : <p>Sounds</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Sounds</span> : 
+          selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Звук</span> : 
+          selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Dźwięk</span> : <span>Sounds</span>}
         </p>
           <div className={se.status}>
             <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkSound ? 'on' : 'off'}</p>
@@ -130,9 +130,9 @@ const UserSettings = () => {
       {selectorGallerySlice.settings.checkSound ?
         <div className={se.soundcheck}>
           <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: 'gray'}}>
-          {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Input messages</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вхідні повідомлення</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Przychodzące wiadomości</p> : <p>Input messages</p>} 
+          {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Input messages</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вхідні повідомлення</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Przychodzące wiadomości</span> : <span>Input messages</span>} 
           </p>
           <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.inputMessageSoundSelector} onChange={inputMessageSoundSelectChange}>
               <option value={'Sound_1'}>Sound_1</option>
@@ -141,9 +141,9 @@ const UserSettings = () => {
             </select>
 
             <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: 'gray'}}>
-            {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Output messages</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вихідні повідомлення</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wiadomości wychodzące</p> : <p>Output messages</p>}  
+            {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Output messages</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вихідні повідомлення</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wiadomości wychodzące</span> : <span>Output messages</span>}  
             </p>
             <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.outputMessageSoundSelector} onChange={outputMessageSoundSelectChange}>
               <option value={'Sound_1'}>Sound_1</option>
@@ -155,9 +155,9 @@ const UserSettings = () => {
 
       <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
         <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Email</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Пошта</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Email</p> : <p>Email</p>} 
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Email</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Пошта</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Email</span> : <span>Email</span>} 
         </p>
           <div className={se.status}>
             <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkEmail ? 'show' : 'not show'}</p>
@@ -176,9 +176,9 @@ const UserSettings = () => {
       <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
         
         <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Design</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Дизайн</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Projekt</p> : <p>Design</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Design</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Дизайн</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Projekt</span> : <span>Design</span>}
         </p>
           <div className={se.status}>
             <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkDesign ? 'darck' : 'bright'}</p>
@@ -194,9 +194,9 @@ const UserSettings = () => {
       </div> 
       <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
         <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Lenguage</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Мова</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Język</p> : <p>Lenguage</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Lenguage</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Мова</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Język</span> : <span>Lenguage</span>}
         </p>
         <label>
           <select className={se.datalist} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)'} : {backgroundColor: 'white', color: ''}} value={selectorGallerySlice.settings.languageSelector} onChange={langSelectChange}>
@@ -208,9 +208,9 @@ const UserSettings = () => {
       </div>
       <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
         <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Show/Hidden phone number</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Показувати/Приховати номер телефону</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Pokaż/Ukryj numer telefonu</p> : <p>Show/Hidden phone number</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Show/Hidden phone number</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Показувати/Приховати номер телефону</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Pokaż/Ukryj numer telefonu</span> : <span>Show/Hidden phone number</span>}
         </p>
         <div className={se.status}>
             <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkPhone ? 'show' : 'not show'}</p>
@@ -227,9 +227,9 @@ const UserSettings = () => {
 
       <div className={se.check} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
         <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>
-        {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Color schem</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Кольорова схема</p> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Schemat kolorów</p> : <p>Color schem</p>}
+        {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Color schem</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Кольорова схема</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Schemat kolorów</span> : <span>Color schem</span>}
         </p>
         <div className={se.status}>
             <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>{selectorGallerySlice.settings.checkColorSchem ? 'user' : 'default'}</p>
@@ -247,9 +247,9 @@ const UserSettings = () => {
       {selectorGallerySlice.settings.checkColorSchem ? 
         <div style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)'} : {backgroundColor: 'lightgray', color: ''}}>
               <p>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Select schem</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вибрати схему</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wybierz schemat</p> : <p>Select schem</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Select schem</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вибрати схему</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wybierz schemat</span> : <span>Select schem</span>}
               </p>
         </div> :
       ''}

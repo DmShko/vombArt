@@ -113,6 +113,17 @@ const SharedLayout = () => {
   const selectorLogOut = useSelector(state => state.singOut);
   const selectorDelAccount = useSelector(state => state.deleteAccount);
 
+  // disable right click
+  useEffect(() => {
+    const handleContextmenu = e => {
+        e.preventDefault()
+    }
+    document.addEventListener('contextmenu', handleContextmenu)
+    return function cleanup() {
+        document.removeEventListener('contextmenu', handleContextmenu)
+    }
+  }, [])
+
   useEffect(() => {
     
     Object.keys(selectorGallSlice.personalMessagesBuffer).forEach(element => {
@@ -792,18 +803,18 @@ const SharedLayout = () => {
                         <li className={sh.link}>
 
                            <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='about'>
-                           {selectorGallSlice.settings.languageSelector === 'English' ? <p>About</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про сайт</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O witrynie</p> : <p>About</p>}
+                           {selectorGallSlice.settings.languageSelector === 'English' ? <span>About</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Про сайт</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>O witrynie</span> : <span>About</span>}
                            </p>
                             
                         </li>
                         <li className={sh.link}>
 
                           <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='contacts'>
-                          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Contacts</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Контакти</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Łączność</p> : <p>About</p>}
+                          {selectorGallSlice.settings.languageSelector === 'English' ? <span>Contacts</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Контакти</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Łączność</span> : <span>About</span>}
                           </p>
                              
                         </li>
@@ -826,18 +837,18 @@ const SharedLayout = () => {
                         <li className={`${sh.navOneItem} ${sh.link}`}>
 
                             <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='singUp'>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <span>SignUp</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Створити</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Zapisać się</span> : <span>SignUp</span>}
                             </p>
                             
                         </li>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
                             <p className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='singIn'>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignIn</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>zalogować się</p> : <p>SignIn</p>}
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <span>SignIn</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Увійти</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>zalogować się</span> : <span>SignIn</span>}
                             </p>
                            
                         </li>
@@ -937,18 +948,18 @@ const SharedLayout = () => {
                             <li className={sh.linkBurger}>
 
                               <p className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='about'>
-                              {selectorGallSlice.settings.languageSelector === 'English' ? <p>About</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про сайт</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O witrynie</p> : <p>About</p>}
+                              {selectorGallSlice.settings.languageSelector === 'English' ? <span>About</span> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Про сайт</span> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <span>O witrynie</span> : <span>About</span>}
                               </p>
                                 
                             </li>
                             <li className={sh.linkBurger}>
 
                               <p className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={toggleModal} id='contacts'>
-                              {selectorGallSlice.settings.languageSelector === 'English' ? <p>Contacts</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Контакти</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Łączność</p> : <p>About</p>}
+                              {selectorGallSlice.settings.languageSelector === 'English' ? <span>Contacts</span> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Контакти</span> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Łączność</span> : <span>About</span>}
                               </p>
                                 
                             </li>
@@ -958,24 +969,24 @@ const SharedLayout = () => {
 
                     <div className={sh.settingModalButtonContainer}>
                         <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>
-                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Settings</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Налаштування</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Ustawienia</p> : <p>Settings</p>}
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <span>Settings</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Налаштування</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Ustawienia</span> : <span>Settings</span>}
                         </p></div>
                         <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>
-                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Giud</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Інструкція</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Instrukcja</p> : <p>Giud</p>}
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <span>Giud</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Інструкція</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Instrukcja</span> : <span>Giud</span>}
                         </p></div>
                         <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={accountHandle}><ContactsImg style={{width: '25px', height: '25px'}} /><p>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Account</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Профіль</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Profil</p> : <p>Account</p>}
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <span>Account</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Профіль</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Profil</span> : <span>Account</span>}
                         </p></div>
-                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p></p>
-                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Logout</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Вийти</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wychodzić</p> : <p>Logout</p>}
+                        <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} id='singOut' onClick={userLogOut}><LogoutImg style={{width: '25px', height: '25px'}} /><p>
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <span>Logout</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Вийти</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Wychodzić</span> : <span>Logout</span>}</p>
                         </div>
                     </div>
 
@@ -989,15 +1000,15 @@ const SharedLayout = () => {
                 <div className={sh.toggleSingMode}>
                     <button onClick={changeSingMode} id='singIn' style={selectorTargetName === 'singIn' ? {backgroundColor: 'lightblue', color: 'white',  borderRight: 'solid 2px white', fontSize: '16px'} 
                     : {backgroundColor: 'lightgray', borderBottom: 'solid 2px white',}}><p>
-                         {selectorGallSlice.settings.languageSelector === 'English' ? <p>SingIn</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>zalogować się</p> : <p>SingIn</p>}
+                         {selectorGallSlice.settings.languageSelector === 'English' ? <span>SingIn</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Увійти</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>zalogować się</span> : <span>SingIn</span>}
                     </p></button>
                     <button onClick={changeSingMode} id='singUp' style={selectorTargetName === 'singUp' ? {backgroundColor: 'lightblue', color: 'white',  borderLeft: 'solid 2px white' , fontSize: '16px'}
                     : {backgroundColor: 'lightgray', borderBottom: 'solid 2px white',}}><p>
-                         {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
+                         {selectorGallSlice.settings.languageSelector === 'English' ? <span>SignUp</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Створити</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Zapisać się</span> : <span>SignUp</span>}
                     </p></button>
                 </div> : ''}
              
@@ -1104,9 +1115,9 @@ const SharedLayout = () => {
                             </label>
 
                             <button className={sh.button}>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
+                            {!selectorsingUpState.isLoading ? selectorGallSlice.settings.languageSelector === 'English' ? <p>SignUp</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Створити</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p>}
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapisać się</p> : <p>SignUp</p> : <Loader/>}
                             </button>
                             </div>
                         
@@ -1161,9 +1172,9 @@ const SharedLayout = () => {
                             </label>
 
                             <button className={sh.button}>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>SingIn</p> : 
+                            {!selectorsingUpState.isLoading ? selectorGallSlice.settings.languageSelector === 'English' ? <p>SingIn</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Увійти</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zalogować się</p> : <p>SingIn</p>}
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zalogować się</p> : <p>SingIn</p> : <Loader/>}
                             </button>
                         </div>
                         
@@ -1183,10 +1194,10 @@ const SharedLayout = () => {
                 </p> : <p>Try using a special resource to create a password.</p>}
                 </a> : ''}
                 {selectorTargetName === 'singIn' ? <p className={sh.forgot} onClick={forgotHandler}>
-                {selectorGallSlice.settings.languageSelector === 'English' ? <p>I forgot my password. Will restore via mailbox.</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Я забув свій пароль. Буде відновлено через поштову скриньку.</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Zapomniałem hasła. Przywrócę przez skrzynkę pocztową.
-                </p> : <p>I forgot my password. Will restore via mailbox.</p>}
+                {selectorGallSlice.settings.languageSelector === 'English' ? <span>I forgot my password. Will restore via mailbox.</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Я забув свій пароль. Буде відновлено через поштову скриньку.</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Zapomniałem hasła. Przywrócę przez skrzynkę pocztową.
+                </span> : <span>I forgot my password. Will restore via mailbox.</span>}
                 </p> :
                  ''}
 
@@ -1194,10 +1205,10 @@ const SharedLayout = () => {
 
                     <div className={sh.forgotCont} >
                         <p>
-                        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Enter existing account email</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Введіть існуючу електронну адресу облікового запису</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Wprowadź adres e-mail istniejącego konta
-                </p> : <p>Enter existing account email</p>}
+                        {selectorGallSlice.settings.languageSelector === 'English' ? <span>Enter existing account email</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Введіть існуючу електронну адресу облікового запису</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Wprowadź adres e-mail istniejącego konta
+                </span> : <span>Enter existing account email</span>}
                         </p>
                         <label className={sh.forgotLab}> <EmailImg style={{width: '25px', height: '25px',}}/>
                         <input {...register('SendToEmail', {required: 'Please fill the Email field!', 
