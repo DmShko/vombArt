@@ -169,7 +169,6 @@ const NewItem = () => {
   const handleFileChange = evt => {
     if (evt.target.files) {
       setFile(evt.target.files[0]);
-      console.log(evt.target.files[0]) 
 
       // write type of file
       dispatch(

@@ -7,7 +7,7 @@ const forgottenPassAPI = createAsyncThunk(
   'forgottenPassword/forgottenPassAPI', 
   
   async function (email) {
-    console.log(email)
+   
    return await sendPasswordResetEmail(auth, email)
     .then(() => {
       

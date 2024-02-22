@@ -32,9 +32,7 @@ const reauthUserSlice = createSlice({
         });
                 
         builder.addCase(reauthUserAPI.rejected, (state, action) => {
-                        
-          console.log(action)
-            
+     
           Notiflix.Notify.warning(`${action.error}`, {width: '450px', position: 'center-top', fontSize: '24px',});
             
         });

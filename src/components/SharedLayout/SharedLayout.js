@@ -319,7 +319,7 @@ const SharedLayout = () => {
     if(selectorGallSlice.actualUsers !== null && selectorGallSlice.actualUsers !== undefined && selectorGallSlice.actualUsers.length !== 0) {
         
         if(!selectorSingIn.isSingIn && selectorsingUpState.usersId !== '' && selectorUserExist === false) {
-            console.log("not empty")
+          
             dispatch(change({operation: 'updateUsersArray', data: selectorGallSlice.actualUsers}));
             // add new user object but not add, when page reloader selectorUserExist change to false again in 'singUp'
             // when new user add do database

@@ -42,8 +42,6 @@ const deleteAccountSlice = createSlice({
         });
                 
         builder.addCase(deleteAccountAPI.rejected, (state, action) => {
-                        
-          console.log(action)
             
           Notiflix.Notify.warning(`${action.error}`, {width: '450px', position: 'center-top', fontSize: '24px',});
             

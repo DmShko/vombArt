@@ -32,8 +32,6 @@ const changeEmailSlice = createSlice({
         });
                 
         builder.addCase(changeEmAPI.rejected, (state, action) => {
-                        
-          console.log(action)
             
           Notiflix.Notify.warning(`${action.error}`, {width: '450px', position: 'center-top', fontSize: '24px',});
             

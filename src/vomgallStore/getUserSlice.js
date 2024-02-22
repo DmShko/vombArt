@@ -27,8 +27,6 @@ const getUserSlice = createSlice({
     builder.addCase(getUserAPI.fulfilled, (state, action) => {
 
       state.isLoading = false;
-   
-      console.log(action.payload);
       
     });
           

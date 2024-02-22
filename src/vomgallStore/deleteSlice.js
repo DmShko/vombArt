@@ -36,7 +36,7 @@ const deleteStorageSlice = createSlice({
 
             state.isLoading = false;
             state.isSingIn = true;
-            console.log(action.payload);
+           
             if(action.payload !== undefined)
             state.itemsURL.push({id: action.payload.elementId, url: action.payload.url,});
 

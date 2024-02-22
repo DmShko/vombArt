@@ -50,6 +50,40 @@
     .heroCommunity {
         background: url(../../images/hero/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.jpg);
         background-size: cover;
+        height: 240px;
+
+        .messageBoard {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            width: 100%;
+            height: 100%;
+
+            padding: 10px;
+
+            gap: 2px;
+
+
+            .boardItem {
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                font-family: Silkscreen;
+                font-size: 24px;
+
+                height: calc(100% / 4);
+
+                background-color: white;
+       
+                border-radius: 6px;
+
+            }
+        }
     }
 }
 
@@ -72,6 +106,17 @@
                 box-shadow: 1px 1px 4px 3px rgb(84, 92, 138);
             }
         }
+
+        .heroCommunity {
+
+            height: 200px;
+
+            
+            .messageBoard {
+
+                width: 50%;
+            }
+        }
     }
  
 }
@@ -91,6 +136,16 @@
                 border-radius: 8px; 
                 opacity: 70%;
                 box-shadow: 1px 1px 4px 3px rgb(84, 92, 138);
+            }
+        }
+
+        .heroCommunity {
+
+            height: 200px;
+
+            .messageBoard {
+
+                width: 50%;
             }
         }
     }

@@ -66,8 +66,6 @@ const pathSlice = createSlice({
           
         }
         state.logicPath.style = newPathStyle;
-
-        console.log(state.logicPath.style);
   
       },
 
