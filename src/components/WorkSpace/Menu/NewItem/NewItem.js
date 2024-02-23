@@ -141,7 +141,10 @@ const NewItem = () => {
 
   const addItem = (_, evt) => {
     evt.preventDefault();
- 
+
+    // not read while file is write
+    dispatch(change({ operation: 'setIsLoading', data: true }));
+    
     // check selected arts and style
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
       // create items tree
@@ -213,9 +216,9 @@ const NewItem = () => {
             <label className={nf.lab}>
               {' '}
               <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Title</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Заголовок</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Tytuł</p> : <p>Title</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Title</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Заголовок</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Tytuł</span> : <span>Title</span>}
               </p>
               <input
                 {...register('Title', {
@@ -245,9 +248,9 @@ const NewItem = () => {
             <label className={nf.lab}>
               {' '}
               <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Description</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Опис</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Opis</p> : <p>Description</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Description</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Опис</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Opis</span> : <span>Description</span>}
               </p>
               <textarea
                 {...register('Description', {
@@ -282,9 +285,9 @@ const NewItem = () => {
             <label className={nf.lab}>
               {' '}
               <p className={nf.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor:'pointer'} : {color: '', cursor:'pointer'}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Seach file</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вибрати файл</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wybierz plik</p> : <p>Seach file</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Seach file</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вибрати файл</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wybierz plik</span> : <span>Seach file</span>}
               </p>
               <span style={{ border: 'none', fontSize: '12px' }}>
                 {<p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>{selectorGallerySlice.loadFiles}</p> || <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>No search file...</p>}

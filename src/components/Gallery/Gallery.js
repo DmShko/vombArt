@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 import ga from './Gallery.module.scss'
 
 import { getDatabase, ref, onValue } from 'firebase/database';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 import { changePath } from 'vomgallStore/pathSlice';
 import pathCreator from '../MageChat/pathCreator/pathCreator';
@@ -126,17 +127,18 @@ const Gallery = () => {
        
       // clear ItemsURL array
       // dispatch(changeReadStorage({operation: `changeItemsURL`}));
-      
-      // read storage URL for element 'id' from itemsBuffer
-      selectorGallSlice.itemsBuffer.forEach(element => {
+      if(!selectorGallSlice.isLoading) {
+        // read storage URL for element 'id' from itemsBuffer
+        selectorGallSlice.itemsBuffer.forEach(element => {
 
-        dispatch(readerStorAPI({path: `${path[0]}${element.id}`, elementId: element.id}));
-        
-      });
+          dispatch(readerStorAPI({path: `${path[0]}${element.id}`, elementId: element.id}));
+          
+        });
+      };
 
-    }
+    };
   // eslint-disable-next-line
-  },[selectorGallSlice.itemsBuffer]);
+  },[selectorGallSlice.itemsBuffer, selectorGallSlice.isLoading]);
 
   // change currentItemId in 'gellary' slice  
   useEffect(() => {
@@ -433,7 +435,7 @@ const Gallery = () => {
     if(selectorGallSlice.itemsBuffer !== null && selectorGallSlice.itemsBuffer.length !== 0) {
         
       selectorGallSlice.itemsBuffer.forEach(element => {
-
+        Loading.remove();
         // add url to itemsBuffer 'changeItemsUrl' in 'gellary'
         if(selectorItemsUrl.itemsURL.length !== 0) {
           selectorItemsUrl.itemsURL.forEach(value => {if(value.id === element.id) 
@@ -975,7 +977,7 @@ const Gallery = () => {
           <div className={ga.loadContainer}>
             {selectorGallSlice.load ? <Loader /> : ''}
           </div>
-          <ul className={ga.listItems}>
+          {!selectorGallSlice.isLoading ? <ul className={ga.listItems}>
             {selectorGallSlice.currentItemId === '' && selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null ? (
               selectorGallSlice.pageBuffer[selectorGallSlice.pageQuantity.find(element => element.active === true).position].map(element => {
                 return (
@@ -991,7 +993,7 @@ const Gallery = () => {
                 <BlotImg className={ga.blotImg}/>
               </div>
             )}
-          </ul>
+          </ul> : Loading.hourglass()}
         </div> 
       </div>
     </div>

@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { change } from 'vomgallStore/gallerySlice';
 
 import {
   getStorage,
@@ -11,6 +14,8 @@ import UploadLoader from '../UploadLoader/UploadLoader';
 const StorageWork = ({ data }) => {
 
   const [loadDone, setLoadDone] = useState(false);
+
+  const dispatch = useDispatch();
 
   // Get a reference to the storage service
   const storage = getStorage();
@@ -36,7 +41,10 @@ const StorageWork = ({ data }) => {
 
     if(loadDone) {
 
-      data.setFileLoaded(true); 
+      data.setFileLoaded(true);
+
+      // read when file is write
+      dispatch(change({ operation: 'setIsLoading', data: false })); 
       
     }
   // eslint-disable-next-line  

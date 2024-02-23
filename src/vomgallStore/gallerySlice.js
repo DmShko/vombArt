@@ -48,6 +48,7 @@ const galleryInitialState = {
   actualUsers: [],
   dayNight: false,
   modalPersonalIsOpen: false,
+  isLoading: false,
 };
 
 // {
@@ -73,6 +74,9 @@ const gallerySlice = createSlice({
 
       change(state, action) {
         switch (action.payload.operation) {
+          case 'setIsLoading':
+            state.isLoading = action.payload.data;
+            break;
           case 'changeButtonTargetName':
             state.buttonTargetName = action.payload.data;
             break;

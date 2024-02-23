@@ -259,9 +259,9 @@ const EditItem = () => {
               <label className={ed.radioLab}>
                 {' '}
                 <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Title</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Заголовок</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Tytuł</p> : <p>Title</p>}
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Title</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Заголовок</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Tytuł</span> : <span>Title</span>}
                 </p>{' '}
                 <input
                   type="radio"
@@ -273,9 +273,9 @@ const EditItem = () => {
               <label className={ed.radioLab}>
                 {' '}
                 <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Description</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Опис</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Opis</p> : <p>Description</p>}
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Description</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Опис</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Opis</span> : <span>Description</span>}
                 </p>{' '}
                 <input
                   type="radio"
@@ -288,9 +288,9 @@ const EditItem = () => {
               <label className={ed.radioLab}>
                 {' '}
                 <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>File</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Файл</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Plik</p> : <p>File</p>}
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <span>File</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Файл</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Plik</span> : <span>File</span>}
                 </p>{' '}
                 <input
                   type="radio"
@@ -303,9 +303,9 @@ const EditItem = () => {
               <label className={ed.radioLab}>
                 {' '}
                 <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-                {selectorGallerySlice.settings.languageSelector === 'English' ? <p>All</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Все</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wszystko</p> : <p>All</p>}
+                {selectorGallerySlice.settings.languageSelector === 'English' ? <span>All</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Все</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wszystko</span> : <span>All</span>}
                 </p>{' '}
                 <input
                   style = {selectorGallerySlice.dayNight ? {borderRadius: '6px', backgroundColor: 'rgb(122, 152, 206)'} : {borderRadius: '', backgroundColor: ''}}
@@ -320,9 +320,9 @@ const EditItem = () => {
             {checkTitle || checkAll ? <label className={ed.lab}>
               {' '}
               <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Title</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Заголовок</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Tytuł</p> : <p>Title</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Title</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Заголовок</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Tytuł</span> : <span>Title</span>}
               </p>
               <input
                 {...register('Title', {
@@ -352,9 +352,9 @@ const EditItem = () => {
             {checkDescription || checkAll ? <label className={ed.lab}>
               {' '}
               <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Description</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Опис</p> : 
-                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Opis</p> : <p>Description</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Description</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Опис</span> : 
+                  selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Opis</span> : <span>Description</span>}
               </p>
               <textarea
                 {...register('Description', {
@@ -384,9 +384,9 @@ const EditItem = () => {
             {checkFile || checkAll ? <label className={ed.lab} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
               {' '}
               <p className={ed.p} style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', cursor: 'pointer'} : {color: '', cursor: 'pointer'}}>
-              {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Seach file</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Українська' ? <p>Вибрати файл</p> : 
-                selectorGallerySlice.settings.languageSelector === 'Polska' ? <p>Wybierz plik</p> : <p>Seach file</p>}
+              {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Seach file</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вибрати файл</span> : 
+                selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wybierz plik</span> : <span>Seach file</span>}
               </p>
               <span style={{ border: 'none', fontSize: '12px' }}>
                 {selectorGallerySlice.loadFiles || 

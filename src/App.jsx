@@ -5,17 +5,15 @@ import React from 'react'
 
 // import component pages
 import SharedLayout from './components/SharedLayout/SharedLayout'
-import Community from './components/Community/Community';
+import CommunityPanel from './pages/CommunityPanel/CommunityPanel';
 import NotFound from './components/NotFound/NotFound';
 import Home from 'pages/Home/Home';
-import WorkSpace from 'components/WorkSpace/WorkSpace';
+import WorkSpace from './components/WorkSpace/WorkSpace';
 import UserSettings from './components/UserSettings/UserSettings';
 import Guide from './components/Guide/Guide';
 import Account from './components/Account/Account';
 
-const LIRICS = '/lirics';
-const MUSIC = '/music';
-const DRAWING = '/drawing';
+const WORKSPACE = '/workspace';
 const COMMUNITY = '/community';
 const NOTFOUND = '/*';
 const USERSETTINGS = '/usersettings';
@@ -27,10 +25,8 @@ const App = () => {
 // Routes
 const appRoutes = [
   
-  {path: LIRICS, element: <WorkSpace />,},
-  {path: MUSIC, element: <WorkSpace />,},
-  {path: DRAWING, element: <WorkSpace />,},  
-  {path: COMMUNITY, element: <Community />,}, 
+  {path: WORKSPACE, element: <WorkSpace />,}, 
+  {path: COMMUNITY, element: <CommunityPanel />,}, 
   {path: USERSETTINGS, element: <UserSettings />,},
   {path: GUIDE, element: <Guide />,},
   {path: ACCOUNT, element: <Account />,},

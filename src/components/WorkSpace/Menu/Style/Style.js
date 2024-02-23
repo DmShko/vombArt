@@ -186,22 +186,22 @@ const Direction = () => {
       >
         <fieldset className={di.fset}>
           <legend>{checkAdd ? <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
-          {selectorGallSlice.settings.languageSelector === 'English' ? <p>Add Style</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Додати стиль</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Dodaj styl</p> : <p>Add Style</p>}
+          {selectorGallSlice.settings.languageSelector === 'English' ? <span>Add Style</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Додати стиль</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Dodaj styl</span> : <span>Add Style</span>}
             </p> : <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
-            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Delete Style</p> : 
-              selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Видалити стиль</p> : 
-              selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Usuń styl</p> : <p>Delete Style</p>}
+            {selectorGallSlice.settings.languageSelector === 'English' ? <span>Delete Style</span> : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Видалити стиль</span> : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Usuń styl</span> : <span>Delete Style</span>}
             </p>}</legend>
           <div className={di.field}>
             <div className={di.radioCont}>
               <label className={di.radioLab}>
                 {' '}
                 <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
-                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Add</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Додати</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Dodać</p> : <p>Add</p>}
+                {selectorGallSlice.settings.languageSelector === 'English' ? <span>Add</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Додати</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Dodać</span> : <span>Add</span>}
                 </p>{' '}
                 <input
                   className={di.radio}
@@ -214,9 +214,9 @@ const Direction = () => {
               <label className={di.radioLab}>
                 {' '}
                 <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {color: '',}}>
-                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Delete</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Видалити</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Usunąć</p> : <p>Delete</p>}
+                {selectorGallSlice.settings.languageSelector === 'English' ? <span>Delete</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Видалити</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Usunąć</span> : <span>Delete</span>}
                 </p>{' '}
                 <input
                   className={di.radio}
@@ -231,9 +231,9 @@ const Direction = () => {
             <label className={di.lab}>
               {' '}
               <p style = {selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>
-              {selectorGallSlice.settings.languageSelector === 'English' ? <p>Style name</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Назва стилю</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Nazwa stylu</p> : <p>Style name</p>}
+              {selectorGallSlice.settings.languageSelector === 'English' ? <span>Style name</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Назва стилю</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Nazwa stylu</span> : <span>Style name</span>}
               </p>
               <input
                 {...register('Style', {
@@ -262,9 +262,9 @@ const Direction = () => {
             </label>
             {errorDrive ? errors?.Style ? <div className={di.error}><WarningImg style={{width: '15px', height: '15px'}}/> <p style={{color: 'orange', fontSize: '14px', fontWeight: '600',}}>{errors.Style.message}</p></div> : '' : ''}    
             <button className={di.button} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style = {selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}}>
-            {selectorGallSlice.settings.languageSelector === 'English' ? checkAdd ? <p>Add</p> : <p>Delete</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Українська' ? checkAdd ? <p>Додати</p> : <p>Видалити</p> : 
-                  selectorGallSlice.settings.languageSelector === 'Polska' ? checkAdd ? <p>Dodać</p> : <p>Usunąć</p> : checkAdd ? <p>Add</p> : <p>Delete</p>}
+            {selectorGallSlice.settings.languageSelector === 'English' ? checkAdd ? <span>Add</span> : <span>Delete</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Українська' ? checkAdd ? <span>Додати</span> : <span>Видалити</span> : 
+                  selectorGallSlice.settings.languageSelector === 'Polska' ? checkAdd ? <span>Dodać</span> : <span>Usunąć</span> : checkAdd ? <span>Add</span> : <span>Delete</span>}
             </button>
           </div>
         </fieldset>

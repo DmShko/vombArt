@@ -596,6 +596,7 @@ const SharedLayout = () => {
 
   };
 
+  
   // report if no singin user
   const navClick = () => {
 
@@ -760,30 +761,10 @@ const SharedLayout = () => {
                     <ul className={sh.list}>
                         <li className={`${sh.navOneItem} ${sh.link}`}>
                             
-                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Writing</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Письмо</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Pismo</p> : <p>Lyrics</p>}
-                            </NavLink>
-                           
-                        </li>
-
-                        <li className={`${sh.navOneItem} ${sh.link}`}>
-
-                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Music</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Музика</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Muzyka</p> : <p>Muzyka</p>}
-                            </NavLink>
-                           
-                        </li>
-
-                        <li className={`${sh.navOneItem} ${sh.link}`}>
-
-                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
-                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Painting</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Живопис</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Obraz</p> : <p>Drawing</p>}
+                            <NavLink className={sh.linkNav} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/workspace" : "/"}>
+                            {selectorGallSlice.settings.languageSelector === 'English' ? <p>Workspace</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Кабінет</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Biuro</p> : <p>Workspace</p>}
                             </NavLink>
                            
                         </li>
@@ -905,30 +886,10 @@ const SharedLayout = () => {
                         <ul className={sh.listBurger}>
                             <li className={`${sh.navOneItem} ${sh.linkBurger}`}>
                                 
-                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/lirics" : "/"}>
-                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Writing</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Письмо</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Pismo</p> : <p>Lyrics</p>}
-                                </NavLink>
-                              
-                            </li>
-
-                            <li className={`${sh.navOneItem} ${sh.linkBurger}`}>
-
-                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ?"/music" : "/"}>
-                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Music</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Музика</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Muzyka</p> : <p>Muzyka</p>}
-                                </NavLink>
-                              
-                            </li>
-
-                            <li className={`${sh.navOneItem} ${sh.linkBurger}`}>
-
-                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/drawing" : "/"}>
-                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Painting</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Живопис</p> : 
-                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Obraz</p> : <p>Drawing</p>}
+                                <NavLink className={sh.linkNavBurger} style={selectorGallSlice.dayNight ? {color: 'rgb(183, 208, 255)'} : {color: ''}} onClick={navClick} to={selectorSingIn.isSingIn ? "/workspace" : "/"}>
+                                {selectorGallSlice.settings.languageSelector === 'English' ? <p>Workspace</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Кабінет</p> : 
+                                selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Biuro</p> : <p>Workspace</p>}
                                 </NavLink>
                               
                             </li>
