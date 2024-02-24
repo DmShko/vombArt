@@ -34,7 +34,7 @@
 
             gap: 10px;
 
-            width: 50%;
+            width: 100%;
             height: 95%;
 
             padding: 5px;
@@ -96,7 +96,7 @@
 
         .leftblock {
 
-            width: 50%;
+            width: 100%;
             height: 100%;
 
             img {
@@ -117,7 +117,7 @@
     .heroCommunity {
         background: url(../../images/hero/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.jpg);
         background-size: cover;
-        height: 240px;
+        height: 480px;
 
         gap: 10px;
 
@@ -127,7 +127,7 @@
             justify-content: space-between;
             align-items: center;
 
-            width: 50%;
+            width: 100%;
             height: 95%;
 
             padding: 5px;
@@ -238,6 +238,14 @@
                 opacity: 70%;
                 box-shadow: 1px 1px 4px 3px rgb(84, 92, 138);
             }
+
+            .rightblock {
+                width: 50%;
+            }
+
+            .leftblock {
+                width: 50%;
+            }
         }
 
         .heroCommunity {
@@ -247,6 +255,10 @@
             
             .messageBoard {
 
+                width: 50%;
+            }
+
+            .communityBoard {
                 width: 50%;
             }
         }
@@ -270,6 +282,15 @@
                 opacity: 70%;
                 box-shadow: 1px 1px 4px 3px rgb(84, 92, 138);
             }
+
+            .rightblock {
+                width: 50%;
+            }
+
+            .leftblock {
+                width: 50%;
+            }
+   
         }
 
         .heroCommunity {
@@ -278,6 +299,10 @@
 
             .messageBoard {
 
+                width: 50%;
+            }
+
+            .communityBoard {
                 width: 50%;
             }
         }

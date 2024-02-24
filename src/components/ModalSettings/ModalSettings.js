@@ -13,14 +13,14 @@ const ModalSettings = ({ children, data }) => {
   const modal = useRef();
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
+    // document.body.style.overflow = 'hidden'
     
     const timer = setTimeout(() => {
       data ? modal.current.style.right = '5px' : modal.current.style.right = '0';
     }, 100);
 
     return () => {
-      document.body.style.overflow = 'scroll';
+      // document.body.style.overflow = 'scroll';
       clearTimeout(timer); 
     };
       // eslint-disable-next-line

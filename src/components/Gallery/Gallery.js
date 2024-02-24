@@ -111,6 +111,15 @@ const Gallery = () => {
   // get elements URL from fireBase Storage see row 335 
   useEffect(() => {
 
+    // retun true if element contain true
+    const findProperty = data => {
+      for (const key in data) {
+        if (data[key] === true) {
+          return true;
+        }
+      }
+    };
+
     const path = [
       pathCreator({
         pathSelector,
@@ -127,7 +136,7 @@ const Gallery = () => {
        
       // clear ItemsURL array
       // dispatch(changeReadStorage({operation: `changeItemsURL`}));
-      if(!selectorGallSlice.isLoading) {
+      if(!selectorGallSlice.isLoading && findProperty(pathSelector.style)) {
         // read storage URL for element 'id' from itemsBuffer
         selectorGallSlice.itemsBuffer.forEach(element => {
 
