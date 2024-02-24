@@ -290,7 +290,7 @@ const NewItem = () => {
                 selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wybierz plik</span> : <span>Seach file</span>}
               </p>
               <span style={{ border: 'none', fontSize: '12px' }}>
-                {<p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>{selectorGallerySlice.loadFiles}</p> || <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>No search file...</p>}
+                {<p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>{selectorGallerySlice.loadFiles !== null ? selectorGallerySlice.loadFiles.slice(0, 20) : 'No search file...'}</p> || <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: ''}}>No search file...</p>}
               </span>
               <input
                 {...register('Load', {

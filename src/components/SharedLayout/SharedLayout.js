@@ -876,6 +876,8 @@ const SharedLayout = () => {
 
             {
                 modalSettingsToggle && <ModalSettings data={modalSettingsToggle}>
+
+                  <p className={sh.userTitle}>{selectorGallSlice.users.find(element => element.uid === selectorSingIn.singInId).userName}</p>
                   
                   <div className={sh.settingContainer}>
 

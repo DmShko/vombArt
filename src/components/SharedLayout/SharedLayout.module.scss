@@ -375,10 +375,9 @@
         background-color: white;
         border-radius: 6px;
 
-    }
+    };
 
-    
-}
+};
 
 .userMenu {
 
@@ -387,14 +386,24 @@
     justify-content: space-around;
     align-items: center;
     
+    width: fit-content;
     height: 90%;
+
     .title {
 
+        // width: 200px;
         align-items: center;
+    
+        font-size: 22px;
+        font-family: 'Courgette';
+    
+    };
+  
+};
 
-        font-size: 24px;
-        font-family: 'Courgette'
-    }
+.userTitle {
+    font-family: 'Courgette';
+    margin-bottom: 5px;
 }
 
 .settingContainer {
@@ -748,7 +757,7 @@
             .button {
                 display: block;
 
-                width: 100px;
+                width: fit-content;
 
                 color: white;
                 transition: background-color 400ms;
@@ -901,7 +910,7 @@
             .button {
                 display: block;
 
-                width: 100px;
+                width: fit-content;
 
                 color: white;
                 transition: background-color 400ms;

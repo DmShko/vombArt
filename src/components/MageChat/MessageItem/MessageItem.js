@@ -97,7 +97,8 @@ const MessageItem = ({ data }) => {
         <>
           <div className={me.title}>
             {selectorSingInSlice.isSingIn ? <img src={`${selectorGallerySlice.users
-              .find(element => element.userName === data.name).urlFoto}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
+              .find(element => element.userName === data.name) !== undefined ? selectorGallerySlice.users
+              .find(element => element.userName === data.name).urlFoto : ''}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
