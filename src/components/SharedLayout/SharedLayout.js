@@ -40,7 +40,6 @@ import {ReactComponent as OwnMessageImg} from '../../images/message-svgrepo-com.
 import {ReactComponent as BurgerImg} from '../../images/hamburger-menu-svgrepo-com.svg';
 import {ReactComponent as BurgerDarkImg} from '../../images/hamburger-menu-svgrepo-com-dark.svg';
 import {ReactComponent as OpenMessageImg} from '../../images/message-open-svgrepo-com.svg';
-import AdminFoto from '../../images/IMG_20190804_135033765.jpg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
 import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg';
@@ -598,7 +597,7 @@ const SharedLayout = () => {
 
   
   // report if no singin user
-  const navClick = () => {
+  const navClick = (evt) => {
 
     if(!selectorSingIn.isSingIn) Notiflix.Report.info('Please, SingIn or SingUp');
 
@@ -961,7 +960,7 @@ const SharedLayout = () => {
                
                 {selectorTargetName === 'singIn' || selectorTargetName === 'singUp' ? 
                 <div className={sh.toggleSingMode}>
-                    <button onClick={changeSingMode} id='singIn' style={selectorTargetName === 'singIn' ? {backgroundColor: 'lightblue', color: 'white',  borderRight: 'solid 2px white', fontSize: '16px'} 
+                    <button onClick={changeSingMode} id='singIn' style={selectorTargetName === 'singIn' ? {backgroundColor: 'lightblue', color: 'white',  borderRight: 'solid 2px white', fontSize: '16px',} 
                     : {backgroundColor: 'lightgray', borderBottom: 'solid 2px white',}}><p>
                          {selectorGallSlice.settings.languageSelector === 'English' ? <span>SingIn</span> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Увійти</span> : 
@@ -977,7 +976,6 @@ const SharedLayout = () => {
              
                 {selectorTargetName === 'about'? 
                 <div className={sh.about}>
-                    <img src={AdminFoto} alt='Developer foto' style={{width: '150px', }}></img>
                     <h2 style={{color: 'black'}}>
                     {selectorGallSlice.settings.languageSelector === 'English' ? <p>About VomBart and me.</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про VomBart та про мене.</p> : 

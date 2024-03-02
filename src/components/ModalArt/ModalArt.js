@@ -42,7 +42,7 @@ const ModalArt = ({ openClose, children }) => {
     <div className={mo.backdrop} style={{top: `${window.scrollY}px`}} onClick={clickBackdrob}>
         <div className={mo.container}>
             <div style={{display: 'flex', width: '90%', justifyContent: 'flex-end', alignItems: 'center',}}>
-              <CloseImg style={{width: '25px', height: '25px', margin: '5px 0'}} onClick={clickCloseButton}/></div>
+              <CloseImg style={{width: '25px', height: '25px', margin: '5px 0', cursor: 'pointer'}} onClick={clickCloseButton}/></div>
             {children}
         </div>
     </div>, modalRoot

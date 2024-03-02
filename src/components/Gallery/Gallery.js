@@ -373,7 +373,7 @@ const Gallery = () => {
         onValue(starCountRef, snapshot => {
           // load data from database
           const data = snapshot.val();
-        
+
           // hidden loader, when data is loaded
           dispatch(change({ operation: 'changeLoad', data: false }));
 
@@ -414,8 +414,9 @@ const Gallery = () => {
             //   );
             // };
           } else {
-            dispatch(change({ operation: 'changeItemsBuffer', data: [] }));
-            dispatch(change({ operation: 'changeMessagesBuffer', data: [] }));
+  
+            if(j === 0) dispatch(change({ operation: 'changeItemsBuffer', data: [] }));
+            if(j === 1) dispatch(change({ operation: 'changeMessagesBuffer', data: [] }));
             // dispatch(change({ operation: 'changeItemsMessagesBuffer', data: [] }));
           }
         });
@@ -606,13 +607,13 @@ const Gallery = () => {
 
     }
 
-    // // save current item id, when modalItemToggle - true and clear, when - false
     setCurrentItemId(evt.currentTarget.id);
    
   };
 
   // click on heart
-  const heartsHandle = () => {
+  const heartsHandle = (evt) => {
+    evt.target.style.fill = 'red';
     // check item selected
     if(selectorGallSlice.currentItemId !== '') {
       // add new user or new item to 'heartsStatistic'
@@ -756,15 +757,15 @@ const Gallery = () => {
            
 
           <div className={ga.statitem}>
-            <div className={ga.statpoint} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} />
+            <div className={`${ga.statpoint} ${ga.hearts}`} id='hearts' onClick={heartsHandle}><HeartImg style={{width: '25px', height: '25px'}} />
             <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Likes: ${heartsCount()}` : 
               selectorGallSlice.settings.languageSelector === 'Українська' ? `Вподобайки: ${heartsCount()}` : 
               selectorGallSlice.settings.languageSelector === 'Polska' ? `Lubi: ${heartsCount()}` : `Likes: ${heartsCount()}`}</p></div> 
 
             <div className={ga.statpoint}><LevelImg style={{width: '25px', height: '25px'}}/>
-            <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
-              selectorGallSlice.settings.languageSelector === 'Українська' ? `Рівень: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
-              selectorGallSlice.settings.languageSelector === 'Polska' ? `Poziom: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
+            <p>{selectorGallSlice.settings.languageSelector === 'English' ? `Level: ${selectorGallSlice.levelStatistic !== null && Object.keys(selectorGallSlice.levelStatistic).includes(selectorGallSlice.currentItemId) ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              selectorGallSlice.settings.languageSelector === 'Українська' ? `Рівень: ${selectorGallSlice.levelStatistic !== null && Object.keys(selectorGallSlice.levelStatistic).includes(selectorGallSlice.currentItemId) ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
+              selectorGallSlice.settings.languageSelector === 'Polska' ? `Poziom: ${selectorGallSlice.levelStatistic !== null && Object.keys(selectorGallSlice.levelStatistic).includes(selectorGallSlice.currentItemId) ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}` : 
               `Level: ${selectorGallSlice.levelStatistic !== null ? selectorGallSlice.levelStatistic[selectorGallSlice.currentItemId] : ''}`}</p></div>
 
             <div className={ga.statpoint}><ViewsImg style={{width: '25px', height: '25px'}}/>
@@ -984,8 +985,25 @@ const Gallery = () => {
           </div>
           
           <div className={ga.loadContainer}>
+            
             {selectorGallSlice.load ? <Loader /> : ''}
-          </div>
+            
+          </div>    
+
+          <div className={ga.driveContainer}>
+            <p className={ga.driveTitle} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: '', color: '#1C274C', fontSize: '14px'}}>
+                {selectorGallSlice.settings.languageSelector === 'English' ? 'Double click - OPEN': 
+                selectorGallSlice.settings.languageSelector === 'Українська' ? 'Подв. клік - ВІДКРИТИ': 
+                selectorGallSlice.settings.languageSelector === 'Polska' ? 'Podwójnie kliknij - OTWARTY' : 'Double click - OPEN'}
+            </p>
+          
+           {location.pathname === '/workspace' ? <p className={ga.driveTitle} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: '', color: '#1C274C', fontSize: '14px'}}>
+                {selectorGallSlice.settings.languageSelector === 'English' ? 'Single click - SELECT': 
+                selectorGallSlice.settings.languageSelector === 'Українська' ? 'Один. клік - ВИБРАТИ': 
+                selectorGallSlice.settings.languageSelector === 'Polska' ? 'Pojedynczy kliknij - WYBIERAĆ' : 'Single click - SELECT'}
+            </p> : ''}
+          </div>  
+
           {!selectorGallSlice.isLoading ? <ul className={ga.listItems}>
             {selectorGallSlice.currentItemId === '' && selectorGallSlice.pageBuffer.length !== 0 && selectorGallSlice.itemsBuffer !== null ? (
               selectorGallSlice.pageBuffer[selectorGallSlice.pageQuantity.find(element => element.active === true).position].map(element => {

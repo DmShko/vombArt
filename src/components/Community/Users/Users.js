@@ -269,9 +269,9 @@ const Users = () => {
                   {selectorExistUsersList.users !== undefined && selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto === '' ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
                    <img src={`${selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style level:</p> <p>{styleLevel()}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style views:</p> <p>{styleView()}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style likes:</p> <p>{styleLikes()}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style level:</p> <p>{Number.isNaN(styleLevel())}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style views:</p> <p>{Number(styleView())}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style likes:</p> <p>{Number(styleLikes())}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Sex:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Age:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Phone number:</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkPhone ? selectorExistUsersList.personal.phone : ''}</p></div>

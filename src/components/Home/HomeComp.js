@@ -2,13 +2,23 @@ import { useEffect, useState } from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { useSelector } from 'react-redux'; 
+
 import DateTime from '../DateTime/DateTime'
 
 import motion from '../../images/Write Messages.gif';
 
-import { useTransition, animated } from '@react-spring/web'
+import { ReactComponent as GearImg } from '../../images/pair-of-gears-svgrepo-com.svg';
+import { ReactComponent as DialogImg } from '../../images/dialog-2-svgrepo-com.svg';
+import { ReactComponent as FlexImg } from '../../images/flexible-access-svgrepo-com.svg';
+import { ReactComponent as PlusImg } from '../../images/plus-circle-svgrepo-com.svg';
 
-import hm from './HomeComp.module.scss'
+import { useTransition, animated } from '@react-spring/web';
+
+import hm from './HomeComp.module.scss';
+
+import Notiflix from 'notiflix';
+Notiflix.Report.init({titleFontSize: '24px',});
 
 const HomeComp = () => {
   const messages = ['Share your creativity in the artistic community', 
@@ -17,6 +27,7 @@ const HomeComp = () => {
   const navigate = useNavigate();
   const location = useLocation();
  
+  const selectorSingIn = useSelector(state => state.singIn);
   const [ messageItem, setMessageItem ] = useState(messages);
   const [ index, setIndex ] = useState(0);
 
@@ -51,11 +62,23 @@ const HomeComp = () => {
   });
 
   const clickHero = () => {
-    navigate('/workspace');
+
+    if(!selectorSingIn.isSingIn) {
+      Notiflix.Report.info('Please, SingIn or SingUp');
+    } else {
+      navigate('/workspace');
+    };
+   
   };
 
   const clickCommunity = () => {
-    navigate('/community');
+
+    if(!selectorSingIn.isSingIn) {
+      Notiflix.Report.info('Please, SingIn or SingUp');
+    } else {
+      navigate('/community');
+    };
+   
   };
 
   return (
@@ -68,6 +91,14 @@ const HomeComp = () => {
 
       <DateTime />
 
+      </div>
+
+      <div className={hm.infoBlock}>
+        <GearImg style={{width: '40px', height: '40px'}}/>
+        <PlusImg style={{width: '20px', height: '20px'}}/>
+        <DialogImg style={{width: '40px', height: '40px'}}/>
+        <PlusImg style={{width: '20px', height: '20px'}}/>
+        <FlexImg style={{width: '40px', height: '40px'}}/>
       </div>
 
       <div className={hm.hero}>

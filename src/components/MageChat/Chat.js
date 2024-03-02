@@ -390,7 +390,7 @@ const MageChat = () => {
 
               <p style={{color: 'rgb(122, 152, 206)',}}>
               {selectorGallerySlice.settings.languageSelector === 'English' ? 'Messages older than 10 days are automatically deleted.' : 
-                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Повідомлення, старші за 10 днів, видалятимуться автоматичко.' : 
+                  selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Повідомлення, старші за 10 днів, видалятимуться автоматично.' : 
                   selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Wiadomości starsze niż 10 dni są automatycznie usuwane.' : 'Messages older than 10 days are automatically deleted.'}</p> 
             </div>
 

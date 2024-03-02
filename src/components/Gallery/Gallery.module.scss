@@ -19,6 +19,17 @@
         margin-bottom: 5px;
     }
 
+    .driveContainer {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        height: 10px;
+        margin-bottom: 5px;
+
+    }
+
     .title {
         color: white;
         font-weight: 600;
@@ -145,7 +156,7 @@
         column-gap: 10px;
         row-gap: 10px;
 
-        height: 65vh;
+        height: 50vh;
 
         list-style: none;
         padding: 5px 0;
@@ -224,6 +235,10 @@
 
         gap: 5px;
     }
+
+    .hearts:hover {
+        cursor: pointer;
+    }
 }
 //******************************@media rules************************************
 
@@ -245,6 +260,7 @@
        .listItems {
 
         width: unset;
+        height: 65vh;
 
           .item {
             width: calc((100% / 3) - 20px);
@@ -295,6 +311,7 @@
         .listItems {
 
             width: unset;
+            height: 65vh;
 
             .item {
                 width: calc((100% / 3) - 20px);

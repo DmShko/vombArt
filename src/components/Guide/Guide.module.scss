@@ -1,0 +1,24 @@
+.container {
+
+    padding: 70px 0;
+
+    height: 100vh;
+
+    .warnBlock {
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .warnImg {
+            width: 100px;
+            height: 100px;
+        }
+
+        .guideInfo {
+            text-align: start;
+        }
+
+    }
+
+}
