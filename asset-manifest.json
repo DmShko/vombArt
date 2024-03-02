@@ -1,13 +1,12 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.dd2cc106.css",
-    "main.js": "/vombArt/static/js/main.85d18e0b.js",
+    "main.css": "/vombArt/static/css/main.2c96ca8e.css",
+    "main.js": "/vombArt/static/js/main.c209e0ce.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.363ce0b781fc883833bb.jpg",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
     "static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.jpg": "/vombArt/static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.ddfb3756ab986289a5dd.jpg",
     "static/media/pawel-czerwinski-oykbZuvajO0-unsplash.jpg": "/vombArt/static/media/pawel-czerwinski-oykbZuvajO0-unsplash.9ade5a21e5588ee8e172.jpg",
-    "static/media/IMG_20190804_135033765.jpg": "/vombArt/static/media/IMG_20190804_135033765.9aca370e133ec714f085.jpg",
     "static/media/wood_wall_2-wallpaper-640x480.jpg": "/vombArt/static/media/wood_wall_2-wallpaper-640x480.1effa4c1d580aa6f7e73.jpg",
     "static/media/message-incoming-132126.mp3": "/vombArt/static/media/message-incoming-132126.71ffe8d5a3a0e9bdc45d.mp3",
     "static/media/birds-svgrepo-com.svg": "/vombArt/static/media/birds-svgrepo-com.82d270bc8f4f2024d81986c1908b17e7.svg",
@@ -15,9 +14,12 @@
     "static/media/logo-built_white.svg": "/vombArt/static/media/logo-built_white.dffde23be78bc138b4d07d3d74e71b89.svg",
     "static/media/settings-svgrepo-com.svg": "/vombArt/static/media/settings-svgrepo-com.68d1da9876102edbc46fa0505de08997.svg",
     "static/media/user-avatar-svgrepo-com.svg": "/vombArt/static/media/user-avatar-svgrepo-com.74ba374e033321a845d64f9889e53aae.svg",
+    "static/media/pair-of-gears-svgrepo-com.svg": "/vombArt/static/media/pair-of-gears-svgrepo-com.633fd9aacfaf3d00daedba913f93ca84.svg",
     "static/media/contacts-svgrepo-com.svg": "/vombArt/static/media/contacts-svgrepo-com.816a221179d5673eaa44f5d91f23852c.svg",
     "static/media/palette-svgrepo-com.svg": "/vombArt/static/media/palette-svgrepo-com.4f8be5c3b42a960c7ba06d024299dca3.svg",
+    "static/media/flexible-access-svgrepo-com.svg": "/vombArt/static/media/flexible-access-svgrepo-com.d2726613fdf0fb5153710a0b8003fec3.svg",
     "static/media/paint-mark-1-svgrepo-com.svg": "/vombArt/static/media/paint-mark-1-svgrepo-com.ca333330180427957461d0af2605a501.svg",
+    "static/media/dialog-2-svgrepo-com.svg": "/vombArt/static/media/dialog-2-svgrepo-com.b474f4f9e9aa12a15769d60507a69c75.svg",
     "static/media/users-svgrepo-com.svg": "/vombArt/static/media/users-svgrepo-com.6875f7f8137d8351b05b12358c015b3e.svg",
     "static/media/layer-svgrepo-com.svg": "/vombArt/static/media/layer-svgrepo-com.23c511c6a9a514880482fdc77a8ea842.svg",
     "static/media/book-bookmark-svgrepo-com.svg": "/vombArt/static/media/book-bookmark-svgrepo-com.9e151734f38737c770a8c5def1b28533.svg",
@@ -45,6 +47,7 @@
     "static/media/message-text-1-svgrepo-com.svg": "/vombArt/static/media/message-text-1-svgrepo-com.c84f61243c1fb4e6057c51e4a6d3ee99.svg",
     "static/media/triangle-down-svgrepo-com.svg": "/vombArt/static/media/triangle-down-svgrepo-com.8766487ae2ba3306b0a24991e62126fb.svg",
     "static/media/triangle-up-svgrepo-com.svg": "/vombArt/static/media/triangle-up-svgrepo-com.83c23d33c525289db66a3933ee2e2a63.svg",
+    "static/media/plus-circle-svgrepo-com.svg": "/vombArt/static/media/plus-circle-svgrepo-com.f3926e75eec449fb8e36a24d8dec7af3.svg",
     "static/media/warning-1-svgrepo-com.svg": "/vombArt/static/media/warning-1-svgrepo-com.5ba57ce9722bcff3015f03d125193da8.svg",
     "static/media/left-chevron-svgrepo-com.svg": "/vombArt/static/media/left-chevron-svgrepo-com.7825d9060147ed82ea080dacb16e0a2d.svg",
     "static/media/right-chevron-svgrepo-com.svg": "/vombArt/static/media/right-chevron-svgrepo-com.8e97b866995f14f2c2ad77c70007372e.svg",
@@ -62,12 +65,12 @@
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
-    "main.dd2cc106.css.map": "/vombArt/static/css/main.dd2cc106.css.map",
-    "main.85d18e0b.js.map": "/vombArt/static/js/main.85d18e0b.js.map",
+    "main.2c96ca8e.css.map": "/vombArt/static/css/main.2c96ca8e.css.map",
+    "main.c209e0ce.js.map": "/vombArt/static/js/main.c209e0ce.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd2cc106.css",
-    "static/js/main.85d18e0b.js"
+    "static/css/main.2c96ca8e.css",
+    "static/js/main.c209e0ce.js"
   ]
 }
