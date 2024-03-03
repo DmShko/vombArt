@@ -1,14 +1,18 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.2c96ca8e.css",
-    "main.js": "/vombArt/static/js/main.c209e0ce.js",
+    "main.css": "/vombArt/static/css/main.f8fcc0bd.css",
+    "main.js": "/vombArt/static/js/main.6c2b9237.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.363ce0b781fc883833bb.jpg",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
     "static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.jpg": "/vombArt/static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.ddfb3756ab986289a5dd.jpg",
     "static/media/pawel-czerwinski-oykbZuvajO0-unsplash.jpg": "/vombArt/static/media/pawel-czerwinski-oykbZuvajO0-unsplash.9ade5a21e5588ee8e172.jpg",
     "static/media/wood_wall_2-wallpaper-640x480.jpg": "/vombArt/static/media/wood_wall_2-wallpaper-640x480.1effa4c1d580aa6f7e73.jpg",
+    "static/media/new-notification-138807.mp3": "/vombArt/static/media/new-notification-138807.5daafb425efdb887b508.mp3",
+    "static/media/interface-124464.mp3": "/vombArt/static/media/interface-124464.b6ba29659cf55d571cc0.mp3",
+    "static/media/level-up-191997.mp3": "/vombArt/static/media/level-up-191997.08acd6a4106841a511ad.mp3",
     "static/media/message-incoming-132126.mp3": "/vombArt/static/media/message-incoming-132126.71ffe8d5a3a0e9bdc45d.mp3",
+    "static/media/the-notification-email-143029.mp3": "/vombArt/static/media/the-notification-email-143029.8ebaf7ada0f153c25666.mp3",
     "static/media/birds-svgrepo-com.svg": "/vombArt/static/media/birds-svgrepo-com.82d270bc8f4f2024d81986c1908b17e7.svg",
     "static/media/logo-built_black.svg": "/vombArt/static/media/logo-built_black.cc25c3d4b99b8564b9756152e123df07.svg",
     "static/media/logo-built_white.svg": "/vombArt/static/media/logo-built_white.dffde23be78bc138b4d07d3d74e71b89.svg",
@@ -65,12 +69,12 @@
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
-    "main.2c96ca8e.css.map": "/vombArt/static/css/main.2c96ca8e.css.map",
-    "main.c209e0ce.js.map": "/vombArt/static/js/main.c209e0ce.js.map",
+    "main.f8fcc0bd.css.map": "/vombArt/static/css/main.f8fcc0bd.css.map",
+    "main.6c2b9237.js.map": "/vombArt/static/js/main.6c2b9237.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2c96ca8e.css",
-    "static/js/main.c209e0ce.js"
+    "static/css/main.f8fcc0bd.css",
+    "static/js/main.6c2b9237.js"
   ]
 }
