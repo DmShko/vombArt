@@ -932,7 +932,7 @@ const SharedLayout = () => {
                     <div className={sh.settingModalButtonContainer}>
                         <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={settingsHandle}><SettingsImg style={{width: '25px', height: '25px'}} /><p>
                         {selectorGallSlice.settings.languageSelector === 'English' ? <span>Settings</span> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Налаштування</span> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Налашт.</span> : 
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Ustawienia</span> : <span>Settings</span>}
                         </p></div>
                         <div className={sh.settingModalButton} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: ''}} onClick={statisticHandle}><StatisticImg style={{width: '25px', height: '25px'}} /><p>

@@ -192,7 +192,11 @@ const NewItem = () => {
 
   const changeBorderOver = (evt) => {
     
-    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+    if(selectorGallerySlice.settings.checkColorSchem){
+      evt.currentTarget.style.backgroundColor = selectorGallerySlice.colorSchem;
+    } else {
+      evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+    }
 
   };
 

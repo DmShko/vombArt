@@ -31,6 +31,7 @@ const galleryInitialState = {
   typeOfFile: '',
   answerId:'',
   scrollIsEnd: true,
+  persMesBuffLength: 0,
   mesBuffLength: 0,
   itemMesBuffLength: 0,
   settings: {
@@ -49,6 +50,7 @@ const galleryInitialState = {
   dayNight: false,
   modalPersonalIsOpen: false,
   isLoading: false,
+  colorSchem: '',
 };
 
 // {
@@ -298,6 +300,9 @@ const gallerySlice = createSlice({
           case 'updateMesBuffLength':
             state.mesBuffLength = action.payload.data;
             break;
+          case 'updatePersMesBuffLength':
+            state.persMesBuffLength = action.payload.data;
+            break;
           case 'updateItemMesBuffLength':
             state.itemMesBuffLength = action.payload.data;
             break;
@@ -339,6 +344,9 @@ const gallerySlice = createSlice({
             break;
           case 'changeModalPersonalIsOpen':
             state.modalPersonalIsOpen = action.payload.data;
+            break;
+          case 'changeColorSchem':
+            state.colorSchem = action.payload.data;
             break;
           default:
             break;

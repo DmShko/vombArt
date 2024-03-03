@@ -69,6 +69,62 @@
             outline: none;
         }
     }
+    .schemContainer {
+
+        width: 50%;
+
+        .schemBlock {
+            display: flex;
+            flex-direction: row;
+
+            height: 50px;
+    
+            gap: 10px;
+    
+            .schemOne {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 50%;
+                background-color: rgb(151, 30, 207);
+
+                cursor: pointer;
+
+                border: 2px solid transparent;
+            }
+
+            .schemOne:hover {
+                
+                border-color: #384a83;
+            }
+    
+            .schemTwo {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 50%;
+                background-color: rgb(207, 136, 30);
+
+                cursor: pointer;
+
+                border: 2px solid transparent;
+
+            }
+
+            .schemTwo:hover {
+               
+                border-color: #384a83;
+            }
+
+            .schemTitle {
+                color: white;
+            }
+        }
+
+    }
+    
 }
 
 //******************************@media rules************************************

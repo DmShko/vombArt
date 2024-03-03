@@ -99,6 +99,12 @@ const UserSettings = () => {
     setColorSchem(! colorSchem);
   };
 
+  const colorSchemHandler = (evt) => {
+   
+    if(evt.target.id === '1') dispatch(change({operation: 'changeColorSchem', data: 'rgba(151, 30, 207, 0.801)'}));
+    if(evt.target.id === '2') dispatch(change({operation: 'changeColorSchem', data: 'rgba(207, 136, 30, 0.801)'}));
+  };
+
   return (
     <div className={se.container}>
 
@@ -134,22 +140,22 @@ const UserSettings = () => {
             selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вхідні повідомлення</span> : 
             selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Przychodzące wiadomości</span> : <span>Input messages</span>} 
           </p>
-          <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.inputMessageSoundSelector} onChange={inputMessageSoundSelectChange}>
-              <option value={'Sound_1'}>Sound_1</option>
-              <option value={'Sound_2'}>Sound_2</option>
-              <option value={'Sound_3'}>Sound_3</option>
-            </select>
+          <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.inputSoundSelector} onChange={inputMessageSoundSelectChange}>
+            <option value={'Sound_1'}>Sound_1</option>
+            <option value={'Sound_2'}>Sound_2</option>
+            <option value={'Sound_3'}>Sound_3</option>
+          </select>
 
-            <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: 'gray'}}>
-            {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Output messages</span> : 
-            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вихідні повідомлення</span> : 
-            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wiadomości wychodzące</span> : <span>Output messages</span>}  
-            </p>
-            <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.outputMessageSoundSelector} onChange={outputMessageSoundSelectChange}>
-              <option value={'Sound_1'}>Sound_1</option>
-              <option value={'Sound_2'}>Sound_2</option>
-              <option value={'Sound_3'}>Sound_3</option>
-            </select>
+          <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: 'gray'}}>
+            {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Personal messages</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Особисті повідомлення</span> : 
+            selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Osobisty wychodzące</span> : <span>Output messages</span>}  
+          </p>
+          <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.outputSoundSelector} onChange={outputMessageSoundSelectChange}>
+            <option value={'Sound_1'}>Sound_1</option>
+            <option value={'Sound_2'}>Sound_2</option>
+            <option value={'Sound_3'}>Sound_3</option>
+          </select>
         </div>
             : ''}
 
@@ -245,12 +251,18 @@ const UserSettings = () => {
       </div>
 
       {selectorGallerySlice.settings.checkColorSchem ? 
-        <div style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)'} : {backgroundColor: 'lightgray', color: ''}}>
-              <p>
+        <div className={se.schemContainer} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: 'rgb(122, 152, 206)'} : {backgroundColor: 'lightgray', color: ''}}>
+              <p style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: 'white'}}>
               {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Select schem</span> : 
                 selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вибрати схему</span> : 
                 selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wybierz schemat</span> : <span>Select schem</span>}
               </p>
+
+              <div className={se.schemBlock} onClick={colorSchemHandler}>
+                <div className={se.schemOne} style={selectorGallerySlice.colorSchem === 'rgba(151, 30, 207, 0.801)' ? {borderColor:' rgba(194, 212, 31, 0.801)'} : {color: ''}} id='1' ><p className={se.schemTitle}>1</p></div>
+                <div className={se.schemTwo} style={selectorGallerySlice.colorSchem === 'rgba(207, 136, 30, 0.801)' ? {borderColor:' rgba(194, 212, 31, 0.801)'} : {color: ''}} id='2' ><p className={se.schemTitle}>2</p></div>
+              </div>
+              
         </div> :
       ''}
 

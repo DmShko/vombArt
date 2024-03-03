@@ -20,7 +20,10 @@ import { ReactComponent as TriangleDownImg } from '../../images/triangle-down-sv
 
 import ma from './Chat.module.scss'
 import { change } from 'vomgallStore/gallerySlice';
-import boopSfx from '../../sounds/message-incoming-132126.mp3';
+
+import sound1 from '../../sounds/message-incoming-132126.mp3';
+import sound2 from '../../sounds/new-notification-138807.mp3';
+import sound3 from '../../sounds/interface-124464.mp3';
 
 const MageChat = () => {
 
@@ -38,7 +41,10 @@ const MageChat = () => {
   const [searchDate, setSearchDate] = useState('');
   const [searchText, setSearchText] = useState(''); 
   const [searchMenuToggle, setSearchMenuToggle] = useState(false);
-  const [play] = useSound(boopSfx);
+
+  const [play1] = useSound(sound1);
+  const [play2] = useSound(sound2);
+  const [play3] = useSound(sound3);
 
   const { register, handleSubmit, reset} = useForm({mode: 'onBlur'});
   //formState:{errors}           ^
@@ -61,8 +67,13 @@ const MageChat = () => {
         && selectorGallerySlice.messagesBuffer.length * messageBlock.current.offsetHeight >= 200) {
 
         dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
-       
-        play();
+
+        if(selectorGallerySlice.settings.checkSound && selectorGallerySlice.messagesBuffer.length > selectorGallerySlice.mesBuffLength) {
+          if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_1') play1();
+          if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_2') play2();
+          if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_3') play3();
+        }
+        
       }
     }
     // eslint-disable-next-line
@@ -77,8 +88,12 @@ const MageChat = () => {
          
         dispatch(change({ operation: 'updateScrollIsEnd', data: false }));
 
-        play();
-
+        if(selectorGallerySlice.settings.checkSound && selectorGallerySlice.messagesBuffer.length > selectorGallerySlice.itemMesBuffLength) {
+          if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_1') play1();
+          if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_2') play2();
+          if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_3') play3();
+        }
+        
       } 
     }
     // eslint-disable-next-line
@@ -362,8 +377,12 @@ const MageChat = () => {
 
   const changeBorderOver = (evt) => {
     
-    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
-
+    if(selectorGallerySlice.settings.checkColorSchem){
+      evt.currentTarget.style.backgroundColor = selectorGallerySlice.colorSchem;
+    } else {
+      evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+    };
+   
   };
 
   const changeBorderOut = (evt) => {

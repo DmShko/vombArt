@@ -223,6 +223,23 @@ const Users = () => {
 
   };
 
+  const changeBorderOver = (evt) => {
+
+    if(selectorExistUsersList.settings.checkColorSchem){
+      evt.currentTarget.style.backgroundColor = selectorExistUsersList.colorSchem;
+    } else {
+      evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+    }
+
+  };
+
+  const changeBorderOut = (evt) => {
+
+    if(selectorExistUsersList.dayNight) evt.currentTarget.style.backgroundColor =  'rgb(122, 152, 206)';
+    if(!selectorExistUsersList.dayNight) evt.currentTarget.style.backgroundColor =  '';
+    
+  };
+
   return (
     <div className={us.container} style={selectorExistUsersList.dayNight ? {backgroundColor: '#485a94',} : {backgroundColor: ''}}>
 
@@ -259,9 +276,9 @@ const Users = () => {
         <ul className={us.userslist}>
          { selectorExistUsersList.users.map( value => 
             <div key={nanoid()}>
-             {value.userName.toLowerCase().includes(search.toLowerCase()) ? <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} 
+             {value.userName.toLowerCase().includes(search.toLowerCase()) ? <li key={nanoid()} className={us.usersitem} id={value.uid} name={value.userName} onClick={clickUser} onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} 
                 style={usersOpen[value.uid] ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor: 'none', borderRadius: '3px'}}><p style={{fontFamily: 'Courgette', color: 'rgb(122, 152, 206)',}}>{value.userName.slice(0, 8)}</p> 
-                 {value.status? <p className={us.status}>online</p> : ''} 
+                 {value.status? <p className={us.status} style={selectorExistUsersList.settings.checkColorSchem ? {color: 'rgba(194, 212, 31, 0.801)'} : {color: 'orange'}}>online</p> : ''} 
               {usersOpen[value.uid] ? <AngelImgDown className={us.img}/> : <AngelImgRight className={us.img} style={value.userName === selectorUserPath.logicPath.name ? {backgroundColor: 'rgba(194, 212, 31, 0.801)', borderRadius: '3px'} : {backgroundColor:'white', borderRadius: '3px'}}/>}</li> : ''}
 
               {usersOpen[value.uid] ?
@@ -269,14 +286,30 @@ const Users = () => {
                   {selectorExistUsersList.users !== undefined && selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto === '' ? <UsersFoto style={{width: '50px', height: '50px',}} /> : 
                    <img src={`${selectorExistUsersList.users.find(element => element.uid === value.uid).urlFoto}`} alt='search user foto' style={{width: '80px', height: '80px', borderRadius: '50%'}}></img>}
                   <div className={us.userdescription}>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style level:</p> <p>{Number.isNaN(styleLevel())}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style views:</p> <p>{Number(styleView())}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Style likes:</p> <p>{Number(styleLikes())}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Sex:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Age:</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Phone number:</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkPhone ? selectorExistUsersList.personal.phone : ''}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Email:</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkEmail ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>Here with:</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Level:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Рівень:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Poziom:" : "Level:"}</p> <p>{Number.isNaN(styleLevel())}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Views:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Перегляди:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Wyświetlenia:" : "Views:"}</p> <p>{Number(styleView())}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Likes:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Вподобання:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Lubi:" : "Likes:"}</p> <p>{Number(styleLikes())}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Sex:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Стать:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Seks:" : "Sex:"}</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Age:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Вік:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Wiek:" : "Age:"}</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Phone number:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Номер тел.:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Numer tel.:" : "Phone number:"}</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkPhone ? selectorExistUsersList.personal.phone : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Email:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Ел. пошта:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "E-mail:" : "Email:"}</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkEmail ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Here with:": 
+                      selectorExistUsersList.settings.languageSelector === 'Українська' ? "Тут з:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Tutaj z:" : "Here with:"}</p></div>
                   </div>
         
                    { selectorVisibilityLog.singInId !== value.uid ? <OwnMessageImg style={{width: '40px', height: '40px', cursor: 'pointer', fill: 'lightgray'}} id={value.uid} name={'ownMessage'} onClick={personalMessageHandler}/> : ''}

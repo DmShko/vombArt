@@ -166,8 +166,12 @@ const Direction = () => {
   };
 
   const changeBorderOver = (evt) => {
-    
-    evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+
+    if(selectorGallSlice.settings.checkColorSchem){
+      evt.currentTarget.style.backgroundColor = selectorGallSlice.colorSchem;
+    } else {  
+      evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+    }
 
   };
 

@@ -205,7 +205,12 @@ const Menu = () => {
       evt.currentTarget.style.backgroundColor =  'rgba(212, 99, 7, 0.801)';
     
     } else {
-      evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+      if(selectorGallSlice.settings.checkColorSchem){
+        evt.currentTarget.style.backgroundColor = selectorGallSlice.colorSchem;
+      } else {
+        evt.currentTarget.style.backgroundColor =  'rgba(194, 212, 31, 0.801)';
+      }
+      
     } 
 
   };

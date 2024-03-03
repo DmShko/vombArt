@@ -633,9 +633,9 @@ const Account = () => {
                 selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Пошта</span> : 
                 selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Poczta</span> : <span>Email</span>}
         </p>
-        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83',} : {backgroundColor: '', color: ''}}>
+        <div className={ac.userInfo} style={selectorGallerySlice.dayNight ? {backgroundColor: '#384a83', color: '#384a83', height: 'fit-content'} : {backgroundColor: '', color: '', height: 'fit-content',}}>
 
-        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).email : ''}</p>
+        <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600'} : {color: 'gray', fontSize: '24px', fontWeight: '600', width: '100%', overflowWrap: 'break-word', textAlign: 'center'}}>{selectorSingInSlice.singInId ? selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).email : ''}</p>
         <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)', fontSize: '24px', fontWeight: '600' } : {color: 'gray', fontSize: '24px', fontWeight: '600' }}>{selectorSingInSlice.singInId && auth.currentUser !== null && auth.currentUser.emailVerified ? <span style={{color: 'green'}}>{'confirmed'}</span> : <span style={{color: 'orange'}}>{'not confirmed'}</span>}</p>
         {auth.currentUser !== null && !auth.currentUser.emailVerified ? <button onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83', width: 'fit-content'} : {backgroundColor: '', color: '', width: 'fit-content'}} onClick={confirmEmail}>
         {selectorGallerySlice.settings.languageSelector === 'English' ? <p>Confirm</p> : 

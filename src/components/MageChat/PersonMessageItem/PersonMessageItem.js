@@ -1,9 +1,15 @@
-// import { useState } from 'react';
+import { useEffect } from 'react'; 
 import { useDispatch, useSelector } from 'react-redux';
+
+import useSound from 'use-sound';
 
 import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-com.svg';
 import { ReactComponent as BasketImg } from '../../../images/delete-2-svgrepo-com.svg';
 import { ReactComponent as BackImgDarck } from '../../../images/back-square-svgrepo-com2.svg';
+
+import sound1 from '../../../sounds/Output/level-up-191997.mp3';
+import sound2 from '../../../sounds/Output/message-incoming-132126.mp3';
+import sound3 from '../../../sounds/Output/the-notification-email-143029.mp3';
 
 // import { getDatabase, ref, onValue } from 'firebase/database';
 import writeUserData from 'API/writerDB';
@@ -15,6 +21,10 @@ import { change } from 'vomgallStore/gallerySlice';
 
 const PersonMessageItem = ({ data }) => {
 
+  const [play1] = useSound(sound1);
+  const [play2] = useSound(sound2);
+  const [play3] = useSound(sound3);
+
   const selectorGallerySlice = useSelector(state => state.gallery);
   const selectorSingInSlice = useSelector(state => state.singIn);
   // const selectorItemsUrl = useSelector(state => state.readStorage);
@@ -25,6 +35,20 @@ const PersonMessageItem = ({ data }) => {
   const dispatch = useDispatch();
 
   const answer = data.answerStatus;
+
+  useEffect(() => {
+
+    if(selectorGallerySlice.settings.checkSound && selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length > selectorGallerySlice.persMesBuffLength) {
+     
+      if(selectorGallerySlice.settings.outputSoundSelector === 'Sound_1') play1();
+      if(selectorGallerySlice.settings.outputSoundSelector === 'Sound_2') play2();
+      if(selectorGallerySlice.settings.outputSoundSelector === 'Sound_3') play3();
+      
+    }
+
+    dispatch(change({ operation: 'updatePersMesBuffLength', data: selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson].length }));
+  // eslint-disable-next-line
+  },[selectorGallerySlice.personalMessagesBuffer[selectorGallerySlice.selectedPerson]]);
 
   const answerButtonHandle = () => {
 

@@ -312,13 +312,13 @@ const Pagination = () => {
             <ul>
                 {
                     selectorGallSlice.fractionPageQuantity.length === 0 ? selectorGallSlice.pageQuantity.length !== 0 ? selectorGallSlice.pageQuantity.map(value => 
-                        {return <li key={nanoid()}> <button style={selectorGallSlice.dayNight ? value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgb(122, 152, 206)'} :
-                        value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        {return <li key={nanoid()}> <button style={selectorGallSlice.dayNight ? value.active ? selectorGallSlice.settings.checkColorSchem ? {backgroundColor: selectorGallSlice.colorSchem, boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)'} : {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgb(122, 152, 206)'} :
+                        value.active ? selectorGallSlice.settings.checkColorSchem ? {backgroundColor: selectorGallSlice.colorSchem, boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)'} : {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
                         onClick={pageSelected} name={value.name}>{value.name}</button></li>}    
                     ) : '' :
                     selectorGallSlice.fractionPageQuantity[selectorGallSlice.selectfractionPage].map(value => 
-                        {return <li key={nanoid()}><button style={selectorGallSlice.dayNight ? value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgb(122, 152, 206)'} :
-                        value.active ? {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
+                        {return <li key={nanoid()}><button style={selectorGallSlice.dayNight ? value.active ? selectorGallSlice.settings.checkColorSchem ? {backgroundColor: selectorGallSlice.colorSchem, boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)'} : {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'rgb(122, 152, 206)'} :
+                        value.active ? selectorGallSlice.settings.checkColorSchem ? {backgroundColor: selectorGallSlice.colorSchem, boxShadow: 'inset 1px 1px 4px 3px rgba(16, 16, 24, 0.08)'} : {backgroundColor: 'rgba(194, 212, 31, 0.801)'} : {backgroundColor: 'none'}}
                         onClick={pageSelected} name={value.name}>{value.name}</button> </li>}    
                     ) 
                 }
