@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { change } from 'vomgallStore/gallerySlice';
 
-import ti from './DateTime.module.scss';
+import ti from './DateTime.module.scss'
+
+import ArtAnimaLeft from './ArtAnimaLeft/ArtAnimaLeft';
+import ArtAnimaRight from './ArtAnimaRight/ArtAnimaRight';
 
 const DateTime = () => {
 
@@ -52,21 +55,26 @@ const DateTime = () => {
 
     return (
         /*-- Date lightbox --*/
-        <section className={`${ti.animaSection} ${ti.animaContainer}`}>
+        <section className={`${ti.animaSection} ${ti.animaContainer}`} >
             <h1 className={ti.animaTitle}>TODAY</h1>
             <div className={ti.animaElement}>
                 <div className={ti.animaDate}>
                     <p className={ti.animaDateText}>{newDateObj.length !== 0 && newDateObj.datedata}</p>
                 </div>
 
+                <ArtAnimaLeft />
+
                 <div className={ti.animaTime} style={{backgroundImage: `conic-gradient(var(--main-text-color) ${(360/60) * (newDateObj.dateSeconds || 60)}deg, white 0deg)`}}>
                     <p className={ti.animaTimeText} >{newDateObj.length !== 0 && newDateObj.timedata}</p>
                 </div>
+
+                <ArtAnimaRight />
                 
                 <div className={ti.animaYear}>
                     <p className={ti.animaYearText}>{newDateObj.length !== 0 && newDateObj.yeardata}</p>
                 </div>
             </div> 
+
         </section>
   )
 }

@@ -12,8 +12,9 @@ import { changeDelete } from 'vomgallStore/deleteSlice';
 import { changeItemsMetaData } from 'vomgallStore/getMetaSlice';
 import { getDatabase, ref, onValue } from 'firebase/database';
 
-import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg'
-import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg'
+import { ReactComponent as AngelImgRight } from '../../../images/arrow-right-333-svgrepo-com.svg';
+import { ReactComponent as AngelImgDown } from '../../../images/arrow-down-339-svgrepo-com.svg';
+import { ReactComponent as NestImg } from '../../../images/birds-eggs-on-a-nest-svgrepo-com.svg';
 
 import Notiflix from 'notiflix';
 import pathCreator from '../../MageChat/pathCreator/pathCreator';
@@ -224,9 +225,16 @@ const Menu = () => {
 
   return (
     
-    <div className={mn.container} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(72, 90, 148)'} : {backgroundColor: 'white'}}>
+    <div className={mn.container} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(72, 90, 148)',} : {backgroundColor: 'white'}}>
+
       <p style={selectorGallSlice.dayNight ? {fontSize: '30px', fontWeight: '600', fontFamily: 'Agbalumo', color: 'rgb(122, 152, 206)'} : {fontSize: '30px', fontWeight: '600', fontFamily: 'Agbalumo',}}>{selectorSingInSlice.singInId !== '' ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName : ''}</p>
-      <img src={`${selectorSingInSlice.isSingIn ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).urlFoto : ''}`} style={{width: '80px', height: '80px', borderRadius: '50%'}} alt='current user foto'></img>
+      
+      <div className={mn.userContainer}>
+        
+        <img src={`${selectorSingInSlice.isSingIn ? selectorGallSlice.users.find(element => element.uid === selectorSingInSlice.singInId).urlFoto : ''}`} style={{width: '80px', height: '80px', borderRadius: '50%', border: '2px solid white'}} alt='current user foto'></img>
+
+      </div>
+      
       <button type='button' name='style' onMouseOver={changeBorderOver} onMouseOut={changeBorderOut} style={selectorGallSlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)', borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',} 
       : { borderRadius: '6px', border: 'none', padding: '5px', cursor: 'pointer',}} onClick={buttonToggle}><div className={mn.butCont}>
        {selectorGallSlice.settings.languageSelector === 'English' ? <p>Add/Del style</p> : 
@@ -256,6 +264,8 @@ const Menu = () => {
           selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Видалити</p> : 
           selectorGallSlice.settings.languageSelector === 'Polska' ? <p>Usunąć</p> : <p>Delete </p>} 
       </button> : ''}
+
+      <NestImg />
       
     </div>
   )

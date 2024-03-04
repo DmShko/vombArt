@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState, useRef } from 'react'; 
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { useSelector } from 'react-redux'; 
+import { useSelector, useDispatch } from 'react-redux'; 
 
 import DateTime from '../DateTime/DateTime'
 
@@ -26,6 +26,8 @@ const HomeComp = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const timeRef = useRef();
  
   const selectorSingIn = useSelector(state => state.singIn);
   const [ messageItem, setMessageItem ] = useState(messages);
@@ -89,8 +91,8 @@ const HomeComp = () => {
 
       <div className={hm.time}>
 
-      <DateTime />
-
+        <DateTime />
+     
       </div>
 
       <div className={hm.infoBlock}>

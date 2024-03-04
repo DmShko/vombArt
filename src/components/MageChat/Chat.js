@@ -415,7 +415,7 @@ const MageChat = () => {
 
             <div className={ma.area} wrap='soft' onScroll={scrollEnd} style={selectorGallerySlice.dayNight ? {borderColor: 'rgb(122, 152, 206)',} : {borderColor: 'white',}}>
 
-              {!selectorGallerySlice.modalPersonalIsOpen && selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 ? <ScrollDown data={scrollHandler} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
+              {!selectorGallerySlice.modalPersonalIsOpen && selectorGallerySlice.currentItemId === '' && selectorGallerySlice.messagesBuffer.length !== 0 && selectorGallerySlice.messagesBuffer.length > selectorGallerySlice.mesBuffLength? <ScrollDown data={scrollHandler} scrollDownDetect={selectorGallerySlice.scrollIsEnd} /> : ''}
 
                 <ul className={ma.list}>
                     {

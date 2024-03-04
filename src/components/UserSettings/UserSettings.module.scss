@@ -58,6 +58,21 @@
 
         gap: 10px;
 
+        .soundContainer {
+            display: flex;
+            flex-direction: row;
+
+            gap: 20px;
+
+            button {
+        
+                width: fit-content;
+                height: 30px;
+
+                cursor: pointer;
+            }
+        }
+
         .sounddatalist {
  
             border-radius: 6px;

@@ -146,6 +146,14 @@
                     align-items: center;
                     width: 100%;
 
+                    .phone{
+                        overflow-x: scroll;
+                    }
+ 
+                    .email{
+                        overflow-x: scroll;
+                    }
+                   
                 }
             }
  

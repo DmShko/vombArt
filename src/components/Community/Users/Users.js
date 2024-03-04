@@ -303,10 +303,10 @@ const Users = () => {
                       selectorExistUsersList.settings.languageSelector === 'Polska' ? "Wiek:" : "Age:"}</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Phone number:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Номер тел.:": 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Numer tel.:" : "Phone number:"}</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkPhone ? selectorExistUsersList.personal.phone : ''}</p></div>
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Numer tel.:" : "Phone number:"}</p> <p className={us.phone}>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkPhone ? selectorExistUsersList.personal.phone : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Email:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Ел. пошта:": 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "E-mail:" : "Email:"}</p> <p>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkEmail ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "E-mail:" : "Email:"}</p> <p className={us.email}>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkEmail ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Here with:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Тут з:": 
                       selectorExistUsersList.settings.languageSelector === 'Polska' ? "Tutaj z:" : "Here with:"}</p></div>

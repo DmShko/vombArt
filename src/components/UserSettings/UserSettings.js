@@ -3,6 +3,14 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { change } from 'vomgallStore/gallerySlice';
 
+import useSound from 'use-sound';
+
+import sound1 from '../../sounds/message-incoming-132126.mp3';
+import sound2 from '../../sounds/new-notification-138807.mp3';
+import sound3 from '../../sounds/interface-124464.mp3';
+
+import { ReactComponent as TrumpetImg } from '../../images/trumpet-svgrepo-com.svg'
+
 import se from './UserSettings.module.scss';
 
 const UserSettings = () => {
@@ -15,6 +23,10 @@ const UserSettings = () => {
   const [ sound, setSound ] = useState(selectorGallerySlice.settings.checkSound);
   const [ phone, setPhone ] = useState(selectorGallerySlice.settings.checkPhone);
   const [ colorSchem, setColorSchem ] = useState(selectorGallerySlice.settings.checkColorSchem);
+
+  const [play1] = useSound(sound1);
+  const [play2] = useSound(sound2);
+  const [play3] = useSound(sound3);
 
   useEffect(() => {
 
@@ -104,6 +116,18 @@ const UserSettings = () => {
     if(evt.target.id === '1') dispatch(change({operation: 'changeColorSchem', data: 'rgba(151, 30, 207, 0.801)'}));
     if(evt.target.id === '2') dispatch(change({operation: 'changeColorSchem', data: 'rgba(207, 136, 30, 0.801)'}));
   };
+  
+  const soundReviewIn = () => {
+    if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_1') play1();
+    if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_2') play2();
+    if(selectorGallerySlice.settings.inputSoundSelector === 'Sound_3') play3();
+  };
+
+  const soundReviewPersonal = () => {
+    if(selectorGallerySlice.settings.outputSoundSelector === 'Sound_1') play1();
+    if(selectorGallerySlice.settings.outputSoundSelector === 'Sound_2') play2();
+    if(selectorGallerySlice.settings.outputSoundSelector === 'Sound_3') play3();
+  };
 
   return (
     <div className={se.container}>
@@ -140,22 +164,34 @@ const UserSettings = () => {
             selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Вхідні повідомлення</span> : 
             selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Przychodzące wiadomości</span> : <span>Input messages</span>} 
           </p>
-          <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.inputSoundSelector} onChange={inputMessageSoundSelectChange}>
-            <option value={'Sound_1'}>Sound_1</option>
-            <option value={'Sound_2'}>Sound_2</option>
-            <option value={'Sound_3'}>Sound_3</option>
-          </select>
+
+          <div className={se.soundContainer}>
+            <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.inputSoundSelector} onChange={inputMessageSoundSelectChange}>
+              <option value={'Sound_1'}>Sound_1</option>
+              <option value={'Sound_2'}>Sound_2</option>
+              <option value={'Sound_3'}>Sound_3</option>
+            </select>
+
+            <button onClick={soundReviewIn}><TrumpetImg/></button>
+
+          </div>
 
           <p style={selectorGallerySlice.dayNight ? {color: 'rgb(122, 152, 206)'} : {color: 'gray'}}>
             {selectorGallerySlice.settings.languageSelector === 'English' ? <span>Personal messages</span> : 
             selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Особисті повідомлення</span> : 
             selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Osobisty wychodzące</span> : <span>Output messages</span>}  
           </p>
-          <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.outputSoundSelector} onChange={outputMessageSoundSelectChange}>
-            <option value={'Sound_1'}>Sound_1</option>
-            <option value={'Sound_2'}>Sound_2</option>
-            <option value={'Sound_3'}>Sound_3</option>
-          </select>
+
+          <div className={se.soundContainer}>
+            <select className={se.sounddatalist} style={selectorGallerySlice.dayNight ? {backgroundColor: 'rgb(122, 152, 206)'} : {backgroundColor: 'gray'}} value={selectorGallerySlice.settings.outputSoundSelector} onChange={outputMessageSoundSelectChange}>
+              <option value={'Sound_1'}>Sound_1</option>
+              <option value={'Sound_2'}>Sound_2</option>
+              <option value={'Sound_3'}>Sound_3</option>
+            </select>
+
+            <button onClick={soundReviewPersonal}><TrumpetImg/></button>
+          </div>
+
         </div>
             : ''}
 
