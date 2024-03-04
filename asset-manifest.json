@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.f8fcc0bd.css",
-    "main.js": "/vombArt/static/js/main.6c2b9237.js",
+    "main.css": "/vombArt/static/css/main.5f8f3d26.css",
+    "main.js": "/vombArt/static/js/main.a6d8f6d2.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.363ce0b781fc883833bb.jpg",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
@@ -16,6 +16,7 @@
     "static/media/birds-svgrepo-com.svg": "/vombArt/static/media/birds-svgrepo-com.82d270bc8f4f2024d81986c1908b17e7.svg",
     "static/media/logo-built_black.svg": "/vombArt/static/media/logo-built_black.cc25c3d4b99b8564b9756152e123df07.svg",
     "static/media/logo-built_white.svg": "/vombArt/static/media/logo-built_white.dffde23be78bc138b4d07d3d74e71b89.svg",
+    "static/media/birds-eggs-on-a-nest-svgrepo-com.svg": "/vombArt/static/media/birds-eggs-on-a-nest-svgrepo-com.ad46d93a037dac60b58b29fed44db00a.svg",
     "static/media/settings-svgrepo-com.svg": "/vombArt/static/media/settings-svgrepo-com.68d1da9876102edbc46fa0505de08997.svg",
     "static/media/user-avatar-svgrepo-com.svg": "/vombArt/static/media/user-avatar-svgrepo-com.74ba374e033321a845d64f9889e53aae.svg",
     "static/media/pair-of-gears-svgrepo-com.svg": "/vombArt/static/media/pair-of-gears-svgrepo-com.633fd9aacfaf3d00daedba913f93ca84.svg",
@@ -25,6 +26,7 @@
     "static/media/paint-mark-1-svgrepo-com.svg": "/vombArt/static/media/paint-mark-1-svgrepo-com.ca333330180427957461d0af2605a501.svg",
     "static/media/dialog-2-svgrepo-com.svg": "/vombArt/static/media/dialog-2-svgrepo-com.b474f4f9e9aa12a15769d60507a69c75.svg",
     "static/media/users-svgrepo-com.svg": "/vombArt/static/media/users-svgrepo-com.6875f7f8137d8351b05b12358c015b3e.svg",
+    "static/media/trumpet-svgrepo-com.svg": "/vombArt/static/media/trumpet-svgrepo-com.7ad6409ca13b1a18cefacb544fef2358.svg",
     "static/media/layer-svgrepo-com.svg": "/vombArt/static/media/layer-svgrepo-com.23c511c6a9a514880482fdc77a8ea842.svg",
     "static/media/book-bookmark-svgrepo-com.svg": "/vombArt/static/media/book-bookmark-svgrepo-com.9e151734f38737c770a8c5def1b28533.svg",
     "static/media/sun-2-svgrepo-com.svg": "/vombArt/static/media/sun-2-svgrepo-com.62987a3a54fd68ae4d98f559d983467c.svg",
@@ -38,6 +40,7 @@
     "static/media/key-svgrepo-com.svg": "/vombArt/static/media/key-svgrepo-com.291b6d2cb11b39727eaf750d8ea1fd0a.svg",
     "static/media/send-alt-2-svgrepo-com.svg": "/vombArt/static/media/send-alt-2-svgrepo-com.4e370218708b5f97a6471e219332dc6c.svg",
     "static/media/user-id-svgrepo-com.svg": "/vombArt/static/media/user-id-svgrepo-com.6ab7e362fb13fc063bce124f993cbabb.svg",
+    "static/media/star-alt-3-svgrepo-com.svg": "/vombArt/static/media/star-alt-3-svgrepo-com.d03b9eb37e23756da0a09e608f73cd90.svg",
     "static/media/arrow-right-333-svgrepo-com.svg": "/vombArt/static/media/arrow-right-333-svgrepo-com.5a4296c04c1781688ef9072a42fa51ba.svg",
     "static/media/arrow-down-339-svgrepo-com.svg": "/vombArt/static/media/arrow-down-339-svgrepo-com.01e5e7fa5f6342d014d108366331d180.svg",
     "static/media/edit-pen-write-1-svgrepo-com.svg": "/vombArt/static/media/edit-pen-write-1-svgrepo-com.17c48e3a4acd8c18a80943382e94324e.svg",
@@ -48,6 +51,7 @@
     "static/media/view-svgrepo-com.svg": "/vombArt/static/media/view-svgrepo-com.f44df10836cbf3723a92cd98fb137b75.svg",
     "static/media/back-square-svgrepo-com2.svg": "/vombArt/static/media/back-square-svgrepo-com2.d99f0f1e3f600c48bd47866c9759ce42.svg",
     "static/media/back-square-svgrepo-com.svg": "/vombArt/static/media/back-square-svgrepo-com.e379c2b5b67cc89108f8074076dfde8d.svg",
+    "static/media/ribbon-in-curling-style-svgrepo-com.svg": "/vombArt/static/media/ribbon-in-curling-style-svgrepo-com.4551a566cfa41aa1fde5.svg",
     "static/media/message-text-1-svgrepo-com.svg": "/vombArt/static/media/message-text-1-svgrepo-com.c84f61243c1fb4e6057c51e4a6d3ee99.svg",
     "static/media/triangle-down-svgrepo-com.svg": "/vombArt/static/media/triangle-down-svgrepo-com.8766487ae2ba3306b0a24991e62126fb.svg",
     "static/media/triangle-up-svgrepo-com.svg": "/vombArt/static/media/triangle-up-svgrepo-com.83c23d33c525289db66a3933ee2e2a63.svg",
@@ -69,12 +73,12 @@
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
-    "main.f8fcc0bd.css.map": "/vombArt/static/css/main.f8fcc0bd.css.map",
-    "main.6c2b9237.js.map": "/vombArt/static/js/main.6c2b9237.js.map",
+    "main.5f8f3d26.css.map": "/vombArt/static/css/main.5f8f3d26.css.map",
+    "main.a6d8f6d2.js.map": "/vombArt/static/js/main.a6d8f6d2.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f8fcc0bd.css",
-    "static/js/main.6c2b9237.js"
+    "static/css/main.5f8f3d26.css",
+    "static/js/main.a6d8f6d2.js"
   ]
 }
