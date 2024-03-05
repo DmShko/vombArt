@@ -160,6 +160,25 @@
         }
         
     }
+
+    .randItem {
+        width: 100%;
+        height: fit-content;
+
+        text-align: center;
+
+        img {
+            border-radius: 6px;
+        }
+
+        span {
+            font-style: italic;
+        }
+
+        .title {
+            font-weight: 600;
+        }
+    }
 }
 
 //******************************@media rules************************************

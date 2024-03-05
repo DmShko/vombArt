@@ -30,12 +30,15 @@
   
       font-size: 30px;
       background: none;
-      min-width: fit-content;
+      min-width: 60px;
       height: 50px;
       border-radius: 4px;
       
       margin: 0 auto;
+      padding: 0 5px;
       color: var(--body-color);
+
+      box-shadow: inset 1px 1px 4px 3px rgba(16, 16, 24, 0.3);
       
   }
   
@@ -112,14 +115,18 @@
   
       font-size: 30px;
       background: none;
-      min-width: fit-content;
+      min-width: 60px;
       height: 50px;
       border-radius: 4px;
 
       margin-left: auto;
       margin-right: auto;
 
+      padding: 0 5px;
+
       color: var(--body-color);
+
+      box-shadow: inset 1px 1px 4px 3px rgba(16, 16, 24, 0.2);
   }
   
   @media only screen and (min-width: 1200px){
@@ -141,15 +148,41 @@
 
 //-------------------(min-width: 768px) and (max-width: 1439px)-----------------
 @media screen and (min-width: 768px) and (max-width: 1439px) {
+
+  .animaDate {
+    
+    min-width: 80px;
+    
+  }
+
+  .animaYear {
+   
+    min-width: 80px;
+    
+  }
+
   .animaSection {
-    margin: 50px 0;
+    margin: 40px 0;
   }
 }
 
 //-------------------min-width: 1440px----------------------------
 @media screen and (min-width: 1440px) {
+  
+  .animaDate {
+    
+    min-width: 80px;
+    
+  }
+
+  .animaYear {
+   
+    min-width: 80px;
+    
+  }
+
   .animaSection {
-    margin: 50px 0;
+    margin: 40px 0;
   }
 }
 //******************************end************************************

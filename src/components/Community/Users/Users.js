@@ -22,6 +22,10 @@ import { ReactComponent as SearchImg } from '../../../images/search-alt-2-svgrep
 import {ReactComponent as OwnMessageImg} from '../../../images/message-svgrepo-com.svg';
 import { ReactComponent as BirdsImg } from '../../../images/birds-svgrepo-com.svg';
 
+import { ReactComponent as BlotImg } from '../../../images/paint-mark-1-svgrepo-com.svg';
+import { ReactComponent as BookImg } from '../../../images/book-bookmark-svgrepo-com.svg';
+import { ReactComponent as MusicImg } from '../../../images/music-note-svgrepo-com.svg';
+
 const Users = () => {
 
   const dispatch = useDispatch();
@@ -32,6 +36,20 @@ const Users = () => {
 
   const [usersOpen, setUsersOpen] = useState({});
   const [modalPersonalToggle, setModalPersonalToggle] = useState(false); 
+  const [randomItem, setRandomItem] = useState({});
+
+  useEffect(() => {
+    
+    const randomGenerator = (max, min) => {
+      return Math.round(Math.random() * (max - min) + min);
+    };
+   
+    if(selectorExistUsersList.itemsBuffer !== null && selectorExistUsersList.itemsBuffer.length !== 0) {
+      setRandomItem(selectorExistUsersList.itemsBuffer[randomGenerator(selectorExistUsersList.itemsBuffer.length, 0)]);
+    };
+
+    // eslint-disable-next-line
+  },[selectorExistUsersList.itemsBuffer]);
 
   useEffect(() => {
    
@@ -319,6 +337,15 @@ const Users = () => {
          )}
         </ul>
         <BirdsImg style={{width: '100px', height: '100px',}}/>
+
+        <div className={us.randItem}>
+            <p>Random of <span>{selectorUserPath.logicPath.name}</span></p>
+            <p className={us.title}>{randomItem !== undefined ? randomItem.title : ''}</p>
+            {randomItem !== undefined && randomItem.type === 'image/jpeg' ? <img src={randomItem.url} alt='Content' style={{width:'100%', objectFit: 'contain', margin:'10px 0'}}></img> 
+            : randomItem !== undefined && randomItem.type === 'text/plain' ? <pre style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}><BookImg style={{width:'100%', height: '100px', objectFit: 'cover', margin:'0'}}/></pre> 
+            : randomItem !== undefined && randomItem.type === 'audio/mpeg' ? <pre style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0'}}><MusicImg style={{width:'100%', height: '100px', objectFit: 'cover', margin:'0'}}/></pre> : <BlotImg style={{width:'100%', height: '100px', objectFit: 'cover', margin:'10px 0', }}/>}
+        </div>
+
         {modalPersonalToggle && <ModalPersonal openClose={ModalPersonalToggle}>
 
         </ ModalPersonal>}
