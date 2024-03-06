@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.f3a5e259.css",
-    "main.js": "/vombArt/static/js/main.b5cab300.js",
+    "main.css": "/vombArt/static/css/main.25390208.css",
+    "main.js": "/vombArt/static/js/main.2716f39c.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.59331326afd8dc9fd663.jpg",
@@ -9,6 +9,7 @@
     "static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.jpg": "/vombArt/static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.d063bf225b8c2a15196a.jpg",
     "static/media/wood_wall_2-wallpaper-640x480.jpg": "/vombArt/static/media/wood_wall_2-wallpaper-640x480.1effa4c1d580aa6f7e73.jpg",
     "static/media/new-notification-138807.mp3": "/vombArt/static/media/new-notification-138807.5daafb425efdb887b508.mp3",
+    "static/media/travel_the_world_hot_air_balloons-wallpaper-1366x768.jpg": "/vombArt/static/media/travel_the_world_hot_air_balloons-wallpaper-1366x768.452e60dc8757e1695b65.jpg",
     "static/media/interface-124464.mp3": "/vombArt/static/media/interface-124464.b6ba29659cf55d571cc0.mp3",
     "static/media/level-up-191997.mp3": "/vombArt/static/media/level-up-191997.08acd6a4106841a511ad.mp3",
     "static/media/message-incoming-132126.mp3": "/vombArt/static/media/message-incoming-132126.71ffe8d5a3a0e9bdc45d.mp3",
@@ -40,7 +41,7 @@
     "static/media/key-svgrepo-com.svg": "/vombArt/static/media/key-svgrepo-com.291b6d2cb11b39727eaf750d8ea1fd0a.svg",
     "static/media/send-alt-2-svgrepo-com.svg": "/vombArt/static/media/send-alt-2-svgrepo-com.4e370218708b5f97a6471e219332dc6c.svg",
     "static/media/user-id-svgrepo-com.svg": "/vombArt/static/media/user-id-svgrepo-com.6ab7e362fb13fc063bce124f993cbabb.svg",
-    "static/media/star-alt-3-svgrepo-com.svg": "/vombArt/static/media/star-alt-3-svgrepo-com.d03b9eb37e23756da0a09e608f73cd90.svg",
+    "static/media/feather-svgrepo-com.svg": "/vombArt/static/media/feather-svgrepo-com.ee1f39a7e67320599ca5f6f4581ea842.svg",
     "static/media/arrow-right-333-svgrepo-com.svg": "/vombArt/static/media/arrow-right-333-svgrepo-com.5a4296c04c1781688ef9072a42fa51ba.svg",
     "static/media/arrow-down-339-svgrepo-com.svg": "/vombArt/static/media/arrow-down-339-svgrepo-com.01e5e7fa5f6342d014d108366331d180.svg",
     "static/media/edit-pen-write-1-svgrepo-com.svg": "/vombArt/static/media/edit-pen-write-1-svgrepo-com.17c48e3a4acd8c18a80943382e94324e.svg",
@@ -73,12 +74,12 @@
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
-    "main.f3a5e259.css.map": "/vombArt/static/css/main.f3a5e259.css.map",
-    "main.b5cab300.js.map": "/vombArt/static/js/main.b5cab300.js.map",
+    "main.25390208.css.map": "/vombArt/static/css/main.25390208.css.map",
+    "main.2716f39c.js.map": "/vombArt/static/js/main.2716f39c.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f3a5e259.css",
-    "static/js/main.b5cab300.js"
+    "static/css/main.25390208.css",
+    "static/js/main.2716f39c.js"
   ]
 }
