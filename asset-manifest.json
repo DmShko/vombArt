@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.ff137d0c.css",
-    "main.js": "/vombArt/static/js/main.be4ff4b6.js",
+    "main.css": "/vombArt/static/css/main.f3a5e259.css",
+    "main.js": "/vombArt/static/js/main.cd732993.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
-    "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.363ce0b781fc883833bb.jpg",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
-    "static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.jpg": "/vombArt/static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.ddfb3756ab986289a5dd.jpg",
+    "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.59331326afd8dc9fd663.jpg",
     "static/media/pawel-czerwinski-oykbZuvajO0-unsplash.jpg": "/vombArt/static/media/pawel-czerwinski-oykbZuvajO0-unsplash.9ade5a21e5588ee8e172.jpg",
+    "static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.jpg": "/vombArt/static/media/evening-sunset-abstract-blue-city-lights-bokeh-picjumbo-com.d063bf225b8c2a15196a.jpg",
     "static/media/wood_wall_2-wallpaper-640x480.jpg": "/vombArt/static/media/wood_wall_2-wallpaper-640x480.1effa4c1d580aa6f7e73.jpg",
     "static/media/new-notification-138807.mp3": "/vombArt/static/media/new-notification-138807.5daafb425efdb887b508.mp3",
     "static/media/interface-124464.mp3": "/vombArt/static/media/interface-124464.b6ba29659cf55d571cc0.mp3",
@@ -73,12 +73,12 @@
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
-    "main.ff137d0c.css.map": "/vombArt/static/css/main.ff137d0c.css.map",
-    "main.be4ff4b6.js.map": "/vombArt/static/js/main.be4ff4b6.js.map",
+    "main.f3a5e259.css.map": "/vombArt/static/css/main.f3a5e259.css.map",
+    "main.cd732993.js.map": "/vombArt/static/js/main.cd732993.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ff137d0c.css",
-    "static/js/main.be4ff4b6.js"
+    "static/css/main.f3a5e259.css",
+    "static/js/main.cd732993.js"
   ]
 }
