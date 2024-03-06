@@ -2,7 +2,7 @@
   "name": "react-homework-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://DmShko.github.io/vombArt/",
+  
   "dependencies": {
     "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^1.9.7",
