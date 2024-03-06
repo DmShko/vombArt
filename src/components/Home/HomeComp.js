@@ -109,7 +109,7 @@ const HomeComp = () => {
 
         <div className={hm.rightblock}>
           
-          <p className={hm.heroTitle}> Welcome to WombArt</p> 
+          <p className={hm.heroTitle}> Workspace</p> 
           <p className={hm.heroDescryption}>Your best thoughts should be here. Create your own styles or use the basic ones in one of three directions. Fill them with creative ideas. It can be written works, painting or music. Start right now!</p> 
           <button className={hm.heroButton} onClick={clickHero}>Try</button>
 

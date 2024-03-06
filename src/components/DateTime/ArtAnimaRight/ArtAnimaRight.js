@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useLocation } from 'react-router-dom'; 
 
-import { ReactComponent as StarImg } from '../../../images/star-alt-3-svgrepo-com.svg';
+import { ReactComponent as StarImg } from '../../../images/date-time/fathers/feather-quill-bird-write-svgrepo-com.svg';
 
 import { useTransition, animated } from '@react-spring/web';
 
