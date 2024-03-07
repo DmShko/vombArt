@@ -9,8 +9,6 @@ import { change } from 'vomgallStore/gallerySlice';
 
 import ti from './DateTime.module.scss'
 
-// import ArtAnimaLeft from './ArtAnimaLeft/ArtAnimaLeft';
-// import ArtAnimaRight from './ArtAnimaRight/ArtAnimaRight';
 import { ReactComponent as FeatherImg } from '../../images/date-time/fathers/feather-svgrepo-com.svg';
 
 const DateTime = () => {

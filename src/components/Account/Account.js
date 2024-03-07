@@ -303,6 +303,19 @@ const Account = () => {
 
     } 
 
+    // get array of users wrote to deleted user
+    const deleteMyMessagesFrom = () => {
+
+      if(selectorGallerySlice.personalMessagesBuffer !== null && selectorGallerySlice.personalMessagesBuffer.length !== 0) {
+
+        console.log(Object.keys(selectorGallerySlice.personalMessagesBuffer).filter(element => element.uid !== selectorSingInSlice.singInId));
+        // get list of not my keys
+        return Object.keys(selectorGallerySlice.personalMessagesBuffer).filter(element => element.uid !== selectorSingInSlice.singInId);
+
+
+      }
+    };
+
     // delete only account
     const delAccount = () => {
 
@@ -355,8 +368,28 @@ const Account = () => {
 
           dispatch(changeSingIn({data: false, operation: 'changeisSingIn'}));
           dispatch(changeDelAccount({operation: 'changeAccountIsDeleted', data: true}));
+
+          for(let m = 0; m < deleteMyMessagesFrom().length; m += 1) {
+
+            // delete messages wrote from deleted user to athers (write 'null')
+            writeUserData(
+              `${selectorGallerySlice.users.find(element => element.uid === deleteMyMessagesFrom()[m]).userName}/personalChat/${selectorSingInSlice.singInId}`,
+              null,
+              null, true
+            );
+           
+          };
+          
           // delete user from users array
           dispatch(change({operation: 'deleteUsers', data: {id: selectorSingInSlice.singInId}}));
+          
+          // delete user from DB (write 'null')
+          writeUserData(
+            'users',
+            selectorGallerySlice.users.filter(element => element.uid !== selectorSingInSlice.singInId),
+            null, true
+          );
+
 
           dispatch(changeSingIn({data: '', operation: 'changeToken'}));
           dispatch(changeSingIn({data: false, operation: 'changeSingInId'}));
@@ -365,14 +398,13 @@ const Account = () => {
           dispatch(changeSingUp({operation: 'changeusersId', data: ''}));
           dispatch(changeSingUp({operation: 'changeUserExist', data: false}));
 
-
           // delete all files from storege
           // Add to 'itemsMetaData' id and fullpath item content in storage, when new item create (see newItem.js 43 row).
           // It's necessary for delete all data from storage, when delete user operation search. FireBase service doesn't have
           // method for delete find or all data. He has only delet file method. 
           selectorItemsMetaFullPath.itemsMetaData.forEach(element => dispatch(deleteStorAPI(element.path)));
           
-          // delete item from DB (write 'null')
+          // delete 'userName' directory from DB (write 'null')
           writeUserData(
             path,
             null,
