@@ -977,9 +977,9 @@ const SharedLayout = () => {
                 {selectorTargetName === 'about'? 
                 <div className={sh.about}>
                     <h2 style={{color: 'black'}}>
-                    {selectorGallSlice.settings.languageSelector === 'English' ? <p>About VomBart and me.</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про VomBart та про мене.</p> : 
-                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O VomBart i o mnie</p> : <p>About VomBart and me.</p>}
+                    {selectorGallSlice.settings.languageSelector === 'English' ? <p>About VombArt and me.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Українська' ? <p>Про VombArt та про мене.</p> : 
+                            selectorGallSlice.settings.languageSelector === 'Polska' ? <p>O VombArt i o mnie</p> : <p>About VombArt and me.</p>}
                     </h2>
                     <p>
                     {selectorGallSlice.settings.languageSelector === 'English' ? <p>Hello! My name is Dmitry Shevchenko. I have many hobbies, including painting. 
