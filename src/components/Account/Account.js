@@ -452,10 +452,9 @@ const Account = () => {
             };
           
           };
-          return total / selectorGallerySlice.itemsBuffer.length;
       };
 
-      
+      return total / selectorGallerySlice.itemsBuffer.length;
     };
 
     const changeBorderOver = (evt) => {
