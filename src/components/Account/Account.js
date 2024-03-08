@@ -430,13 +430,12 @@ const Account = () => {
 
       let total = 0;
 
-      if(selectorGallerySlice.itemsBuffer !== null) {
+      if(selectorGallerySlice.itemsBuffer !== null && Object.keys(selectorGallerySlice.viewsStatistic).length !== 0) {
         for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
           
-          total += selectorGallerySlice.viewsStatistic[selectorGallerySlice.itemsBuffer[v].id];
+          total += Number(selectorGallerySlice.viewsStatistic[selectorGallerySlice.itemsBuffer[v].id]);
         }
       }
-    
       return total;
     };
 
@@ -444,13 +443,12 @@ const Account = () => {
 
       let total = 0;
 
-      if(selectorGallerySlice.itemsBuffer !== null) {
+      if(selectorGallerySlice.itemsBuffer !== null && Object.keys(selectorGallerySlice.levelStatistic).length !== 0) {
         for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
-        total += selectorGallerySlice.levelStatistic[selectorGallerySlice.itemsBuffer[v].id];
+        total += Number(selectorGallerySlice.levelStatistic[selectorGallerySlice.itemsBuffer[v].id]);
         return total / selectorGallerySlice.itemsBuffer.length;
       }
       }
-      
 
     };
 
@@ -489,7 +487,7 @@ const Account = () => {
               </p>
               
               <span style={{ border: 'none', fontSize: '12px' }}>
-                  {selectorGallerySlice.loadFiles || 
+                  {selectorGallerySlice.loadFiles !== '' ?  selectorGallerySlice.loadFiles :
                   selectorGallerySlice.settings.languageSelector === 'English' ? 'No search file...' : 
                   selectorGallerySlice.settings.languageSelector === 'Українська' ? 'Файл не вибрано...' : 
                   selectorGallerySlice.settings.languageSelector === 'Polska' ? 'Nie wybrano pliku...' : 'No search file...'}
@@ -527,7 +525,7 @@ const Account = () => {
             {selectorGallerySlice.settings.languageSelector === 'English' ? <span>All hearts:</span> : 
                 selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Всі вподабайки:</span> : 
                 selectorGallerySlice.settings.languageSelector === 'Polska' ? <span>Wszystkie ulubione:</span> : <span>All hearts:</span>}
-            </p> <p className={ac.item} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{selectorSingInSlice.singInId && selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId] !== undefined ? selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId].length : ''}</p></div>
+            </p> <p className={ac.item} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}>{selectorSingInSlice.singInId && selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId] !== undefined ? Object.keys(selectorGallerySlice.heartsStatistic[selectorSingInSlice.singInId]).length : ''}</p></div>
             <div className={ac.itemContainer} style={selectorGallerySlice.dayNight ? {color: '#384a83'} : {color: ''}}><p>
             {selectorGallerySlice.settings.languageSelector === 'English' ? <span>All view:</span> : 
                 selectorGallerySlice.settings.languageSelector === 'Українська' ? <span>Всі перегляди:</span> : 
