@@ -185,7 +185,7 @@ const Users = () => {
 
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
         
-        if(Object.keys(selectorExistUsersList.viewsStatistic).includes(selectorGallerySlice.itemsBuffer[v])) {
+        if(Object.keys(selectorExistUsersList.viewsStatistic).includes(selectorExistUsersList.itemsBuffer[v])) {
           total += Number(selectorExistUsersList.viewsStatistic[selectorExistUsersList.itemsBuffer[v].id]);
         }
        
@@ -207,7 +207,7 @@ const Users = () => {
     if(selectorExistUsersList.itemsBuffer !== null && selectorExistUsersList.itemsBuffer.length !== 0) {
 
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
-        if(Object.keys(selectorExistUsersList.levelStatistic).includes(selectorGallerySlice.itemsBuffer[v])) {
+        if(Object.keys(selectorExistUsersList.levelStatistic).includes(selectorExistUsersList.itemsBuffer[v])) {
           total += selectorExistUsersList.levelStatistic[selectorExistUsersList.itemsBuffer[v].id];
         }
       }
