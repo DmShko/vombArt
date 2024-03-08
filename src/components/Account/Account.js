@@ -308,10 +308,8 @@ const Account = () => {
 
       if(selectorGallerySlice.personalMessagesBuffer !== null && selectorGallerySlice.personalMessagesBuffer.length !== 0) {
 
-        console.log(Object.keys(selectorGallerySlice.personalMessagesBuffer).filter(element => element.uid !== selectorSingInSlice.singInId));
         // get list of not my keys
         return Object.keys(selectorGallerySlice.personalMessagesBuffer).filter(element => element.uid !== selectorSingInSlice.singInId);
-
 
       }
     };
@@ -432,10 +430,11 @@ const Account = () => {
 
       if(selectorGallerySlice.itemsBuffer !== null && Object.keys(selectorGallerySlice.viewsStatistic).length !== 0) {
         for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
-          
-          total += Number(selectorGallerySlice.viewsStatistic[selectorGallerySlice.itemsBuffer[v].id]);
-        }
-      }
+          if(Object.keys(selectorGallerySlice.viewsStatistic).includes(selectorGallerySlice.itemsBuffer[v])) {
+            total += Number(selectorGallerySlice.viewsStatistic[selectorGallerySlice.itemsBuffer[v].id]);
+          }; 
+        };
+      };
       return total;
     };
 
