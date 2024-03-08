@@ -100,8 +100,8 @@ const Account = () => {
     useEffect(() => {
       
       if(selectorSingInSlice.isSingIn === true) {
-        if(selectorGallerySlice.personal.sex !== '' && selectorGallerySlice.personal.age !== ''
-        && selectorGallerySlice.personal.phone !== '') {
+        if(selectorGallerySlice.personal.sex !== '' || selectorGallerySlice.personal.age !== ''
+        || selectorGallerySlice.personal.phone !== '') {
 
           const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Personal`;
 
