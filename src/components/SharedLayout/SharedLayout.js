@@ -987,7 +987,9 @@ const SharedLayout = () => {
                              I knew that then I would be happy. That's exactly what happens. 
                              I could not become an artist at the level of famous masters. 
                              However, I am happy when I do it again and again. 
-                             I sincerely thank the artist Olga Vlasova, who at a certain stage helped to improve my technical level.</p> : 
+                             I sincerely thank the artist Olga Vlasova, who at a certain stage helped to improve my technical level.
+                             I am also grateful to Sir Per-Olov Kindgren, for inspiring me to play the guitar and many other creative people. Your works have helped me a lot in the most difficult times of my life. Thank you. 
+                             I created this site for those who also love creativity and want to share it with others. Pleasant use.</p> : 
                             selectorGallSlice.settings.languageSelector === 'Українська' ? <p>
                             Привіт! Мене звати Дмитро Шевченко. Маю багато захоплень, зокрема малювання.
                             З дитинства я мріяв навчитися професійно малювати, т.к
@@ -995,14 +997,19 @@ const SharedLayout = () => {
                             Саме так і відбувається.
                             Я не міг стати художником рівня відомих майстрів.
                             Проте я щасливий, коли роблю це знову і знову.
-                            Щиро дякую художнику Ользі Власовій, яка на певному етапі допомогла підвищити мій технічний рівень.</p> : 
+                            Щиро дякую художнику Ользі Власовій, яка на певному етапі допомогла підвищити мій технічний рівень.
+                            Також я вдячний серу Пер-Олов Кіндгрен, за надхнення до гри на гітарі і багатьом іншим творчим людям. Ваші роботи дуже допомогли мені у найтяжчі часи мого життя. Дякую.
+                            Я створив цей сайт для тих, хто також любить творчість і хоче поділитися нею з іншими. Приємного використання.</p> : 
+                            
                             selectorGallSlice.settings.languageSelector === 'Polska' ? <p>
                             Cześć! Nazywam się Dmitrij Szewczenko. Mam wiele zainteresowań, w tym malowanie.
                             Od dzieciństwa marzyłam o tym, żeby nauczyć się rysować zawodowo, bo
                               Wiedziałem, że wtedy będę szczęśliwy. Dokładnie tak się dzieje.
                               Nie mogłem zostać artystą na poziomie znanych mistrzów.
                               Jednak jestem szczęśliwy, gdy robię to po raz kolejny.
-                              Serdecznie dziękuję artystce Oldze Własowej, która na pewnym etapie pomogła podnieść mój poziom techniczny.    
+                              Serdecznie dziękuję artystce Oldze Własowej, która na pewnym etapie pomogła podnieść mój poziom techniczny.
+                              Jestem także wdzięczny Sir Per-Olovowi Kindgrenowi za zainspirowanie mnie do gry na gitarze i wielu innych kreatywnych ludzi. Twoje prace bardzo mi pomogły w najtrudniejszych momentach mojego życia. Dziękuję.    
+                              Stworzyłem tę stronę dla tych, którzy również kochają kreatywność i chcą dzielić się nią z innymi. Przyjemne użytkowanie.
                             </p> : <p>About VomBart and me.</p>}
                         
                     </p>
