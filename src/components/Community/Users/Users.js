@@ -184,8 +184,10 @@ const Users = () => {
     if(selectorExistUsersList.itemsBuffer !== null && selectorExistUsersList.itemsBuffer.length !== 0) {
 
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
-
-        total += Number(selectorExistUsersList.viewsStatistic[selectorExistUsersList.itemsBuffer[v].id]);
+        
+        if(Object.keys(selectorExistUsersList.viewsStatistic).includes(selectorGallerySlice.itemsBuffer[v])) {
+          total += Number(selectorExistUsersList.viewsStatistic[selectorExistUsersList.itemsBuffer[v].id]);
+        }
        
       }
     }
@@ -205,9 +207,9 @@ const Users = () => {
     if(selectorExistUsersList.itemsBuffer !== null && selectorExistUsersList.itemsBuffer.length !== 0) {
 
       for(let v = 0; v < selectorExistUsersList.itemsBuffer.length; v += 1) {
-        
-        total += selectorExistUsersList.levelStatistic[selectorExistUsersList.itemsBuffer[v].id];
-       
+        if(Object.keys(selectorExistUsersList.levelStatistic).includes(selectorGallerySlice.itemsBuffer[v])) {
+          total += selectorExistUsersList.levelStatistic[selectorExistUsersList.itemsBuffer[v].id];
+        }
       }
 
       if(total !== 0) {
