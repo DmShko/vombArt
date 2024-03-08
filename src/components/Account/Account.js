@@ -442,13 +442,19 @@ const Account = () => {
 
       let total = 0;
 
-      if(selectorGallerySlice.itemsBuffer !== null && Object.keys(selectorGallerySlice.levelStatistic).length !== 0) {
-        for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
-        total += Number(selectorGallerySlice.levelStatistic[selectorGallerySlice.itemsBuffer[v].id]);
-        return total / selectorGallerySlice.itemsBuffer.length;
-      }
-      }
+        if(selectorGallerySlice.itemsBuffer !== null && Object.keys(selectorGallerySlice.levelStatistic).length !== 0) {
+          
+          for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
 
+            if(Object.keys(selectorGallerySlice.levelStatistic).includes(selectorGallerySlice.itemsBuffer[v])) {
+
+              total += Number(selectorGallerySlice.levelStatistic[selectorGallerySlice.itemsBuffer[v].id]);
+            };
+          
+          };
+      };
+
+      return total / selectorGallerySlice.itemsBuffer.length;
     };
 
     const changeBorderOver = (evt) => {
