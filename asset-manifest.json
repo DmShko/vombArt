@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.c7058464.css",
+    "main.css": "/vombArt/static/css/main.55445694.css",
     "main.js": "/vombArt/static/js/main.48e9a0df.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
@@ -74,12 +74,12 @@
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
-    "main.c7058464.css.map": "/vombArt/static/css/main.c7058464.css.map",
+    "main.55445694.css.map": "/vombArt/static/css/main.55445694.css.map",
     "main.48e9a0df.js.map": "/vombArt/static/js/main.48e9a0df.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7058464.css",
+    "static/css/main.55445694.css",
     "static/js/main.48e9a0df.js"
   ]
 }
