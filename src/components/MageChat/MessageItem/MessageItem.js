@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-com.svg';
 import { ReactComponent as BasketImg } from '../../../images/delete-2-svgrepo-com.svg';
 import { ReactComponent as BackImgDarck } from '../../../images/back-square-svgrepo-com2.svg';
+import { ReactComponent as UserImg} from '../../../images/user-svgrepo-com.svg';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 import writeUserData from 'API/writerDB';
@@ -96,9 +97,11 @@ const MessageItem = ({ data }) => {
         {!answer ? 
         <>
           <div className={me.title}>
-            {selectorSingInSlice.isSingIn ? <img src={`${selectorGallerySlice.users
+            {selectorSingInSlice.isSingIn ? selectorGallerySlice.users.find(element => element.userName === data.name).urlFoto !=='' ?
+             <img src={`${selectorGallerySlice.users
               .find(element => element.userName === data.name) !== undefined ? selectorGallerySlice.users
-              .find(element => element.userName === data.name).urlFoto : ''}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
+              .find(element => element.userName === data.name).urlFoto : ''}`} alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img>
+              : <UserImg style={{width: '45px', height: '45px',}}/> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
@@ -124,9 +127,9 @@ const MessageItem = ({ data }) => {
         </> : 
         <>
           <div className={me.title}>
-          {selectorSingInSlice.isSingIn ? 
+          {selectorSingInSlice.isSingIn ? selectorGallerySlice.users.find(element => element.userName === data.name).urlFoto !=='' ?
             <img src={`${selectorGallerySlice.users.find(element => element.userName === data.name).urlFoto}`} 
-            alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : ''}
+            alt='user foto' style={{width: '45px', height: '45px', borderRadius: '50px'}}></img> : <UserImg style={{width: '45px', height: '45px',}}/> : ''}
             <div className={me.stamp}>
               <p>{data.name}</p>
               <p style={{ color: 'blue', fontSize: '12px',}}>{data.date}</p>
