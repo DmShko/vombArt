@@ -778,7 +778,7 @@ const Gallery = () => {
         </div>
       </ ModalItem>
     }
-    <div className={ga.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83', backgroundImage: <FeatherImg/>, } : {backgroundColor: ''}}>
+    <div className={ga.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83', } : {backgroundColor: ''}}>
       <div className={ga.arts} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray', } : {borderColor: ''}}>
         <button 
           type="button"
@@ -855,7 +855,7 @@ const Gallery = () => {
 
       <div>
         <div>
-          <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: ''}}>
+          <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: '', backgroundImage: <FeatherImg/>, }}>
           {selectorGallSlice.settings.languageSelector === 'English' ? 'Styles' : 
             selectorGallSlice.settings.languageSelector === 'Українська' ? 'Стилі' : 
             selectorGallSlice.settings.languageSelector === 'Polska' ? 'Style' : 'Styles'}
