@@ -40,6 +40,7 @@ import {ReactComponent as OwnMessageImg} from '../../images/message-svgrepo-com.
 import {ReactComponent as BurgerImg} from '../../images/hamburger-menu-svgrepo-com.svg';
 import {ReactComponent as BurgerDarkImg} from '../../images/hamburger-menu-svgrepo-com-dark.svg';
 import {ReactComponent as OpenMessageImg} from '../../images/message-open-svgrepo-com.svg';
+import {ReactComponent as UserImg} from '../../images/user-svgrepo-com.svg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
 import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg';
@@ -861,7 +862,7 @@ const SharedLayout = () => {
                           <div className={sh.personblock} id={value} onMouseOver={changeCompanionOver} onMouseOut={changeCompanionOut} style={selectorGallSlice.dayNight ? companionOpen[value] ? 
                           {backgroundColor: '#384a83', color: 'rgb(122, 152, 206)', border: 'none',} : {backgroundColor: 'rgb(122, 152, 206)', color: '#384a83',} :
                            companionOpen[value] ? {backgroundColor: 'lightgray', color: 'white', border: 'none',} : {backgroundColor: 'white', color: '#384a83',}} onClick={togglePersoneBlock}>
-                            <img src={selectorGallSlice.users.find(element => element.uid === value).urlFoto} style={{width: '40px', height: '40px', borderRadius: '50px',}} alt='user foto'></img>
+                            {selectorGallSlice.users.find(element => element.uid === value).urlFoto !== '' ? <img src={selectorGallSlice.users.find(element => element.uid === value).urlFoto} style={{width: '40px', height: '40px', borderRadius: '50px',}} alt='user foto'></img> : <UserImg/>}
                             <p>{selectorGallSlice.users.find(element => element.uid === value).userName}</p>
                             {Object.keys(selectorGallSlice.personalNewMessagesBuffer).includes(value) ? <OwnMessageImg style={{width: '30px', height: '30px', fill: 'goldenrod'}}/>
                             : <OpenMessageImg style={{width: '30px', height: '30px',}}/>}
