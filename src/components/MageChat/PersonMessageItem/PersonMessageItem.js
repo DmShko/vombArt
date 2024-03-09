@@ -6,6 +6,7 @@ import useSound from 'use-sound';
 import { ReactComponent as BackImg } from '../../../images/back-square-svgrepo-com.svg';
 import { ReactComponent as BasketImg } from '../../../images/delete-2-svgrepo-com.svg';
 import { ReactComponent as BackImgDarck } from '../../../images/back-square-svgrepo-com2.svg';
+import { ReactComponent as UserImg} from '../../../images/user-svgrepo-com.svg';
 
 import sound1 from '../../../sounds/Output/level-up-191997.mp3';
 import sound2 from '../../../sounds/Output/message-incoming-132126.mp3';
