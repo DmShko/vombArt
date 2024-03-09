@@ -23,14 +23,14 @@
 
 .sound {
 
-    padding: 10px;
+    padding: 5px;
     box-shadow: inset 1px 1px 4px 3px rgba(16, 16, 24, 0.2);
     border-radius: 6px;
 }
 
 .homefoto {
 
-    padding: 10px;
+    padding: 5px;
     box-shadow: inset 1px 1px 4px 3px rgba(16, 16, 24, 0.2);
     border-radius: 6px;
 }
@@ -58,6 +58,19 @@
         p {
             font-size: 16px;
         }
+        
+    }
+
+    .sound {
+
+        padding: 10px;
+       
+    }
+    
+    .homefoto {
+    
+        padding: 10px;
+       
     }
 }
 
@@ -70,5 +83,18 @@
         }
 
     }
+
+    .sound {
+
+        padding: 10px;
+       
+    }
+    
+    .homefoto {
+    
+        padding: 10px;
+       
+    }
+
 }
 //******************************end************************************
