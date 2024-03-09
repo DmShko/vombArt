@@ -454,7 +454,8 @@ const Account = () => {
             };
           
           };
-          return total / selectorGallerySlice.itemsBuffer.length;
+         
+          return Math.round(total / selectorGallerySlice.itemsBuffer.length);
       };
 
       
