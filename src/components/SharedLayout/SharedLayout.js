@@ -1039,7 +1039,7 @@ const SharedLayout = () => {
                                
                                 <input {...register('Email', {required: 'Please fill the Email field!', 
             
-                                value: email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})} 
+                                value: email, pattern: {value: /\w{0}[0-9a-zA-Zа-яА-Я]+@\w{0}[0-9a-zA-Zа-яА-Я]+\.\w{0}[0-9a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})} 
                                 className={sh.in} 
                                 type="text"
                                 autoComplete='false'
@@ -1107,7 +1107,7 @@ const SharedLayout = () => {
                             <label className={sh.lab}> <EmailImg style={{width: '25px', height: '25px',}}/>
                                 <input {...register('Email', {required: 'Please fill the Email field!', 
             
-                                value:email, pattern: {value: /\w{0}[a-zA-Zа-яА-Я]+@\w{0}[a-zA-Zа-яА-Я]+\.\w{0}[a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
+                                value:email, pattern: {value: /\w{0}[0-9a-zA-Zа-яА-Я]+@\w{0}[0-9a-zA-Zа-яА-Я]+\.\w{0}[0-9a-zA-Zа-яА-Я]/, message: 'Invalid Email!'}})}
 
                                 className={sh.in} 
                                 type="text"
