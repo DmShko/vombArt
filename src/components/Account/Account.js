@@ -18,7 +18,7 @@ import { changeDelAccount } from 'vomgallStore/deleteAccountSlice';
 import { changeItemsMetaData } from 'vomgallStore/getMetaSlice';
 import { auth } from "../../firebase";
 
-import { ReactComponent as UsersFoto } from '../../../images/user-avatar-svgrepo-com.svg';
+import { ReactComponent as UsersFoto } from '../../images/user-avatar-svgrepo-com.svg';
 
 import changeEmAPI from 'API/changeEmailAPI';
 import changePassAPI from 'API/changePasswordAPI';
