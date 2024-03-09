@@ -18,6 +18,8 @@ import { changeDelAccount } from 'vomgallStore/deleteAccountSlice';
 import { changeItemsMetaData } from 'vomgallStore/getMetaSlice';
 import { auth } from "../../firebase";
 
+import { ReactComponent as UsersFoto } from '../../../images/user-avatar-svgrepo-com.svg';
+
 import changeEmAPI from 'API/changeEmailAPI';
 import changePassAPI from 'API/changePasswordAPI';
 import changeVeriAPI from 'API/emailVerifiAPI';
@@ -480,7 +482,7 @@ const Account = () => {
 
           <div className={ac.file}>
 
-          <img src={`${selectorGallerySlice.account.url}`} alt='user foto' style={{width: '150px', borderRadius: '8px'}}></img>
+          {selectorGallerySlice.account.url === '' ? <UsersFoto style={{width: '150px', height: '150px', borderRadius: '8px'}}/> : <img src={`${selectorGallerySlice.account.url}`} alt='user foto' style={{width: '150px', borderRadius: '8px'}}></img>}
 
           <form className={ac.fise} onSubmit={handleSubmit(addUserFoto)}>
 
