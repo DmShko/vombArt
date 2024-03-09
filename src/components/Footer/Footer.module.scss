@@ -23,13 +23,16 @@
 
 .sound {
 
-    // margin-bottom: 5px;
-    border-right: 1px solid #1C274C;
-
+    padding: 10px;
+    box-shadow: inset 1px 1px 4px 3px rgba(16, 16, 24, 0.2);
+    border-radius: 6px;
 }
 
 .homefoto {
-    border-left: 1px solid #1C274C;
+
+    padding: 10px;
+    box-shadow: inset 1px 1px 4px 3px rgba(16, 16, 24, 0.2);
+    border-radius: 6px;
 }
 
 .source {
