@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/vombArt/static/css/main.f4e7a538.css",
-    "main.js": "/vombArt/static/js/main.39e419bc.js",
+    "main.js": "/vombArt/static/js/main.69bc7ac4.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.59331326afd8dc9fd663.jpg",
@@ -72,14 +72,15 @@
     "static/media/heart-svgrepo-com.svg": "/vombArt/static/media/heart-svgrepo-com.1349a1f7a054fb8aa3e08e3604efeaea.svg",
     "static/media/error-svgrepo-com.svg": "/vombArt/static/media/error-svgrepo-com.96e0d700d6d0a915ee78ccf44568e620.svg",
     "static/media/noti-heart-svgrepo-com.svg": "/vombArt/static/media/noti-heart-svgrepo-com.6e74f0005afecb267c1b82f6fc1738bc.svg",
+    "static/media/user-svgrepo-com-two.svg": "/vombArt/static/media/user-svgrepo-com-two.67c440ec73a5a7c54551c033d46ecac5.svg",
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
     "main.f4e7a538.css.map": "/vombArt/static/css/main.f4e7a538.css.map",
-    "main.39e419bc.js.map": "/vombArt/static/js/main.39e419bc.js.map",
+    "main.69bc7ac4.js.map": "/vombArt/static/js/main.69bc7ac4.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f4e7a538.css",
-    "static/js/main.39e419bc.js"
+    "static/js/main.69bc7ac4.js"
   ]
 }
