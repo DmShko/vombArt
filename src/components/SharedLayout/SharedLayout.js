@@ -40,7 +40,7 @@ import {ReactComponent as OwnMessageImg} from '../../images/message-svgrepo-com.
 import {ReactComponent as BurgerImg} from '../../images/hamburger-menu-svgrepo-com.svg';
 import {ReactComponent as BurgerDarkImg} from '../../images/hamburger-menu-svgrepo-com-dark.svg';
 import {ReactComponent as OpenMessageImg} from '../../images/message-open-svgrepo-com.svg';
-import {ReactComponent as UserImg} from '../../images/user-svgrepo-com.svg';
+import {ReactComponent as UserImg} from '../../images/user-svgrepo-com-two.svg';
 
 import { ReactComponent as SettingsImg } from '../../images/settings-svgrepo-com.svg';
 import { ReactComponent as LogoutImg } from '../../images/logout-svgrepo-com.svg';
