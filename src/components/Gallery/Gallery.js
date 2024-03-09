@@ -31,6 +31,7 @@ import { ReactComponent as ViewsImg } from '../../images/view-svgrepo-com.svg';
 
 import { ReactComponent as HeartImg } from '../../images/heart-svgrepo-com.svg';
 import { ReactComponent as LevelImg } from '../../images/layer-svgrepo-com.svg';
+import { ReactComponent as FeatherImg } from '../../images/date-time/fathers/feather-svgrepo-com.svg';
 
 const Gallery = () => {
 
@@ -777,7 +778,7 @@ const Gallery = () => {
         </div>
       </ ModalItem>
     }
-    <div className={ga.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83', } : {backgroundColor: ''}}>
+    <div className={ga.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83', backgroundImage: <FeatherImg/>, } : {backgroundColor: ''}}>
       <div className={ga.arts} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray', } : {borderColor: ''}}>
         <button 
           type="button"
