@@ -778,7 +778,7 @@ const Gallery = () => {
       </ ModalItem>
     }
     <div className={ga.container} style={selectorGallSlice.dayNight ? {backgroundColor: '#384a83', } : {backgroundColor: '',}}>
-      <div className={ga.arts} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray', } : {borderColor: ''}}>
+      <div className={ga.arts} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray', } : {borderColor: '', backgroundColor: 'lightgray',}}>
         <button 
           type="button"
           style={ selectorGallSlice.dayNight ?
@@ -854,12 +854,12 @@ const Gallery = () => {
 
       <div>
         <div>
-          <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: '', }}>
+          <p className={ga.title} style={selectorGallSlice.dayNight ? {color: 'rgb(122, 152, 206)',} : {backgroundColor: '',}}>
           {selectorGallSlice.settings.languageSelector === 'English' ? 'Styles' : 
             selectorGallSlice.settings.languageSelector === 'Українська' ? 'Стилі' : 
             selectorGallSlice.settings.languageSelector === 'Polska' ? 'Style' : 'Styles'}
           </p>
-          <ul className={ga.style} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray',} : {borderColor: ''}}>
+          <ul className={ga.style} style={selectorGallSlice.dayNight ? {borderColor: 'lightgray',} : {borderColor: '', backgroundColor: 'lightgray',}}>
             {selectorUserPath.logicPath.arts['draw'] 
               ? selectorGallSlice.users
                   .find(value => value.userName === selectorUserPath.logicPath.name)

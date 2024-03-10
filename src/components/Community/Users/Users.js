@@ -7,6 +7,7 @@ import { auth } from "../../../firebase";
 import { change } from 'vomgallStore/gallerySlice';
 import { changePath } from 'vomgallStore/pathSlice';
 import Notiflix from 'notiflix';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 // import getUserAPI from 'API/getUserAPI';
 
@@ -35,8 +36,47 @@ const Users = () => {
   const [search, setSearch] = useState('');
 
   const [usersOpen, setUsersOpen] = useState({});
+  const [selectedPersonal, setSelectedPersonal] = useState({});
+  const [selectedSettings, setSelectedSettings] = useState({});
   const [modalPersonalToggle, setModalPersonalToggle] = useState(false); 
   const [randomItem, setRandomItem] = useState({});
+
+  useEffect(() => {
+    // as soon sa selected ather user, read his person object and write to 'selectedPersonal'
+    if(selectorVisibilityLog.isSingIn === true) {
+
+      // path to DB account array
+      const pathDB = [`${selectorUserPath.logicPath.name}/Account/Personal`, `${selectorUserPath.logicPath.name}/Account/Settings`];
+       // listenAccount(path);
+      const db = getDatabase();
+
+      for(let p = 0; p < pathDB.length; p += 1) {
+
+        const starCountRef = ref(db, pathDB[p]);
+  
+        //firebase listener function
+        onValue(starCountRef, snapshot => {
+
+          // load account array from DB
+          const actual = snapshot.val();
+
+          if(actual !== null) {
+
+            if(p === 0) setSelectedPersonal(actual);
+            if(p === pathDB.length - 1) setSelectedSettings(actual);
+          
+          } else {
+            setSelectedPersonal({});
+            setSelectedSettings({});
+          };
+          
+        });
+      }
+ 
+    }; 
+
+    // eslint-disable-next-line
+  },[selectorUserPath.logicPath.name]);
 
   useEffect(() => {
     
@@ -277,6 +317,10 @@ const Users = () => {
         </p><p style={{color: 'rgba(194, 212, 31)'}}>{isOnline()}</p></div>
       </div>
 
+      <div>
+        <p style={{color: '#1C274C', fontStyle: 'italic', fontSize: '14px',}}><span style={{color: 'rgba(194, 212, 31)', fontWeight: '600', fontSize: '16px',}}>{selectorUserPath.logicPath.name}</span> is selected</p>
+      </div>
+
       <label className={us.lab} style={selectorExistUsersList.dayNight ? { borderColor: 'rgb(122, 152, 206)' } : {borderColor: ''}}> <SearchImg style={{width: '25px', height: '25px',}}/>
         <input 
           style={selectorExistUsersList.dayNight ? { backgroundColor: 'rgb(122, 152, 206)' } : {backgroundColor: ''}}
@@ -317,16 +361,16 @@ const Users = () => {
                       selectorExistUsersList.settings.languageSelector === 'Polska' ? "Lubi:" : "Likes:"}</p> <p>{Number(styleLikes())}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Sex:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Стать:": 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Seks:" : "Sex:"}</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.sex : ''}</p></div>
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Seks:" : "Sex:"}</p> <p>{selectorVisibilityLog.isSingIn ? selectedPersonal.sex : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Age:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Вік:": 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Wiek:" : "Age:"}</p> <p>{selectorVisibilityLog.isSingIn ? selectorExistUsersList.personal.age : ''}</p></div>
-                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Phone number:": 
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Wiek:" : "Age:"}</p> <p>{selectorVisibilityLog.isSingIn ? selectedPersonal.age : ''}</p></div>
+                    <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600',}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Phone number:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Номер тел.:": 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Numer tel.:" : "Phone number:"}</p> <p className={us.phone}>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkPhone ? selectorExistUsersList.personal.phone : ''}</p></div>
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "Numer tel.:" : "Phone number:"}</p> <p className={us.phone}>{selectorVisibilityLog.isSingIn && selectedSettings.checkPhone ? selectedPersonal.phone : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Email:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Ел. пошта:": 
-                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "E-mail:" : "Email:"}</p> <p className={us.email}>{selectorVisibilityLog.isSingIn && selectorExistUsersList.settings.checkEmail ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
+                      selectorExistUsersList.settings.languageSelector === 'Polska' ? "E-mail:" : "Email:"}</p> <p className={us.email}>{selectorVisibilityLog.isSingIn && selectedSettings.checkEmail ? selectorExistUsersList.users.find(element => element.userName === whoIsTrue()).email : ''}</p></div>
                     <div className={us.describe} style={{fontSize: '14px'}}><p style={{fontWeight: '600'}}>{selectorExistUsersList.settings.languageSelector === 'English' ? "Here with:": 
                       selectorExistUsersList.settings.languageSelector === 'Українська' ? "Тут з:": 
                       selectorExistUsersList.settings.languageSelector === 'Polska' ? "Tutaj z:" : "Here with:"}</p></div>

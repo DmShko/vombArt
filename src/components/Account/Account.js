@@ -444,7 +444,8 @@ const Account = () => {
 
       let total = 0;
 
-        if(selectorGallerySlice.itemsBuffer !== null && Object.keys(selectorGallerySlice.levelStatistic).length !== 0) {
+        if(selectorGallerySlice.itemsBuffer !== null && Object.keys(selectorGallerySlice.levelStatistic).length !== 0 
+        && selectorGallerySlice.itemsBuffer.length !== 0) {
           
           for(let v = 0; v < selectorGallerySlice.itemsBuffer.length; v += 1) {
 
@@ -454,11 +455,10 @@ const Account = () => {
             };
           
           };
-         
+        
           return Math.round(total / selectorGallerySlice.itemsBuffer.length);
-      };
+        }; 
 
-      
     };
 
     const changeBorderOver = (evt) => {

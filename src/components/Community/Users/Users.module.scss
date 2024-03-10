@@ -148,10 +148,39 @@
 
                     .phone{
                         overflow-x: scroll;
+                        height: 35px;
+                        // width: 40%;
+                        &::-webkit-scrollbar {
+                            height: 12px;
+                            width: 12px;
+                            background-color: rgb(245, 245, 245);
+                         }
+                 
+                         &::-webkit-scrollbar-thumb {
+                             background-color: rgb(122, 152, 206);
+                             border-left: 1px solid rgb(128, 128, 128, 0.3);
+                             border-right: 1px solid rgb(128, 128, 128, 0.3);
+                             border-radius: 6px;
+                             box-shadow: inset 1px 1px 3px 1px rgba(208, 208, 255, 0.884);
+                         }
                     }
  
                     .email{
                         overflow-x: scroll;
+                        height: 35px;
+                        &::-webkit-scrollbar {
+                            height: 12px;
+                           
+                            background-color: rgb(245, 245, 245);
+                         }
+                 
+                         &::-webkit-scrollbar-thumb {
+                             background-color: rgb(122, 152, 206);
+                             border-top: 1px solid rgb(128, 128, 128, 0.3);
+                             border-bottom: 1px solid rgb(128, 128, 128, 0.3);
+                             border-radius: 6px;
+                             box-shadow: inset 1px 1px 3px 1px rgba(208, 208, 255, 0.884);
+                         }
                     }
                    
                 }

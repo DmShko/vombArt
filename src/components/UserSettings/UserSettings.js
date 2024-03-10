@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { change } from 'vomgallStore/gallerySlice';
 
+import writeUserData from 'API/writerDB';
 import useSound from 'use-sound';
 
 import sound1 from '../../sounds/message-incoming-132126.mp3';
@@ -16,6 +17,7 @@ import se from './UserSettings.module.scss';
 const UserSettings = () => {
 
   const selectorGallerySlice = useSelector(state => state.gallery);
+  const selectorSingInSlice = useSelector(state => state.singIn);
   const dispatch = useDispatch();
 
   const [ design, setDesign ] = useState(selectorGallerySlice.settings.checkDesign);
@@ -71,7 +73,22 @@ const UserSettings = () => {
   // eslint-disable-next-line  
   },[colorSchem])
 
+  useEffect(() => {
+      
+    if(selectorSingInSlice.isSingIn === true) {
+      
+      const path = `${selectorGallerySlice.users.find(element => element.uid === selectorSingInSlice.singInId).userName}/Account/Settings`;
 
+      writeUserData(
+        path,
+        selectorGallerySlice.settings,
+        null, true
+      );
+
+      
+    }
+  // eslint-disable-next-line
+  },[selectorGallerySlice.settings]);
 
   const langSelectChange = (evt) => {
     dispatch(change({operation: 'updateSettings', data:{item: 'languageSelector', value: evt.target.value}}));

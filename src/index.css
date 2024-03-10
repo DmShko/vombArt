@@ -7,6 +7,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: rgb(241, 241, 241);
+ }
+
+ &::-webkit-scrollbar-thumb {
+     background-color: rgb(122, 152, 206);
+     border-left: 1px solid rgb(128, 128, 128, 0.3);
+     border-right: 1px solid rgb(128, 128, 128, 0.3);
+     border-radius: 6px;
+     box-shadow: inset 1px 1px 3px 1px rgba(208, 208, 255, 0.884);
+ }
 }
 
 code {
