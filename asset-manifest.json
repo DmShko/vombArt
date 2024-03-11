@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/vombArt/static/css/main.84581a64.css",
-    "main.js": "/vombArt/static/js/main.e322f8bc.js",
+    "main.css": "/vombArt/static/css/main.3d805e1f.css",
+    "main.js": "/vombArt/static/js/main.17a9ad68.js",
     "static/js/845.0ba1d6b0.chunk.js": "/vombArt/static/js/845.0ba1d6b0.chunk.js",
     "static/media/Write Messages.gif": "/vombArt/static/media/Write Messages.26c3a6e43ef315a7168c.gif",
     "static/media/blue-abstract-bokeh-lights-picjumbo-com.jpg": "/vombArt/static/media/blue-abstract-bokeh-lights-picjumbo-com.59331326afd8dc9fd663.jpg",
@@ -76,12 +76,12 @@
     "static/media/user-svgrepo-com.svg": "/vombArt/static/media/user-svgrepo-com.6a59193afaa4d48ee6b469ef9e53dd4c.svg",
     "static/media/message-svgrepo-com.svg": "/vombArt/static/media/message-svgrepo-com.fc940618ed4f4cac95cdabd4d94c0862.svg",
     "static/media/bubble-svgrepo-com.svg": "/vombArt/static/media/bubble-svgrepo-com.0484b72cb822f8c3d02e.svg",
-    "main.84581a64.css.map": "/vombArt/static/css/main.84581a64.css.map",
-    "main.e322f8bc.js.map": "/vombArt/static/js/main.e322f8bc.js.map",
+    "main.3d805e1f.css.map": "/vombArt/static/css/main.3d805e1f.css.map",
+    "main.17a9ad68.js.map": "/vombArt/static/js/main.17a9ad68.js.map",
     "845.0ba1d6b0.chunk.js.map": "/vombArt/static/js/845.0ba1d6b0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.84581a64.css",
-    "static/js/main.e322f8bc.js"
+    "static/css/main.3d805e1f.css",
+    "static/js/main.17a9ad68.js"
   ]
 }
