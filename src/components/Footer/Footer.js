@@ -22,7 +22,7 @@ const Footer = () => {
           selectorGallSlice.settings.languageSelector === 'Polska' ? <p>&#169; Opracowany przez Dmytro Szewczenko</p> : <p>&#169; Developed by Dmytro Shevchenko</p>}
 
         <p className={fo.homefoto}>
-          {selectorGallSlice.settings.languageSelector === 'English' ? <span>Home photo by Viktor Hanacek</span> : 
+          {selectorGallSlice.settings.languageSelector === 'English' ? <span>Home page photo by Viktor Hanacek</span> : 
             selectorGallSlice.settings.languageSelector === 'Українська' ? <span>Фото головної сторінки - Viktor Hanacek</span> : 
             selectorGallSlice.settings.languageSelector === 'Polska' ? <span>Zdjęcie domowe autorstwa Wiktora Hanacka</span> : <span>Home photo by Viktor Hanacek</span>}
         </p>
