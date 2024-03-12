@@ -1,7 +1,7 @@
 .container {
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -55,7 +55,7 @@
 @media screen and (min-width: 768px) and (max-width: 1439px) {
     .container {
 
-        flex-direction: column;
+        flex-direction: row;
 
         p {
             font-size: 16px;
@@ -80,7 +80,7 @@
 @media screen and (min-width: 1440px) {
     .container {
 
-        flex-direction: column;
+        flex-direction: row;
  
         p {
             font-size: 16px;
