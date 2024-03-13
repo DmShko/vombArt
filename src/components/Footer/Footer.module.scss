@@ -9,6 +9,8 @@
     width: 100%;
     height: fit-content;
 
+    padding: 5px 0;
+
     gap: 10px;
 
     background-color: lightgray;
@@ -57,7 +59,7 @@
 
         flex-direction: row;
         height: 50px;
-
+        padding: 0;
         p {
             font-size: 16px;
         }
@@ -83,6 +85,7 @@
 
         flex-direction: row;
         height: 50px;
+        padding: 0;
  
         p {
             font-size: 16px;
