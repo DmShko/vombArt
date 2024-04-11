@@ -141,12 +141,13 @@ const NewItem = () => {
 
   const addItem = (_, evt) => {
     evt.preventDefault();
-
-    // not read while file is write
-    dispatch(change({ operation: 'setIsLoading', data: true }));
     
     // check selected arts and style
     if (findProperty(pathSelector.arts) && findProperty(pathSelector.style)) {
+
+      // not read while file is write
+      dispatch(change({ operation: 'setIsLoading', data: true }));
+
       // create items tree
       const path = pathCreator({
         pathSelector,
